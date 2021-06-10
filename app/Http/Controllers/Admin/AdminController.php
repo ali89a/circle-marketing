@@ -60,47 +60,47 @@ class AdminController extends Controller
         }
     }
 
-    public function show(User $user)
+    public function show(Admin $admin)
     {
 
         $data = [
-            'model' => $user,
+            'model' => $admin,
         ];
         return view('admin.users.show', $data);
     }
 
 
-    public function edit(User $user)
+    public function edit(Admin $admin)
     {
         $data = [
-            'user' => $user,
+            'admin' => $admin,
             'roles' => Role::where('name', '!=', 'Super Admin')->pluck('name', 'id'),
-            'selected_roles' => Role::whereIn('name', $user->getRoleNames())->pluck('id')
+            'selected_roles' => Role::whereIn('name', $admin->getRoleNames())->pluck('id')
         ];
         return view('admin.access_control.user.edit', $data);
     }
 
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, Admin $admin)
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|email|unique:admins,email,' . $admin->id,
             /* 'password' => 'required|string|min:8|confirmed',*/
         ]);
 
         try {
             DB::beginTransaction();
-            $user->name = $request->name;
-            $user->email = $request->email;
+           $admin->name = $request->name;
+           $admin->email = $request->email;
             if($request->get('password')){
-                $user->password=bcrypt($request->get('password'));
+               $admin->password=bcrypt($request->get('password'));
             }
-            $user->save();
-            $user->syncRoles($request->get('roles'));
+           $admin->save();
+           $admin->syncRoles($request->get('roles'));
             DB::commit();
             Toastr::success('User Updated Successfully!.', '', ["progressbar" => true]);
-            return redirect()->route('user.index');
+            return redirect()->route('admin.index');
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
@@ -114,22 +114,9 @@ class AdminController extends Controller
 
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        $user = Admin::findOrFail($id);
         $user->delete();
         Toastr::success('User Deleted Successfully!.', '', ["progressbar" => true]);
-        return redirect()->back();
-    }
-    public function reset($id){
-        $user = User::findOrFail($id);
-        $user->password=bcrypt('123456789');
-        $user->update();
-
-        if ($user) { ;
-            Mail::to($user->email)->send(
-                new PasswordReset($user)
-            );
-        }
-        Toastr::success('User Reset Successfully!.', '', ["progressbar" => true]);
         return redirect()->back();
     }
 }
