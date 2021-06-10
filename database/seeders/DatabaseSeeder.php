@@ -13,6 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(DivisionSeeder::class);
+        $this->call(DistrictSeeder::class);
+        $this->call(UpazilaSeeder::class);
+        $this->call(AccessControlsTableSeeder::class);
         // \App\Models\User::factory(10)->create();
     }
 }
