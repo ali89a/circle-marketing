@@ -229,88 +229,121 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="vertical-address">Type</label>
-                                <input type="text" id="vertical-address" class="form-control" placeholder="98  Borough bridge Road, Birmingham" />
+                                <input style="margin-left: 10%" type="radio" name="type" value="own"> Own
+                                <input style="margin-left: 30%" type="radio" name="type" value="nttn"> NTTN
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="vertical-landmark">Scl Id</label>
-                                <input type="text" id="vertical-landmark" class="form-control" placeholder="Borough bridge" />
+                                <input type="text" name="scl_id" id="vertical-landmark" class="form-control" placeholder="Borough bridge" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="pincode2">Gmap Location</label>
-                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                                <input type="text" name="gmap_location" id="pincode2" class="form-control" placeholder="658921" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="city2">Connect Type</label>
-                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                                <input type="text" id="city2" name="connect_type" class="form-control" placeholder="Birmingham" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="pincode2">Link Id</label>
-                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                                <input type="text" id="pincode2" name="link_id" class="form-control" placeholder="658921" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="city2">Vat</label>
-                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                                <input type="text" id="city2" name="vat" class="form-control" placeholder="Birmingham" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="pincode2">Visit Type</label>
-                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                                <select class="form-control" name="visit_type">
+                                    <option value="">Select Type</option>
+                                    <option value="visited">Visited</option>
+                                    <option value="phone">Phone</option>
+                                </select>
+                                {{-- <input style="margin-left: 10%" type="radio" name="type" value="own"> Own
+                                <input style="margin-left: 30%" type="radio" name="type" value="nttn"> NTTN --}}
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="city2">Order Submission Date</label>
-                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                                <input type="text" id="city2" name="order_submission_date" class="form-control" placeholder="Birmingham" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="pincode2">Billing Cycle</label>
-                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                                <input type="text" id="pincode2" name="billing_cycle" class="form-control" placeholder="658921" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="city2">Billing Remark</label>
-                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                                <input type="text" id="city2" name="billing_remark" class="form-control" placeholder="Birmingham" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="pincode2">Bill Start Date</label>
-                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                                <input type="text" id="pincode2" name="bill_start_date" class="form-control" placeholder="658921" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="city2">Delivery Date</label>
-                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                                <input type="text" id="city2" name="delivery_date" class="form-control" placeholder="Birmingham" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="pincode2">Bill Generate Method</label>
-                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                                <input type="text" id="pincode2" name="bill_generate_method" class="form-control" placeholder="658921" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="city2">Total Price</label>
-                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                                <input type="text" id="city2" name="total_Price" class="form-control" placeholder="Birmingham" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="pincode2">Core Rent</label>
-                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                                <input type="text" id="pincode2" name="core_rent" class="form-control" placeholder="658921" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="city2">OTC</label>
-                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                                <input type="text" id="city2" name="otc" class="form-control" placeholder="Birmingham" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="pincode2">Real IP</label>
-                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                                <input type="text" id="pincode2" name="real_ip" class="form-control" placeholder="658921" />
                             </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Marketing User</label>
+                                <input type="text" id="pincode2" name="marketing_user_id" class="form-control" placeholder="658921" />
+                            </div>
+                           
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Accounts User</label>
+                                <input type="text" id="pincode2" name="accounts_user_id" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Security Money Type</label>
+                                <input type="text" id="pincode2" name="security_money_type" class="form-control" placeholder="658921" />
+                            </div>
+                           
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Security Money Amount</label>
+                                <input type="text" id="pincode2" name="security_money_amount" class="form-control" placeholder="658921" />
+                            </div>
+                            {{-- <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">BIN</label>
+                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                            </div> --}}
                            
                         </div>
                         <div class="d-flex justify-content-between">
