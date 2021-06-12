@@ -16,9 +16,6 @@ class CreateOrderCustomerDocumentsTable extends Migration
         Schema::create('order_customer_documents', function (Blueprint $table) {
             $table->id();
             $table->text('work_order');
-            $table->text('btrc_license');
-            $table->text('nid');
-            $table->text('trade_license');
             $table->text('authorization');
             $table->text('ip_agreement');
             $table->text('noc');

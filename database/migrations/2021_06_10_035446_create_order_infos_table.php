@@ -15,6 +15,7 @@ class CreateOrderInfosTable extends Migration
     {
         Schema::create('order_infos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('order_id');
             $table->text('internet_capacity_1');
             $table->text('internet_price_1');
             $table->text('bdix_capacity_1');

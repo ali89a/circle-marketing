@@ -31,10 +31,11 @@ class CreateOrdersTable extends Migration
             $table->text('core_rent');
             $table->text('otc');
             $table->text('real_ip');
-            $table->foreignId('marketing_user_id');
-            $table->text('accounts_user_id');
             $table->text('security_money_type');
             $table->text('security_money_amount');
+            $table->foreignId('marketing_user_id');
+            $table->foreignId('accounts_user_id');
+            $table->foreignId('customer_id');
             $table->timestamps();
         });
     }
