@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\Auth\LoginController as AdminLoginController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
-use App\Http\Controllers\OrderController;
 
 Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
     //admin authentication system
@@ -20,6 +19,5 @@ Route::group(['prefix' => 'admin','as'=>'admin.'], function () {
 
     Route::group(['middleware' => 'auth:admin'], function () {
         Route::get('/home', [AdminHomeController::class, 'index'])->name('home');
-        Route::resource('work-order', OrderController::class);
     });
 });

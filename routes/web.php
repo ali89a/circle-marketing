@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Admin\AdminController;
 
@@ -34,5 +35,6 @@ Route::middleware('auth:admin')->prefix('access-control')->group(function () {
 Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     Route::resource('user', UserController::class);
+    Route::resource('work-order', OrderController::class);
 });
 require('admin.php');
