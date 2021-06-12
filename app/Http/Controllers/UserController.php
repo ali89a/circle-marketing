@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -52,6 +53,16 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
+
+
+            $details = [
+                'title' => 'Mail from ItSolutionStuff.com',
+                'body' => 'This is for testing email using smtp'
+            ];
+           
+            Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\CustomerMail($details));
+           
+          
             DB::commit();
 
             Toastr::success('Customer Created Successfully!.', '', ["progressbar" => true]);
