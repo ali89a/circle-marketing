@@ -96,15 +96,63 @@
                                 <label class="form-label" for="billing-email">Billing Email</label>
                                 <input type="email" id="billing-email" name="billing_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
                             </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="mobile">Mobile</label>
+                                <input type="text" id="mobile" name="mobile" class="form-control" placeholder="01515664762" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="alt_mobile">Alter Mobile</label>
+                                <input type="text" id="alt_mobile" name="alt_mobile" class="form-control" placeholder="01516664762" />
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="form-group form-password-toggle col-md-6">
-                                <label class="form-label" for="vertical-password">Password</label>
-                                <input type="password" id="vertical-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="occupation">Occupation</label>
+                                <input type="email" id="occupation" name="occupation" class="form-control" placeholder="Enter occupation" aria-label="john.doe" />
                             </div>
-                            <div class="form-group form-password-toggle col-md-6">
-                                <label class="form-label" for="vertical-confirm-password">Confirm Password</label>
-                                <input type="password" id="vertical-confirm-password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="division">Division</label>
+                                <select class="select2 w-100" id="division">
+                                    <option label=" "></option>
+                                    <option>UK</option>
+                                    <option>USA</option>
+                                    <option>Spain</option>
+                                    <option>France</option>
+                                    <option>Italy</option>
+                                    <option>Australia</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="district">District</label>
+                                <select class="select2 w-100" id="district">
+                                    <option label=" "></option>
+                                    <option>UK</option>
+                                    <option>USA</option>
+                                    <option>Spain</option>
+                                    <option>France</option>
+                                    <option>Italy</option>
+                                    <option>Australia</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="upazila">Upazila</label>
+                                <select class="select2 w-100" id="upazila">
+                                    <option label=" "></option>
+                                    <option>UK</option>
+                                    <option>USA</option>
+                                    <option>Spain</option>
+                                    <option>France</option>
+                                    <option>Italy</option>
+                                    <option>Australia</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="technical-address">Technical Address</label>
+                                <input type="text" id="technical-address" name="technical_address" class="form-control" placeholder="Technical Address" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="billing-address">Billing Address</label>
+                                <input type="text" id="billing-address" name="billing_address" class="form-control" placeholder="Billing Address" />
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
