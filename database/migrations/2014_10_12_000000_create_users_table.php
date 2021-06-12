@@ -21,8 +21,13 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('mobile')->unique()->nullable();
             $table->string('gender')->nullable();
-            $table->text('img_url')->nullable();
+            $table->text('billing_address')->nullable();
+            $table->text('vin_no')->nullable();
             $table->string('dob')->nullable();
+            $table->text('img_url')->nullable();
+            $table->text('btrc_license_url')->nullable();
+            $table->text('nid_url')->nullable();
+            $table->text('trade_license_url')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
