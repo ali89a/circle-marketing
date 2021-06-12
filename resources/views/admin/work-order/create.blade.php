@@ -260,7 +260,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="pincode2">Visit Type</label>
-                                <select class="form-control">
+                                <select class="form-control" name="visit_type">
                                     <option value="">Select Type</option>
                                     <option value="visited">Visited</option>
                                     <option value="phone">Phone</option>
