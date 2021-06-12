@@ -8,9 +8,13 @@
     </i><span class="menu-title text-truncate" data-i18n="Page Layouts">Work Order</span></a>
     <ul class="menu-content">
     
-      <li class="{{ (Request::segment(2) == 'work-order' )?'active':''}}">
+      <li class="{{ (Request::segment(2) == 'work-order' ) && (Request::segment(3) == '' )?'active':''}}">
         <a class="d-flex align-items-center" href="{{ route('work-order.index') }}"><i data-feather="circle">
         </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Work Order List</span></a>
+      </li>
+      <li class="{{ (Request::segment(2) == 'work-order' )&&(Request::segment(3) == 'create' )?'active':''}}">
+        <a class="d-flex align-items-center" href="{{ route('work-order.create') }}"><i data-feather="circle">
+        </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Work Order Create</span></a>
       </li>
       {{-- <li class="{{ (Request::segment(2) == 'admin' )?'active':''}}">
         <a class="d-flex align-items-center" href="{{ route('admin.index') }}"><i data-feather="circle">
