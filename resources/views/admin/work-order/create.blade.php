@@ -36,7 +36,7 @@
                         <button type="button" class="step-trigger">
                             <span class="bs-stepper-box">1</span>
                             <span class="bs-stepper-label">
-                                <span class="bs-stepper-title">Account Details</span>
+                                <span class="bs-stepper-title">Customer Details</span>
                                 <span class="bs-stepper-subtitle">Setup Account Details</span>
                             </span>
                         </button>
@@ -45,8 +45,8 @@
                         <button type="button" class="step-trigger">
                             <span class="bs-stepper-box">2</span>
                             <span class="bs-stepper-label">
-                                <span class="bs-stepper-title">Personal Info</span>
-                                <span class="bs-stepper-subtitle">Add Personal Info</span>
+                                <span class="bs-stepper-title">Customer Documents</span>
+                                <span class="bs-stepper-subtitle">Add Customer Documents</span>
                             </span>
                         </button>
                     </div>
@@ -77,12 +77,24 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label class="form-label" for="vertical-username">Username</label>
-                                <input type="text" id="vertical-username" class="form-control" placeholder="johndoe" />
+                                <label class="form-label" for="organization">Organization</label>
+                                <input type="text" id="organization" name="organization" class="form-control" placeholder="Enter Organization" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="form-label" for="vertical-email">Email</label>
-                                <input type="email" id="vertical-email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
+                                <label class="form-label" for="client_type">Client Type</label>
+                                <select class="select2 w-100" id="client_type">
+                                    <option label=" "></option>
+                                    <option value="isp">ISP</option>
+                                    <option value="corporate">Corporate</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="technical-email">Technical Email</label>
+                                <input type="email" id="technical-email" name="technical_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="billing-email">Billing Email</label>
+                                <input type="email" id="billing-email" name="billing_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
                             </div>
                         </div>
                         <div class="row">
