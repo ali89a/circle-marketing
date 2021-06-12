@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class OrderBuffer extends Model
 {
     use HasFactory;
+    public function order()
+    {
+        return $this->belongsTo('App\Models\Order', 'order_id');
+    }
 }
