@@ -8,12 +8,12 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Role</h2>
+                    <h2 class="content-header-title float-left mb-0">Work Order</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item active">Role List
+                            <li class="breadcrumb-item active">Work Order List
                             </li>
                         </ol>
                     </div>
@@ -30,10 +30,10 @@
                             <rect x="3" y="14" width="7" height="7"></rect>
                         </svg></button>
                     <div class="dropdown-menu dropdown-menu-right" style="">
-                        <a class="dropdown-item" href="{{route('role.create')}}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
+                        <a class="dropdown-item" href="{{route('work-order.create')}}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
                                 <polyline points="9 11 12 14 22 4"></polyline>
                                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                            </svg><span class="align-middle">Add role</span></a>
+                            </svg><span class="align-middle">Add Work Order</span></a>
                       
                         
                       
@@ -48,32 +48,16 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Role List</h4>
+                        <h4 class="card-title">Work Order List</h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table mb-0">
                             <thead>
-                                {{-- <tr>
-                                    <th scope="col" class="text-nowrap">Order Id</th>
-                                    <th scope="col" class="text-nowrap">Action</th>
-                                    <th scope="col" class="text-nowrap">Approval</th>
-                                    <th scope="col" class="text-nowrap">Link Id & Approval Details</th>
-                                    <th scope="col" class="text-nowrap">Customer Details</th>
-                                    <th scope="col" class="text-nowrap">Bandwidth Requirement</th>
-                                    <th scope="col" class="text-nowrap">Connection Type</th>
-                                    <th scope="col" class="text-nowrap">Gmap Location</th>
-                                    <th scope="col" class="text-nowrap">Visited/Phone</th>
-                                    <th scope="col" class="text-nowrap">Billing Cycle Date</th>
-                                    <th scope="col" class="text-nowrap">Billing Details</th>
-                                    <th scope="col" class="text-nowrap">Create Date</th>
-                                    <th scope="col" class="text-nowrap">Update Date</th>
-                                </tr> --}}
 
                                 <tr class="alert alert-dark">
                                     <th>Order Id</th>
                                     <th class="text-center">Action</th>                            
                                     <th>Approval</th>
-                                    {{-- <th class="text-center hidea">Accounts <br>Approval</th> --}}
                                     <th>Link ID &amp; <br> Approval Details</th>
                                     <th>Customer Details</th>
                                     <th>Bandwidth Requirement</th>
