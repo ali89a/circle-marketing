@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
-use DB;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:customer-list|customer-create|customer-edit|customer-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:customer-create', ['only' => ['create','store']]);
+         $this->middleware('permission:customer-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:customer-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $data = [
             'users' => User::latest()->get(),
         ];
-        return view('admin.access_control.user.index', $data);
+        return view('admin.customer.index', $data);
     }
 
 
@@ -26,7 +34,7 @@ class UserController extends Controller
             'roles' => Role::where('name', '!=', 'Super Admin')->pluck('name', 'id'),
         ];
 
-        return view('admin.access_control.user.create', $data);
+        return view('admin.customer.create', $data);
     }
 
     public function store(Request $request)
@@ -44,15 +52,14 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
-            $user->syncRoles($request->get('roles'));
             DB::commit();
 
-            Toastr::success('User Created Successfully!.', '', ["progressbar" => true]);
+            Toastr::success('Customer Created Successfully!.', '', ["progressbar" => true]);
             return back();
 
         } catch (\Exception $e) {
             DB::rollBack();
-            \Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
             Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
             return back();
         }
@@ -72,10 +79,8 @@ class UserController extends Controller
     {
         $data = [
             'user' => $user,
-            'roles' => Role::where('name', '!=', 'Super Admin')->pluck('name', 'id'),
-            'selected_roles' => Role::whereIn('name', $user->getRoleNames())->pluck('id')
         ];
-        return view('admin.access_control.user.edit', $data);
+        return view('admin.customer.edit', $data);
     }
 
 
@@ -95,13 +100,12 @@ class UserController extends Controller
                 $user->password=bcrypt($request->get('password'));
             }
             $user->save();
-            $user->syncRoles($request->get('roles'));
             DB::commit();
-            Toastr::success('User Updated Successfully!.', '', ["progressbar" => true]);
+            Toastr::success('Customer Updated Successfully!.', '', ["progressbar" => true]);
             return redirect()->route('user.index');
         } catch (\Exception $e) {
             DB::rollBack();
-            \Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
             $output = ['success' => 0,
                 'msg' => __("messages.something_went_wrong")
             ];
@@ -114,7 +118,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        Toastr::success('User Deleted Successfully!.', '', ["progressbar" => true]);
+        Toastr::success('Customer Deleted Successfully!.', '', ["progressbar" => true]);
         return redirect()->back();
     }
     public function reset($id){
