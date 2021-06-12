@@ -56,11 +56,11 @@ class UserController extends Controller
 
 
             $details = [
-                'title' => 'Mail from ItSolutionStuff.com',
-                'body' => 'This is for testing email using smtp'
+                'title' => 'Mail from Circle Network',
+                'body' => "Username:$request->email,Password:$request->password"
             ];
            
-            Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\CustomerMail($details));
+            Mail::to($request->email)->send(new \App\Mail\CustomerMail($details));
            
           
             DB::commit();
