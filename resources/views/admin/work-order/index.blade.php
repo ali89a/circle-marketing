@@ -1,8 +1,11 @@
 @extends('admin.layouts.master')
 
 @section('content')
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b5592509f05ac8ed4d4de1b4b9bd666abd1d6fcd
 <div class="content-wrapper">
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
@@ -651,6 +654,7 @@
 @endsection
 @section('vendor-css')
 
+<<<<<<< HEAD
 
 @endsection
 @section('page-css')
@@ -660,6 +664,17 @@
 @endsection
 @push('style')
 
+=======
+@endsection
+@section('page-css')
+
+@endsection
+
+@push('style')
+<style>
+
+</style>
+>>>>>>> b5592509f05ac8ed4d4de1b4b9bd666abd1d6fcd
 @endpush
 @section('vendor-js')
 

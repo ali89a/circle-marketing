@@ -18,7 +18,6 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/vendors/css/vendors.min.css">
   @yield('vendor-css')
   <!-- END: Vendor CSS-->
-
   <!-- BEGIN: Theme CSS-->
   <link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/css/bootstrap-extended.css">
