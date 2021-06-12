@@ -54,8 +54,8 @@
                         <button type="button" class="step-trigger">
                             <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
-                                <span class="bs-stepper-title">Address</span>
-                                <span class="bs-stepper-subtitle">Add Address</span>
+                                <span class="bs-stepper-title">Order</span>
+                                <span class="bs-stepper-subtitle">Add Order</span>
                             </span>
                         </button>
                     </div>
@@ -214,30 +214,104 @@
                             </button>
                         </div>
                     </div>
+
+
+
+
+
+
+
                     <div id="address-step-vertical" class="content">
                         <div class="content-header">
-                            <h5 class="mb-0">Address</h5>
-                            <small>Enter Your Address.</small>
+                            <h5 class="mb-0">Order</h5>
+                            <small>Enter Your Order.</small>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label class="form-label" for="vertical-address">Address</label>
+                                <label class="form-label" for="vertical-address">Type</label>
                                 <input type="text" id="vertical-address" class="form-control" placeholder="98  Borough bridge Road, Birmingham" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="form-label" for="vertical-landmark">Landmark</label>
+                                <label class="form-label" for="vertical-landmark">Scl Id</label>
                                 <input type="text" id="vertical-landmark" class="form-control" placeholder="Borough bridge" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label class="form-label" for="pincode2">Pincode</label>
+                                <label class="form-label" for="pincode2">Gmap Location</label>
                                 <input type="text" id="pincode2" class="form-control" placeholder="658921" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="form-label" for="city2">City</label>
+                                <label class="form-label" for="city2">Connect Type</label>
                                 <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Link Id</label>
+                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="city2">Vat</label>
+                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Visit Type</label>
+                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="city2">Order Submission Date</label>
+                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Billing Cycle</label>
+                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="city2">Billing Remark</label>
+                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Bill Start Date</label>
+                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="city2">Delivery Date</label>
+                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Bill Generate Method</label>
+                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="city2">Total Price</label>
+                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Core Rent</label>
+                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="city2">OTC</label>
+                                <input type="text" id="city2" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="pincode2">Real IP</label>
+                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                            </div>
+                           
                         </div>
                         <div class="d-flex justify-content-between">
                             <button class="btn btn-primary btn-prev">
@@ -250,6 +324,13 @@
                             </button>
                         </div>
                     </div>
+
+
+
+
+
+
+
                     <div id="social-links-vertical" class="content">
                         <div class="content-header">
                             <h5 class="mb-0">Social Links</h5>
