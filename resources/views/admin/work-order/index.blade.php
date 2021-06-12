@@ -2,14 +2,6 @@
 
 @section('content')
 
-<style>
-
-
-   
-</style>
-
-
-
 
 <div class="content-wrapper">
     <div class="content-header row">
@@ -122,8 +114,8 @@
 
 
 
-
-<a onclick="return check();" href="https://demo.circlenetworkbd.net/workorder/delete/666" class="btn btn-danger btn-xs btn-block hide"><i class="fa fa-remove"></i></a>
+{{-- 
+<a onclick="return check();" href="https://demo.circlenetworkbd.net/workorder/delete/666" class="btn btn-danger btn-xs btn-block hide"><i class="fa fa-remove"></i></a> --}}
 
 <div class="history">
     <form action="https://demo.circlenetworkbd.net/workorder/historyview/" method="post">
@@ -657,7 +649,22 @@
 
 
 @endsection
-@section('js')
+@section('vendor-css')
+
+
+@endsection
+@section('page-css')
+
+<link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/workOrder.css">
+
+@endsection
+@push('style')
+
+@endpush
+@section('vendor-js')
+
+@endsection
+@section('page-js')
 
 @endsection
 @push('script')

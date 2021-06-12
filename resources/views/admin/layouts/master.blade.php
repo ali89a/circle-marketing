@@ -19,9 +19,6 @@
   @yield('vendor-css')
   <!-- END: Vendor CSS-->
 
-
-  <link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/workOrder.css">
-
   <!-- BEGIN: Theme CSS-->
   <link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/css/bootstrap-extended.css">
