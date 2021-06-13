@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
@@ -51,7 +52,30 @@ class UserController extends Controller
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->mobile = $request->mobile;
+            $user->vin_no = $request->vin_no;
+            $user->creator_user_id = Auth::guard('admin')->id();
             $user->password = bcrypt($request->password);
+            if ($request->img_url != null) {
+                $fileName = time() . '.' . $request->img_url->extension();
+                $request->img_url->move(storage_path('app/public/customer'), $fileName);
+                $user->img_url = $fileName;
+            }
+            if ($request->btrc_license_url != null) {
+                $fileName = time() . '.' . $request->btrc_license_url->extension();
+                $request->btrc_license_url->move(storage_path('app/public/btrc_license'), $fileName);
+                $user->btrc_license_url = $fileName;
+            }
+            if ($request->nid_url != null) {
+                $fileName = time() . '.' . $request->nid_url->extension();
+                $request->nid_url->move(storage_path('app/public/nid'), $fileName);
+                $user->nid_url = $fileName;
+            }
+            if ($request->trade_license_url != null) {
+                $fileName = time() . '.' . $request->trade_license_url->extension();
+                $request->trade_license_url->move(storage_path('app/public/trade_license'), $fileName);
+                $user->trade_license_url = $fileName;
+            }
             $user->save();
 
 
@@ -107,8 +131,31 @@ class UserController extends Controller
             DB::beginTransaction();
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->mobile = $request->mobile;
+            $user->vin_no = $request->vin_no;
+            $user->creator_user_id = Auth::guard('admin')->id();
             if($request->get('password')){
                 $user->password=bcrypt($request->get('password'));
+            }
+            if ($request->img_url != null) {
+                $fileName = time() . '.' . $request->img_url->extension();
+                $request->img_url->move(storage_path('app/public/customer'), $fileName);
+                $user->img_url = $fileName;
+            }
+            if ($request->btrc_license_url != null) {
+                $fileName = time() . '.' . $request->btrc_license_url->extension();
+                $request->btrc_license_url->move(storage_path('app/public/btrc_license'), $fileName);
+                $user->btrc_license_url = $fileName;
+            }
+            if ($request->nid_url != null) {
+                $fileName = time() . '.' . $request->nid_url->extension();
+                $request->nid_url->move(storage_path('app/public/nid'), $fileName);
+                $user->nid_url = $fileName;
+            }
+            if ($request->trade_license_url != null) {
+                $fileName = time() . '.' . $request->trade_license_url->extension();
+                $request->trade_license_url->move(storage_path('app/public/trade_license'), $fileName);
+                $user->trade_license_url = $fileName;
             }
             $user->save();
             DB::commit();
@@ -130,19 +177,6 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         Toastr::success('Customer Deleted Successfully!.', '', ["progressbar" => true]);
-        return redirect()->back();
-    }
-    public function reset($id){
-        $user = User::findOrFail($id);
-        $user->password=bcrypt('123456789');
-        $user->update();
-
-        if ($user) { ;
-            Mail::to($user->email)->send(
-                new PasswordReset($user)
-            );
-        }
-        Toastr::success('User Reset Successfully!.', '', ["progressbar" => true]);
         return redirect()->back();
     }
 }

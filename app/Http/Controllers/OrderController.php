@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderCustomerDocument;
+use App\Models\OrderCustomerInfo;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -35,7 +37,30 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = new Order();
+        $order->save();
+
+        $customer_doc = new OrderCustomerDocument();
+        $customer_doc->order_id = $order->id;
+        $customer_doc->save();
+        
+
+        $customer_info = new OrderCustomerInfo();
+        $customer_info->organization = $request->organization;
+        $customer_info->client_type = $request->client_type;
+        $customer_info->occupation = $request->occupation;
+        $customer_info->technical_email = $request->technical_email;
+        $customer_info->billing_email = $request->billing_email;
+        $customer_info->mobile = $request->mobile;
+        $customer_info->alter_mobile = $request->alter_mobile;
+        $customer_info->customer_id = $request->customer_id;
+        $customer_info->division_id = $request->division_id;
+        $customer_info->district_id = $request->district_id;
+        $customer_info->upazila_id = $request->upazila_id;
+        $customer_info->order_id = $order->id;
+        $customer_info->save();
+
+        return redirect()->back();
     }
 
     /**

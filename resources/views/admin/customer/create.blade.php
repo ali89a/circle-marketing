@@ -48,7 +48,7 @@
                             <h4 class="card-title">Customer Create</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('user.store')}}" method="POST" class="">
+                        <form method="post" action="{{ route('user.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-6 col-md-6 col-12 mb-1">
@@ -89,8 +89,8 @@
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12 mb-1">
                                         <div class="form-group">
-                                            <label for="image_url">Image</label>
-                                            <input type="file" class="form-control" id="image_url" name="image_url">
+                                            <label for="img_url">Image</label>
+                                            <input type="file" class="form-control" id="img_url" name="img_url">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12 mb-1">
