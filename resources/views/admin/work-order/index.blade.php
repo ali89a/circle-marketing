@@ -29,8 +29,14 @@
                             <rect x="14" y="14" width="7" height="7"></rect>
                             <rect x="3" y="14" width="7" height="7"></rect>
                         </svg></button>
+
+
+
+ 
+
+
                     <div class="dropdown-menu dropdown-menu-right" style="">
-                        <a class="dropdown-item" href="{{route('work-order.create')}}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
+                        <a class="dropdown-item" href="{{route('work-order.create')}}"><svg xmlns="#" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
                                 <polyline points="9 11 12 14 22 4"></polyline>
                                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                             </svg><span class="align-middle">Add Work Order</span></a>
@@ -42,11 +48,88 @@
             </div>
         </div>
     </div>
+
+
+
+
+
     <div class="content-body">
         <!-- Responsive tables start -->
         <div class="row" id="table-responsive">
+
+           
+
+          
+
+
+
+
+
             <div class="col-12">
                 <div class="card">
+
+                 
+                <div class="box ml-2 mr-2 mt-2">    
+                    <div class="row">   
+                        <div class="form-group col-md-2">
+                            <label class="form-label" for="pincode2">Marketing Progress</label>
+                            <select class="form-control" name="visit_type">
+                                <option value="">Select Option</option>
+                                <option value="approved">Approved</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="form-label" for="pincode2">NOC Progress</label>
+                            <select class="form-control" name="visit_type">
+                                <option value="">Select Option</option>
+                                <option value="done">Done</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="form-label" for="vertical-landmark">Org/Customer/ID</label>
+                            <input type="text" name="scl_id" id="vertical-landmark" class="form-control" placeholder="Borough bridge" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="form-label" for="vertical-landmark">Link ID/SCL ID</label>
+                            <input type="text" name="scl_id" id="vertical-landmark" class="form-control" placeholder="Borough bridge" />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="form-label" for="pincode2">Submitted By</label>
+                            <select class="form-control" name="visit_type">
+                                <option value="">Select Type</option>
+                                <option value="visited">Visited</option>
+                                <option value="phone">Phone</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="form-label" for="pincode2">Client Type</label>
+                            <select class="form-control" name="visit_type">
+                                <option value="">Select</option>
+                                <option value="isp">ISP</option>
+                                <option value="corporate">Corporate</option>
+                            </select>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="fp-range">Range</label>
+                        <input type="text" id="fp-range" class="data-type form-control flatpickr-range flatpickr-input active" placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
+                      </div>
+                    <div class="col-sm-3">
+                        <button type="submit" style="margin-top:20px;" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        <a style="margin-top:20px;" href="#" class="btn btn-primary"><i class="fa fa-refresh"></i></a>
+    
+                    </div>
+                </div>
+                </div>
+
+                  
+
+
+
+                    
                     <div class="card-header">
                         <h4 class="card-title">Work Order List</h4>
                     </div>
@@ -148,7 +231,7 @@
                                                     <p class="bg-gray btn-block">pending</p>
                                                 </td>
 
-                                                                                        </tr>
+                                                                            </tr>
                                         
                                         
                                             <tr>
