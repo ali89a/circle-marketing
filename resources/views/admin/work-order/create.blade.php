@@ -50,10 +50,11 @@
                                     <div class="col-md-3 col-12">
                                         <div class="form-group">
                                             <label class="form-label" for="client_type">Client Type</label>
-                                            <select class="select2 w-100" id="client_type" name="client_type" class="form-control form-control-sm">
+                                            <select class="select2 form-control form-control-sm">
                                                 <option value="">Select One</option>
                                                 <option value="isp">ISP</option>
                                                 <option value="corporate">Corporate</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -65,8 +66,8 @@
                                     </div>
                                     <div class="col-md-3 col-12">
                                         <div class="form-group">
-                                        <label class="form-label" for="billing-email">Billing Email</label>
-                                    <input type="email" id="billing-email" name="billing_email" class="form-control form-control-sm" placeholder="john.doe@email.com" aria-label="john.doe" />
+                                            <label class="form-label" for="billing-email">Billing Email</label>
+                                            <input type="email" id="billing-email" name="billing_email" class="form-control form-control-sm" placeholder="john.doe@email.com" aria-label="john.doe" />
                                         </div>
                                     </div>
                                 </div>
