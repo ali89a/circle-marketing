@@ -51,64 +51,70 @@
                         <form method="post" action="{{ route('user.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                    <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="name">Name</label>
                                             <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                    <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                    <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="password">Password</label>
                                             <input type="text" class="form-control" id="password" name="password" placeholder="Enter Password">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                    <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="password_confirmation">Password Confirmation</label>
                                             <input type="text" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter Password Confirmation">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                    <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="mobile">Mobile</label>
                                             <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                    <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="vin_no">VIN Number</label>
                                             <input type="text" class="form-control" id="vin_no" name="vin_no" placeholder="Enter VIN Number">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                    <div class="col-xl-3 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="img_url">Image</label>
                                             <input type="file" class="form-control" id="img_url" name="img_url">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                    <div class="col-xl-3 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="btrc_license_url"> BTRC License</label>
                                             <input type="file" class="form-control" id="btrc_license_url" name="btrc_license_url">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                    <div class="col-xl-3 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="nid_url">NID </label>
                                             <input type="file" class="form-control" id="nid_url" name="nid_url">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                    <div class="col-xl-3 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="trade_license_url">Trade License</label>
                                             <input type="file" class="form-control" id="trade_license_url" name="trade_license_url">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12 col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label for="billing_address">Billing Address</label>
+                                            <input type="text" class="form-control" id="billing_address" name="billing_address">
                                         </div>
                                     </div>
                                 </div>

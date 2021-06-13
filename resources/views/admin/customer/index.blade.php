@@ -70,11 +70,15 @@
                                             <form action="{{route('user.destroy', $row->id)}}" method="post">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 @csrf
-                                                <a href="{{ route('user.edit', $row->id) }}" class="btn btn-primary">
+                                                <a href="{{ route('user.edit', $row->id) }}" class="btn btn-sm btn-primary">
                                                     <i class="fa fa-pencil-square-o"></i>
                                                     Edit
                                                 </a>
-                                                <button id="btnDelete" class="btn btn-danger">Delete</button>
+                                                <a href="{{ route('user.show', $row->id) }}" class="btn btn-sm btn-info">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                    Show
+                                                </a>
+                                                <button id="btnDelete" class="btn btn-danger btn-sm">Delete</button>
                                             </form>
 
                                         </div>

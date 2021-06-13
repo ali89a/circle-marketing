@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="form-group col-md-2">
                                 <label class="form-label" for="pincode2">Marketing Progress</label>
-                                <select class="form-control" name="visit_type">
+                                <select class="form-control form-control-sm" name="visit_type">
                                     <option value="">Select Option</option>
                                     <option value="approved">Approved</option>
                                     <option value="pending">Pending</option>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="form-label" for="pincode2">NOC Progress</label>
-                                <select class="form-control" name="visit_type">
+                                <select class="form-control form-control-sm" name="visit_type">
                                     <option value="">Select Option</option>
                                     <option value="done">Done</option>
                                     <option value="pending">Pending</option>
@@ -67,15 +67,15 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="form-label" for="vertical-landmark">Org/Customer/ID</label>
-                                <input type="text" name="scl_id" id="vertical-landmark" class="form-control" placeholder="Borough bridge" />
+                                <input type="text" name="scl_id" id="vertical-landmark" class="form-control form-control-sm" placeholder="Borough bridge" />
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="form-label" for="vertical-landmark">Link ID/SCL ID</label>
-                                <input type="text" name="scl_id" id="vertical-landmark" class="form-control" placeholder="Borough bridge" />
+                                <input type="text" name="scl_id" id="vertical-landmark" class="form-control form-control-sm" placeholder="Borough bridge" />
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="form-label" for="pincode2">Submitted By</label>
-                                <select class="form-control" name="visit_type">
+                                <select class="form-control form-control-sm" name="visit_type">
                                     <option value="">Select Type</option>
                                     <option value="visited">Visited</option>
                                     <option value="phone">Phone</option>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="form-label" for="pincode2">Client Type</label>
-                                <select class="form-control" name="visit_type">
+                                <select class="form-control form-control-sm" name="visit_type">
                                     <option value="">Select</option>
                                     <option value="isp">ISP</option>
                                     <option value="corporate">Corporate</option>
@@ -93,7 +93,7 @@
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label for="fp-range">Range</label>
-                                <input type="text" id="fp-range" class="data-type form-control flatpickr-range flatpickr-input active" placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
+                                <input type="text" id="fp-range" class="data-type form-control form-control-sm flatpickr-range flatpickr-input active" placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
                             </div>
                             <div class="col-sm-3">
                                 <button type="submit" style="margin-top:20px;" class="btn btn-info"><i class="fa fa-search"></i>Search</button>

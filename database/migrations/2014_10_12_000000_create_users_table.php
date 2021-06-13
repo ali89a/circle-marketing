@@ -20,10 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('mobile')->unique()->nullable();
-            $table->string('gender')->nullable();
             $table->text('billing_address')->nullable();
             $table->text('vin_no')->nullable();
-            $table->string('dob')->nullable();
             $table->text('img_url')->nullable();
             $table->text('btrc_license_url')->nullable();
             $table->text('nid_url')->nullable();

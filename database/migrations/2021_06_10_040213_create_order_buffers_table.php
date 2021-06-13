@@ -16,11 +16,11 @@ class CreateOrderBuffersTable extends Migration
         Schema::create('order_buffers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id');
-            $table->text('internet');
-            $table->text('bdix');
-            $table->text('youtube');
-            $table->text('facebook');
-            $table->text('data');
+            $table->text('internet')->nullable();
+            $table->text('bdix')->nullable();
+            $table->text('youtube')->nullable();
+            $table->text('facebook')->nullable();
+            $table->text('data')->nullable();
             $table->timestamps();
         });
     }

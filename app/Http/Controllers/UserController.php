@@ -54,6 +54,7 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->mobile = $request->mobile;
             $user->vin_no = $request->vin_no;
+            $user->billing_address = $request->billing_address;
             $user->creator_user_id = Auth::guard('admin')->id();
             $user->password = bcrypt($request->password);
             if ($request->img_url != null) {
@@ -85,12 +86,10 @@ class UserController extends Controller
             ];
            
             Mail::to($request->email)->send(new \App\Mail\CustomerMail($details));
-           
-          
             DB::commit();
 
             Toastr::success('Customer Created Successfully!.', '', ["progressbar" => true]);
-            return back();
+            return redirect()->route('user.index');
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -106,7 +105,7 @@ class UserController extends Controller
         $data = [
             'model' => $user,
         ];
-        return view('admin.users.show', $data);
+        return view('admin.customer.show', $data);
     }
 
 
@@ -133,7 +132,8 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->mobile = $request->mobile;
             $user->vin_no = $request->vin_no;
-            $user->creator_user_id = Auth::guard('admin')->id();
+            $user->billing_address = $request->billing_address;
+            $user->updator_user_id = Auth::guard('admin')->id();
             if($request->get('password')){
                 $user->password=bcrypt($request->get('password'));
             }
