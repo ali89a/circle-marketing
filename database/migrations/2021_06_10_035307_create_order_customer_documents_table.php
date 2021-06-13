@@ -15,10 +15,10 @@ class CreateOrderCustomerDocumentsTable extends Migration
     {
         Schema::create('order_customer_documents', function (Blueprint $table) {
             $table->id();
-            $table->text('work_order');
-            $table->text('authorization');
-            $table->text('ip_agreement');
-            $table->text('noc');
+            $table->text('work_order')->nullable();
+            $table->text('authorization')->nullable();
+            $table->text('ip_agreement')->nullable();
+            $table->text('noc')->nullable();
             $table->foreignId('order_id');
             $table->timestamps();
         });

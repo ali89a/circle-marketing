@@ -28,6 +28,10 @@ class CreateUsersTable extends Migration
             $table->text('btrc_license_url')->nullable();
             $table->text('nid_url')->nullable();
             $table->text('trade_license_url')->nullable();
+            $table->unsignedBigInteger('creator_user_id')->nullable();
+            $table->foreign('creator_user_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->unsignedBigInteger('updator_user_id')->nullable();
+            $table->foreign('updator_user_id')->references('id')->on('admins')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

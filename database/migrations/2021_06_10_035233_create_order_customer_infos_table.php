@@ -15,21 +15,20 @@ class CreateOrderCustomerInfosTable extends Migration
     {
         Schema::create('order_customer_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('organization_name');
-            $table->text('client_type');
-            $table->text('occupation');
-            $table->string('email_technical');
-            $table->string('email_billing');
-            $table->text('mobile');
-            $table->text('alter_mobile');
-            $table->text('technical_address');
-            $table->text('billing_address');
-            $table->foreignId('customer_id');
+            $table->string('organization')->nullable();
+            $table->text('client_type')->nullable();
+            $table->text('occupation')->nullable();
+            $table->string('technical_email')->nullable();
+            $table->string('billing_email')->nullable();
+            $table->text('mobile')->nullable();
+            $table->text('alter_mobile')->nullable();
+            $table->text('technical_address')->nullable();
+            $table->text('billing_address')->nullable();
+            $table->foreignId('customer_id')->nullable();
             $table->foreignId('order_id');
-            $table->foreignId('division_id');
-            $table->foreignId('district_id');
-            $table->foreignId('upazila_id');
+            $table->foreignId('division_id')->nullable();
+            $table->foreignId('district_id')->nullable();
+            $table->foreignId('upazila_id')->nullable();
             $table->timestamps();
         });
     }
