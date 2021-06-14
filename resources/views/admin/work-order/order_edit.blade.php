@@ -48,7 +48,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('doc.edit')}}" class="step-trigger">
+                        <a href="{{route('docEdit')}}" class="step-trigger">
                             <span class="bs-stepper-box">2</span>
                             <span class="bs-stepper-label">
                             <span class="bs-stepper-title">Document Info</span>
@@ -62,7 +62,7 @@
                         </svg>
                     </div>
                     <div class="step active">
-                        <a href="{{route('order.edit')}}" class="step-trigger">
+                        <a href="{{route('orderEdit')}}" class="step-trigger">
                             <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Info</span>
@@ -76,7 +76,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('order.detail.edit')}}" class="step-trigger">
+                        <a href="{{route('orderDetailEdit')}}" class="step-trigger">
                             <span class="bs-stepper-box">4</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Details </span>
@@ -89,89 +89,129 @@
                 <form method="post" action="{{route('work-order.store')}}">
                             @csrf
                             <div class="content-header">
-                                <h5 class="mb-0">Customer Details</h5>
-                                <small class="text-muted">Enter Your customer Details.</small>
+                            <h5 class="mb-0">Order</h5>
+                            <small>Enter Your Order.</small>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="vertical-address">Type</label>
+                                <input style="margin-left: 10%" type="radio" name="type" value="own"> Own
+                                <input style="margin-left: 30%" type="radio" name="type" value="nttn"> NTTN
                             </div>
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="organization">Organization</label>
-                                    <input type="text" id="organization" name="organization" class="form-control" placeholder="Enter Organization" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="client_type">Client Type</label>
-                                    <select class="select2 w-100" id="client_type" name="client_type">
-                                        <option label=" "></option>
-                                        <option value="isp">ISP</option>
-                                        <option value="corporate">Corporate</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="technical-email">Technical Email</label>
-                                    <input type="email" id="technical-email" name="technical_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="billing-email">Billing Email</label>
-                                    <input type="email" id="billing-email" name="billing_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="mobile">Mobile</label>
-                                    <input type="text" id="mobile" name="mobile" class="form-control" placeholder="01515664762" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="alt_mobile">Alter Mobile</label>
-                                    <input type="text" id="alt_mobile" name="alt_mobile" class="form-control" placeholder="01516664762" />
-                                </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="vertical-landmark">Scl Id</label>
+                                <input type="text" name="scl_id" id="vertical-landmark" class="form-control" placeholder="Borough bridge" />
                             </div>
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="occupation">Occupation</label>
-                                    <input type="email" id="occupation" name="occupation" class="form-control" placeholder="Enter occupation" aria-label="john.doe" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="division">Division</label>
-                                    <select class="select2 w-100" id="division">
-                                        <option label=" "></option>
-                                        <option>UK</option>
-                                        <option>USA</option>
-                                        <option>Spain</option>
-                                        <option>France</option>
-                                        <option>Italy</option>
-                                        <option>Australia</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="district">District</label>
-                                    <select class="select2 w-100" id="district">
-                                        <option label=" "></option>
-                                        <option>UK</option>
-                                        <option>USA</option>
-                                        <option>Spain</option>
-                                        <option>France</option>
-                                        <option>Italy</option>
-                                        <option>Australia</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="upazila">Upazila</label>
-                                    <select class="select2 w-100" id="upazila">
-                                        <option label=" "></option>
-                                        <option>UK</option>
-                                        <option>USA</option>
-                                        <option>Spain</option>
-                                        <option>France</option>
-                                        <option>Italy</option>
-                                        <option>Australia</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="technical-address">Technical Address</label>
-                                    <input type="text" id="technical-address" name="technical_address" class="form-control" placeholder="Technical Address" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="billing-address">Billing Address</label>
-                                    <input type="text" id="billing-address" name="billing_address" class="form-control" placeholder="Billing Address" />
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Gmap Location</label>
+                                <input type="text" name="gmap_location" id="pincode2" class="form-control" placeholder="658921" />
                             </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="city2">Connect Type</label>
+                                <input type="text" id="city2" name="connect_type" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Link Id</label>
+                                <input type="text" id="pincode2" name="link_id" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="city2">Vat</label>
+                                <input type="text" id="city2" name="vat" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Visit Type</label>
+                                <select class="form-control" name="visit_type">
+                                    <option value="">Select Type</option>
+                                    <option value="visited">Visited</option>
+                                    <option value="phone">Phone</option>
+                                </select>
+                                {{-- <input style="margin-left: 10%" type="radio" name="type" value="own"> Own
+                                <input style="margin-left: 30%" type="radio" name="type" value="nttn"> NTTN --}}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="city2">Order Submission Date</label>
+                                <input type="text" id="city2" name="order_submission_date" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Billing Cycle</label>
+                                <input type="text" id="pincode2" name="billing_cycle" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="city2">Billing Remark</label>
+                                <input type="text" id="city2" name="billing_remark" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Bill Start Date</label>
+                                <input type="text" id="pincode2" name="bill_start_date" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="city2">Delivery Date</label>
+                                <input type="text" id="city2" name="delivery_date" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Bill Generate Method</label>
+                                <input type="text" id="pincode2" name="bill_generate_method" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="city2">Total Price</label>
+                                <input type="text" id="city2" name="total_Price" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Core Rent</label>
+                                <input type="text" id="pincode2" name="core_rent" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="city2">OTC</label>
+                                <input type="text" id="city2" name="otc" class="form-control" placeholder="Birmingham" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Real IP</label>
+                                <input type="text" id="pincode2" name="real_ip" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Marketing User</label>
+                                <input type="text" id="pincode2" name="marketing_user_id" class="form-control" placeholder="658921" />
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">customers User</label>
+                                <input type="text" id="pincode2" name="customers_user_id" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Security Money Type</label>
+                                <input type="text" id="pincode2" name="security_money_type" class="form-control" placeholder="658921" />
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">Security Money Amount</label>
+                                <input type="text" id="pincode2" name="security_money_amount" class="form-control" placeholder="658921" />
+                            </div>
+                            {{-- <div class="form-group col-md-4">
+                                <label class="form-label" for="pincode2">BIN</label>
+                                <input type="text" id="pincode2" class="form-control" placeholder="658921" />
+                            </div> --}}
+
+                        </div>
                             <div class="d-flex justify-content-between">
                                 <button class="btn btn-primary btn-prev waves-effect waves-float waves-light">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0">

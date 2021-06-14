@@ -36,8 +36,11 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     Route::resource('user', UserController::class);
     Route::resource('work-order', OrderController::class);
-    Route::get('/doc-edit', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('doc.edit');
-    Route::get('/order-edit', [App\Http\Controllers\OrderController::class, 'orderEdit'])->name('order.edit');
-    Route::get('/order-detail-edit', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('order.detail.edit');
+    Route::get('/doc-edit/{id?}', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('docEdit');
+    Route::put('/doc-update/{id?}', [App\Http\Controllers\OrderController::class, 'docUpdate'])->name('docUpdate');
+    Route::get('/order-edit/{id?}', [App\Http\Controllers\OrderController::class, 'orderEdit'])->name('orderEdit');
+    Route::get('/order-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderupdate'])->name('orderupdate');
+    Route::get('/order-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('orderDetailEdit');
+    Route::get('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
 });
 require('admin.php');

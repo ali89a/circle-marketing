@@ -48,7 +48,7 @@
                         </svg>
                     </div>
                     <div class="step active">
-                        <a href="{{route('doc.edit')}}" class="step-trigger">
+                        <a href="{{route('docEdit')}}" class="step-trigger">
                             <span class="bs-stepper-box">2</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Document Info</span>
@@ -57,7 +57,7 @@
                         </a>
                     </div>
                     <div class="step">
-                        <a href="{{route('order.edit')}}" class="step-trigger">
+                        <a href="{{route('orderEdit',1)}}" class="step-trigger">
                             <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Info</span>
@@ -72,7 +72,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('order.edit')}}" class="step-trigger">
+                        <a href="{{route('orderDetailEdit')}}" class="step-trigger">
                             <span class="bs-stepper-box">4</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Details </span>
@@ -82,9 +82,9 @@
                     </div>
                 </div>
                 <div class="bs-stepper-content">
-
-                    <form method="post" action="{{route('work-order.store')}}">
+                    <form method="post" action="{{route('docUpdate',1)}}" enctype="multipart/form-data">
                         @csrf
+                        @method('put')
                         <div class="content-header">
                             <h5 class="mb-0">Document Info</h5>
                             <small>Enter Your Document Info.</small>
@@ -92,40 +92,40 @@
 
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="pincode2">File1</label>
-                                <input type="file" name="gmap_location" id="pincode2" class="form-control" placeholder="658921" />
+                                <label class="form-label" for="work_order">Work Order</label>
+                                <input type="file" name="work_order" id="work_order" class="form-control">
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="city2">File2</label>
-                                <input type="file" id="city2" name="connect_type" class="form-control" placeholder="Birmingham" />
+                                <label class="form-label" for="authorization">Authorization</label>
+                                <input type="file" id="authorization" name="authorization" class="form-control">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="pincode2">File1</label>
-                                <input type="file" name="gmap_location" id="pincode2" class="form-control" placeholder="658921" />
+                                <label class="form-label" for="ip_agreement">Ip Agreement</label>
+                                <input type="file" name="ip_agreement" id="ip_agreement" class="form-control">
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="city2">File2</label>
-                                <input type="file" id="city2" name="connect_type" class="form-control" placeholder="Birmingham" />
+                                <label class="form-label" for="noc">NOC</label>
+                                <input type="file" id="noc" name="noc" class="form-control">
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
-                                <button class="btn btn-primary btn-prev waves-effect waves-float waves-light">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0">
-                                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                                        <polyline points="12 19 5 12 12 5"></polyline>
-                                    </svg>
-                                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                </button>
-                                <button class="btn btn-primary btn-next waves-effect waves-float waves-light">
-                                    <span class="align-middle d-sm-inline-block d-none">Next</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right align-middle ml-sm-25 ml-0">
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        <polyline points="12 5 19 12 12 19"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
+                            <button class="btn btn-primary btn-prev waves-effect waves-float waves-light">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0">
+                                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                                    <polyline points="12 19 5 12 12 5"></polyline>
+                                </svg>
+                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                            </button>
+                            <button class="btn btn-primary btn-next waves-effect waves-float waves-light">
+                                <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right align-middle ml-sm-25 ml-0">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </button>
+                        </div>
                     </form>
 
                 </div>

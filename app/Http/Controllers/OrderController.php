@@ -34,15 +34,55 @@ class OrderController extends Controller
     {
         return view('admin.work-order.create');
     }
-    public function docEdit()
+    public function docEdit($id)
     {
         return view('admin.work-order.doc_edit');
     }
-    public function orderEdit()
+    public function docUpdate(Request $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+            $customer_doc = OrderCustomerDocument::where('order_id', $id)->first();
+            if ($request->work_order != null) {
+                $fileName = time() . '.' . $request->work_order->extension();
+                $request->work_order->move(storage_path('app/public/work_order'), $fileName);
+                $customer_doc->work_order = $fileName;
+            }
+            if ($request->authorization != null) {
+                $fileName = time() . '.' . $request->authorization->extension();
+                $request->authorization->move(storage_path('app/public/authorization'), $fileName);
+                $customer_doc->authorization = $fileName;
+            }
+            if ($request->ip_agreement != null) {
+                $fileName = time() . '.' . $request->ip_agreement->extension();
+                $request->ip_agreement->move(storage_path('app/public/ip_agreement'), $fileName);
+                $customer_doc->ip_agreement = $fileName;
+            }
+            if ($request->noc != null) {
+                $fileName = time() . '.' . $request->noc->extension();
+                $request->noc->move(storage_path('app/public/noc'), $fileName);
+                $customer_doc->noc = $fileName;
+            }
+            $customer_doc->save();
+            DB::commit();
+            Toastr::success('Customer Doc Added Successful!.', '', ["progressbar" => true]);
+            return redirect()->route('orderEdit', ['id' => $id]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+            $output = [
+                'success' => 0,
+                'msg' => __("messages.something_went_wrong")
+            ];
+            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+            return back();
+        }
+    }
+    public function orderEdit($id)
     {
         return view('admin.work-order.order_edit');
     }
-    public function orderDetailEdit()
+    public function orderDetailEdit($id)
     {
         return view('admin.work-order.order_detail_edit');
     }
@@ -93,9 +133,10 @@ class OrderController extends Controller
             $customer_info->upazila_id = $request->upazila_id;
             $customer_info->order_id = $order->id;
             $customer_info->save();
+            $order_id = $order->id;
             DB::commit();
-            Toastr::success('Work Order Added Successful!.', '', ["progressbar" => true]);
-            return redirect()->route('work-order.index');
+            Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
+            return redirect()->route('docEdit', ['id' => $order->id]);
         } catch (\Exception $e) {
             DB::rollBack();
             Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
