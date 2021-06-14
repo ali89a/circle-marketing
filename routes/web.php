@@ -51,5 +51,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/order-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('orderDetailEdit');
     Route::get('/customer-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'customerDetailEdit'])->name('customerDetailEdit');
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
+    Route::get('/approve/{id?}', [CustomerReportController::class, 'approve'])->name('approve');
+    Route::get('/cancel/{id?}', [CustomerReportController::class, 'cancel'])->name('cancel');
+
 });
 require('admin.php');

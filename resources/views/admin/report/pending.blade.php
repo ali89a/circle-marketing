@@ -85,10 +85,18 @@
                                         @foreach ($pendingList as $item)
                                         <tr>
                                             <td>{{$item->id}}</td>
-                                            <td class="text-center">
-                                                <ul class="list-inline" style="width:80px">
-                                                    <p class="label label-success">{{$item->contact_number}}</p>
-                                                </ul>
+                                            <td>
+                                                @if($item->ctype=='new')
+                                                <a href="{{route('/unpublished-product',['id' => $product->id])}}"
+                                                    class="btn btn-success btn-circle">
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                                @else
+                                                <a href="{{route('/published-product',['id' => $product->id])}}"
+                                                    class="btn btn-warning btn-circle">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                </a>
+                                                @endif
                                             </td>
                                             <td>{{ $item->cname }}</td>
                                             <td>{{ $item->location_district }} </td>
@@ -129,7 +137,7 @@
                                 </table>
 
                             </div>
-                           
+
                         </div>
                     </div>
 
