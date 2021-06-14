@@ -135,32 +135,29 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($orders as $order)
                                 <tr>
-                                    <td>666</td>
+                                    <td>{{ $order->id }}</td>
                                     <td class="text-center">
                                         <ul class="list-inline" style="width:120px">
                                             <li>
                                                 <!--Marketing Executive section-->
-                                                <a href="https://demo.circlenetworkbd.net/workorder/order_cancel/666"
-                                                    class="btn btn-danger btn-xs btn-block"><i class="fa fa-remove"></i>
-                                                    Cancel Order</a>
-                                                <a href="https://demo.circlenetworkbd.net/workorder/edit/666"
-                                                    class="btn btn-primary btn-xs btn-block"><i class="fa fa-edit"></i>
-                                                    Edit</a>
-                                                <a href="https://demo.circlenetworkbd.net/workorder/upgrade/666"
-                                                    class="btn btn-primary  btn-block btn-xs"><i class="fa fa-edit"></i>
-                                                    UP/DW</a>
+                                                <a href="" class="btn btn-danger btn-xs btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
+                                                <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-xs btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                                <a href="" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-edit"></i> UP/DW</a>
+
+                                                <!--Marketing Admin section-->
+
+                                                <!--Account Executive section-->
+                                                <!--Account Admin section-->
                                                 <div class="history">
-                                                    <form
-                                                        action="https://demo.circlenetworkbd.net/workorder/historyview/"
-                                                        method="post">
+                                                    <form action="" method="post">
                                                         <input type="hidden" value="666" name="history">
                                                         <button type="submit" class="btn btn-default btn-xs btn-block">H
                                                             (4) <i class="fa fa-history"></i></button>
                                                     </form>
                                                 </div>
-                                                <a href="#" class="btn btn-primary  btn-block btn-xs"><i
-                                                        class="fa fa-table"></i> Invoice List
+                                                <a href="" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-table"></i> Invoice List
                                                 </a>
                                             </li>
                                         </ul>
@@ -245,7 +242,6 @@
                                                     <td class="bg-gray">A</td>
                                                     <td>COO: <strong class="coostatus666">pending</strong></td>
                                                     <td></td>
-                                                    <!--                                        <td>Approved By: <strong></strong></td>-->
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -260,8 +256,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Org :</td>
-                                                    <td style="width:150px;white-space: normal;min-width:150px">HK Net
-                                                    </td>
+                                                    <td style="width:150px;white-space: normal;min-width:150px">{{ $order->customer_details->organization }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Email</td>
@@ -269,7 +264,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Mo</td>
-                                                    <td>01677887888</td>
+                                                    <td>{{ $order->customer_details->organization }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Security<br>money</td>
@@ -283,9 +278,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <a class="btn btn-primary btn-xs btn-flat btn-block" data-toggle="collapse"
-                                            href="#c666" role="button" aria-expanded="false" aria-controls="c666">View
-                                            Details</a>
+                                        <a class="btn btn-primary btn-xs btn-flat btn-block" data-toggle="collapse" href="#c666" role="button" aria-expanded="false" aria-controls="c666">View Details</a>
                                         <div class="col">
                                             <div class="collapse multi-collapse" id="c666">
                                                 <div class="card card-body">
@@ -370,9 +363,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a class="btn btn-primary btn-xs btn-flat btn-block" data-toggle="collapse"
-                                            href="#666" role="button" aria-expanded="false" aria-controls="666">View
-                                            Marketing</a>
+                                        <a class="btn btn-primary btn-xs btn-flat btn-block" data-toggle="collapse" href="#666" role="button" aria-expanded="false" aria-controls="666">View Marketing</a>
                                         <div class="col">
                                             <div class="collapse multi-collapse" id="666">
                                                 <div class="card card-body">
@@ -462,7 +453,6 @@
                                                                 <td></td>
                                                                 <td>0</td>
                                                                 <td>0</td>
-
                                                                 <td class="text-right onlym allhide">42</td>
                                                             </tr>
                                                             <tr>
@@ -611,6 +601,7 @@
                                     <td class="text-center">04-Jun-2021 04:27:04 PM</td>
                                     <td class="text-center">04-Jun-2021 04:18:17 PM</td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
