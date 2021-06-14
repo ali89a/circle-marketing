@@ -21,17 +21,8 @@
         <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
             <div class="form-group breadcrumb-right">
                 <div class="dropdown">
-                    <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                            data-feather="grid"></i></button>
-                    <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="app-todo.html"><i
-                                class="mr-1" data-feather="check-square"></i><span
-                                class="align-middle">Todo</span></a><a class="dropdown-item" href="app-chat.html"><i
-                                class="mr-1" data-feather="message-square"></i><span
-                                class="align-middle">Chat</span></a><a class="dropdown-item" href="app-email.html"><i
-                                class="mr-1" data-feather="mail"></i><span class="align-middle">Email</span></a><a
-                            class="dropdown-item" href="app-calendar.html"><i class="mr-1"
-                                data-feather="calendar"></i><span class="align-middle">Calendar</span></a></div>
+                    <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="grid"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="app-todo.html"><i class="mr-1" data-feather="check-square"></i><span class="align-middle">Todo</span></a><a class="dropdown-item" href="app-chat.html"><i class="mr-1" data-feather="message-square"></i><span class="align-middle">Chat</span></a><a class="dropdown-item" href="app-email.html"><i class="mr-1" data-feather="mail"></i><span class="align-middle">Email</span></a><a class="dropdown-item" href="app-calendar.html"><i class="mr-1" data-feather="calendar"></i><span class="align-middle">Calendar</span></a></div>
                 </div>
             </div>
         </div>
@@ -42,7 +33,7 @@
             <div class="bs-stepper wizard-modern modern-wizard-example">
                 <div class="bs-stepper-header">
                     <div class="step active">
-                        <a href="{{url('#')}}" class="step-trigger">
+                    <a href="{{route('customerDetailEdit', $order_customer_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">1 </span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Customer Details</span>
@@ -52,14 +43,12 @@
                     </div>
 
                     <div class="line">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-chevron-right font-medium-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right font-medium-2">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="" class="step-trigger">
+                        <a href="{{route('docEdit', $order_customer_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">2</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Document Info</span>
@@ -67,8 +56,13 @@
                             </span>
                         </a>
                     </div>
+                    <div class="line">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right font-medium-2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
                     <div class="step">
-                        <a href="" class="step-trigger">
+                        <a href="{{route('orderEdit', $order_customer_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Info</span>
@@ -76,16 +70,13 @@
                             </span>
                         </a>
                     </div>
-
                     <div class="line">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="feather feather-chevron-right font-medium-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right font-medium-2">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="" class="step-trigger">
+                        <a href="{{route('orderDetailEdit')}}" class="step-trigger">
                             <span class="bs-stepper-box">4</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Details </span>
@@ -95,9 +86,9 @@
                     </div>
                 </div>
                 <div class="bs-stepper-content">
-
-                    <form method="post" action="{{route('work-order.store')}}">
+                    <form method="post" action="{{route('orderDetailUpdate',$order_customer_info->order_id)}}">
                         @csrf
+                        @method('put')
                         <div class="content-header">
                             <h5 class="mb-0">Customer Details</h5>
                         </div>
@@ -105,55 +96,55 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="organization">Organization</label>
-                                <input type="text" id="organization" name="organization"
+                                <input type="text" id="organization" value="{{$order_customer_info->organization}}" name="organization"
                                     class="form-control form-control-sm" placeholder="Enter Organization" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="basicSelect">Client Type</label>
                                 <select class="form-control form-control-sm" id="client_type" name="client_type">
                                     <option label="">Select One</option>
-                                    <option value="isp">ISP</option>
-                                    <option value="corporate">Corporate</option>
+                                    <option value="isp" {{ $order_customer_info->client_type == 'isp' ? 'selected' : '' }}>ISP</option>
+                                    <option value="corporate" {{ $order_customer_info->client_type == 'corporate' ? 'selected' : '' }}>Corporate</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="technical-email">Technical Email</label>
-                                <input type="email" id="technical-email" name="technical_email"
+                                <input type="email" id="technical-email" name="technical_email" value="{{$order_customer_info->technical_email}}"
                                     class="form-control form-control-sm" placeholder="john.doe@email.com"
                                     aria-label="john.doe" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="billing-email">Billing Email</label>
-                                <input type="email" id="billing-email" name="billing_email"
+                                <input type="email" id="billing-email" name="billing_email" value="{{$order_customer_info->billing_email}}"
                                     class="form-control form-control-sm" placeholder="john.doe@email.com"
                                     aria-label="john.doe" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="mobile">Mobile</label>
-                                <input type="text" id="mobile" name="mobile" class="form-control form-control-sm"
+                                <input type="text" id="mobile" name="mobile" class="form-control form-control-sm" value="{{$order_customer_info->mobile}}"
                                     placeholder="01515664762" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="alt_mobile">Alter Mobile</label>
-                                <input type="text" id="alt_mobile" name="alt_mobile"
+                                <input type="text" id="alt_mobile" name="alt_mobile" value="{{$order_customer_info->alt_mobile}}"
                                     class="form-control form-control-sm" placeholder="01516664762" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="occupation">Occupation</label>
-                                <input type="text" id="occupation" name="occupation"
+                                <input type="text" id="occupation" name="occupation" value="{{$order_customer_info->occupation}}"
                                     class="form-control form-control-sm" placeholder="Enter occupation"
                                     aria-label="john.doe" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="technical-address">Technical Address</label>
-                                <input type="text" id="technical-address" name="technical_address" class="form-control form-control-sm"
+                                <input type="text" id="technical-address" name="technical_address" value="{{$order_customer_info->technical_address}}" class="form-control form-control-sm"
                                     placeholder="Technical Address" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="billing-address">Billing Address</label>
-                                <input type="text" id="billing-address" name="billing_address" class="form-control form-control-sm"
+                                <input type="text" id="billing-address" name="billing_address" value="{{$order_customer_info->billing_address}}" class="form-control form-control-sm"
                                     placeholder="Billing Address" />
                             </div>
                             <div class="form-group col-md-4">
@@ -161,7 +152,7 @@
                                 <select class="form-control form-control-sm" id="division_id" name="division_id">
                                     <option value="">Select One</option>
                                     @foreach($divisions as $list)
-                                    <option value="{{ $list->id }}"> {{ $list->name }}({{ $list->bn_name }})</option>
+                                    <option value="{{ $list->id }}" {{ $list->id == $order_customer_info->division_id ? 'selected' : '' }}> {{ $list->name }}({{ $list->bn_name }})</option>
                                    @endforeach
                                 </select>
                             </div>
@@ -179,26 +170,14 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <button class="btn btn-outline-secondary btn-prev waves-effect" disabled="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="feather feather-arrow-left align-middle mr-sm-25 mr-0">
+                            <button class="btn btn-primary btn-prev waves-effect waves-float waves-light">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0">
                                     <line x1="19" y1="12" x2="5" y2="12"></line>
                                     <polyline points="12 19 5 12 12 5"></polyline>
                                 </svg>
                                 <span class="align-middle d-sm-inline-block d-none">Previous</span>
                             </button>
-                            <button type="submit" class="btn btn-primary btn-next waves-effect waves-float waves-light">
-                                <span class="align-middle d-sm-inline-block d-none">Next</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="feather feather-arrow-right align-middle ml-sm-25 ml-0">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </button>
+                            <button class="btn btn-success btn-submit waves-effect waves-float waves-light">Submit</button>
                         </div>
                     </form>
 
@@ -228,12 +207,8 @@
 @section('page-js')
 <script src="{{ asset('') }}app-assets/js/scripts/forms/form-wizard.js"></script>
 @endsection
-
 @push('script')
-
     <script>
-
-
         $('document').ready(function () {
             $('#division_id').change(function () {
                 var id = $('#division_id').val();
@@ -265,6 +240,4 @@
 
         });
     </script>
-  
-
 @endpush

@@ -33,7 +33,7 @@
             <div class="bs-stepper wizard-modern modern-wizard-example">
                 <div class="bs-stepper-header">
                     <div class="step">
-                        <a href="{{route('work-order.create')}}" class="step-trigger">
+                        <a href="{{route('customerDetailEdit', $customer_doc->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">1 </span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Customer Details</span>
@@ -48,7 +48,7 @@
                         </svg>
                     </div>
                     <div class="step active">
-                        <a href="{{route('docEdit')}}" class="step-trigger">
+                        <a href="{{route('docEdit', $customer_doc->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">2</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Document Info</span>
@@ -57,7 +57,7 @@
                         </a>
                     </div>
                     <div class="step">
-                        <a href="{{route('orderEdit',1)}}" class="step-trigger">
+                        <a href="{{route('orderEdit',$customer_doc->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Info</span>

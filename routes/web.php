@@ -36,11 +36,14 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     Route::resource('user', UserController::class);
     Route::resource('work-order', OrderController::class);
+    Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);
+    Route::get('fetch-thana', [App\Http\Controllers\OrderController::class, 'fetch_thana']);
+
     Route::get('/doc-edit/{id?}', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('docEdit');
     Route::put('/doc-update/{id?}', [App\Http\Controllers\OrderController::class, 'docUpdate'])->name('docUpdate');
     Route::get('/order-edit/{id?}', [App\Http\Controllers\OrderController::class, 'orderEdit'])->name('orderEdit');
-    Route::get('/order-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderupdate'])->name('orderupdate');
     Route::get('/order-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('orderDetailEdit');
-    Route::get('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
+    Route::get('/customer-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'customerDetailEdit'])->name('customerDetailEdit');
+    Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
 });
 require('admin.php');
