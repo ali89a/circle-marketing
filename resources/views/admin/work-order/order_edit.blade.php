@@ -32,8 +32,8 @@
         <section class="modern-horizontal-wizard">
             <div class="bs-stepper wizard-modern modern-wizard-example">
                 <div class="bs-stepper-header">
-                    <div class="step active">
-                        <a href="{{url('#')}}" class="step-trigger">
+                    <div class="step">
+                        <a href="{{route('work-order.create')}}" class="step-trigger">
                             <span class="bs-stepper-box">1 </span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Customer Details</span>
@@ -56,25 +56,27 @@
                             </span>
                         </a>
                     </div>
-                    <div class="step crossed" data-target="#order-modern">
-                        <button type="button" class="step-trigger" aria-selected="false">
-                            <span class="bs-stepper-box">
-                                3
-                            </span>
+                    <div class="line">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right font-medium-2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step active">
+                        <a href="{{route('order.edit')}}" class="step-trigger">
+                            <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Info</span>
                                 <span class="bs-stepper-subtitle">Add Order Info</span>
                             </span>
-                        </button>
+                        </a>
                     </div>
-
                     <div class="line">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right font-medium-2">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('order.edit')}}" class="step-trigger">
+                        <a href="{{route('order.detail.edit')}}" class="step-trigger">
                             <span class="bs-stepper-box">4</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Details </span>
@@ -84,8 +86,7 @@
                     </div>
                 </div>
                 <div class="bs-stepper-content">
-                  
-                        <form method="post" action="{{route('work-order.store')}}">
+                <form method="post" action="{{route('work-order.store')}}">
                             @csrf
                             <div class="content-header">
                                 <h5 class="mb-0">Customer Details</h5>

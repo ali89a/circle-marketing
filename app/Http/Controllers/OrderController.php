@@ -34,6 +34,18 @@ class OrderController extends Controller
     {
         return view('admin.work-order.create');
     }
+    public function docEdit()
+    {
+        return view('admin.work-order.doc_edit');
+    }
+    public function orderEdit()
+    {
+        return view('admin.work-order.order_edit');
+    }
+    public function orderDetailEdit()
+    {
+        return view('admin.work-order.order_detail_edit');
+    }
 
     /**
      * Store a newly created resource in storage.
