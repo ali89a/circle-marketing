@@ -173,14 +173,14 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <button class="btn btn-outline-secondary btn-prev waves-effect" disabled="">
+                                <button class="btn btn-primary btn-prev waves-effect waves-float waves-light">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0">
                                         <line x1="19" y1="12" x2="5" y2="12"></line>
                                         <polyline points="12 19 5 12 12 5"></polyline>
                                     </svg>
                                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                 </button>
-                                <button type="submit" class="btn btn-primary btn-next waves-effect waves-float waves-light">
+                                <button class="btn btn-primary btn-next waves-effect waves-float waves-light">
                                     <span class="align-middle d-sm-inline-block d-none">Next</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right align-middle ml-sm-25 ml-0">
                                         <line x1="5" y1="12" x2="19" y2="12"></line>
