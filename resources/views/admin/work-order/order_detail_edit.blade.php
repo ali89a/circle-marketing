@@ -33,7 +33,7 @@
             <div class="bs-stepper wizard-modern modern-wizard-example">
                 <div class="bs-stepper-header">
                     <div class="step">
-                        <a href="{{route('work-order.create')}}" class="step-trigger">
+                        <a href="{{route('customerDetailEdit', $customer_order_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">1 </span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Customer Details</span>
@@ -41,17 +41,17 @@
                             </span>
                         </a>
                     </div>
-                   
+
                     <div class="line">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right font-medium-2">
                             <polyline points="9 18 15 12 9 6"></polyline>
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('doc.edit')}}" class="step-trigger">
+                        <a href="{{route('docEdit', $customer_order_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">2</span>
                             <span class="bs-stepper-label">
-                            <span class="bs-stepper-title">Document Info</span>
+                                <span class="bs-stepper-title">Document Info</span>
                                 <span class="bs-stepper-subtitle">Add Document Info</span>
                             </span>
                         </a>
@@ -62,7 +62,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('order.edit')}}" class="step-trigger">
+                        <a href="{{route('orderEdit', $customer_order_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Info</span>
@@ -76,7 +76,7 @@
                         </svg>
                     </div>
                     <div class="step active">
-                        <a href="{{route('order.detail.edit')}}" class="step-trigger">
+                        <a href="{{route('orderDetailEdit')}}" class="step-trigger">
                             <span class="bs-stepper-box">4</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Details </span>
@@ -86,93 +86,69 @@
                     </div>
                 </div>
                 <div class="bs-stepper-content">
-                <form method="post" action="{{route('work-order.store')}}">
-                            @csrf
-                            <div class="content-header">
-                                <h5 class="mb-0">Customer Details</h5>
-                                <small class="text-muted">Enter Your customer Details.</small>
+                    <form method="post" action="{{route('orderDetailUpdate',$customer_order_info->order_id)}}">
+                        @csrf
+                        @method('put')
+                        <div class="content-header">
+                            <h5 class="mb-0">Order Details</h5>
+                            <small class="text-muted">Enter Your Order Details.</small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-responsive table-bordered" id="internet_box" style="">
+
+
+                                    <tbody>
+                                        <tr>
+                                            <th colspan="3" class="text-center">Pricing/Capacity</th>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:200px;"></td>
+                                            <td>Capacity</td>
+
+                                            <td>Price</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Internet</td>
+                                            <td style="width:200px"><input type="number" value="{{$customer_order_info->internet_capacity_1}}" name="internet_capacity_1" min="0" class=""></td>
+
+                                            <td><input type="number" step=".01" value="{{$customer_order_info->internet_price_1}}" name="internet_price_1" min="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BDIX</td>
+                                            <td><input type="number" value="{{$customer_order_info->bdix_capacity_1}}" name="bdix_capacity_1" min="0"></td>
+
+                                            <td><input type="number" step=".01" value="{{$customer_order_info->bdix_price_1}}" name="bdix_price_1" min="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>It Service 1</td>
+                                            <td><input type="number" value="{{$customer_order_info->youtube_capacity_1}}" name="youtube_capacity_1" min="0"></td>
+
+                                            <td><input type="number" step=".01" value="{{$customer_order_info->youtube_price_1}}" name="youtube_price_1" min="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>It Service 2</td>
+                                            <td><input type="number" value="{{$customer_order_info->facebook_capacity_1}}" name="facebook_capacity_1" min="0"></td>
+
+                                            <td><input type="number" step=".01" value="{{$customer_order_info->facebook_price_1}}" name="facebook_price_1" min="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Data</td>
+                                            <td><input type="number" value="{{$customer_order_info->data_capacity_1}}" name="data_capacity_1" min="0"></td>
+
+                                            <td><input type="number" step=".01" value="{{$customer_order_info->data_price_1}}" name="data_price_1" min="0"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Price</td>
+                                            <td colspan="2"><input type="number" step=".01" name="total_price_for_special" min="0"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="organization">Organization</label>
-                                    <input type="text" id="organization" name="organization" class="form-control" placeholder="Enter Organization" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="client_type">Client Type</label>
-                                    <select class="select2 w-100" id="client_type" name="client_type">
-                                        <option label=" "></option>
-                                        <option value="isp">ISP</option>
-                                        <option value="corporate">Corporate</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="technical-email">Technical Email</label>
-                                    <input type="email" id="technical-email" name="technical_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="billing-email">Billing Email</label>
-                                    <input type="email" id="billing-email" name="billing_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="mobile">Mobile</label>
-                                    <input type="text" id="mobile" name="mobile" class="form-control" placeholder="01515664762" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="alt_mobile">Alter Mobile</label>
-                                    <input type="text" id="alt_mobile" name="alt_mobile" class="form-control" placeholder="01516664762" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="occupation">Occupation</label>
-                                    <input type="email" id="occupation" name="occupation" class="form-control" placeholder="Enter occupation" aria-label="john.doe" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="division">Division</label>
-                                    <select class="select2 w-100" id="division">
-                                        <option label=" "></option>
-                                        <option>UK</option>
-                                        <option>USA</option>
-                                        <option>Spain</option>
-                                        <option>France</option>
-                                        <option>Italy</option>
-                                        <option>Australia</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="district">District</label>
-                                    <select class="select2 w-100" id="district">
-                                        <option label=" "></option>
-                                        <option>UK</option>
-                                        <option>USA</option>
-                                        <option>Spain</option>
-                                        <option>France</option>
-                                        <option>Italy</option>
-                                        <option>Australia</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="upazila">Upazila</label>
-                                    <select class="select2 w-100" id="upazila">
-                                        <option label=" "></option>
-                                        <option>UK</option>
-                                        <option>USA</option>
-                                        <option>Spain</option>
-                                        <option>France</option>
-                                        <option>Italy</option>
-                                        <option>Australia</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="technical-address">Technical Address</label>
-                                    <input type="text" id="technical-address" name="technical_address" class="form-control" placeholder="Technical Address" />
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label class="form-label" for="billing-address">Billing Address</label>
-                                    <input type="text" id="billing-address" name="billing_address" class="form-control" placeholder="Billing Address" />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
+
+                        </div>
+                        <div class="d-flex justify-content-between">
                             <button class="btn btn-primary btn-prev waves-effect waves-float waves-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0">
                                     <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -182,8 +158,8 @@
                             </button>
                             <button class="btn btn-success btn-submit waves-effect waves-float waves-light">Submit</button>
                         </div>
-                        </form>
-                  
+                    </form>
+
                 </div>
             </div>
         </section>
