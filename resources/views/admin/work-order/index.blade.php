@@ -23,15 +23,22 @@
         <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
             <div class="form-group breadcrumb-right">
                 <div class="dropdown">
-                    <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle waves-effect waves-float waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
+                    <button
+                        class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle waves-effect waves-float waves-light"
+                        type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="feather feather-grid">
                             <rect x="3" y="3" width="7" height="7"></rect>
                             <rect x="14" y="3" width="7" height="7"></rect>
                             <rect x="14" y="14" width="7" height="7"></rect>
                             <rect x="3" y="14" width="7" height="7"></rect>
                         </svg></button>
-
                     <div class="dropdown-menu dropdown-menu-right" style="">
-                        <a class="dropdown-item" href="{{route('work-order.create')}}"><svg xmlns="#" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
+                        <a class="dropdown-item" href="{{route('work-order.create')}}"><svg xmlns="#" width="14"
+                                height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-check-square mr-1">
                                 <polyline points="9 11 12 14 22 4"></polyline>
                                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                             </svg><span class="align-middle">Add Work Order</span></a>
@@ -40,11 +47,9 @@
             </div>
         </div>
     </div>
-
     <div class="content-body">
         <!-- Responsive tables start -->
         <div class="row" id="table-responsive">
-
             <div class="col-12">
                 <div class="card">
                     <div class="box ml-2 mr-2 mt-2">
@@ -67,11 +72,13 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="form-label" for="vertical-landmark">Org/Customer/ID</label>
-                                <input type="text" name="scl_id" id="vertical-landmark" class="form-control form-control-sm" placeholder="Borough bridge" />
+                                <input type="text" name="scl_id" id="vertical-landmark"
+                                    class="form-control form-control-sm" placeholder="Borough bridge" />
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="form-label" for="vertical-landmark">Link ID/SCL ID</label>
-                                <input type="text" name="scl_id" id="vertical-landmark" class="form-control form-control-sm" placeholder="Borough bridge" />
+                                <input type="text" name="scl_id" id="vertical-landmark"
+                                    class="form-control form-control-sm" placeholder="Borough bridge" />
                             </div>
                             <div class="form-group col-md-2">
                                 <label class="form-label" for="pincode2">Submitted By</label>
@@ -93,12 +100,15 @@
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label for="fp-range">Range</label>
-                                <input type="text" id="fp-range" class="data-type form-control form-control-sm flatpickr-range flatpickr-input active" placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
+                                <input type="text" id="fp-range"
+                                    class="data-type form-control form-control-sm flatpickr-range flatpickr-input active"
+                                    placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
                             </div>
                             <div class="col-sm-3">
-                                <button type="submit" style="margin-top:20px;" class="btn btn-info"><i class="fa fa-search"></i>Search</button>
-                                <a style="margin-top:20px;" href="#" class="btn btn-primary"><i class="fa fa-refresh"></i>Refresh</a>
-
+                                <button type="submit" style="margin-top:20px;" class="btn btn-info"><i
+                                        class="fa fa-search"></i>Search</button>
+                                <a style="margin-top:20px;" href="#" class="btn btn-primary"><i
+                                        class="fa fa-refresh"></i>Refresh</a>
                             </div>
                         </div>
                     </div>
@@ -108,7 +118,6 @@
                     <div class="table-responsive">
                         <table class="table mb-0">
                             <thead>
-
                                 <tr class="alert alert-dark">
                                     <th>Order Id</th>
                                     <th class="text-center">Action</th>
@@ -144,7 +153,8 @@
                                                 <div class="history">
                                                     <form action="" method="post">
                                                         <input type="hidden" value="666" name="history">
-                                                        <button type="submit" class="btn btn-default btn-xs btn-block">H (4) <i class="fa fa-history"></i></button>
+                                                        <button type="submit" class="btn btn-default btn-xs btn-block">H
+                                                            (4) <i class="fa fa-history"></i></button>
                                                     </form>
                                                 </div>
                                                 <a href="" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-table"></i> Invoice List
@@ -182,19 +192,19 @@
                                                 <tr>
                                                     <td class="bg-gray">NWS</td>
                                                     <td class="hidework">
-                                                        <p class="btn bg-purple disabled btn-xs btn-block">processing..</p>
+                                                        <p class="btn bg-purple disabled btn-xs btn-block">processing..
+                                                        </p>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </td>
-
                                     <td>
-
                                         <table class="table table-bordered bg-orange">
                                             <tbody>
                                                 <tr>
-                                                    <td style="font-size:12px;"><strong>Own/Nttn Type:</strong> Nttn</td>
+                                                    <td style="font-size:12px;"><strong>Own/Nttn Type:</strong> Nttn
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td style="font-size:12px;"><strong>Price :</strong>
@@ -202,19 +212,17 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-
-
                                         <table class="table table-bordered">
                                             <tbody>
                                                 <tr>
-                                                    <td style="font-size:12px;"><strong>Link ID:</strong> CN_210604_666</td>
+                                                    <td style="font-size:12px;"><strong>Link ID:</strong> CN_210604_666
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td style="font-size:12px;"><strong>SCL ID:</strong> </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-
                                         <table class="approvaltable approvaltable666">
                                             <tbody>
                                                 <tr>
@@ -237,11 +245,8 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-
                                     </td>
                                     <td>
-
-
                                         <table class="table table-bordered bw_details cdetails">
                                             <tbody>
                                                 <tr>
@@ -294,40 +299,63 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>Work order:</td>
-                                                                <td><a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/work_order3.JPG" data-lightbox="work_order3.JPG" class="text-center btn btn-primary btn-xs">View image</a>
+                                                                <td><a id="single_image"
+                                                                        href="https://demo.circlenetworkbd.net/assets/uploads/customer/work_order3.JPG"
+                                                                        data-lightbox="work_order3.JPG"
+                                                                        class="text-center btn btn-primary btn-xs">View
+                                                                        image</a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>IP Agreement</td>
                                                                 <td>
-                                                                    <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/ip_autorize5.jpg" data-lightbox="ip_autorize5.jpg" class="text-center btn btn-primary btn-xs">View image</a>
+                                                                    <a id="single_image"
+                                                                        href="https://demo.circlenetworkbd.net/assets/uploads/customer/ip_autorize5.jpg"
+                                                                        data-lightbox="ip_autorize5.jpg"
+                                                                        class="text-center btn btn-primary btn-xs">View
+                                                                        image</a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Authorization(Cor)</td>
                                                                 <td>
-                                                                    <a data-fancybox="" data-type="iframe" data-src="https://demo.circlenetworkbd.net/assets/uploads/customer/polly_it1.pdf" href="javascript:;" class="text-center btn btn-primary btn-xs">View Pdf</a>
+                                                                    <a data-fancybox="" data-type="iframe"
+                                                                        data-src="https://demo.circlenetworkbd.net/assets/uploads/customer/polly_it1.pdf"
+                                                                        href="javascript:;"
+                                                                        class="text-center btn btn-primary btn-xs">View
+                                                                        Pdf</a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>License Copy</td>
                                                                 <td>
-                                                                    <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/linices9.jpg" data-lightbox="linices9.jpg" class="text-center btn btn-primary btn-xs">View image</a>
+                                                                    <a id="single_image"
+                                                                        href="https://demo.circlenetworkbd.net/assets/uploads/customer/linices9.jpg"
+                                                                        data-lightbox="linices9.jpg"
+                                                                        class="text-center btn btn-primary btn-xs">View
+                                                                        image</a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Trade License</td>
                                                                 <td>
-                                                                    <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/Trade_License7.jpg" data-lightbox="Trade_License7.jpg" class="text-center btn btn-primary btn-xs">View image</a>
+                                                                    <a id="single_image"
+                                                                        href="https://demo.circlenetworkbd.net/assets/uploads/customer/Trade_License7.jpg"
+                                                                        data-lightbox="Trade_License7.jpg"
+                                                                        class="text-center btn btn-primary btn-xs">View
+                                                                        image</a>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Nid Copy</td>
                                                                 <td>
-                                                                    <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/nid_final1.JPG" data-lightbox="nid_final1.JPG" class="text-center btn btn-primary btn-xs">View image</a>
+                                                                    <a id="single_image"
+                                                                        href="https://demo.circlenetworkbd.net/assets/uploads/customer/nid_final1.JPG"
+                                                                        data-lightbox="nid_final1.JPG"
+                                                                        class="text-center btn btn-primary btn-xs">View
+                                                                        image</a>
                                                                 </td>
                                                             </tr>
-
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -339,8 +367,9 @@
                                         <div class="col">
                                             <div class="collapse multi-collapse" id="666">
                                                 <div class="card card-body">
-
-                                                    <button id="uphistory_666" type="button" class="uphistory btn btn-info btn-xs" data-toggle="modal" data-target="#uphistory">
+                                                    <button id="uphistory_666" type="button"
+                                                        class="uphistory btn btn-info btn-xs" data-toggle="modal"
+                                                        data-target="#uphistory">
                                                         <input type="hidden" value="666">View History
                                                     </button>
                                                     <table class="table table-bordered bw_details table-stripd">
@@ -356,7 +385,6 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>Internet (1st)</td>
-
                                                                 <td>1100</td>
                                                                 <td>0</td>
                                                                 <td>100</td>
@@ -435,19 +463,16 @@
                                                                 <td>0</td>
                                                                 <td class="text-right onlym allhide">0</td>
                                                             </tr>
-
                                                             <tr>
                                                                 <td>Domain</td>
                                                                 <td colspan="4"></td>
                                                                 <td class="text-right onlym allhide">0</td>
                                                             </tr>
-
                                                             <tr>
                                                                 <td>Hosting</td>
                                                                 <td colspan="4"></td>
                                                                 <td class="text-right onlym allhide">0</td>
                                                             </tr>
-
                                                             <tr>
                                                                 <td colspan="5">Combine Price</td>
                                                                 <td class="text-right allhide">0</td>
@@ -456,12 +481,10 @@
                                                                 <td colspan="5">OTC</td>
                                                                 <td class="text-right allhide">0</td>
                                                             </tr>
-
                                                             <tr>
                                                                 <td colspan="5">Core Rent</td>
                                                                 <td class="text-right allhide">0</td>
                                                             </tr>
-
                                                             <tr>
                                                                 <td colspan="5">Real Ip</td>
                                                                 <td class="text-right allhide">0</td>
@@ -469,14 +492,13 @@
                                                         </tbody>
                                                     </table>
                                                     <div class="mhistory666">
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <a style="margin-top:10px" class="btn btn-primary btn-xs btn-flat btn-block" data-toggle="collapse" href="#n666" role="button" aria-expanded="false" aria-controls="n666">View NOC</a>
-
+                                        <a style="margin-top:10px" class="btn btn-primary btn-xs btn-flat btn-block"
+                                            data-toggle="collapse" href="#n666" role="button" aria-expanded="false"
+                                            aria-controls="n666">View NOC</a>
                                         <div class="col">
                                             <div class="collapse multi-collapse" id="n666">
                                                 <div class="card card-body">
@@ -522,7 +544,8 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>MRTG/Cpanel</td>
-                                                                <td colspan="3">http://snmp.circlenetworkbd.com/cacti</td>
+                                                                <td colspan="3">http://snmp.circlenetworkbd.com/cacti
+                                                                </td>
                                                                 <td>USER: hkrup</td>
                                                                 <td>PASSWORD: circle@hkrup</td>
                                                             </tr>
@@ -552,7 +575,6 @@
                                                     <td>Bill Start Date</td>
                                                     <td>05-Jun-2021</td>
                                                 </tr>
-
                                                 <tr>
                                                     <td class="bg-orange">Delivery Date</td>
                                                     <td class="bg-orange">04-Jun-2021</td>
@@ -561,7 +583,6 @@
                                                     <td class="bg-gray">NOC Delivered</td>
                                                     <td class="bg-gray">08-Jun-2021</td>
                                                 </tr>
-
                                                 <tr>
                                                     <td class="bg-gray">Bill Generate</td>
                                                     <td class="bg-gray">by_marketing_date</td>
@@ -596,7 +617,8 @@
 @section('vendor-css')
 
 <link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/vendors/css/pickers/pickadate/pickadate.css">
-<link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('/') }}app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
 
 
 @endsection
