@@ -126,46 +126,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                                @foreach($orders as $order)
                                 <tr>
-                                    <td>666</td>
-
+                                    <td>{{ $order->id }}</td>
                                     <td class="text-center">
                                         <ul class="list-inline" style="width:120px">
                                             <li>
                                                 <!--Marketing Executive section-->
-                                                <a href="https://demo.circlenetworkbd.net/workorder/order_cancel/666" class="btn btn-danger btn-xs btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
-                                                <a href="https://demo.circlenetworkbd.net/workorder/edit/666" class="btn btn-primary btn-xs btn-block"><i class="fa fa-edit"></i> Edit</a>
-                                                <a href="https://demo.circlenetworkbd.net/workorder/upgrade/666" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-edit"></i> UP/DW</a>
+                                                <a href="" class="btn btn-danger btn-xs btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
+                                                <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-xs btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                                <a href="" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-edit"></i> UP/DW</a>
 
                                                 <!--Marketing Admin section-->
 
                                                 <!--Account Executive section-->
-
-
                                                 <!--Account Admin section-->
-
-
-
-
-
-                                                {{--
-<a onclick="return check();" href="https://demo.circlenetworkbd.net/workorder/delete/666" class="btn btn-danger btn-xs btn-block hide"><i class="fa fa-remove"></i></a> --}}
-
                                                 <div class="history">
-                                                    <form action="https://demo.circlenetworkbd.net/workorder/historyview/" method="post">
-
+                                                    <form action="" method="post">
                                                         <input type="hidden" value="666" name="history">
                                                         <button type="submit" class="btn btn-default btn-xs btn-block">H (4) <i class="fa fa-history"></i></button>
                                                     </form>
                                                 </div>
-
-
-                                                <!--    <a href="https://demo.circlenetworkbd.net/workorder/historyview/666" class="btn btn-default btn-xs btn-block"> H (4) <i class="fa fa-history"></i></a>-->
-
-
-
-                                                <a href="https://demo.circlenetworkbd.net/workorder/invoice_list/666" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-table"></i> Invoice List
+                                                <a href="" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-table"></i> Invoice List
                                                 </a>
                                             </li>
                                         </ul>
@@ -182,34 +164,19 @@
                                                 <tr>
                                                     <td class="bg-gray">A A</td>
                                                     <td class="text-center acstatus666">
-                                                    <p class="bg-gray btn-block">pending</p>
+                                                        <p class="bg-gray btn-block">pending</p>
                                                     </td>
                                                 </tr>
-
-
-
                                                 <tr>
                                                     <td class="bg-gray">COO</td>
-
-
-
                                                     <td class="text-center coostatus666">
                                                         <p class="bg-gray btn-block text-center">pending</p>
                                                     </td>
-
-
-
-
                                                 </tr>
-
-
-
                                                 <tr>
                                                     <td class="bg-gray">N A</td>
                                                     <td class="text-center nstatus666">
                                                         <p class="bg-gray btn-block">pending</p>
-
-
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -218,16 +185,6 @@
                                                         <p class="btn bg-purple disabled btn-xs btn-block">processing..</p>
                                                     </td>
                                                 </tr>
-
-
-
-
-
-
-
-
-
-
                                             </tbody>
                                         </table>
                                     </td>
@@ -277,7 +234,6 @@
                                                     <td class="bg-gray">A</td>
                                                     <td>COO: <strong class="coostatus666">pending</strong></td>
                                                     <td></td>
-                                                    <!--                                        <td>Approved By: <strong></strong></td>-->
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -295,7 +251,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Org :</td>
-                                                    <td style="width:150px;white-space: normal;min-width:150px">HK Net</td>
+                                                    <td style="width:150px;white-space: normal;min-width:150px">{{ $order->customer_details->organization }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Email</td>
@@ -303,7 +259,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Mo</td>
-                                                    <td>01677887888</td>
+                                                    <td>{{ $order->customer_details->organization }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Security<br>money</td>
@@ -317,13 +273,11 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-
                                         <a class="btn btn-primary btn-xs btn-flat btn-block" data-toggle="collapse" href="#c666" role="button" aria-expanded="false" aria-controls="c666">View Details</a>
                                         <div class="col">
                                             <div class="collapse multi-collapse" id="c666">
                                                 <div class="card card-body">
                                                     <table class="table table-bordered bw_details">
-
                                                         <tbody>
                                                             <tr>
                                                                 <td>Loc :</td>
@@ -376,24 +330,12 @@
 
                                                         </tbody>
                                                     </table>
-
-
                                                 </div>
                                             </div>
-
                                         </div>
-
-
                                     </td>
-
-
-
                                     <td>
-
                                         <a class="btn btn-primary btn-xs btn-flat btn-block" data-toggle="collapse" href="#666" role="button" aria-expanded="false" aria-controls="666">View Marketing</a>
-
-
-
                                         <div class="col">
                                             <div class="collapse multi-collapse" id="666">
                                                 <div class="card card-body">
@@ -401,9 +343,6 @@
                                                     <button id="uphistory_666" type="button" class="uphistory btn btn-info btn-xs" data-toggle="modal" data-target="#uphistory">
                                                         <input type="hidden" value="666">View History
                                                     </button>
-
-
-
                                                     <table class="table table-bordered bw_details table-stripd">
                                                         <caption class="text-center">Marketing Requirement</caption>
                                                         <tbody>
@@ -423,20 +362,15 @@
                                                                 <td>100</td>
                                                                 <td>0</td>
                                                                 <td class="text-right onlym allhide">365</td>
-
                                                             </tr>
-
                                                             <tr>
                                                                 <td>Internet(2nd)</td>
-
                                                                 <td>0</td>
                                                                 <td></td>
                                                                 <td>0</td>
                                                                 <td>0</td>
                                                                 <td class="text-right onlym allhide">0</td>
-
                                                             </tr>
-
                                                             <tr>
                                                                 <td>BDIX(1st)</td>
                                                                 <td></td>
@@ -444,9 +378,7 @@
                                                                 <td>0</td>
                                                                 <td>0</td>
                                                                 <td class="text-right onlym allhide">0</td>
-
                                                             </tr>
-
                                                             <tr>
                                                                 <td>BDIX(2nd)</td>
                                                                 <td>0</td>
@@ -454,10 +386,7 @@
                                                                 <td>0</td>
                                                                 <td>0</td>
                                                                 <td class="text-right onlym allhide">0</td>
-
                                                             </tr>
-
-
                                                             <tr>
                                                                 <td>It Service 1 (1st)</td>
                                                                 <td></td>
@@ -465,9 +394,7 @@
                                                                 <td>0</td>
                                                                 <td>0</td>
                                                                 <td class="text-right onlym allhide">0</td>
-
                                                             </tr>
-
                                                             <tr>
                                                                 <td>It Service 1 (2st)</td>
                                                                 <td>0</td>
@@ -475,10 +402,7 @@
                                                                 <td>0</td>
                                                                 <td>0</td>
                                                                 <td class="text-right onlym allhide">0</td>
-
                                                             </tr>
-
-
                                                             <tr>
                                                                 <td>It Service 2(1st)</td>
                                                                 <td></td>
@@ -486,9 +410,7 @@
                                                                 <td>0</td>
                                                                 <td>0</td>
                                                                 <td class="text-right onlym allhide">0</td>
-
                                                             </tr>
-
                                                             <tr>
                                                                 <td>It Service 2(2nd)</td>
                                                                 <td>0</td>
@@ -497,25 +419,20 @@
                                                                 <td>0</td>
                                                                 <td class="text-right onlym allhide">0</td>
                                                             </tr>
-
-
                                                             <tr>
                                                                 <td>Data (1st)</td>
                                                                 <td>3000</td>
                                                                 <td></td>
                                                                 <td>0</td>
                                                                 <td>0</td>
-
                                                                 <td class="text-right onlym allhide">42</td>
                                                             </tr>
-
                                                             <tr>
                                                                 <td>Data(2nd)</td>
                                                                 <td>0</td>
                                                                 <td></td>
                                                                 <td>0</td>
                                                                 <td>0</td>
-
                                                                 <td class="text-right onlym allhide">0</td>
                                                             </tr>
 
@@ -549,12 +466,8 @@
                                                                 <td colspan="5">Real Ip</td>
                                                                 <td class="text-right allhide">0</td>
                                                             </tr>
-
-
-
                                                         </tbody>
                                                     </table>
-
                                                     <div class="mhistory666">
 
                                                     </div>
@@ -613,22 +526,12 @@
                                                                 <td>USER: hkrup</td>
                                                                 <td>PASSWORD: circle@hkrup</td>
                                                             </tr>
-
-
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
-
                                         <br><br>
-
-                                        <!--                                            <a target="_blank" href="https://demo.circlenetworkbd.net/workorder/installation_pdf/9284" class="btn btn-success btn-xs btn-flat btn-block">Instalation <i class="fa fa-print"></i></a>
-                                                        <a target="_blank"  href="https://demo.circlenetworkbd.net/workorder/upgradation_pdf/9284" class="btn btn-success btn-xs btn-flat btn-block">Upgradation <i class="fa fa-print"></i></a> -->
-
-
-
-
                                     </td>
                                     <td class="text-center">fiber</td>
                                     <td class="text-center"></td>
@@ -663,9 +566,6 @@
                                                     <td class="bg-gray">Bill Generate</td>
                                                     <td class="bg-gray">by_marketing_date</td>
                                                 </tr>
-
-
-
                                                 <tr>
                                                     <td class="bg-orange">UP/Down Delivery </td>
                                                     <td class="bg-orange">15-Jun-2021</td>
@@ -674,21 +574,13 @@
                                                     <td class="bg-gray">NOC UP Delivered</td>
                                                     <td class="bg-gray"></td>
                                                 </tr>
-
                                             </tbody>
                                         </table>
-
                                     </td>
-
                                     <td class="text-center">04-Jun-2021 04:27:04 PM</td>
                                     <td class="text-center">04-Jun-2021 04:18:17 PM</td>
-
-
-
-
-
-
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\OrderCustomerDocument;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -25,7 +26,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('admin.work-order.index');
+        $data=[
+            'orders'=>Order::with('customer_details')->get(),
+        ];
+        return view('admin.work-order.index', $data);
     }
 
     /**
@@ -37,6 +41,7 @@ class OrderController extends Controller
     {
         $data=[
             'divisions'=>Division::all(),
+            'customers'=>User::all(),
         ];
         return view('admin.work-order.create',$data);
     }
