@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\CustomerReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,5 +40,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/doc-edit', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('doc.edit');
     Route::get('/order-edit', [App\Http\Controllers\OrderController::class, 'orderEdit'])->name('order.edit');
     Route::get('/order-detail-edit', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('order.detail.edit');
+    Route::resource('report', CustomerReportController::class);
+    Route::get('/pending-list', [CustomerReportController::class, 'pendingList'])->name('pendingList');
 });
 require('admin.php');
