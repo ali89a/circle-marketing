@@ -120,7 +120,7 @@ class CustomerReportController extends Controller
 
     public function fetchAll($id)
     {
-        $reports = CustomerReport::where('id', $id)->get();
+        $reports = CustomerReport::where('id', $id)->first();
         return $reports;
     }
 }

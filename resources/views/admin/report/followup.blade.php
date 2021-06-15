@@ -4,7 +4,7 @@
 <div class="content-wrapper">
     <div class="content-body">
         <section class="modern-horizontal-wizard">
-            <div class="bs-stepper wizard-modern modern-wizard-example">
+            <div class="wizard-modern modern-wizard-example">
                 <div class="bs-stepper-content">
                     <form class="form" id="user_form" method="post" action="#" enctype="multipart/form-data">
                         <div class="content-header">
@@ -12,7 +12,7 @@
                             <small><b>Entry Daily Report</b></small>
                         </div>
                         <hr style="border: 1px solid">
-                        <div class="row">
+                        <div class="row" id="vue_app">
                             <div class="alert"></div>
                             <div class="col-md-6">
                                 <div class="details">
@@ -24,8 +24,7 @@
                                             <td>Select Client:</td>
                                             <td>
                                                 <select class="form-control form-control-sm" id="client_id"
-                                                name="SubCategoryId"
-                                                    v-model="sub_category_id" @change="fetch_report">
+                                                    name="report_id" v-model="report_id" @change="fetch_report">
                                                     <option label="">Select One</option>
                                                     @foreach ($reports as $item)
                                                     <option value="{{$item->id}}">{{$item->cname}}</option>
@@ -36,38 +35,37 @@
                                         <tr>
                                             <td width="200">Client/Organization Name:</td>
                                             <td>
-                                                <div id="client_name" v-model="report_id" value="row.id"
-                                                    v-for="row in report" v-html="row.cname"></div>
+                                                <div id="client_name">@{{item.cname}}</div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>District:</td>
                                             <td>
-                                                <div id="districe"></div>
+                                                <div id="district">@{{item.district}}</div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Location: (Upazila) </td>
                                             <td>
-                                                <div id="upazila"></div>
+                                                <div id="upazila">@{{item.upazila}}</div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Location:</td>
                                             <td>
-                                                <div id="address"></div>
+                                                <div id="address">@{{item.address}}</div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Contact Person:</td>
                                             <td>
-                                                <div id="contact_person"></div>
+                                                <div id="contact_person">@{{item.contact_person}}</div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Contact Email:</td>
                                             <td>
-                                                <div id="email"></div>
+                                                <div id="email">@{{item.email}}</div>
                                             </td>
                                         </tr>
                                         <tr>
@@ -80,11 +78,10 @@
                                                     <option value="Cvisit">Corporate Visit</option>
                                                     <option value="phone">Phone</option>
                                                 </select> --}}
-                                                <select name="visit_phone" id="visit_phone" class="form-control"
-                                                    v-model="tv_series_id">
+                                                <select name="visit_phone" id="visit_phone" class="form-control">
                                                     <option value="">Select one</option>
-                                                    <option :value="row.id" v-for="row in tv_series"
-                                                        v-html="row.tvSeriesTitle" style="max-width: 200px">
+                                                    <option :value="row.id" v-for="row in items"
+                                                        v-html="row.visit_phone" style="max-width: 200px">
                                                     </option>
                                                 </select>
                                             </td>
@@ -174,50 +171,9 @@
 
 @push('script')
 
-
-{{-- <script type="text/javascript">
-
-    $(function () {
-        
-        var uid = 111 
-
-        
-        
-        
-        $('#client_id').change(function () {
-            var client_id = $(this).val();
-            console.log(client_id);
-            $.ajax({
-                type: "POST",
-                url: 'https://demo.circlenetworkbd.net/report/get_client_info',
-                data: {'client_id': client_id},
-                dataType: "JSON",
-                success: function (data)
-                {
-                    console.log(data);
-                    if(data!=null){
-                        $('#customer_id').val(data.report_customer_id);
-                        $('#districe').html(data.district_name);
-                        $('#upazila').html(data.upazila_name);
-                        $('#client_name').html(data.client_name);       
-                        $('#contact_person').html(data.contact_person);
-                        $('#address').html(data.address);
-                        $('#contact_number').html(data.contact_number);
-                        $('#email').html(data.email);
-                        } 
-                                            
-                    
-                }
-                
-            });
-
-        });
-        
-        
-    });
-</script> --}}
-
-
+<script src="{{ asset('vue-js/vue/dist/vue.js') }}"></script>
+<script src="{{ asset('vue-js/axios/dist/axios.min.js') }}"></script>
+<script src="{{ asset('vue-js/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <script>
     //  console.log('error');
     $(document).ready(function() {
@@ -225,26 +181,24 @@
                 el: '#vue_app',
                 data: {
                     config: {
-                        get_url: "{{ url('fetch-report-id') }}",
+                        get_url: "{{ url('admin/fetch-report-id') }}",
                     },
                     sub_category_id: '',
-                    tv_series_id: '',
-                    product_id: '',
-                    tv_series: [],
-                    seasons: [],
-                    products: [],
-                    items: [],
+                    report_id: '',
+                    report: [],
+                    item: [],
                 },
                 methods: {
                     fetch_report() {
                         var vm = this;
-                        var slug = vm.sub_category_id;
+                        var slug = vm.report_id;
+                      //alert(slug);
                         if (slug) {
                             axios.get(this.config.get_url + '/' + slug).then(
                                 function(response) {
 
-                                    vm.tv_series = response.data;
-                                    console.log(vm.tv_series);
+                                    vm.item= response.data;
+                                    console.log(vm.item);
 
 
 
