@@ -273,6 +273,7 @@ class OrderController extends Controller
             DB::beginTransaction();
             $order = Order::where('id', $id)->first();
             $order->type = $request->type;
+            $order->price = $request->price;
             $order->scl_id = $request->scl_id;
             $order->gmap_location = $request->gmap_location;
             $order->link_id = $request->link_id;
