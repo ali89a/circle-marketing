@@ -85,10 +85,23 @@
                                         @foreach ($pendingList as $item)
                                         <tr>
                                             <td>{{$item->id}}</td>
-                                            <td class="text-center">
-                                                <ul class="list-inline" style="width:80px">
-                                                    <p class="label label-success">{{$item->contact_number}}</p>
-                                                </ul>
+                                            <td>
+                                                @if($item->ctype=='new')
+                                                <a href="{{route('approve',['id' => $item->id])}}"
+                                                    class="btn btn-success btn-circle col-sm">Approve
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                                {{-- @else
+                                                <a href="{{route('cancel',['id' => $item->id])}}"
+                                                class="btn btn-warning btn-circle">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                </a> --}}
+                                                @endif
+
+                                                <a href="{{route('cancel',['id' => $item->id])}}"
+                                                    class="mt-1 btn btn-warning btn-circle col-sm">Cancel
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                </a>
                                             </td>
                                             <td>{{ $item->cname }}</td>
                                             <td>{{ $item->location_district }} </td>
@@ -99,17 +112,21 @@
                                             <td>{{ $item->visit_phone }}</td>
                                             <td>{{ $item->ctype }}</td>
                                             <td>{{ $item->isp_type }}</td>
-                                            <td>{{ $item->visiting_card }} </td>
+                                            <td>
+                                                <img class="img-fluid" style="width:100px; height: auto;"
+                                                    src="{{asset('storage/visitingCard/'.$item->visiting_card)}}"
+                                                    alt="No Image">
+                                            </td>
                                             <td>{{ $item->bandwidth }}</td>
                                             <td>{{ $item->rate }}</td>
                                             <td>{{ $item->otc }}</td>
                                             <td>{{ $item->remark }}</td>
                                             <td>{{ $item->audio }}</td>
                                             <td>
-                                                <a id="single_image" href="#"
-                                                    data-lightbox="1_OfibXlsns7WzN7a2WpaI1w.png"><img
-                                                        src="{{ asset($item->visiting_card) }}                                                                                                                                        "
-                                                        width="50"></a> </td>
+                                                <img class="img-fluid" style="width:100px; height: auto;"
+                                                    src="{{asset('storage/visitingCard/'.$item->visiting_card)}}"
+                                                    alt="No Image">
+                                            </td>
                                             <td>{{ $item->id }}</td>
                                             <td>
                                                 <div class="audiofile">
@@ -129,7 +146,7 @@
                                 </table>
 
                             </div>
-                           
+
                         </div>
                     </div>
 

@@ -6,7 +6,7 @@
         <section class="modern-horizontal-wizard">
             <div class="bs-stepper wizard-modern modern-wizard-example">
                 <div class="bs-stepper-content">
-                    <form method="post" action="{{route('report.store')}}">
+                    <form method="post" action="{{route('report.store')}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="createdBy" value="{{ Auth::user()->id }}">
                         <div class="content-header">
@@ -156,10 +156,10 @@
                                             <td class="ctype">
                                                 <select class="form-control form-control-sm" id="client_type"
                                                     name="ctype">
-                                                    <option label="">Select One</option>
-                                                    <option label="new">New Client</option>
-                                                    <option label="followUp">FollowUp</option>
-                                                    <option label="reconnect">Reconnect</option>
+                                                    <option value=""></option>
+                                                    <option value="new">New Client</option>
+                                                    {{-- <option value="followUp">FollowUp</option>
+                                                    <option value="reconnect">Reconnect</option> --}}
                                                 </select>
                                             </td>
                                         </tr>
