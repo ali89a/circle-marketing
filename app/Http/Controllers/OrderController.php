@@ -109,6 +109,41 @@ class OrderController extends Controller
         ];
         return view('admin.work-order.customer_detail_edit', $data);
     }
+    public function customerDetailUpdate(Request $request,$id)
+    {
+        
+        try {
+            DB::beginTransaction();
+
+            $customer_info =OrderCustomerInfo::where('order_id',$id)->first();
+            $customer_info->organization = $request->organization;
+            $customer_info->client_type = $request->client_type;
+            $customer_info->occupation = $request->occupation;
+            $customer_info->technical_email = $request->technical_email;
+            $customer_info->billing_email = $request->billing_email;
+            $customer_info->technical_address = $request->technical_address;
+            $customer_info->billing_address = $request->billing_address;
+            $customer_info->mobile = $request->mobile;
+            $customer_info->alter_mobile = $request->alter_mobile;
+            $customer_info->customer_id = $request->customer_id;
+            $customer_info->division_id = $request->division_id;
+            $customer_info->district_id = $request->district_id;
+            $customer_info->upazila_id = $request->upazila_id;
+            $customer_info->save();
+            DB::commit();
+            Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
+            return redirect()->route('docEdit', ['id' => $id]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+            $output = [
+                'success' => 0,
+                'msg' => __("messages.something_went_wrong")
+            ];
+            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+            return back();
+        }
+    }
     public function orderDetailUpdate(Request $request, $id)
     {
         try {
@@ -253,7 +288,9 @@ class OrderController extends Controller
             $order->otc = $request->otc;
             $order->real_ip = $request->real_ip;
             $order->visit_type = $request->visit_type;
+            $order->connect_type = $request->connect_type;
             $order->security_money_type = $request->security_money_type;
+            $order->security_money_amount = $request->security_money_amount;
             $order->marketing_user_id = $request->marketing_user_id;
             $order->accounts_user_id = $request->accounts_user_id;
             $order->save();

@@ -91,24 +91,39 @@
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label class="form-label" for="work_order">Work Order</label>
                                 <input type="file" name="work_order" id="work_order" class="form-control">
                             </div>
-                            <div class="form-group col-md-4">
+
+                            <div class="form-group col-md-3">
                                 <label class="form-label" for="authorization">Authorization</label>
                                 <input type="file" id="authorization" name="authorization" class="form-control">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-4">
+
+                            <div class="form-group col-md-3">
                                 <label class="form-label" for="ip_agreement">Ip Agreement</label>
                                 <input type="file" name="ip_agreement" id="ip_agreement" class="form-control">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label class="form-label" for="noc">NOC</label>
                                 <input type="file" id="noc" name="noc" class="form-control">
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <img src="{{asset('storage/work_order/'.$customer_doc->work_order)}}" alt=" {{ $customer_doc->work_order }}" class="img-fluid">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <img src="{{asset('storage/work_order/'.$customer_doc->authorization)}}" alt=" {{ $customer_doc->authorization }}" class="img-fluid">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <img src="{{asset('storage/work_order/'.$customer_doc->ip_agreement)}}" alt=" {{ $customer_doc->ip_agreement }}" class="img-fluid">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <img src="{{asset('storage/work_order/'.$customer_doc->noc)}}" alt=" {{ $customer_doc->noc }}" class="img-fluid">
+                            </div>
+                          
                         </div>
                         <div class="d-flex justify-content-between">
                             <button class="btn btn-primary btn-prev waves-effect waves-float waves-light">

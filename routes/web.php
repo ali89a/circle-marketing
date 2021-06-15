@@ -50,6 +50,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/order-edit/{id?}', [App\Http\Controllers\OrderController::class, 'orderEdit'])->name('orderEdit');
     Route::get('/order-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('orderDetailEdit');
     Route::get('/customer-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'customerDetailEdit'])->name('customerDetailEdit');
+    Route::put('/customer-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'customerDetailUpdate'])->name('customerDetailUpdate');
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
 });
 require('admin.php');

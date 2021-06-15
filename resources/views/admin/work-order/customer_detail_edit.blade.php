@@ -33,7 +33,7 @@
             <div class="bs-stepper wizard-modern modern-wizard-example">
                 <div class="bs-stepper-header">
                     <div class="step active">
-                    <a href="{{route('customerDetailEdit', $order_customer_info->order_id)}}" class="step-trigger">
+                        <a href="{{route('customerDetailEdit', $order_customer_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">1 </span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Customer Details</span>
@@ -76,7 +76,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('orderDetailEdit')}}" class="step-trigger">
+                        <a href="{{route('orderDetailEdit', $order_customer_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">4</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Details </span>
@@ -86,18 +86,18 @@
                     </div>
                 </div>
                 <div class="bs-stepper-content">
-                    <form method="post" action="{{route('orderDetailUpdate',$order_customer_info->order_id)}}">
+                    <form method="post" action="{{route('customerDetailUpdate',$order_customer_info->order_id)}}">
                         @csrf
                         @method('put')
                         <div class="content-header">
                             <h5 class="mb-0">Customer Details</h5>
                         </div>
-                         <hr style="border: 1px solid">
+                        <hr style="border: 1px solid">
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="organization">Organization</label>
-                                <input type="text" id="organization" value="{{$order_customer_info->organization}}" name="organization"
-                                    class="form-control form-control-sm" placeholder="Enter Organization" />
+                                <input type="text" id="organization" value="{{$order_customer_info->organization}}" name="organization" class="form-control form-control-sm" placeholder="Enter Organization" />
+                                <input type="hidden" id="customer_id" value="{{$order_customer_info->customer_id}}" name="customer_id">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="basicSelect">Client Type</label>
@@ -109,43 +109,33 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="technical-email">Technical Email</label>
-                                <input type="email" id="technical-email" name="technical_email" value="{{$order_customer_info->technical_email}}"
-                                    class="form-control form-control-sm" placeholder="john.doe@email.com"
-                                    aria-label="john.doe" />
+                                <input type="email" id="technical-email" name="technical_email" value="{{$order_customer_info->technical_email}}" class="form-control form-control-sm" placeholder="john.doe@email.com" aria-label="john.doe" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="billing-email">Billing Email</label>
-                                <input type="email" id="billing-email" name="billing_email" value="{{$order_customer_info->billing_email}}"
-                                    class="form-control form-control-sm" placeholder="john.doe@email.com"
-                                    aria-label="john.doe" />
+                                <input type="email" id="billing-email" name="billing_email" value="{{$order_customer_info->billing_email}}" class="form-control form-control-sm" placeholder="john.doe@email.com" aria-label="john.doe" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="mobile">Mobile</label>
-                                <input type="text" id="mobile" name="mobile" class="form-control form-control-sm" value="{{$order_customer_info->mobile}}"
-                                    placeholder="01515664762" />
+                                <input type="text" id="mobile" name="mobile" class="form-control form-control-sm" value="{{$order_customer_info->mobile}}" placeholder="01515664762" />
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="alt_mobile">Alter Mobile</label>
-                                <input type="text" id="alt_mobile" name="alt_mobile" value="{{$order_customer_info->alt_mobile}}"
-                                    class="form-control form-control-sm" placeholder="01516664762" />
+                                <label class="form-label" for="alter_mobile">Alter Mobile</label>
+                                <input type="text" id="alter_mobile" name="alter_mobile" value="{{$order_customer_info->alter_mobile}}" class="form-control form-control-sm" placeholder="01516664762" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="occupation">Occupation</label>
-                                <input type="text" id="occupation" name="occupation" value="{{$order_customer_info->occupation}}"
-                                    class="form-control form-control-sm" placeholder="Enter occupation"
-                                    aria-label="john.doe" />
+                                <input type="text" id="occupation" name="occupation" value="{{$order_customer_info->occupation}}" class="form-control form-control-sm" placeholder="Enter occupation" aria-label="john.doe" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="technical-address">Technical Address</label>
-                                <input type="text" id="technical-address" name="technical_address" value="{{$order_customer_info->technical_address}}" class="form-control form-control-sm"
-                                    placeholder="Technical Address" />
+                                <input type="text" id="technical-address" name="technical_address" value="{{$order_customer_info->technical_address}}" class="form-control form-control-sm" placeholder="Technical Address" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="billing-address">Billing Address</label>
-                                <input type="text" id="billing-address" name="billing_address" value="{{$order_customer_info->billing_address}}" class="form-control form-control-sm"
-                                    placeholder="Billing Address" />
+                                <input type="text" id="billing-address" name="billing_address" value="{{$order_customer_info->billing_address}}" class="form-control form-control-sm" placeholder="Billing Address" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="division_id">Division</label>
@@ -153,15 +143,15 @@
                                     <option value="">Select One</option>
                                     @foreach($divisions as $list)
                                     <option value="{{ $list->id }}" {{ $list->id == $order_customer_info->division_id ? 'selected' : '' }}> {{ $list->name }}({{ $list->bn_name }})</option>
-                                   @endforeach
+                                    @endforeach
                                 </select>
                             </div>
-                             <div class="form-group col-md-4">
+                            <div class="form-group col-md-4">
                                 <label for="basicSelect">District</label>
                                 <select class="form-control form-control-sm" id="district_id" name="district_id">
-                                   
+
                                 </select>
-            
+
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="basicSelect">Upazila</label>
@@ -214,36 +204,42 @@
 <script src="{{ asset('') }}app-assets/js/scripts/forms/form-wizard.js"></script>
 @endsection
 @push('script')
-    <script>
-        $('document').ready(function () {
-            $('#division_id').change(function () {
-                var id = $('#division_id').val();
-                $.ajax({
-                    url: '{{url('admin/fetch-district')}}',
-                    type: 'get',
-                    data: {id: id},
-                    dataType: 'json',
-                    success: function (data) {
-                        //console.log(data);
-                        $('#district_id').html(data);
-                    }
-                });
+<script>
+    $('document').ready(function() {
+        $('#division_id').change(function() {
+            var id = $('#division_id').val();
+            $.ajax({
+                url: '{{url('
+                admin / fetch - district ')}}',
+                type: 'get',
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(data) {
+                    //console.log(data);
+                    $('#district_id').html(data);
+                }
             });
-
-            $('#district_id').change(function () {
-                var id = $('#district_id').val();
-                $.ajax({
-                    url: '{{url('admin/fetch-thana')}}',
-                    type: 'get',
-                    data: {id: id},
-                    dataType: 'json',
-                    success: function (data) {
-                        //console.log(data);
-                        $('#upazila_id').html(data);
-                    }
-                });
-            });
-
         });
-    </script>
+
+        $('#district_id').change(function() {
+            var id = $('#district_id').val();
+            $.ajax({
+                url: '{{url('
+                admin / fetch - thana ')}}',
+                type: 'get',
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(data) {
+                    //console.log(data);
+                    $('#upazila_id').html(data);
+                }
+            });
+        });
+
+    });
+</script>
 @endpush
