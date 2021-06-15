@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\EnvDynamicController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CustomerReportController;
@@ -44,7 +45,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/pending-list', [CustomerReportController::class, 'pendingList'])->name('pendingList');
     Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);
     Route::get('fetch-thana', [App\Http\Controllers\OrderController::class, 'fetch_thana']);
-
+    Route::resource('env-dynamic', EnvDynamicController::class);
     Route::get('/doc-edit/{id?}', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('docEdit');
     Route::put('/doc-update/{id?}', [App\Http\Controllers\OrderController::class, 'docUpdate'])->name('docUpdate');
     Route::get('/order-edit/{id?}', [App\Http\Controllers\OrderController::class, 'orderEdit'])->name('orderEdit');
