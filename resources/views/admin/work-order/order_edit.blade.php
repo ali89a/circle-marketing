@@ -93,9 +93,22 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="vertical-address">Type</label>
-                                <input style="margin-left: 10%" type="radio" value="{{$customer_order->type}}" name="type" value="own"> Own
-                                <input style="margin-left: 30%" type="radio" value="{{$customer_order->type}}" name="type" value="nttn"> NTTN
+                         
+                                <div class="demo-inline-spacing">   <label class="form-label" for="type">Type</label>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio1" name="type" class="custom-control-input" value="Own" {{ $customer_order->type == "Own" ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="customRadio1">Own</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio2" name="type" class="custom-control-input" value="NTTN" {{ $customer_order->type == "NTTN" ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="customRadio2">NTTN</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="price">Price</label>
+                                <input type="text" value="{{$customer_order->price}}" name="price" id="price" class="form-control">
+
                             </div>
                         </div>
                         <div class="row">
@@ -109,7 +122,7 @@
                                 <input type="text" value="{{$customer_order->gmap_location}}" name="gmap_location" id="pincode2" class="form-control" placeholder="658921" />
                             </div>
                             <div class="form-group col-md-4">
-                            <label class="form-label" for="connect_type">Connect Type</label>
+                                <label class="form-label" for="connect_type">Connect Type</label>
                                 <select class="form-control" name="connect_type">
                                     <option value="">Select Type</option>
                                     <option value="Fiber" {{ $customer_order->connect_type == "Fiber" ? 'selected' : '' }}>Fiber</option>
@@ -117,7 +130,7 @@
                                     <option value="Radio" {{ $customer_order->connect_type == "Radio" ? 'selected' : '' }}>Radio</option>
                                     <option value="Fiber & Radio" {{ $customer_order->connect_type == "Fiber & Radio" ? 'selected' : '' }}>Fiber & Radio</option>
                                 </select>
-                               </div>
+                            </div>
 
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="pincode2">Link Id</label>
@@ -132,7 +145,7 @@
                                 <select class="form-control" name="visit_type">
                                     <option value="">Select Type</option>
                                     <option value="visited" {{ $customer_order->visit_type == "visited" ? 'selected' : '' }}>Visited</option>
-                                    <option value="phone"  {{ $customer_order->visit_type == "phone" ? 'selected' : '' }}>Phone</option>
+                                    <option value="phone" {{ $customer_order->visit_type == "phone" ? 'selected' : '' }}>Phone</option>
                                 </select>
                             </div>
                             <div class="col-md-4 form-group">
@@ -141,7 +154,11 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="billing_cycle">Billing Cycle</label>
-                                <input type="text" id="billing_cycle" value="{{$customer_order->billing_cycle}}" name="billing_cycle" class="form-control" placeholder="658921" />
+                                <select class="form-control" name="billing_cycle">
+                                    <option value="">Select Date</option>
+                                    <option value="1" {{ $customer_order->billing_cycle == 1 ? 'selected' : '' }}>1</option>
+                                    <option value="7" {{ $customer_order->billing_cycle == 7 ? 'selected' : '' }}>7</option>
+                                </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="billing_remark">Billing Remark</label>
@@ -159,7 +176,11 @@
 
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="bill_generate_method">Bill Generate Method</label>
-                                <input type="text" id="bill_generate_method" value="{{$customer_order->bill_generate_method}}" name="bill_generate_method" class="form-control" placeholder="658921" />
+                                <select class="form-control" name="bill_generate_method">
+                                    <option value="">Select Date</option>
+                                    <option value="by_marketing_data" {{ $customer_order->bill_generate_method == 'by_marketing_data' ? 'selected' : '' }}>by_marketing_data</option>
+                                    <option value="by_noc_done" {{ $customer_order->bill_generate_method == 'by_noc_done' ? 'selected' : '' }}>by_noc_done</option>
+                                </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="total_Price">Total Price</label>

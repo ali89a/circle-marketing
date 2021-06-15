@@ -13,4 +13,8 @@ class OrderCustomerInfo extends Model
     {
         return $this->belongsTo('App\Models\Order', 'order_id');
     }
+    public function customer()
+    {
+        return $this->belongsTo('App\Models\User', 'customer_id','id');
+    }
 }
