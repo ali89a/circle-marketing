@@ -99,7 +99,7 @@
                                                 @endif
 
                                                 <a href="{{route('cancel',['id' => $item->id])}}"
-                                                    class="mt-1 btn btn-warning btn-circle col-sm">Cancel
+                                                    class="mt-1 btn btn-danger btn-circle col-sm">Cancel
                                                     <i class="fas fa-exclamation-triangle"></i>
                                                 </a>
                                             </td>

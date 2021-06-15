@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\File;
 
 class CustomerReportController extends Controller
 {
@@ -55,15 +56,24 @@ class CustomerReportController extends Controller
 
     public function edit(CustomerReport $customerReport)
     {
-        //
+        $report = CustomerReport::findOrFail($customerReport);
+        return view('admin.report.edit', compact('report'));
     }
 
 
     public function update(Request $request, CustomerReport $customerReport)
     {
-        $report = CustomerReport::find($customerReport);
+        //   dd($request->all());
+        $report = CustomerReport::findOrFail($customerReport);
         $report->fill($request->all());
+        if ($request->visiting_card != null) {
+            File::delete(public_path('storage/visitingCard/' . $report->visiting_card));
+            $fileName = time() . '.' . $request->visiting_card->extension();
+            $request->visiting_card->move(storage_path('app/public/visitingCard'), $fileName);
+            $report->visiting_card = $fileName;
+        }
         $report->update();
+        Toastr::success('Information Updated Successfully!.', '', ["closeButton" => "true", "progressBar" => "true"]);
         return redirect()->route('report.index');
     }
 
@@ -75,6 +85,7 @@ class CustomerReportController extends Controller
         Toastr::success('Information Deleted Successful!.', '', ["progressbar" => true]);
         return redirect()->route('report.index');
     }
+
 
     public function pendingList()
     {
@@ -100,6 +111,16 @@ class CustomerReportController extends Controller
         Toastr::success('Information Canceled Successful!.', '', ["progressbar" => true]);
         return redirect()->route('report.index');
     }
+    public function followUp()
+    {
+        $reports = CustomerReport::all();
+        return view('admin.report.followup', compact('reports'));
+    }
 
-    
+
+    public function fetchAll($id)
+    {
+        $reports = CustomerReport::where('id', $id)->first();
+        return $reports;
+    }
 }
