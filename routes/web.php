@@ -53,6 +53,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
     Route::get('/approve/{id?}', [CustomerReportController::class, 'approve'])->name('approve');
     Route::get('/cancel/{id?}', [CustomerReportController::class, 'cancel'])->name('cancel');
-
+    Route::get('/followup', [CustomerReportController::class, 'followUp'])->name('followUp');
+    Route::get('/fetch-report-id/{id}', [CustomerReportController::class, 'fetchAll']);
+    // 'ApiController@fetchSubCategory');
 });
 require('admin.php');

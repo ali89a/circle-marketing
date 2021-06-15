@@ -37,6 +37,10 @@
       <a class="d-flex align-items-center" href="{{ route('report.create') }}"><i data-feather="circle">
         </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Add New Report</span></a>
     </li>
+    <li class="{{ (Request::segment(2) == 'followup' ) && (Request::segment(3) == '' )?'active':''}}">
+      <a class="d-flex align-items-center" href="{{ route('followUp') }}"><i data-feather="circle">
+        </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Followup/Reconnect</span></a>
+    </li>
     <li class="{{ (Request::segment(2) == 'report' )&&(Request::segment(3) == '' )?'active':''}}">
       <a class="d-flex align-items-center" href="{{ route('report.index') }}"><i data-feather="circle">
         </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">View Report</span></a>
