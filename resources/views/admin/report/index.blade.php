@@ -30,23 +30,23 @@
                                             <input type="submit" value="Generate Report" class="btn btn-primary"
                                                 style="margin-top:20px">
                                         </div>
-                                        <div class="col-md-1">
+                                        {{-- <div class="col-md-1">
                                             <a style="margin-top:20px" href="#" class="btn btn-default"><i
-                                                    class="fa fa-refresh"></i></a>
-                                        </div>
+                                                    class="fa fa-refresh">Refresh</i></a>
+                                        </div> --}}
                                     </div>
                                 </form>
                                 <div class="ajaxform">
                                     <div class="row" style="margin-top:20px">
                                         <div class="col-sm-4">
                                             Contact Number/Organization:
-                                            <input type="text" class="form-control" name="searchnumber">
+                                            <input type="text" class="form-control " name="searchnumber">
                                         </div>
                                         <div class="col-sm-2" style="margin-top:18px;">
                                             <button type="submit" class="btn btn-primary btnsearch"><i
-                                                    class="fa fa-search"></i></button>
-                                            <button class="btn btn-default btnclear"><i
-                                                    class="fa fa-refresh"></i></button>
+                                                    class="fa fa-search"></i>Search</button>
+                                            {{-- <button class="btn btn-default btnclear"><i
+                                                    class="fa fa-refresh">Refresh</i></button> --}}
                                         </div>
                                         <div class="col-md-12" style="overflow-y:scroll;">
                                             <div id="searchresult">

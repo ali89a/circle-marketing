@@ -56,23 +56,29 @@ class CustomerReportController extends Controller
 
     public function edit(CustomerReport $customerReport)
     {
-        $report = CustomerReport::findOrFail($customerReport);
-        return view('admin.report.edit', compact('report'));
+        //  $report = CustomerReport::findOrFail($customerReport);
+        //  return view('admin.report.edit', compact('report'));
     }
 
 
-    public function update(Request $request, CustomerReport $customerReport)
+    public function update(Request $request)
     {
-        //   dd($request->all());
-        $report = CustomerReport::findOrFail($customerReport);
-        $report->fill($request->all());
-        if ($request->visiting_card != null) {
-            File::delete(public_path('storage/visitingCard/' . $report->visiting_card));
-            $fileName = time() . '.' . $request->visiting_card->extension();
-            $request->visiting_card->move(storage_path('app/public/visitingCard'), $fileName);
-            $report->visiting_card = $fileName;
+        //dd($request->all());
+        $report = CustomerReport::findOrFail($request->id);
+        // $report = new CustomerReport();
+        // $report->fill($request->all());
+        $report->ctype = $request->ctype;
+        $report->bandwidth = $request->bandwidth;
+        $report->createdBy = $request->createdBy;
+        $report->rate = $request->rate;
+        $report->otc = $request->otc;
+        $report->remark = $request->remark;
+        if ($request->audio != null) {
+            $fileName = time() . '.' . $request->audio->extension();
+            $request->audio->move(storage_path('app/public/audio'), $fileName);
+            $report->audio = $fileName;
         }
-        $report->update();
+        $report->save();
         Toastr::success('Information Updated Successfully!.', '', ["closeButton" => "true", "progressBar" => "true"]);
         return redirect()->route('report.index');
     }
