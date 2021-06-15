@@ -107,7 +107,7 @@ class CustomerReportController extends Controller
         $report = CustomerReport::find($id);
         $report->ctype = 'followup';
         $report->save();
-        return redirect()->route('report.index')->with('message', 'report unpublished successfully');
+        return redirect()->back()->with('message', 'report unpublished successfully');
     }
 
     public function cancel($id)

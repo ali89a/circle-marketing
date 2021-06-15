@@ -84,76 +84,50 @@
                                         </tr>
                                         @foreach ($reports as $item)
                                         <tr>
-                                            <td>{{$item->id}}</td>
+                                            <td>{{ $item->id }}</td>
                                             <td>
-                                                @if($item->ctype=='followup')
+                                                @if ($item->ctype == 'followup')
                                                 <a href="#" class="btn btn-success btn-circle col-sm">Approved
                                                     <i class="fas fa-check"></i>
                                                 </a>
                                                 @endif
                                             </td>
-                                            {{-- <td class="text-center">
-                                                <ul class="list-inline" style="width:80px">
-                                                    <p class="label label-success">{{$item->contact_number}}</p>
-                                            </ul>
-                                            </td> --}}
                                             <td>{{ $item->cname }}</td>
+                                            <td>{{ $item->ctype }} </td>
+                                            <td>{{ $item->isp_type }} </td>
+                                            <td>{{ $item->address }} </td>
                                             <td>{{ $item->location_district }} </td>
                                             <td>{{ $item->location_upazila }} </td>
-                                            <td>{{ $item->address }} </td>
-                                            <td>{{ $item->contact_person }} </td>
-                                            <td>{{ $item->email }} </td>
-                                            <td>{{ $item->visit_phone }}</td>
-                                            <td>{{ $item->ctype }}</td>
-                                            <td>{{ $item->isp_type }}</td>
-                                            <td>{{ $item->visiting_card }} </td>
+                                            <td>{{ $item->contact_number }}</td>
+                                            <td>{{ $item->contact_person }}</td>
+                                            <td>{{ $item->email }}</td>
+                                            <td> </td>
                                             <td>{{ $item->bandwidth }}</td>
                                             <td>{{ $item->rate }}</td>
                                             <td>{{ $item->otc }}</td>
                                             <td>{{ $item->remark }}</td>
-                                            <td>{{ $item->audio }}</td>
+                                            <td>{{ $item->visit_phone }}</td>
                                             <td>
                                                 <img class="img-fluid" style="width:100px; height: auto;"
-                                                    src="{{asset('storage/visitingCard/'.$item->visiting_card)}}"
+                                                    src="{{ asset('storage/visitingCard/' . $item->visiting_card) }}"
                                                     alt="No Image">
                                             </td>
-                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->created_at }}</td>
                                             <td>
                                                 <div class="audiofile">
-
                                                     <audio controls="">
                                                         <source src="{{ $item->audio }}" type="audio/mpeg">
                                                         Your browser does not support the audio element.
                                                     </audio>
                                                 </div>
                                             </td>
-
                                         </tr>
-
-
                                         @endforeach
                                     </tbody>
                                 </table>
-
-                            </div>
-                            <div class="row text-right" style="padding-right:10px">
-                                <ul class="pagination">
-                                    <li class="disabled"></li>
-                                    <li class="active"><a href="#">1<span class="sr-only"></span></a></li>
-                                    <li><a href="https://demo.circlenetworkbd.net/report/report_list/10"
-                                            data-ci-pagination-page="2">2</a></li>
-                                    <li><a href="https://demo.circlenetworkbd.net/report/report_list/20"
-                                            data-ci-pagination-page="3">3</a></li>
-                                    <li><a href="https://demo.circlenetworkbd.net/report/report_list/10"
-                                            data-ci-pagination-page="2" rel="next">&gt;</a></li>
-                                    <li><a href="https://demo.circlenetworkbd.net/report/report_list/180"
-                                            data-ci-pagination-page="19">Last ›</a></li>
-                                </ul>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </section>
