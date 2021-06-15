@@ -15,6 +15,7 @@ class CustomerReportController extends Controller
     public function index()
     {
         $reports = CustomerReport::where('ctype', 'followUp')->get();
+        // dd($reports->all());
         return view('admin.report.index', compact('reports'));
     }
 
@@ -33,6 +34,11 @@ class CustomerReportController extends Controller
         ]);
         $report = new CustomerReport();
         $report->fill($request->all());
+        if ($request->visiting_card != null) {
+            $fileName = time() . '.' . $request->visiting_card->extension();
+            $request->visiting_card->move(storage_path('app/public/visitingCard'), $fileName);
+            $report->visiting_card = $fileName;
+        }
         $report->save();
 
 
@@ -76,6 +82,23 @@ class CustomerReportController extends Controller
         return view('admin.report.pending', [
             'pendingList' => $pendingList,
         ]);
+    }
+
+
+    public function approve($id)
+    {
+        $report = CustomerReport::find($id);
+        $report->ctype = 'followup';
+        $report->save();
+        return redirect()->route('report.index')->with('message', 'report unpublished successfully');
+    }
+
+    public function cancel($id)
+    {
+        $report = CustomerReport::find($id);
+        $report->delete();
+        Toastr::success('Information Canceled Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('report.index');
     }
 
     

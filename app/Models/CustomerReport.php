@@ -21,7 +21,7 @@ class CustomerReport extends Model
         'visit_phone', 
         'ctype', 
         'isp_type', 
-        'visiting_card', 
+        // 'visiting_card', 
         'bandwidth', 
         'rate', 
         'otc', 

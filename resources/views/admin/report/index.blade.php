@@ -85,11 +85,18 @@
                                         @foreach ($reports as $item)
                                         <tr>
                                             <td>{{$item->id}}</td>
-                                            <td class="text-center">
+                                            <td>
+                                                @if($item->ctype=='followup')
+                                                <a href="#" class="btn btn-success btn-circle col-sm">Approved
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                                @endif
+                                            </td>
+                                            {{-- <td class="text-center">
                                                 <ul class="list-inline" style="width:80px">
                                                     <p class="label label-success">{{$item->contact_number}}</p>
-                                                </ul>
-                                            </td>
+                                            </ul>
+                                            </td> --}}
                                             <td>{{ $item->cname }}</td>
                                             <td>{{ $item->location_district }} </td>
                                             <td>{{ $item->location_upazila }} </td>
@@ -106,10 +113,10 @@
                                             <td>{{ $item->remark }}</td>
                                             <td>{{ $item->audio }}</td>
                                             <td>
-                                                <a id="single_image" href="#"
-                                                    data-lightbox="1_OfibXlsns7WzN7a2WpaI1w.png"><img
-                                                        src="{{ asset($item->visiting_card) }}                                                                                                                                        "
-                                                        width="50"></a> </td>
+                                                <img class="img-fluid" style="width:100px; height: auto;"
+                                                    src="{{asset('storage/visitingCard/'.$item->visiting_card)}}"
+                                                    alt="No Image">
+                                            </td>
                                             <td>{{ $item->id }}</td>
                                             <td>
                                                 <div class="audiofile">
