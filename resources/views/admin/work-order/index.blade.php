@@ -540,7 +540,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>Real IP</td>
-                                                                <td colspan="5"></td>
+                                                                <td colspan="5">{{$order->real_ip}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>MRTG/Cpanel</td>

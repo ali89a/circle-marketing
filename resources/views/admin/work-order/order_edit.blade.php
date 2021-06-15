@@ -109,9 +109,15 @@
                                 <input type="text" value="{{$customer_order->gmap_location}}" name="gmap_location" id="pincode2" class="form-control" placeholder="658921" />
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="city2">Connect Type</label>
-                                <input type="text" id="city2" value="{{$customer_order->connect_type}}" name="connect_type" class="form-control" placeholder="Birmingham" />
-                            </div>
+                            <label class="form-label" for="connect_type">Connect Type</label>
+                                <select class="form-control" name="connect_type">
+                                    <option value="">Select Type</option>
+                                    <option value="Fiber" {{ $customer_order->connect_type == "Fiber" ? 'selected' : '' }}>Fiber</option>
+                                    <option value="Hostpot" {{ $customer_order->connect_type == "Hostpot" ? 'selected' : '' }}>Hostpot</option>
+                                    <option value="Radio" {{ $customer_order->connect_type == "Radio" ? 'selected' : '' }}>Radio</option>
+                                    <option value="Fiber & Radio" {{ $customer_order->connect_type == "Fiber & Radio" ? 'selected' : '' }}>Fiber & Radio</option>
+                                </select>
+                               </div>
 
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="pincode2">Link Id</label>
@@ -125,8 +131,8 @@
                                 <label class="form-label" for="visit_type">Visit Type</label>
                                 <select class="form-control" name="visit_type">
                                     <option value="">Select Type</option>
-                                    <option value="visited">Visited</option>
-                                    <option value="phone">Phone</option>
+                                    <option value="visited" {{ $customer_order->visit_type == "visited" ? 'selected' : '' }}>Visited</option>
+                                    <option value="phone"  {{ $customer_order->visit_type == "phone" ? 'selected' : '' }}>Phone</option>
                                 </select>
                             </div>
                             <div class="col-md-4 form-group">

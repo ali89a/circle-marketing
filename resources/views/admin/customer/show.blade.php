@@ -33,9 +33,9 @@
                                 <polyline points="9 11 12 14 22 4"></polyline>
                                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                             </svg><span class="align-middle">Customer List</span></a>
-                      
-                        
-                      
+
+
+
                     </div>
                 </div>
             </div>
@@ -50,7 +50,32 @@
                         <h4 class="card-title">Customer Show</h4>
                     </div>
                     <div class="table-responsive">
-                       
+                        <table class="table mb-0">
+                            <tr>
+                                <th>Name</th>
+                                <td>{{$model->name}}</td>
+                                <th>Email</th>
+                                <td>{{$model->email}}</td>
+                                <th>Mobile</th>
+                                <td>{{$model->mobile}}</td>
+                            </tr>
+                            <tr>
+                                <th>Image</th>
+                                <td><img src="{{asset('storage/customer/'.$model->img_url)}}" alt=" {{ $model->img_url }}" class="img-fluid"></td>
+                                <th>VIN Number</th>
+                                <td>{{$model->vin_no}}</td>
+                                <th>Billing Address</th>
+                                <td>{{$model->billing_address}}</td>
+                            </tr>
+                            <tr>
+                                <th>Btrc License</th>
+                                <td><img src="{{asset('storage/btrc_license/'.$model->btrc_license_url)}}" alt=" {{ $model->btrc_license_url }}" class="img-fluid"></td>
+                                <th>Trade License</th>
+                                <td><img src="{{asset('storage/trade_license/'.$model->trade_license_url)}}" alt=" {{ $model->trade_license_url }}" class="img-fluid"></td>
+                                <th>NID</th>
+                                <td><img src="{{asset('storage/nid/'.$model->nid_url)}}" alt=" {{ $model->nid_url }}" class="img-fluid"></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>

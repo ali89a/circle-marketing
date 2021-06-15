@@ -126,8 +126,8 @@
                                 <input type="text" id="mobile" name="mobile" class="form-control form-control-sm" placeholder="01515664762" />
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="alt_mobile">Alter Mobile</label>
-                                <input type="text" id="alt_mobile" name="alt_mobile" class="form-control form-control-sm" placeholder="01516664762" />
+                                <label class="form-label" for="alter_mobile">Alter Mobile</label>
+                                <input type="text" id="alter_mobile" name="alter_mobile" class="form-control form-control-sm" placeholder="01516664762" />
                             </div>
                         </div>
                         <div class="row">
