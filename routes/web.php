@@ -61,5 +61,6 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/followup', [CustomerReportController::class, 'followUp'])->name('followUp');
     Route::get('/fetch-report-id/{id}', [CustomerReportController::class, 'fetchAll']);
     Route::post('/report-update', [CustomerReportController::class, 'update'])->name('reportUpdate');
+    Route::get('/fetch-district-id/{id}', [CustomerReportController::class, 'allUpazila']);
 });
 require('admin.php');

@@ -4,7 +4,7 @@
 <div class="content-wrapper">
     <div class="content-body">
         <section class="modern-horizontal-wizard">
-            <div class="bs-stepper wizard-modern modern-wizard-example">
+            <div class=" wizard-modern modern-wizard-example">
                 <div class="bs-stepper-content">
                     <form method="post" action="{{route('report.store')}}" enctype="multipart/form-data">
                         @csrf
@@ -13,7 +13,7 @@
                             <h5 class="mb-0">Add Report</h5>
                         </div>
                         <hr style="border: 1px solid">
-                        <div class="row">
+                        <div class="row" id="vue_app">
                             <div class="alert"></div>
                             <div class="col-md-6">
                                 <div class="details">
@@ -32,87 +32,34 @@
                                                     value="" required=""></td>
                                         </tr>
                                         <tr>
-                                            <td>Districe:</td>
+                                            <td>District:</td>
                                             <td>
                                                 <select class="form-control form-control-sm" id="location_district"
-                                                    name="location_district">
+                                                    name="location_district" v-model="report_id" @change="fetch_report">
                                                     <option value="">Select One</option>
-                                                    <option value="55">Bagerhat(বাগেরহাট)</option>
-                                                    <option value="40">Bandarban(বান্দরবান)</option>
-                                                    <option value="34">Barguna(বরগুনা)</option>
-                                                    <option value="35">Barishal(বরিশাল)</option>
-                                                    <option value="36">Bhola(ভোলা)</option>
-                                                    <option value="18">Bogura(বগুড়া)</option>
-                                                    <option value="41">Brahmanbaria(ব্রাহ্মণবাড়িয়া)</option>
-                                                    <option value="42">Chandpur(চাঁদপুর)</option>
-                                                    <option value="22">Chapainawabganj(চাপাইনবাবগঞ্জ)</option>
-                                                    <option value="43">Chattogram(চট্টগ্রাম)</option>
-                                                    <option value="56">Chuadanga(চুয়াডাঙ্গা)</option>
-                                                    <option value="45">Cox's Bazar(কক্স বাজার)</option>
-                                                    <option value="44">Cumilla(কুমিল্লা)</option>
-                                                    <option value="1">Dhaka(ঢাকা)</option>
-                                                    <option value="26">Dinajpur(দিনাজপুর)</option>
-                                                    <option value="2">Faridpur(ফরিদপুর)</option>
-                                                    <option value="46">Feni(ফেনী)</option>
-                                                    <option value="27">Gaibandha(গাইবান্ধা)</option>
-                                                    <option value="3">Gazipur(গাজীপুর)</option>
-                                                    <option value="4">Gopalganj(গোপালগঞ্জ)</option>
-                                                    <option value="51">Habiganj(হবিগঞ্জ)</option>
-                                                    <option value="5">Jamalpur(জামালপুর)</option>
-                                                    <option value="57">Jashore(যশোর)</option>
-                                                    <option value="37">Jhalokati(ঝালকাঠি)</option>
-                                                    <option value="58">Jhenaidah(ঝিনাইদহ)</option>
-                                                    <option value="19">Joypurhat(জয়পুরহাট)</option>
-                                                    <option value="47">Khagrachari(খাগড়াছড়ি)</option>
-                                                    <option value="59">Khulna(খুলনা)</option>
-                                                    <option value="6">Kishoreganj(কিশোরগঞ্জ)</option>
-                                                    <option value="65">Kuakata(কুয়াকাটা)</option>
-                                                    <option value="28">Kurigram(কুড়িগ্রাম)</option>
-                                                    <option value="60">Kushtia(কুষ্টিয়া)</option>
-                                                    <option value="48">Lakshmipur(লক্ষ্মীপুর)</option>
-                                                    <option value="29">Lalmonirhat(লালমনিরহাট)</option>
-                                                    <option value="7">Madaripur(মাদারীপুর)</option>
-                                                    <option value="61">Magura(মাগুরা)</option>
-                                                    <option value="8">Manikganj(মানিকগঞ্জ)</option>
-                                                    <option value="52">Maulvibazar(মৌলভীবাজার)</option>
-                                                    <option value="62">Meherpur(মেহেরপুর)</option>
-                                                    <option value="9">Munshiganj(মুন্সিগঞ্জ)</option>
-                                                    <option value="10">Mymensingh(ময়মনসিংহ)</option>
-                                                    <option value="20">Naogaon(নওগাঁ)</option>
-                                                    <option value="63">Narail(নড়াইল)</option>
-                                                    <option value="11">Narayanganj(নারায়াণগঞ্জ)</option>
-                                                    <option value="12">Narsingdi(নরসিংদী)</option>
-                                                    <option value="21">Natore(নাটোর)</option>
-                                                    <option value="13">Netrokona(নেত্রকোণা)</option>
-                                                    <option value="30">Nilphamari(নীলফামারী)</option>
-                                                    <option value="49">Noakhali(নোয়াখালী)</option>
-                                                    <option value="23">Pabna(পাবনা)</option>
-                                                    <option value="31">Panchagarh(পঞ্চগড়)</option>
-                                                    <option value="38">Patuakhali(পটুয়াখালী)</option>
-                                                    <option value="39">Pirojpur(পিরোজপুর)</option>
-                                                    <option value="14">Rajbari(রাজবাড়ি)</option>
-                                                    <option value="24">Rajshahi(রাজশাহী)</option>
-                                                    <option value="50">Rangamati(রাঙ্গামাটি)</option>
-                                                    <option value="32">Rangpur(রংপুর)</option>
-                                                    <option value="64">Satkhira(সাতক্ষীরা)</option>
-                                                    <option value="15">Shariatpur(শরীয়তপুর)</option>
-                                                    <option value="16">Sherpur(শেরপুর)</option>
-                                                    <option value="25">Sirajgonj(সিরাজগঞ্জ)</option>
-                                                    <option value="53">Sunamganj(সুনামগঞ্জ)</option>
-                                                    <option value="54">Sylhet(সিলেট)</option>
-                                                    <option value="17">Tangail(টাঙ্গাইল)</option>
-                                                    <option value="33">Thakurgaon(ঠাকুরগাঁও)</option>
+                                                    @foreach ($districts as $item)
+                                                    <option value="{{$item->id}}">{{$item->name}}({{$item->bn_name}})
+                                                    </option>
+                                                    @endforeach
                                                 </select>
                                             </td>
                                         </tr>
+                                       <input type="text" name="id" id="id"  v-bind:value="item.id" >
                                         <tr>
                                             <td>Location: (Upazila) </td>
                                             <td>
-                                                <select class="form-control form-control-sm" id="client_type"
-                                                    name="location_upazila">
-                                                    <option value="">Select One</option>
-
+                                                <select name="location_upazila" id="location_upazila" class="form-control"
+                                                    v-model="report_id">
+                                                    <option value="">Select one</option>
+                                                    <option :value="row.district_id" v-for="row in item"
+                                                        v-html="row.location_upazila" style="max-width: 200px">
+                                                    </option>
                                                 </select>
+                                                {{-- <select class="form-control form-control-sm" id="client_type"
+                                                    name="location_upazila">
+                                                    <option value="0">Select One</option>
+
+                                                </select> --}}
                                             </td>
                                         </tr>
                                         <tr>
@@ -257,5 +204,56 @@
 <script src="{{ asset('') }}app-assets/js/scripts/forms/form-wizard.js"></script>
 @endsection
 @push('script')
+<script src="{{ asset('vue-js/vue/dist/vue.js') }}"></script>
+<script src="{{ asset('vue-js/axios/dist/axios.min.js') }}"></script>
+<script src="{{ asset('vue-js/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
+<script>
+    //  console.log('error');
+    $(document).ready(function() {
+            var vue = new Vue({
+                el: '#vue_app',
+                data: {
+                    config: {
+                        get_url: "{{ url('admin/fetch-district-id') }}",
+                    },
+                    report_id: '',
+                    report: [],
+                    item: [],
+                },
+                methods: {
+                    fetch_report() {
+                        var vm = this;
+                        var slug = vm.report_id;
+                    //check
+                    //  alert(slug);
+
+                        if (slug) {
+                            axios.get(this.config.get_url + '/' + slug).then(
+                                function(response) {
+                                    vm.item= response.data;
+                                    console.log(vm.item);
+                                }).catch(function(error) {
+                                toastr.error('Something went to wrong', {
+                                    closeButton: true,
+                                    progressBar: true,
+                                });
+                                return false;
+                            });
+                        }
+                    }
+                },
+                updated() {
+                    $('.bSelect').selectpicker('refresh');
+                }
+            });
+            $('.bSelect').selectpicker({
+                liveSearch: true,
+                size: 5
+            });
+        });
+
+</script>
+
+
 
 @endpush
