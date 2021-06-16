@@ -91,7 +91,8 @@
                             <h5 class="mb-0">Order</h5>
                             <small>Enter Your Order.</small>
                         </div>
-                        <div class="row">
+                        <hr>
+                        <div class="row" >
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="type">Type</label>
                                 <div class="demo-inline-spacing">
@@ -148,7 +149,7 @@
                                 <input type="text" value="{{$customer_order->order_submission_date}}" name="order_submission_date" id="order_submission_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="billing_cycle">Billing Cycle</label>
+                                <label class="form-label" for="billing_cycle">Billing Date/Cycle</label>
                                 <select class="form-control" name="billing_cycle">
                                     <option value="">Select Date</option>
                                     @for ($i = 1; $i <= 31; $i++) <option value="{{ $i }}" {{ $i == $customer_order->billing_cycle ? 'selected' : '' }}>{{ $i }}</option>
@@ -173,18 +174,6 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="core_rent">Core Rent</label>
-                                <input type="text" id="core_rent" value="{{$customer_order->core_rent}}" name="core_rent" class="form-control" placeholder="658921" />
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="form-label" for="city2">OTC</label>
-                                <input type="text" id="city2" value="{{$customer_order->otc}}" name="otc" class="form-control" placeholder="Birmingham" />
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="form-label" for="otc">Real IP</label>
-                                <input type="text" id="otc" value="{{$customer_order->real_ip}}" name="real_ip" class="form-control" placeholder="658921" />
-                            </div>
-                            <div class="form-group col-md-4">
                                 <label class="form-label" for="security_money_cheque">Security Money Cheque</label>
                                 <input type="text" id="security_money_cheque" value="{{$customer_order->security_money_cheque}}" name="security_money_cheque" class="form-control" placeholder="658921" />
                             </div>
@@ -194,7 +183,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="billing_remark">Billing Remark</label>
-                             <textarea class="form-control" name="billing_remark" rows="1">{{$customer_order->billing_remark}}</textarea>
+                                <textarea class="form-control" name="billing_remark" rows="1">{{$customer_order->billing_remark}}</textarea>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">

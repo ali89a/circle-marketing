@@ -130,7 +130,8 @@
                                                 <!--Marketing Executive section-->
                                                 <a href="" class="btn btn-danger btn-xs btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
                                                 <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-xs btn-block"><i class="fa fa-edit"></i> Edit</a>
-                                                <a href="" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-edit"></i> UP/DW</a>
+                                                <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-edit"></i> Upgration</a>
+                                                <a href="{{route('work-order-downgration', $order->id)}}" class="btn btn-info  btn-block btn-xs"><i class="fa fa-edit"></i> Downgration</a>
 
                                                 <!--Marketing Admin section-->
 
@@ -381,8 +382,8 @@
                                                                 <td>It Service 1 (1st)</td>
                                                                 <td>{{ $order->order_info->youtube_capacity_1??'' }}</td>
                                                                 <td></td>
-                                                                <td>0</td>
-                                                                <td>0</td>
+                                                                <td></td>
+                                                                <td></td>
                                                                 <td class="text-right onlym allhide">{{ $order->order_info->youtube_price_1??'' }}</td>
                                                             </tr>
                                                             <tr>
@@ -428,12 +429,12 @@
                                                             <tr>
                                                                 <td>Domain</td>
                                                                 <td colspan="4"></td>
-                                                                <td class="text-right onlym allhide">0</td>
+                                                                <td class="text-right onlym allhide"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Hosting</td>
                                                                 <td colspan="4"></td>
-                                                                <td class="text-right onlym allhide">0</td>
+                                                                <td class="text-right onlym allhide"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="5">Combine Price</td>
@@ -558,8 +559,8 @@
                                             </tbody>
                                         </table>
                                     </td>
-                                    <td class="text-center"> {{ \Carbon\Carbon::parse($order->created_at)->format('j-F-Y, g:i a')}}</td>
-                                    <td class="text-center">{{ \Carbon\Carbon::parse($order->updated_at)->format('j-F-Y, g:i a')}}</td>
+                                    <td class="text-center"> {{ \Carbon\Carbon::parse($order->created_at)->format('j-M-Y, g:i a')}}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($order->updated_at)->format('j-M-Y, g:i a')}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

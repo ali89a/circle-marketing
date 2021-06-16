@@ -96,59 +96,80 @@
 
                         <div class="row">
                             <div class="col-md-8">
-                                <table class="table table-responsive table-bordered" id="internet_box" style="">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <th colspan="3" class="text-center">Pricing/Capacity</th>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:200px;"></td>
+                                                <td>Capacity</td>
 
+                                                <td>Price</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Internet</td>
+                                                <td style="width:200px"><input type="number" value="{{$customer_order_info->internet_capacity_1}}" name="internet_capacity_1" min="0" class="form-control"></td>
 
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="3" class="text-center">Pricing/Capacity</th>
-                                        </tr>
-                                        <tr>
-                                            <td style="width:200px;"></td>
-                                            <td>Capacity</td>
+                                                <td><input type="number" step=".01" value="{{$customer_order_info->internet_price_1}}" name="internet_price_1" min="0" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>BDIX</td>
+                                                <td><input type="number" value="{{$customer_order_info->bdix_capacity_1}}" name="bdix_capacity_1" min="0" class="form-control"></td>
 
-                                            <td>Price</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Internet</td>
-                                            <td style="width:200px"><input type="number" value="{{$customer_order_info->internet_capacity_1}}" name="internet_capacity_1" min="0" class=""></td>
+                                                <td><input type="number" step=".01" value="{{$customer_order_info->bdix_price_1}}" name="bdix_price_1" min="0" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>It Service 1</td>
+                                                <td><input type="number" value="{{$customer_order_info->youtube_capacity_1}}" name="youtube_capacity_1" min="0" class="form-control"></td>
 
-                                            <td><input type="number" step=".01" value="{{$customer_order_info->internet_price_1}}" name="internet_price_1" min="0"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>BDIX</td>
-                                            <td><input type="number" value="{{$customer_order_info->bdix_capacity_1}}" name="bdix_capacity_1" min="0"></td>
+                                                <td><input type="number" step=".01" value="{{$customer_order_info->youtube_price_1}}" name="youtube_price_1" min="0" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>It Service 2</td>
+                                                <td><input type="number" value="{{$customer_order_info->facebook_capacity_1}}" name="facebook_capacity_1" min="0" class="form-control"></td>
 
-                                            <td><input type="number" step=".01" value="{{$customer_order_info->bdix_price_1}}" name="bdix_price_1" min="0"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>It Service 1</td>
-                                            <td><input type="number" value="{{$customer_order_info->youtube_capacity_1}}" name="youtube_capacity_1" min="0"></td>
+                                                <td><input type="number" step=".01" value="{{$customer_order_info->facebook_price_1}}" name="facebook_price_1" min="0" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Data</td>
+                                                <td><input type="number" value="{{$customer_order_info->data_capacity_1}}" name="data_capacity_1" min="0" class="form-control"></td>
 
-                                            <td><input type="number" step=".01" value="{{$customer_order_info->youtube_price_1}}" name="youtube_price_1" min="0"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>It Service 2</td>
-                                            <td><input type="number" value="{{$customer_order_info->facebook_capacity_1}}" name="facebook_capacity_1" min="0"></td>
-
-                                            <td><input type="number" step=".01" value="{{$customer_order_info->facebook_price_1}}" name="facebook_price_1" min="0"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Data</td>
-                                            <td><input type="number" value="{{$customer_order_info->data_capacity_1}}" name="data_capacity_1" min="0"></td>
-
-                                            <td><input type="number" step=".01" value="{{$customer_order_info->data_price_1}}" name="data_price_1" min="0"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total Price</td>
-                                            <td colspan="2">
-                                            <input type="number" step=".01" name="total_price_for_special" min="0"  value="{{$customer_order_info->order}}"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                <td><input type="number" step=".01" value="{{$customer_order_info->data_price_1}}" name="data_price_1" min="0" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Price</td>
+                                                <td colspan="2">
+                                                    <input type="number" step=".01" name="total_price" min="0" class="form-control" value="{{$customer_order_info->order->total_Price}}">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-
+                            <div class="col-md-4">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered mb-0">
+                                        <tbody>
+                                         <tr>
+                                                <td>Core Rent</td>
+                                                <td colspan="2"><input type="number" name="core_rent" min="0" class="form-control" value="{{$customer_order_info->order->core_rent}}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>OTC</td>
+                                                <td colspan="2"><input type="number" step=".01" name="otc" min="0" class="form-control" value="{{$customer_order_info->order->otc}}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Real IP</td>
+                                                <td colspan="2"><input type="text" name="real_ip" class="form-control" value="{{$customer_order_info->order->real_ip}}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
+                        <br>
                         <div class="d-flex justify-content-between">
                             <button class="btn btn-primary btn-prev waves-effect waves-float waves-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0">
