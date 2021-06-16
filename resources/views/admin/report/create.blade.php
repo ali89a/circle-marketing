@@ -35,24 +35,24 @@
                                             <td>District:</td>
                                             <td>
                                                 <select class="form-control form-control-sm" id="location_district"
-                                                    name="location_district" v-model="report_id" @change="fetch_report">
+                                                    name="location_district" v-model="district_id" @change="fetch_upazila">
                                                     <option value="">Select One</option>
-                                                    @foreach ($districts as $item)
-                                                    <option value="{{$item->id}}">{{$item->name}}({{$item->bn_name}})
+                                                    @foreach ($districts as $upazilas)
+                                                    <option value="{{$upazilas->id}}">{{$upazilas->name}}({{$upazilas->bn_name}})
                                                     </option>
                                                     @endforeach
                                                 </select>
                                             </td>
                                         </tr>
-                                       <input type="text" name="id" id="id"  v-bind:value="item.id" >
+                                       <input type="text" name="id" id="id"  v-bind:value="upazilas.id" >
                                         <tr>
                                             <td>Location: (Upazila) </td>
                                             <td>
                                                 <select name="location_upazila" id="location_upazila" class="form-control"
-                                                    v-model="report_id">
+                                                    v-model="upazila_id">
                                                     <option value="">Select one</option>
-                                                    <option :value="row.district_id" v-for="row in item"
-                                                        v-html="row.location_upazila" style="max-width: 200px">
+                                                    <option :value="row.id" v-for="row in upazilas"
+                                                        v-html="row.name" style="max-width: 200px">
                                                     </option>
                                                 </select>
                                                 {{-- <select class="form-control form-control-sm" id="client_type"
@@ -216,22 +216,22 @@
                     config: {
                         get_url: "{{ url('admin/fetch-district-id') }}",
                     },
-                    report_id: '',
-                    report: [],
-                    item: [],
+                    district_id: '',
+                    upazila_id: '',
+                    upazilas: [],
                 },
                 methods: {
-                    fetch_report() {
+                    fetch_upazila() {
                         var vm = this;
-                        var slug = vm.report_id;
+                        var slug = vm.district_id;
                     //check
-                    //  alert(slug);
+                   // alert(slug);
 
                         if (slug) {
                             axios.get(this.config.get_url + '/' + slug).then(
                                 function(response) {
-                                    vm.item= response.data;
-                                    console.log(vm.item);
+                                    vm.upazilas= response.data;
+                                    console.log(vm.upazilas);
                                 }).catch(function(error) {
                                 toastr.error('Something went to wrong', {
                                     closeButton: true,

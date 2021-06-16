@@ -133,7 +133,7 @@ class CustomerReportController extends Controller
         return $reports;
     }
     public function allUpazila($id){
-        $reports = Upazila::where('district_id', $id)->first();
+        $reports = Upazila::where('district_id', $id)->get();
         return $reports;
     }
 }
