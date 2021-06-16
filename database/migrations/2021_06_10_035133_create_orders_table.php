@@ -33,8 +33,8 @@ class CreateOrdersTable extends Migration
             $table->text('otc')->nullable();
             $table->text('real_ip')->nullable();
             $table->text('visit_type')->nullable();
-            $table->text('security_money_type')->nullable();
-            $table->text('security_money_amount')->nullable();
+            $table->text('security_money_cheque')->nullable();
+            $table->text('security_money_cash')->nullable();
             $table->foreignId('marketing_user_id')->nullable();
             $table->foreignId('accounts_user_id')->nullable();
             $table->foreignId('customer_id')->nullable();
