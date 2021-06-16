@@ -35,12 +35,8 @@ class CustomerReportController extends Controller
     {
         // dd($request->all());
         $this->validate($request, [
-            //   "contact_number" => "required|unique:contact_number",
             'email' => 'required|email|unique:users',
             'contact_number' => 'required|min:11|numeric',
-            // 'contact_number' => 'required|phone|unique:customer_reports,contact_number',
-            // 'email' => 'required|email|unique:customer_reports,email',
-
         ]);
         $report = new CustomerReport();
         $report->fill($request->all());
@@ -97,12 +93,12 @@ class CustomerReportController extends Controller
     public function update(Request $request)
     {
         //dd($request->all());
-        $report = CustomerReport::findOrFail($request->id);
+        $report = CustomerServiceReport::findOrFail($request->id);
         // $report = new CustomerReport();
         // $report->fill($request->all());
         $report->ctype = $request->ctype;
         $report->bandwidth = $request->bandwidth;
-        $report->createdBy = $request->createdBy;
+       // $report->createdBy = $request->createdBy;
         $report->rate = $request->rate;
         $report->otc = $request->otc;
         $report->remark = $request->remark;
