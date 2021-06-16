@@ -36,7 +36,7 @@
                                             <td>
                                                 <select class="form-control form-control-sm" id="location_district"
                                                     name="location_district">
-                                                    <option label="">Select One</option>
+                                                    <option value="">Select One</option>
                                                     <option value="55">Bagerhat(বাগেরহাট)</option>
                                                     <option value="40">Bandarban(বান্দরবান)</option>
                                                     <option value="34">Barguna(বরগুনা)</option>
@@ -110,7 +110,7 @@
                                             <td>
                                                 <select class="form-control form-control-sm" id="client_type"
                                                     name="location_upazila">
-                                                    <option label="">Select One</option>
+                                                    <option value="">Select One</option>
 
                                                 </select>
                                             </td>

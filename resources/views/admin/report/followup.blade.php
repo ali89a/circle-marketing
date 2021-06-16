@@ -2,11 +2,13 @@
 
 @section('content')
 <div class="content-wrapper">
-    <div class="content-body">
-        <section class="modern-horizontal-wizard">
+    <div class="card card-body content-body">
+        <section class="  modern-horizontal-wizard">
             <div class="wizard-modern modern-wizard-example">
-                <div class="bs-stepper-content">
-                    <form class="form" id="user_form" method="post" action="#" enctype="multipart/form-data">
+                <div class="  bs-stepper-content">
+                    {{-- class="form" id="user_form" --}}
+                    <form method="post" action="{{route('reportUpdate')}}" enctype="multipart/form-data">
+                        @csrf
                         <div class="content-header">
                             <h5 class="mb-0">Followup/Reconnect</h5>
                             <small><b>Entry Daily Report</b></small>
@@ -20,6 +22,7 @@
                                 <table class="table table-bordered table-striped">
                                     <tbody>
                                         <input type="hidden" name="createdBy" value="{{ Auth::user()->id }}">
+                                        {{-- <input type="hidden" name="id" value="{{ $reports->id }}"> --}}
                                         <tr>
                                             <td>Select Client:</td>
                                             <td>
@@ -32,6 +35,7 @@
                                                 </select>
                                             </td>
                                         </tr>
+                                        <input type="hidden" name="id" id="id"  v-bind:value="item.id" >
                                         <tr>
                                             <td width="200">Client/Organization Name:</td>
                                             <td>
@@ -78,9 +82,10 @@
                                                     <option value="Cvisit">Corporate Visit</option>
                                                     <option value="phone">Phone</option>
                                                 </select> --}}
-                                                <select name="visit_phone" id="visit_phone" class="form-control">
+                                                <select name="visit_phone" id="report_id" class="form-control"
+                                                    v-model="report_id">
                                                     <option value="">Select one</option>
-                                                    <option :value="row.id" v-for="row in items"
+                                                    <option :value="row.id" v-for="row in item"
                                                         v-html="row.visit_phone" style="max-width: 200px">
                                                     </option>
                                                 </select>
@@ -158,10 +163,6 @@
 @endsection
 @push('style')
 
-
-
-
-
 @endpush
 @section('vendor-js')
 @endsection
@@ -183,7 +184,7 @@
                     config: {
                         get_url: "{{ url('admin/fetch-report-id') }}",
                     },
-                    sub_category_id: '',
+                    // sub_category_id: '',
                     report_id: '',
                     report: [],
                     item: [],
@@ -196,13 +197,8 @@
                         if (slug) {
                             axios.get(this.config.get_url + '/' + slug).then(
                                 function(response) {
-
                                     vm.item= response.data;
                                     console.log(vm.item);
-
-
-
-
                                 }).catch(function(error) {
                                 toastr.error('Something went to wrong', {
                                     closeButton: true,

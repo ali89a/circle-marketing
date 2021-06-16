@@ -41,7 +41,9 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/doc-edit', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('doc.edit');
     Route::get('/order-edit', [App\Http\Controllers\OrderController::class, 'orderEdit'])->name('order.edit');
     Route::get('/order-detail-edit', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('order.detail.edit');
+    
     Route::resource('report', CustomerReportController::class);
+   
     Route::get('/pending-list', [CustomerReportController::class, 'pendingList'])->name('pendingList');
     Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);
     Route::get('fetch-thana', [App\Http\Controllers\OrderController::class, 'fetch_thana']);
@@ -53,10 +55,11 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/customer-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'customerDetailEdit'])->name('customerDetailEdit');
     Route::put('/customer-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'customerDetailUpdate'])->name('customerDetailUpdate');
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
+   
     Route::get('/approve/{id?}', [CustomerReportController::class, 'approve'])->name('approve');
     Route::get('/cancel/{id?}', [CustomerReportController::class, 'cancel'])->name('cancel');
     Route::get('/followup', [CustomerReportController::class, 'followUp'])->name('followUp');
     Route::get('/fetch-report-id/{id}', [CustomerReportController::class, 'fetchAll']);
-    // 'ApiController@fetchSubCategory');
+    Route::post('/report-update', [CustomerReportController::class, 'update'])->name('reportUpdate');
 });
 require('admin.php');

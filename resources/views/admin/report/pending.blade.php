@@ -30,10 +30,10 @@
                                             <input type="submit" value="Generate Report" class="btn btn-primary"
                                                 style="margin-top:20px">
                                         </div>
-                                        <div class="col-md-1">
+                                        {{-- <div class="col-md-1">
                                             <a style="margin-top:20px" href="#" class="btn btn-default"><i
                                                     class="fa fa-refresh"></i></a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </form>
                                 <div class="ajaxform">
@@ -44,9 +44,9 @@
                                         </div>
                                         <div class="col-sm-2" style="margin-top:18px;">
                                             <button type="submit" class="btn btn-primary btnsearch"><i
-                                                    class="fa fa-search"></i></button>
-                                            <button class="btn btn-default btnclear"><i
-                                                    class="fa fa-refresh"></i></button>
+                                                    class="fa fa-search"></i>Search</button>
+                                            {{-- <button class="btn btn-default btnclear"><i
+                                                    class="fa fa-refresh"></i></button> --}}
                                         </div>
                                         <div class="col-md-12" style="overflow-y:scroll;">
                                             <div id="searchresult">
@@ -91,66 +91,52 @@
                                                     class="btn btn-success btn-circle col-sm">Approve
                                                     <i class="fas fa-check"></i>
                                                 </a>
-                                                {{-- @else
-                                                <a href="{{route('cancel',['id' => $item->id])}}"
-                                                class="btn btn-warning btn-circle">
-                                                <i class="fas fa-exclamation-triangle"></i>
-                                                </a> --}}
                                                 @endif
-
                                                 <a href="{{route('cancel',['id' => $item->id])}}"
                                                     class="mt-1 btn btn-danger btn-circle col-sm">Cancel
                                                     <i class="fas fa-exclamation-triangle"></i>
                                                 </a>
                                             </td>
                                             <td>{{ $item->cname }}</td>
+                                            <td>{{ $item->ctype }} </td>
+                                            <td>{{ $item->isp_type }} </td>
+                                            <td>{{ $item->address }} </td>
                                             <td>{{ $item->location_district }} </td>
                                             <td>{{ $item->location_upazila }} </td>
-                                            <td>{{ $item->address }} </td>
-                                            <td>{{ $item->contact_person }} </td>
-                                            <td>{{ $item->email }} </td>
-                                            <td>{{ $item->visit_phone }}</td>
-                                            <td>{{ $item->ctype }}</td>
-                                            <td>{{ $item->isp_type }}</td>
+                                            <td>{{ $item->contact_number }}</td>
+                                            <td>{{ $item->contact_person }}</td>
+                                            <td>{{ $item->email }}</td>
                                             <td>
-                                                <img class="img-fluid" style="width:100px; height: auto;"
+                                                {{-- <img class="img-fluid" style="width:100px; height: auto;"
                                                     src="{{asset('storage/visitingCard/'.$item->visiting_card)}}"
-                                                    alt="No Image">
+                                                alt="No Image"> --}}
                                             </td>
                                             <td>{{ $item->bandwidth }}</td>
                                             <td>{{ $item->rate }}</td>
                                             <td>{{ $item->otc }}</td>
                                             <td>{{ $item->remark }}</td>
-                                            <td>{{ $item->audio }}</td>
+                                            <td>{{ $item->visit_phone }}</td>
                                             <td>
                                                 <img class="img-fluid" style="width:100px; height: auto;"
                                                     src="{{asset('storage/visitingCard/'.$item->visiting_card)}}"
                                                     alt="No Image">
                                             </td>
-                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->created_at }}</td>
                                             <td>
                                                 <div class="audiofile">
-
                                                     <audio controls="">
                                                         <source src="{{ $item->audio }}" type="audio/mpeg">
                                                         Your browser does not support the audio element.
                                                     </audio>
                                                 </div>
                                             </td>
-
                                         </tr>
-
-
                                         @endforeach
                                     </tbody>
                                 </table>
-
                             </div>
-
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </section>
