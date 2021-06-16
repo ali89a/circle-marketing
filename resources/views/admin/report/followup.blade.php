@@ -45,13 +45,13 @@
                                         <tr>
                                             <td>District:</td>
                                             <td>
-                                                <div id="district">@{{item.district}}</div>
+                                                <div id="district">@{{item.location_district}}</div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Location: (Upazila) </td>
                                             <td>
-                                                <div id="upazila">@{{item.upazila}}</div>
+                                                <div id="upazila">@{{item.location_upazila}}</div>
                                             </td>
                                         </tr>
                                         <tr>
