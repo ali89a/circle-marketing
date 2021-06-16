@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CustomerReport;
+use App\Models\District;
+use App\Models\Upazila;
 use Illuminate\Http\Request;
 
 
@@ -23,7 +25,8 @@ class CustomerReportController extends Controller
 
     public function create()
     {
-        return view('admin.report.create');
+        $districts = District::all();
+        return view('admin.report.create', compact('districts'));
     }
 
 
@@ -127,6 +130,10 @@ class CustomerReportController extends Controller
     public function fetchAll($id)
     {
         $reports = CustomerReport::where('id', $id)->first();
+        return $reports;
+    }
+    public function allUpazila($id){
+        $reports = Upazila::where('district_id', $id)->first();
         return $reports;
     }
 }
