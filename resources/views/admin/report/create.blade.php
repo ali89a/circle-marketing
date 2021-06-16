@@ -3,7 +3,7 @@
 @section('content')
 <div class="content-wrapper">
     <div class="content-body">
-        <section class="modern-horizontal-wizard">
+        <section class="card card-body modern-horizontal-wizard">
             <div class=" wizard-modern modern-wizard-example">
                 <div class="bs-stepper-content">
                     <form method="post" action="{{route('report.store')}}" enctype="multipart/form-data">
@@ -44,7 +44,7 @@
                                                 </select>
                                             </td>
                                         </tr>
-                                       <input type="text" name="id" id="id"  v-bind:value="upazilas.id" >
+                                       {{-- <input type="text" name="id" id="id"  v-bind:value="upazilas.id" > --}}
                                         <tr>
                                             <td>Location: (Upazila) </td>
                                             <td>
@@ -55,11 +55,6 @@
                                                         v-html="row.name" style="max-width: 200px">
                                                     </option>
                                                 </select>
-                                                {{-- <select class="form-control form-control-sm" id="client_type"
-                                                    name="location_upazila">
-                                                    <option value="0">Select One</option>
-
-                                                </select> --}}
                                             </td>
                                         </tr>
                                         <tr>
@@ -74,7 +69,6 @@
                                             <td><input type="text" name="contact_person"
                                                     class="form-control form-control-sm" value="" required=""></td>
                                         </tr>
-
                                         <tr>
                                             <td>Contact Email:</td>
                                             <td><input type="email" name="email" class="form-control form-control-sm"
