@@ -19,14 +19,6 @@ class CustomerReport extends Model
         'contact_person', 
         'email', 
         'visit_phone', 
-        'ctype', 
-        'isp_type', 
-        // 'visiting_card', 
-        'bandwidth', 
-        'rate', 
-        'otc', 
-        'remark',
-        'audio',
        
     ];
 }

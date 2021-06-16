@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CustomerReport;
+use App\Models\CustomerServiceReport;
 use App\Models\District;
 use App\Models\Upazila;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class CustomerReportController extends Controller
 
     public function index()
     {
-        $reports = CustomerReport::where('ctype', 'followUp')->get();
+        $reports = CustomerServiceReport::where('ctype', 'followUp')->get();
         // dd($reports->all());
         return view('admin.report.index', compact('reports'));
     }
@@ -34,17 +35,46 @@ class CustomerReportController extends Controller
     {
         // dd($request->all());
         $this->validate($request, [
-            'cname' => 'required',
+            //   "contact_number" => "required|unique:contact_number",
+            'email' => 'required|email|unique:users',
+            'contact_number' => 'required|min:11|numeric',
+            // 'contact_number' => 'required|phone|unique:customer_reports,contact_number',
+            // 'email' => 'required|email|unique:customer_reports,email',
+
         ]);
         $report = new CustomerReport();
         $report->fill($request->all());
-        if ($request->visiting_card != null) {
-            $fileName = time() . '.' . $request->visiting_card->extension();
-            $request->visiting_card->move(storage_path('app/public/visitingCard'), $fileName);
-            $report->visiting_card = $fileName;
-        }
         $report->save();
 
+        $serviceInfo = new CustomerServiceReport();
+        // $serviceInfo->fill($request->all());
+        $serviceInfo->customer_report_id = $report->id;
+        $serviceInfo->fill($request->all());
+        // $serviceInfo->ctype = $request->ctype;
+        // $serviceInfo->isp_type = $request->isp_type;
+        // $serviceInfo->visiting_card = $request->visiting_card;
+        // $serviceInfo->bandwidth = $request->bandwidth;
+        // $serviceInfo->rate = $request->rate;
+        // $serviceInfo->otc = $request->otc;
+        // $serviceInfo->remark = $request->remark;
+        // $serviceInfo->audio = $request->audio;
+
+        // $serviceInfo = CustomerReport::get($request->id);
+
+        if (
+            $request->visiting_card != null
+        ) {
+            $fileName = time() . '.' . $request->visiting_card->extension();
+            $request->visiting_card->move(storage_path('app/public/visitingCard'), $fileName);
+            $serviceInfo->visiting_card = $fileName;
+        }
+
+        if ($request->audio != null) {
+            $fileName2 = time() . '.' . $request->audio->extension();
+            $request->audio->move(storage_path('app/public/audio'), $fileName2);
+            $serviceInfo->audio = $fileName2;
+        }
+        $serviceInfo->save();
 
         Toastr::success('Information Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('pendingList');
@@ -98,7 +128,7 @@ class CustomerReportController extends Controller
 
     public function pendingList()
     {
-        $pendingList = CustomerReport::where('ctype', 'new')->get();
+        $pendingList = CustomerServiceReport::where('ctype', 'new')->get();
         return view('admin.report.pending', [
             'pendingList' => $pendingList,
         ]);
@@ -107,7 +137,7 @@ class CustomerReportController extends Controller
 
     public function approve($id)
     {
-        $report = CustomerReport::find($id);
+        $report = CustomerServiceReport::find($id);
         $report->ctype = 'followup';
         $report->save();
         return redirect()->back()->with('message', 'report unpublished successfully');
@@ -132,7 +162,8 @@ class CustomerReportController extends Controller
         $reports = CustomerReport::where('id', $id)->first();
         return $reports;
     }
-    public function allUpazila($id){
+    public function allUpazila($id)
+    {
         $reports = Upazila::where('district_id', $id)->get();
         return $reports;
     }
