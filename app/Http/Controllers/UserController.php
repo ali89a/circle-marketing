@@ -53,7 +53,7 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->mobile = $request->mobile;
-            $user->vin_no = $request->vin_no;
+            $user->bin_no = $request->bin_no;
             $user->billing_address = $request->billing_address;
             $user->creator_user_id = Auth::guard('admin')->id();
             $user->password = bcrypt($request->password);

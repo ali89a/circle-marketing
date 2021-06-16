@@ -173,11 +173,6 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="total_Price">Total Price</label>
-                                <input type="text" id="total_Price" value="{{$customer_order->total_Price}}" name="total_Price" class="form-control" placeholder="Birmingham" />
-                            </div>
-
-                            <div class="form-group col-md-4">
                                 <label class="form-label" for="core_rent">Core Rent</label>
                                 <input type="text" id="core_rent" value="{{$customer_order->core_rent}}" name="core_rent" class="form-control" placeholder="658921" />
                             </div>
@@ -188,24 +183,6 @@
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="otc">Real IP</label>
                                 <input type="text" id="otc" value="{{$customer_order->real_ip}}" name="real_ip" class="form-control" placeholder="658921" />
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="form-label" for="marketing_user_id">Marketing User</label>
-                                <select class="form-control" name="marketing_user_id">
-                                    <option value="">Select One</option>
-                                    @foreach($users as $user)
-                                    <option value="{{ $user->id }}" {{ $user->id == $customer_order->marketing_user_id ? 'selected' : '' }}>{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label class="form-label" for="accounts_user_id">Accounts User</label>
-                                <select class="form-control" name="accounts_user_id">
-                                    <option value="">Select One</option>
-                                    @foreach($users as $user)
-                                    <option value="{{ $user->id }}" {{ $user->id == $customer_order->accounts_user_id ? 'selected' : '' }}>{{ $user->name }}</option>
-                                    @endforeach
-                                </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="security_money_cheque">Security Money Cheque</label>

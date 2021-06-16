@@ -154,32 +154,31 @@
                                                 <tr>
                                                     <td class="bg-gray">M A</td>
                                                     <td class="text-center mstatus666">
-                                                        <p class="bg-gray btn-block">pending</p>
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">A A</td>
                                                     <td class="text-center acstatus666">
-                                                        <p class="bg-gray btn-block">pending</p>
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">COO</td>
                                                     <td class="text-center coostatus666">
-                                                        <p class="bg-gray btn-block text-center">pending</p>
+                                                        <p class="bg-gray btn-block text-center">{{ $order->order_approval->coo_approved_status ??'' }}</p>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">N A</td>
                                                     <td class="text-center nstatus666">
-                                                        <p class="bg-gray btn-block">pending</p>
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">NWS</td>
-                                                    <td class="hidework">
-                                                        <p class="btn bg-purple disabled btn-xs btn-block">processing..
-                                                        </p>
+                                                    <td class="text-center nstatus666">
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->noc_assigned_status ??'' }}</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -269,17 +268,16 @@
                                                     <table class="table table-bordered bw_details">
                                                         <tbody>
                                                             <tr>
-                                                                <td>Loc :</td>
-                                                                <td>Narayanganj (Rupganj Upazila)<br>
-                                                                    নারায়াণগঞ্জ (রূপগঞ্জ)</td>
+                                                                <td>Location :</td>
+                                                                <td>{{ $order->customer_details->division->name??'' }},{{ $order->customer_details->district->name??'' }},{{ $order->customer_details->upazila->name??'' }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>TA</td>
-                                                                <td>gobindopur, gobindopur, rupganj, Narayanganj </td>
+                                                                <td>{{ $order->customer_details->technical_address??'' }} </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>BA</td>
-                                                                <td> gobindopur, gobindopur, rupganj, Narayanganj </td>
+                                                                <td> {{ $order->customer_details->billing_address ??'' }} </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Work order:</td>
@@ -349,83 +347,83 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>Internet (1st)</td>
-                                                                <td>1100</td>
-                                                                <td>0</td>
-                                                                <td>100</td>
-                                                                <td>0</td>
-                                                                <td class="text-right onlym allhide">365</td>
+                                                                <td>{{ $order->order_info->internet_capacity_1??'' }}</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td class="text-right onlym allhide">{{ $order->order_info->internet_price_1??'' }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Internet(2nd)</td>
-                                                                <td>0</td>
                                                                 <td></td>
-                                                                <td>0</td>
-                                                                <td>0</td>
-                                                                <td class="text-right onlym allhide">0</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td class="text-right onlym allhide"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>BDIX(1st)</td>
+                                                                <td>{{ $order->order_info->bdix_capacity_1??'' }}</td>
                                                                 <td></td>
                                                                 <td></td>
-                                                                <td>0</td>
-                                                                <td>0</td>
-                                                                <td class="text-right onlym allhide">0</td>
+                                                                <td></td>
+                                                                <td class="text-right onlym allhide">{{ $order->order_info->bdix_price_1??'' }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>BDIX(2nd)</td>
-                                                                <td>0</td>
+                                                                <td>{{ $order->order_info->internet_price_2??'' }}</td>
                                                                 <td></td>
-                                                                <td>0</td>
-                                                                <td>0</td>
-                                                                <td class="text-right onlym allhide">0</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td class="text-right onlym allhide">{{ $order->order_info->internet_price_2??'' }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>It Service 1 (1st)</td>
-                                                                <td></td>
+                                                                <td>{{ $order->order_info->youtube_capacity_1??'' }}</td>
                                                                 <td></td>
                                                                 <td>0</td>
                                                                 <td>0</td>
-                                                                <td class="text-right onlym allhide">0</td>
+                                                                <td class="text-right onlym allhide">{{ $order->order_info->youtube_price_1??'' }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>It Service 1 (2st)</td>
-                                                                <td>0</td>
                                                                 <td></td>
-                                                                <td>0</td>
-                                                                <td>0</td>
-                                                                <td class="text-right onlym allhide">0</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td class="text-right onlym allhide"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>It Service 2(1st)</td>
+                                                                <td>{{ $order->order_info->facebook_capacity_1??'' }}</td>
                                                                 <td></td>
                                                                 <td></td>
-                                                                <td>0</td>
-                                                                <td>0</td>
-                                                                <td class="text-right onlym allhide">0</td>
+                                                                <td></td>
+                                                                <td class="text-right onlym allhide">{{ $order->order_info->facebook_price_1??'' }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>It Service 2(2nd)</td>
-                                                                <td>0</td>
                                                                 <td></td>
-                                                                <td>0</td>
-                                                                <td>0</td>
-                                                                <td class="text-right onlym allhide">0</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td class="text-right onlym allhide"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Data (1st)</td>
-                                                                <td>3000</td>
+                                                                <td>{{ $order->order_info->data_capacity_1??'' }}</td>
                                                                 <td></td>
-                                                                <td>0</td>
-                                                                <td>0</td>
-                                                                <td class="text-right onlym allhide">42</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td class="text-right onlym allhide">{{ $order->order_info->data_price_1??'' }}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Data(2nd)</td>
-                                                                <td>0</td>
                                                                 <td></td>
-                                                                <td>0</td>
-                                                                <td>0</td>
-                                                                <td class="text-right onlym allhide">0</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td class="text-right onlym allhide"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Domain</td>
@@ -439,19 +437,19 @@
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="5">Combine Price</td>
-                                                                <td class="text-right allhide">0</td>
+                                                                <td class="text-right allhide">{{ $order->total_Price }}</td>
                                                             </tr>
                                                             <tr class="onlym">
                                                                 <td colspan="5">OTC</td>
-                                                                <td class="text-right allhide">0</td>
+                                                                <td class="text-right allhide">{{$order->otc}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="5">Core Rent</td>
-                                                                <td class="text-right allhide">0</td>
+                                                                <td class="text-right allhide">{{$order->core_rent}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td colspan="5">Real Ip</td>
-                                                                <td class="text-right allhide">0</td>
+                                                                <td class="text-right allhide">{{$order->real_ip}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>

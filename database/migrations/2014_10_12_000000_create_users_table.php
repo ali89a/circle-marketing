@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('mobile')->unique()->nullable();
             $table->text('billing_address')->nullable();
-            $table->text('vin_no')->nullable();
+            $table->text('bin_no')->nullable();
             $table->text('img_url')->nullable();
             $table->text('btrc_license_url')->nullable();
             $table->text('nid_url')->nullable();

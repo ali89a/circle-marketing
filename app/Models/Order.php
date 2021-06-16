@@ -18,4 +18,14 @@ class Order extends Model
 
         return $this->belongsTo('App\Models\User', 'customer_id');
     }
+    public function order_approval()
+    {
+
+        return $this->hasOne('App\Models\OrderApproval', 'order_id');
+    }
+    public function order_info()
+    {
+
+        return $this->hasOne('App\Models\OrderInfo', 'order_id');
+    }
 }

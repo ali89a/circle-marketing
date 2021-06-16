@@ -9,6 +9,7 @@ use App\Models\District;
 use App\Models\Division;
 use App\Models\OrderInfo;
 use App\Models\Admin\Admin;
+use App\Models\OrderApproval;
 use App\Models\OrderBuffer;
 use App\Models\OrderNOCInfo;
 use Illuminate\Http\Request;
@@ -186,8 +187,8 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
             $order = new Order();
             $order->customer_id = $request->customer_id;
             $order->save();
@@ -208,6 +209,15 @@ class OrderController extends Controller
             $customer_doc->order_id = $order->id;
             $customer_doc->save();
 
+            $order_approval = new OrderApproval();
+            $order_approval->m_approved_status = 'Pending';
+            $order_approval->a_approved_status = 'Pending';
+            $order_approval->coo_approved_status = 'Pending';
+            $order_approval->noc_assigned_status = 'Pending';
+            $order_approval->noc_approved_status = 'Pending';
+            $order_approval->order_id = $order->id;
+            $order_approval->save();
+
 
             $customer_info = new OrderCustomerInfo();
             $customer_info->organization = $request->organization;
@@ -225,19 +235,19 @@ class OrderController extends Controller
             $customer_info->upazila_id = $request->upazila_id;
             $customer_info->order_id = $order->id;
             $customer_info->save();
-            DB::commit();
+        //    DB::commit();
             Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
             return redirect()->route('docEdit', ['id' => $order->id]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-            $output = [
-                'success' => 0,
-                'msg' => __("messages.something_went_wrong")
-            ];
-            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-            return back();
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        //     $output = [
+        //         'success' => 0,
+        //         'msg' => __("messages.something_went_wrong")
+        //     ];
+        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+        //     return back();
+        // }
     }
 
     /**

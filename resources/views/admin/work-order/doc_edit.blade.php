@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="bs-stepper-content">
-                    <form method="post" action="{{route('docUpdate',1)}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('docUpdate',$customer_doc->order_id)}}" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="content-header">

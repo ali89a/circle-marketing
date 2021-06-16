@@ -95,7 +95,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <table class="table table-responsive table-bordered" id="internet_box" style="">
 
 
@@ -141,7 +141,8 @@
                                         </tr>
                                         <tr>
                                             <td>Total Price</td>
-                                            <td colspan="2"><input type="number" step=".01" name="total_price_for_special" min="0"></td>
+                                            <td colspan="2">
+                                            <input type="number" step=".01" name="total_price_for_special" min="0"  value="{{$customer_order_info->order}}"></td>
                                         </tr>
                                     </tbody>
                                 </table>

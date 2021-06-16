@@ -83,8 +83,8 @@
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label for="vin_no">VIN Number</label>
-                                            <input type="text" class="form-control" id="vin_no" name="vin_no" placeholder="Enter VIN Number">
+                                            <label for="bin_no">BIN Number</label>
+                                            <input type="text" class="form-control" id="bin_no" name="bin_no" placeholder="Enter BIN Number">
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-md-6 col-12">
