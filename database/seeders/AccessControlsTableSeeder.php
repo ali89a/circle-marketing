@@ -50,7 +50,7 @@ class AccessControlsTableSeeder extends Seeder
             ['name' => 'Admin', 'guard_name' => 'admin'],
             ['name' => 'CEO', 'guard_name' => 'admin'],
             ['name' => 'COO', 'guard_name' => 'admin'],
-            ['name' => 'Maketing Admin', 'guard_name' => 'admin'],
+            ['name' => 'Marketing Admin', 'guard_name' => 'admin'],
             ['name' => 'Marketing Executive', 'guard_name' => 'admin'],
             ['name' => 'Accounts Admin', 'guard_name' => 'admin'],
             ['name' => 'Accounts Executive', 'guard_name' => 'admin'],

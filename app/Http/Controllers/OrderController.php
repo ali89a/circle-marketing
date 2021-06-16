@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Upazila;
 use App\Models\District;
 use App\Models\Division;
 use App\Models\OrderInfo;
+use App\Models\Admin\Admin;
 use App\Models\OrderBuffer;
 use App\Models\OrderNOCInfo;
 use Illuminate\Http\Request;
@@ -15,7 +17,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\OrderCustomerDocument;
-use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -94,7 +95,8 @@ class OrderController extends Controller
     public function orderEdit($id)
     {
         $customer_order = Order::where('id', $id)->first();
-        return view('admin.work-order.order_edit', compact('customer_order'));
+        $users = Admin::role(['Marketing Executive','Marketing Admin'])->get(); 
+        return view('admin.work-order.order_edit', compact('customer_order','users'));
     }
     public function orderDetailEdit($id)
     {
@@ -276,7 +278,7 @@ class OrderController extends Controller
             $order->price = $request->price;
             $order->scl_id = $request->scl_id;
             $order->gmap_location = $request->gmap_location;
-            $order->link_id = $request->link_id;
+            $order->link_id = 'NC_'.\App\Classes\LinkId::serial_number();
             $order->vat = $request->vat;
             $order->order_submission_date = $request->order_submission_date;
             $order->billing_cycle = $request->billing_cycle;
@@ -290,8 +292,8 @@ class OrderController extends Controller
             $order->real_ip = $request->real_ip;
             $order->visit_type = $request->visit_type;
             $order->connect_type = $request->connect_type;
-            $order->security_money_type = $request->security_money_type;
-            $order->security_money_amount = $request->security_money_amount;
+            $order->security_money_cheque = $request->security_money_cheque;
+            $order->security_money_cash = $request->security_money_cash;
             $order->marketing_user_id = $request->marketing_user_id;
             $order->accounts_user_id = $request->accounts_user_id;
             $order->save();

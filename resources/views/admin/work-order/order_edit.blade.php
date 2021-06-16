@@ -93,8 +93,8 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4">
-                         
-                                <div class="demo-inline-spacing">   <label class="form-label" for="type">Type</label>
+                                <label class="form-label" for="type">Type</label>
+                                <div class="demo-inline-spacing">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio1" name="type" class="custom-control-input" value="Own" {{ $customer_order->type == "Own" ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="customRadio1">Own</label>
@@ -131,11 +131,6 @@
                                     <option value="Fiber & Radio" {{ $customer_order->connect_type == "Fiber & Radio" ? 'selected' : '' }}>Fiber & Radio</option>
                                 </select>
                             </div>
-
-                            <div class="form-group col-md-4">
-                                <label class="form-label" for="pincode2">Link Id</label>
-                                <input type="text" id="pincode2" value="{{$customer_order->link_id}}" name="link_id" class="form-control" placeholder="658921" />
-                            </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="city2">Vat</label>
                                 <input type="text" id="city2" value="{{$customer_order->vat}}" name="vat" class="form-control" placeholder="Birmingham" />
@@ -156,15 +151,10 @@
                                 <label class="form-label" for="billing_cycle">Billing Cycle</label>
                                 <select class="form-control" name="billing_cycle">
                                     <option value="">Select Date</option>
-                                    <option value="1" {{ $customer_order->billing_cycle == 1 ? 'selected' : '' }}>1</option>
-                                    <option value="7" {{ $customer_order->billing_cycle == 7 ? 'selected' : '' }}>7</option>
+                                    @for ($i = 1; $i <= 31; $i++) <option value="{{ $i }}" {{ $i == $customer_order->billing_cycle ? 'selected' : '' }}>{{ $i }}</option>
+                                        @endfor
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label class="form-label" for="billing_remark">Billing Remark</label>
-                                <input type="text" id="billing_remark" value="{{$customer_order->billing_remark}}" name="billing_remark" class="form-control" placeholder="Birmingham" />
-                            </div>
-
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="bill_start_date">Bill Start Date</label>
                                 <input type="text" name="bill_start_date" value="{{$customer_order->bill_start_date}}" id="bill_start_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
@@ -178,7 +168,7 @@
                                 <label class="form-label" for="bill_generate_method">Bill Generate Method</label>
                                 <select class="form-control" name="bill_generate_method">
                                     <option value="">Select Date</option>
-                                    <option value="by_marketing_data" {{ $customer_order->bill_generate_method == 'by_marketing_data' ? 'selected' : '' }}>by_marketing_data</option>
+                                    <option value="by_marketing_date" {{ $customer_order->bill_generate_method == 'by_marketing_date' ? 'selected' : '' }}>by_marketing_date</option>
                                     <option value="by_noc_done" {{ $customer_order->bill_generate_method == 'by_noc_done' ? 'selected' : '' }}>by_noc_done</option>
                                 </select>
                             </div>
@@ -201,19 +191,33 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="marketing_user_id">Marketing User</label>
-                                <input type="text" id="marketing_user_id" value="{{$customer_order->marketing_user_id}}" name="marketing_user_id" class="form-control" placeholder="658921" />
+                                <select class="form-control" name="marketing_user_id">
+                                    <option value="">Select One</option>
+                                    @foreach($users as $user)
+                                    <option value="{{ $user->id }}" {{ $user->id == $customer_order->marketing_user_id ? 'selected' : '' }}>{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="customers_user_id">customers User</label>
-                                <input type="text" id="customers_user_id" value="{{$customer_order->customers_user_id}}" name="customers_user_id" class="form-control" placeholder="658921" />
+                                <label class="form-label" for="accounts_user_id">Accounts User</label>
+                                <select class="form-control" name="accounts_user_id">
+                                    <option value="">Select One</option>
+                                    @foreach($users as $user)
+                                    <option value="{{ $user->id }}" {{ $user->id == $customer_order->accounts_user_id ? 'selected' : '' }}>{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="security_money_type">Security Money Type</label>
-                                <input type="text" id="security_money_type" value="{{$customer_order->security_money_type}}" name="security_money_type" class="form-control" placeholder="658921" />
+                                <label class="form-label" for="security_money_cheque">Security Money Cheque</label>
+                                <input type="text" id="security_money_cheque" value="{{$customer_order->security_money_cheque}}" name="security_money_cheque" class="form-control" placeholder="658921" />
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="security_money_amount">Security Money Amount</label>
-                                <input type="text" id="security_money_amount" value="{{$customer_order->security_money_amount}}" name="security_money_amount" class="form-control" placeholder="658921" />
+                                <label class="form-label" for="security_money_cash">Security Money Cash</label>
+                                <input type="text" id="security_money_cash" value="{{$customer_order->security_money_cash}}" name="security_money_cash" class="form-control" placeholder="658921" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="form-label" for="billing_remark">Billing Remark</label>
+                             <textarea class="form-control" name="billing_remark" rows="1">{{$customer_order->billing_remark}}</textarea>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">

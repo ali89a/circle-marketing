@@ -199,11 +199,11 @@
                                         <table class="table table-bordered">
                                             <tbody>
                                                 <tr>
-                                                    <td style="font-size:12px;"><strong>Link ID:</strong> CN_210604_666
+                                                    <td style="font-size:12px;"><strong>Link ID:</strong>  {{ $order->link_id??'' }}
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="font-size:12px;"><strong>SCL ID:</strong> </td>
+                                                    <td style="font-size:12px;"><strong>SCL ID:</strong>{{$order->scl_id}} </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -234,12 +234,12 @@
                                         <table class="table table-bordered bw_details cdetails">
                                             <tbody>
                                                 <tr>
-                                                    <td>Name :</td>
+                                                    <td>Name</td>
                                                     <td style="width:150px;white-space: normal">{{ $order->customer_details->customer->name??'' }}
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Organization :</td>
+                                                    <td>Organization</td>
                                                     <td style="width:150px;white-space: normal;min-width:150px">{{ $order->customer_details->organization }}</td>
                                                 </tr>
                                                 <tr>
@@ -252,12 +252,12 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Security<br>money</td>
-                                                    <td>Bank Check : 0<br>Cash : {{ $order->security_money_amount??'' }}</td>
+                                                    <td>Bank Cheque :{{ $order->security_money_cheque??'' }}<br>Cash : {{ $order->security_money_cash??'' }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>VAT</td>
                                                     <td>
-                                                        no
+                                                    {{ $order->vat??'' }}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -506,7 +506,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>MRTG/Cpanel</td>
-                                                                <td colspan="3">http://snmp.circlenetworkbd.com/cacti
+                                                                <td colspan="3">
                                                                 </td>
                                                                 <td>USER: hkrup</td>
                                                                 <td>PASSWORD: circle@hkrup</td>
@@ -531,23 +531,23 @@
                                             <tbody>
                                                 <tr>
                                                     <td>Submission Date</td>
-                                                    <td>04-Jun-2021</td>
+                                                    <td>{{ \Carbon\Carbon::parse($order->order_submission_date)->format('j-M-Y')}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Bill Start Date</td>
-                                                    <td>05-Jun-2021</td>
+                                                    <td>{{ \Carbon\Carbon::parse($order->bill_start_date)->format('j-M-Y')}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-orange">Delivery Date</td>
-                                                    <td class="bg-orange">04-Jun-2021</td>
+                                                    <td class="bg-orange">{{ \Carbon\Carbon::parse($order->delivery_date)->format('j-M-Y')}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">NOC Delivered</td>
-                                                    <td class="bg-gray">08-Jun-2021</td>
+                                                    <td class="bg-gray">delivery_date</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">Bill Generate</td>
-                                                    <td class="bg-gray">by_marketing_date</td>
+                                                    <td class="bg-gray">{{ $order->bill_generate_method }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-orange">UP/Down Delivery </td>
@@ -560,8 +560,8 @@
                                             </tbody>
                                         </table>
                                     </td>
-                                    <td class="text-center"> {{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y g:i a')}}</td>
-                                    <td class="text-center">{{ \Carbon\Carbon::parse($order->updated_at)->format('d/m/Y g:i a')}}</td>
+                                    <td class="text-center"> {{ \Carbon\Carbon::parse($order->created_at)->format('j-F-Y, g:i a')}}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($order->updated_at)->format('j-F-Y, g:i a')}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
