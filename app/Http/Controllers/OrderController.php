@@ -26,6 +26,11 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function orderUpgration($id)
+    {
+        $customer_order_info = OrderInfo::where('order_id', $id)->first();
+        return view('admin.work-order.upgration', compact('customer_order_info'));
+    }
     public function index()
     {
         $data=[
