@@ -117,10 +117,6 @@ class CustomerReportController extends Controller
 
     public function pendingList()
     {
-        // $data = [
-        //     'model' => new Admin(),
-        //     'roles' => Role::where('name', '!=', 'Marketing Admin')->pluck('name', 'id'),
-        // ];
         $pendingList = DB::table('customer_reports')
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
@@ -132,7 +128,6 @@ class CustomerReportController extends Controller
             ->get();
         return view('admin.report.pending', [
             'pendingList' => $pendingList,
-            // 'data' => $data
         ]);
     }
 

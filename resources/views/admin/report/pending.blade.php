@@ -86,13 +86,14 @@
                                                 'roles' => Role::where('name', '!=', 'Marketing Admin')->pluck('name','id'),
                                                 ];
                                                 @endphp --}}
+                                            @can('report-approve')
                                                 @if($item->ctype=='new')
                                                 <a href="{{route('approve',['id' => $item->id])}}"
                                                     class="btn btn-success btn-circle col-sm">Approve
                                                     <i class="fas fa-check"></i>
                                                 </a>
                                                 @endif
-                                                {{-- @endcan --}}
+                                            @endcan
                                                 <a href="#" class="mt-1 btn btn-primary btn-circle col-sm">Pending
                                                     <i class="fas fa-exclamation-triangle"></i>
                                                 </a>

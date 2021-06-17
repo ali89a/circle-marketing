@@ -87,6 +87,8 @@ class AccessControlsTableSeeder extends Seeder
             ['name' => 'work-order-edit', 'guard_name' => 'admin'],
             ['name' => 'work-order-delete', 'guard_name' => 'admin'],
 
+            ['name' => 'report-approve', 'guard_name' => 'admin'],
+
         ];
 
         DB::table('permissions')->insert($data);
