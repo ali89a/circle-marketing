@@ -30,10 +30,6 @@
                                             <input type="submit" value="Generate Report" class="btn btn-primary"
                                                 style="margin-top:20px">
                                         </div>
-                                        {{-- <div class="col-md-1">
-                                            <a style="margin-top:20px" href="#" class="btn btn-default"><i
-                                                    class="fa fa-refresh">Refresh</i></a>
-                                        </div> --}}
                                     </div>
                                 </form>
                                 <div class="ajaxform">
@@ -45,8 +41,6 @@
                                         <div class="col-sm-2" style="margin-top:18px;">
                                             <button type="submit" class="btn btn-primary btnsearch"><i
                                                     class="fa fa-search"></i>Search</button>
-                                            {{-- <button class="btn btn-default btnclear"><i
-                                                    class="fa fa-refresh">Refresh</i></button> --}}
                                         </div>
                                         <div class="col-md-12" style="overflow-y:scroll;">
                                             <div id="searchresult">
@@ -124,7 +118,8 @@
                                             <td>
                                                 <div class="audiofile">
                                                     <audio controls="">
-                                                        <source src="{{ asset('storage/audio/' . $item->audio) }}" type="audio/mpeg">
+                                                        <source src="{{ asset('storage/audio/' . $item->audio) }}"
+                                                            type="audio/mpeg">
                                                         Your browser does not support the audio element.
                                                     </audio>
                                                 </div>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\Admin;
 use App\Models\CustomerReport;
 use App\Models\CustomerServiceReport;
 use App\Models\District;
+use App\Models\Role;
 use App\Models\Upazila;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +47,7 @@ class CustomerReportController extends Controller
         $this->validate($request, [
             'email' => 'required|unique:customer_reports,email',
             'contact_number' => 'required|unique:customer_reports,contact_number',
-            'visiting_card' => 'required|mimes:jpeg,jpg,png,webp,gif|max:10240',
+            'visiting_card' => 'required|mimes:jpeg,jpg,png,webp,gif,pdf|max:10240',
             'audio' => 'required|mimes:3gp,mp3,mpc,msv,wav,awb|max:102400',
         ]);
         $report = new CustomerReport();
@@ -119,7 +121,8 @@ class CustomerReportController extends Controller
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-            ->where('customer_reports.createdBy', Auth::user()->id)
+            // ->where('customer_reports.createdBy', Auth::user()->id)
+            // Role::where('name', '!=', 'Super Admin')
             ->where('customer_service_reports.ctype', '=', 'new')
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
@@ -143,11 +146,22 @@ class CustomerReportController extends Controller
         Toastr::success('Information Canceled Successful!.', '', ["progressbar" => true]);
         return redirect()->route('report.index');
     }
-    
+
     public function followUp()
     {
-        $reports = CustomerReport::where('customer_reports.createdBy', Auth::user()->id)
+        $reports = DB::table('customer_reports')
+            ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+            ->join('districts', 'customer_reports.location_district', 'districts.id')
+            ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+            ->where('customer_reports.createdBy', Auth::user()->id)
+            ->where('customer_service_reports.ctype', '=', 'approved')
+            ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
+
+
+        //$reports = CustomerReport::where('customer_reports.createdBy', Auth::user()->id)
+        // ->where('customer_service_reports.ctype', '=', 'approved')
+        // ->get();
         return view('admin.report.followup', compact('reports'));
     }
 
@@ -156,7 +170,7 @@ class CustomerReportController extends Controller
         $reports = CustomerReport::where('id', $id)->first();
         return $reports;
     }
-    
+
     public function allUpazila($id)
     {
         $reports = Upazila::where('district_id', $id)->get();

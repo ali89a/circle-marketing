@@ -30,10 +30,6 @@
                                             <input type="submit" value="Generate Report" class="btn btn-primary"
                                                 style="margin-top:20px">
                                         </div>
-                                        {{-- <div class="col-md-1">
-                                            <a style="margin-top:20px" href="#" class="btn btn-default"><i
-                                                    class="fa fa-refresh"></i></a>
-                                        </div> --}}
                                     </div>
                                 </form>
                                 <div class="ajaxform">
@@ -45,8 +41,6 @@
                                         <div class="col-sm-2" style="margin-top:18px;">
                                             <button type="submit" class="btn btn-primary btnsearch"><i
                                                     class="fa fa-search"></i>Search</button>
-                                            {{-- <button class="btn btn-default btnclear"><i
-                                                    class="fa fa-refresh"></i></button> --}}
                                         </div>
                                         <div class="col-md-12" style="overflow-y:scroll;">
                                             <div id="searchresult">
@@ -86,16 +80,27 @@
                                         <tr>
                                             <td>{{$item->id}}</td>
                                             <td>
+                                                {{-- @php
+                                                $data = [
+                                                'model' => new Admin(),
+                                                'roles' => Role::where('name', '!=', 'Marketing Admin')->pluck('name','id'),
+                                                ];
+                                                @endphp --}}
+                                            @can('report-approve')
                                                 @if($item->ctype=='new')
                                                 <a href="{{route('approve',['id' => $item->id])}}"
                                                     class="btn btn-success btn-circle col-sm">Approve
                                                     <i class="fas fa-check"></i>
                                                 </a>
                                                 @endif
-                                                <a href="{{route('cancel',['id' => $item->id])}}"
-                                                    class="mt-1 btn btn-danger btn-circle col-sm">Cancel
+                                            @endcan
+                                                <a href="#" class="mt-1 btn btn-primary btn-circle col-sm">Pending
                                                     <i class="fas fa-exclamation-triangle"></i>
                                                 </a>
+                                                {{-- <a href="{{route('cancel',['id' => $item->id])}}"
+                                                class="mt-1 btn btn-danger btn-circle col-sm">Cancel
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                </a> --}}
                                             </td>
                                             <td>{{ $item->cname }}</td>
                                             <td>{{ $item->ctype }} </td>

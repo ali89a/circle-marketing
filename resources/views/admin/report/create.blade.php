@@ -23,7 +23,7 @@
                                         <tr>
                                             <td>Contact Number:</td>
                                             <td><input type="tel" max="11" name="contact_number"
-                                                    class="form-control form-control-sm" value="" required=""
+                                                    class="form-control form-control-sm" value="{{ old('contact_number') }}" required=""
                                                     placeholder="Must be unique value.">
                                                 {{-- <span
                                                     class="text-danger">{{$errors->has('contact_number') ? $errors->first('contact_number') : ''}}</span> --}}
@@ -32,7 +32,7 @@
                                         <tr>
                                             <td width="200">Client/Organization Name:</td>
                                             <td><input type="text" name="cname" class="form-control form-control-sm"
-                                                    value="" required=""></td>
+                                                    value="{{ old('cname') }}" required=""></td>
                                         </tr>
                                         <tr>
                                             <td>District:</td>
@@ -66,25 +66,18 @@
                                             <td>Address:</td>
                                             <td>
                                                 <textarea name="address" class="form-control form-control-sm"
-                                                    value=""></textarea>
+                                                    value="{{ old('address') }}"></textarea>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Contact Person:</td>
                                             <td><input type="text" name="contact_person"
-                                                    class="form-control form-control-sm" value="" required=""></td>
+                                                    class="form-control form-control-sm" value="{{ old('contact_person') }}" required=""></td>
                                         </tr>
                                         <tr>
                                             <td>Contact Email:</td>
                                             <td><input type="email" name="email" class="form-control form-control-sm"
-                                                    value="" placeholder="Must be unique value.">
-
-                                                {{-- @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror --}}
-
+                                                    value="{{ old('email') }}" placeholder="Must be unique value.">
                                             </td>
                                         </tr>
                                         <tr>
@@ -110,7 +103,7 @@
                                             <td class="ctype">
                                                 <select class="form-control form-control-sm" id="client_type"
                                                     name="ctype">
-                                                    <option value=""></option>
+                                                    <option value="{{ old('cname') }}"></option>
                                                     <option value="new">New Client</option>
                                                     {{-- <option value="followUp">FollowUp</option>
                                                     <option value="reconnect">Reconnect</option> --}}
@@ -142,23 +135,23 @@
                                             <td>Visiting Card</td>
                                             <td>
                                                 <input type="file" name="visiting_card"
-                                                    class="form-control form-control-sm" value="">
+                                                    class="form-control form-control-sm" value="{{ old('visiting_card') }}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Bandwidth:</td>
                                             <td><input type="text" class="form-control form-control-sm" name="bandwidth"
-                                                    value=""></td>
+                                                    value="{{ old('bandwidth') }}"></td>
                                         </tr>
                                         <tr>
                                             <td>Rate:</td>
                                             <td><input type="text" class="form-control form-control-sm" name="rate"
-                                                    value=""></td>
+                                                    value="{{ old('rate') }}"></td>
                                         </tr>
                                         <tr>
                                             <td>OTC</td>
                                             <td><input type="text" name="otc" class="form-control form-control-sm"
-                                                    value=""></td>
+                                                    value="{{ old('otc') }}"></td>
                                         </tr>
                                         <tr>
                                             <td>Remark:</td>
