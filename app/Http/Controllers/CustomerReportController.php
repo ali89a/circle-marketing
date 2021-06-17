@@ -45,6 +45,8 @@ class CustomerReportController extends Controller
         $this->validate($request, [
             'email' => 'required|unique:customer_reports,email',
             'contact_number' => 'required|unique:customer_reports,contact_number',
+            'visiting_card' => 'required|mimes:jpeg,jpg,png,webp,gif|max:10240',
+            'audio' => 'required|mimes:3gp,mp3,mpc,msv,wav,awb|max:102400',
         ]);
         $report = new CustomerReport();
         $report->fill($request->all());
@@ -81,6 +83,10 @@ class CustomerReportController extends Controller
     public function update(Request $request)
     {
         //dd($request->all());
+        $this->validate($request, [
+            // 'visiting_card' => 'required|mimes:jpeg,jpg,png,webp,gif|max:10240',
+            'audio' => 'required|mimes:3gp,mp3,mpc,msv,wav,awb|max:102400',
+        ]);
         $report = new CustomerServiceReport();
         $report->customer_report_id = $request->customer_report_id;
         $report->ctype = $request->ctype;
