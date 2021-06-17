@@ -18,6 +18,10 @@ class Order extends Model
 
         return $this->belongsTo('App\Models\User', 'customer_id');
     }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\Admin\Admin', 'creator_user_id','id');
+    }
     public function order_approval()
     {
 

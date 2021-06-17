@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\OrderCustomerDocument;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -28,13 +29,19 @@ class OrderController extends Controller
      */
     public function orderUpgration($id)
     {
-        $customer_order_info = OrderInfo::where('order_id', $id)->first();
+        $customer_order_info = OrderInfo::with('order')->where('order_id', $id)->first();
         return view('admin.work-order.upgration', compact('customer_order_info'));
+    }
+    public function orderDowngration($id)
+    {
+        $customer_order_info = OrderInfo::with('order')->where('order_id', $id)->first();
+        return view('admin.work-order.downgration', compact('customer_order_info'));
     }
     public function index()
     {
         $data=[
             'orders'=>Order::with('customer_details')->get(),
+            'noc_users' => Admin::role(['NOC Executive','NOC Admin'])->get()
         ];
         return view('admin.work-order.index', $data);
     }
@@ -196,6 +203,7 @@ class OrderController extends Controller
         //     DB::beginTransaction();
             $order = new Order();
             $order->customer_id = $request->customer_id;
+            $order->creator_user_id = Auth::guard('admin')->user()->id;
             $order->save();
 
             $order_info = new OrderInfo();

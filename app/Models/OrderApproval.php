@@ -12,4 +12,16 @@ class OrderApproval extends Model
     {
         return $this->belongsTo('App\Models\Order', 'order_id');
     }
+    public function m_user()
+    {
+        return $this->belongsTo('App\Models\Admin\Admin', 'm_approved_by','id');
+    }
+    public function noc_user()
+    {
+        return $this->belongsTo('App\Models\Admin\Admin', 'noc_approved_by','id');
+    }
+    public function noc_assign_user()
+    {
+        return $this->belongsTo('App\Models\Admin\Admin', 'noc_assigned_by','id');
+    }
 }

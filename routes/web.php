@@ -57,6 +57,10 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
     Route::get('/work-order-upgration/{id?}', [App\Http\Controllers\OrderController::class, 'orderUpgration'])->name('work-order-upgration');
     Route::get('/work-order-downgration/{id?}', [App\Http\Controllers\OrderController::class, 'orderDowngration'])->name('work-order-downgration');
+    Route::get('/work-order-marketing-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalMarketing'])->name('workOrderApprovalMarketing');
+    Route::get('/work-order-account-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalAccount'])->name('workOrderApprovalAccount');
+    Route::get('/work-order-coo-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalCOO'])->name('workOrderApprovalCOO');
+    Route::put('/noc-assign/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'nocAssign'])->name('nocAssign');
    
     Route::get('/approve/{id?}', [CustomerReportController::class, 'approve'])->name('approve');
     Route::get('/cancel/{id?}', [CustomerReportController::class, 'cancel'])->name('cancel');
