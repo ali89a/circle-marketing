@@ -63,7 +63,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Location:</td>
+                                            <td>Address:</td>
                                             <td>
                                                 <textarea name="address" class="form-control form-control-sm"
                                                     value=""></textarea>

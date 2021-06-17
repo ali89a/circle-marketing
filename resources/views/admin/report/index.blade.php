@@ -90,6 +90,14 @@
                                                 <a href="#" class="btn btn-success btn-circle col-sm">Approved
                                                     <i class="fas fa-check"></i>
                                                 </a>
+                                                @elseif($item->ctype == 'followup')
+                                                <a href="#" class="btn btn-success btn-circle col-sm">Approved
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                                @elseif($item->ctype == 'reconnect')
+                                                <a href="#" class="btn btn-success btn-circle col-sm">Approved
+                                                    <i class="fas fa-check"></i>
+                                                </a>
                                                 @endif
                                             </td>
                                             <td>{{ $item->cname }}</td>
@@ -116,7 +124,7 @@
                                             <td>
                                                 <div class="audiofile">
                                                     <audio controls="">
-                                                        <source src="{{ $item->audio }}" type="audio/mpeg">
+                                                        <source src="{{ asset('storage/audio/' . $item->audio) }}" type="audio/mpeg">
                                                         Your browser does not support the audio element.
                                                     </audio>
                                                 </div>

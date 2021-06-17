@@ -101,8 +101,8 @@
                                             <td>{{ $item->ctype }} </td>
                                             <td>{{ $item->isp_type }} </td>
                                             <td>{{ $item->address }} </td>
-                                            <td>{{ $item->location_district }} </td>
-                                            <td>{{ $item->location_upazila }} </td>
+                                            <td>{{ $item->district }} </td>
+                                            <td>{{ $item->upazila }} </td>
                                             <td>{{ $item->contact_number }}</td>
                                             <td>{{ $item->contact_person }}</td>
                                             <td>{{ $item->email }}</td>

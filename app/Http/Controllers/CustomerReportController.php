@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class CustomerReportController extends Controller
@@ -18,13 +19,14 @@ class CustomerReportController extends Controller
 
     public function index()
     {
-        // $reports = CustomerReport::where('ctype', 'approved')->get();
-        // $reports = CustomerServiceReport::where('ctype', 'approved')->get();
         $reports = DB::table('customer_reports')
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+            ->where('customer_reports.createdBy', Auth::user()->id)
             ->where('customer_service_reports.ctype', '=', 'approved')
+            ->where('customer_service_reports.ctype', '=', 'followup')
+            ->where('customer_service_reports.ctype', '=', 'reconnect')
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
         // dd($reports->all());
@@ -62,7 +64,6 @@ class CustomerReportController extends Controller
         // $serviceInfo->otc = $request->otc;
         // $serviceInfo->remark = $request->remark;
         // $serviceInfo->audio = $request->audio;
-
         // $serviceInfo = CustomerReport::get($request->id);
 
         if (
@@ -72,7 +73,6 @@ class CustomerReportController extends Controller
             $request->visiting_card->move(storage_path('app/public/visitingCard'), $fileName);
             $serviceInfo->visiting_card = $fileName;
         }
-
         if ($request->audio != null) {
             $fileName2 = time() . '.' . $request->audio->extension();
             $request->audio->move(storage_path('app/public/audio'), $fileName2);
@@ -101,9 +101,10 @@ class CustomerReportController extends Controller
     public function update(Request $request)
     {
         //dd($request->all());
-        $report = CustomerServiceReport::findOrFail($request->id);
-        // $report = new CustomerReport();
+        $report = new CustomerServiceReport();
+        //::findOrFail($request->id);
         // $report->fill($request->all());
+        $report->customer_report_id = $request->customer_report_id;
         $report->ctype = $request->ctype;
         $report->bandwidth = $request->bandwidth;
         // $report->createdBy = $request->createdBy;
@@ -132,7 +133,15 @@ class CustomerReportController extends Controller
 
     public function pendingList()
     {
-        $pendingList = CustomerServiceReport::where('ctype', 'new')->get();
+        // $pendingList = CustomerServiceReport::where('ctype', 'new')->get();
+        $pendingList = DB::table('customer_reports')
+            ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+            ->join('districts', 'customer_reports.location_district', 'districts.id')
+            ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+            ->where('customer_reports.createdBy', Auth::user()->id)
+            ->where('customer_service_reports.ctype', '=', 'new')
+            ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+            ->get();
         return view('admin.report.pending', [
             'pendingList' => $pendingList,
         ]);
@@ -156,7 +165,8 @@ class CustomerReportController extends Controller
     }
     public function followUp()
     {
-        $reports = CustomerReport::all();
+        $reports = CustomerReport::where('customer_reports.createdBy', Auth::user()->id)
+            ->get();
         return view('admin.report.followup', compact('reports'));
     }
 

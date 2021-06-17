@@ -17,8 +17,8 @@ class CreateCustomerServiceReportsTable extends Migration
             $table->id();
             $table->foreignId('customer_report_id');
             $table->text('ctype');
-            $table->text('isp_type');
-            $table->text('visiting_card');
+            $table->text('isp_type')->nullable();
+            $table->text('visiting_card')->nullable();
             $table->text('bandwidth');
             $table->text('rate');
             $table->text('otc');

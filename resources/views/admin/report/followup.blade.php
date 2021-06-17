@@ -35,7 +35,7 @@
                                                 </select>
                                             </td>
                                         </tr>
-                                        <input type="hidden" name="id" id="id"  v-bind:value="item.id" >
+                                         {{-- <input type="text" name="id" id="id"  v-bind:value="item.id" > --}}
                                         <tr>
                                             <td width="200">Client/Organization Name:</td>
                                             <td>
@@ -55,7 +55,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Location:</td>
+                                            <td>Address:</td>
                                             <td>
                                                 <div id="address">@{{item.address}}</div>
                                             </td>
@@ -107,6 +107,7 @@
                                                 </select>
                                             </td>
                                         </tr>
+                                             <input type="hidden" name="customer_report_id" id="id"  v-bind:value="item.id" >
                                         <tr>
                                             <td>Bandwidth:</td>
                                             <td><input type="text" class="form-control form-control-sm" name="bandwidth"
