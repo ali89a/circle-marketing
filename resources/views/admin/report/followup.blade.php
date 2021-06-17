@@ -75,20 +75,21 @@
                                         <tr>
                                             <td>Visit/Phone:</td>
                                             <td>
-                                                {{-- <select class="form-control form-control-sm" id="visit_phone"
+                                                 {{-- <div id="visit_phone">@{{item.visit_phone}}</div> --}}
+                                                <select class="form-control form-control-sm" id="visit_phone"
                                                     name="visit_phone">
                                                     <option label="">Select One</option>
                                                     <option value="visit">Local Visit</option>
                                                     <option value="Cvisit">Corporate Visit</option>
                                                     <option value="phone">Phone</option>
-                                                </select> --}}
-                                                <select name="visit_phone" id="report_id" class="form-control"
+                                                </select>
+                                                {{-- <select name="visit_phone" id="report_id" class="form-control"
                                                     v-model="report_id">
                                                     <option value="">Select one</option>
                                                     <option :value="row.id" v-for="row in item"
                                                         v-html="row.visit_phone" style="max-width: 200px">
                                                     </option>
-                                                </select>
+                                                </select> --}}
                                             </td>
                                         </tr>
                                     </tbody>
