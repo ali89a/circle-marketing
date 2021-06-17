@@ -7,8 +7,6 @@ use App\Models\CustomerServiceReport;
 use App\Models\District;
 use App\Models\Upazila;
 use Illuminate\Http\Request;
-
-
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -24,21 +22,16 @@ class CustomerReportController extends Controller
             ->join('districts', 'customer_reports.location_district', 'districts.id')
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
             ->where('customer_reports.createdBy', Auth::user()->id)
-            // ->where('customer_service_reports.ctype', '=', 'approved')
-            //  ->where('customer_service_reports.ctype', '=', 'followup')
-            //  ->where('customer_service_reports.ctype', '=', 'reconnect')
             ->where(function ($query) {
                 $query->where('customer_service_reports.ctype', '=', 'approved')
                     ->orWhere('customer_service_reports.ctype', '=', 'followup')
                     ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
             })
-
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
         // dd($reports->all());
         return view('admin.report.index', compact('reports'));
     }
-
 
     public function create()
     {
@@ -46,37 +39,20 @@ class CustomerReportController extends Controller
         return view('admin.report.create', compact('districts'));
     }
 
-
     public function store(Request $request)
     {
         // dd($request->all());
         $this->validate($request, [
-            // 'email' => 'required|email|unique:customer_reports',
             'email' => 'required|unique:customer_reports,email',
             'contact_number' => 'required|unique:customer_reports,contact_number',
-            //'contact_number' => 'required|unique:customer_reports',
         ]);
         $report = new CustomerReport();
         $report->fill($request->all());
         $report->save();
-
         $serviceInfo = new CustomerServiceReport();
-        // $serviceInfo->fill($request->all());
         $serviceInfo->customer_report_id = $report->id;
         $serviceInfo->fill($request->all());
-        // $serviceInfo->ctype = $request->ctype;
-        // $serviceInfo->isp_type = $request->isp_type;
-        // $serviceInfo->visiting_card = $request->visiting_card;
-        // $serviceInfo->bandwidth = $request->bandwidth;
-        // $serviceInfo->rate = $request->rate;
-        // $serviceInfo->otc = $request->otc;
-        // $serviceInfo->remark = $request->remark;
-        // $serviceInfo->audio = $request->audio;
-        // $serviceInfo = CustomerReport::get($request->id);
-
-        if (
-            $request->visiting_card != null
-        ) {
+        if ($request->visiting_card != null) {
             $fileName = time() . '.' . $request->visiting_card->extension();
             $request->visiting_card->move(storage_path('app/public/visitingCard'), $fileName);
             $serviceInfo->visiting_card = $fileName;
@@ -87,17 +63,14 @@ class CustomerReportController extends Controller
             $serviceInfo->audio = $fileName2;
         }
         $serviceInfo->save();
-
         Toastr::success('Information Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('pendingList');
     }
-
 
     public function show(CustomerReport $customerReport)
     {
         //
     }
-
 
     public function edit(CustomerReport $customerReport)
     {
@@ -105,13 +78,10 @@ class CustomerReportController extends Controller
         //  return view('admin.report.edit', compact('report'));
     }
 
-
     public function update(Request $request)
     {
         //dd($request->all());
         $report = new CustomerServiceReport();
-        //::findOrFail($request->id);
-        // $report->fill($request->all());
         $report->customer_report_id = $request->customer_report_id;
         $report->ctype = $request->ctype;
         $report->bandwidth = $request->bandwidth;
@@ -129,7 +99,6 @@ class CustomerReportController extends Controller
         return redirect()->route('report.index');
     }
 
-
     public function destroy(CustomerReport $customerReport)
     {
         $report = CustomerReport::find($customerReport);
@@ -138,10 +107,8 @@ class CustomerReportController extends Controller
         return redirect()->route('report.index');
     }
 
-
     public function pendingList()
     {
-        // $pendingList = CustomerServiceReport::where('ctype', 'new')->get();
         $pendingList = DB::table('customer_reports')
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
@@ -154,7 +121,6 @@ class CustomerReportController extends Controller
             'pendingList' => $pendingList,
         ]);
     }
-
 
     public function approve($id)
     {
@@ -171,6 +137,7 @@ class CustomerReportController extends Controller
         Toastr::success('Information Canceled Successful!.', '', ["progressbar" => true]);
         return redirect()->route('report.index');
     }
+    
     public function followUp()
     {
         $reports = CustomerReport::where('customer_reports.createdBy', Auth::user()->id)
@@ -178,12 +145,12 @@ class CustomerReportController extends Controller
         return view('admin.report.followup', compact('reports'));
     }
 
-
     public function fetchAll($id)
     {
         $reports = CustomerReport::where('id', $id)->first();
         return $reports;
     }
+    
     public function allUpazila($id)
     {
         $reports = Upazila::where('district_id', $id)->get();
