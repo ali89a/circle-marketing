@@ -1,8 +1,5 @@
 @extends('admin.layouts.master')
-
 @section('content')
-
-
 <div class="content-wrapper">
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
@@ -155,31 +152,126 @@
                                                 <tr>
                                                     <td class="bg-gray">M A</td>
                                                     <td class="text-center mstatus666">
+                                                        @hasrole('Marketing Admin')
+                                                        @if($order->order_approval->m_approved_status =='Approved')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
+                                                        @else
+                                                        <a href="{{route('workOrderApprovalMarketing',$order->id)}}" class="btn btn-success btn-xs">Approve</a>
+                                                        <a href="" class="btn btn-success btn-xs">Modify</a>
+                                                        @endif
+                                                        @else
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
+                                                        @endhasrole
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">A A</td>
                                                     <td class="text-center acstatus666">
+                                                        @hasrole('Accounts Admin')
+                                                        @if($order->order_approval->a_approved_status =='Approved')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
+                                                        @else
+                                                        <a href="{{route('workOrderApprovalAccount',$order->id)}}" class="btn btn-success btn-xs">Approve</a>
+                                                        <a href="" class="btn btn-success btn-xs">Modify</a>
+                                                        @endif
+                                                        @else
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
+                                                        @endhasrole
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">COO</td>
                                                     <td class="text-center coostatus666">
-                                                        <p class="bg-gray btn-block text-center">{{ $order->order_approval->coo_approved_status ??'' }}</p>
+                                                        @hasrole('COO')
+                                                        @if($order->order_approval->coo_approved_status =='Approved')
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
+                                                        @else
+                                                        <a href="{{route('workOrderApprovalCOO',$order->id)}}" class="btn btn-success btn-xs">Approve</a>
+                                                        <a href="" class="btn btn-success btn-xs">Modify</a>
+                                                        @endif
+                                                        @else
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
+                                                        @endhasrole
+
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">N A</td>
                                                     <td class="text-center nstatus666">
+                                                        @hasrole('NOC Admin')
+                                                        @if($order->order_approval->coo_approved_status =='Approved' && $order->order_approval->noc_approved_status =='Pending'|| $order->order_approval->noc_approved_status =='Processing')
+                                                        <a href="" class="btn btn-success btn-xs">Modify</a>
+                                                        <div class="vertical-modal-ex">
+                                                            <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}">
+                                                                Assign
+                                                            </button>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="exampleModalCenter{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalCenterTitle">Assign</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <form action="{{route('nocAssign',$order->id)}}" method="post">
+                                                                            @csrf
+                                                                            @method('put')
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <input type="text" name="order_id" value="{{$order->id}}" id="order_id">
+                                                                                        <label class="form-label" for="noc_assigned_by">Assign User</label>
+                                                                                        <select class="form-control" name="noc_assigned_by">
+                                                                                            <option value="">Select User</option>
+                                                                                            @foreach($noc_users as $user)
+                                                                                            <option value="{{ $user->id }}" {{  $user->id==$order->order_approval->noc_assigned_by? 'selected' : '' }}>{{ $user->name }}</option>
+                                                                                            @endforeach
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="submit" class="btn btn-primary waves-effect waves-float waves-light">Submit</button>
+                                                                                <button type="button" class="btn btn-danger waves-effect waves-float waves-light" data-dismiss="modal">Cancle</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @endif
+                                                        @if($order->order_approval->noc_approved_status =='Processing' && $order->order_approval->noc_assigned_status =='Done')
+                                                        <a href="" class="btn btn-success btn-xs">Approve</a>
+                                                        @endif
+                                                        @if($order->order_approval->noc_approved_status =='Approved' && $order->order_approval->noc_assigned_status =='Done')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
+                                                        @endif
+
+                                                        @else
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
+                                                        @endhasrole
+
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">NWS</td>
                                                     <td class="text-center nstatus666">
+                                                        @hasrole('NOC Admin|NOC Executive')
+                                                        @if(Auth::guard('admin')->user()->id == $order->order_approval->noc_assigned_by)
+                                                        @if($order->order_approval->noc_assigned_status=="Processing")
+                                                        <a href="" class="btn btn-success btn-xs">Modify</a>
+                                                        @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_assigned_status ??'' }}</p>
+                                                        @endif
+                                                        @else
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->noc_assigned_status ??'' }}</p>
+                                                        @endif
+                                                        @else
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->noc_assigned_status ??'' }}</p>
+                                                        @endhasrole
+
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -199,7 +291,7 @@
                                         <table class="table table-bordered">
                                             <tbody>
                                                 <tr>
-                                                    <td style="font-size:12px;"><strong>Link ID:</strong>  {{ $order->link_id??'' }}
+                                                    <td style="font-size:12px;"><strong>Link ID:</strong> {{ $order->link_id??'' }}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -214,13 +306,13 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">M</td>
-                                                    <td width="120px">Sub By: <strong>kawcher</strong></td>
-                                                    <td>App By: mkawcher</td>
+                                                    <td width="120px">Sub By: <strong>{{$order->user->name??''}} </strong></td>
+                                                    <td>App By: {{$order->order_approval->m_user->name??''}} </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">N</td>
-                                                    <td>Ass: <strong>sadek</strong></td>
-                                                    <td>App By: <strong class="">abir</strong></td>
+                                                    <td>Ass: <strong>{{$order->order_approval->noc_assign_user->name??''}}</strong></td>
+                                                    <td>App By: <strong class="">{{$order->order_approval->noc_user->name??''}}</strong></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">A</td>
@@ -257,7 +349,7 @@
                                                 <tr>
                                                     <td>VAT</td>
                                                     <td>
-                                                    {{ $order->vat??'' }}
+                                                        {{ $order->vat??'' }}
                                                     </td>
                                                 </tr>
                                             </tbody>

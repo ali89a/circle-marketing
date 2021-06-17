@@ -38,6 +38,10 @@ class CreateOrdersTable extends Migration
             $table->foreignId('marketing_user_id')->nullable();
             $table->foreignId('accounts_user_id')->nullable();
             $table->foreignId('customer_id')->nullable();
+            $table->unsignedBigInteger('creator_user_id')->nullable();
+            $table->foreign('creator_user_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->unsignedBigInteger('updator_user_id')->nullable();
+            $table->foreign('updator_user_id')->references('id')->on('admins')->onDelete('cascade');
             $table->timestamps();
         });
     }

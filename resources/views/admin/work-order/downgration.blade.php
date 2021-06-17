@@ -11,7 +11,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item active">Upgration
+                            <li class="breadcrumb-item active">Downgration
                             </li>
                         </ol>
                     </div>
@@ -45,7 +45,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Upgration Create</h4>
+                            <h4 class="card-title">Downgration Create</h4>
                         </div>
                         <div class="card-body">
                             <form method="post" action="#" enctype="multipart/form-data">
@@ -62,7 +62,7 @@
                                                     <tr>
                                                         <td style="width:200px;"></td>
                                                         <td>Capacity</td>
-                                                        <td>Upgrade</td>
+                                                        <td>Downgrate</td>
 
                                                         <td>Price</td>
                                                     </tr>
