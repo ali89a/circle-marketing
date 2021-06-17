@@ -32,7 +32,7 @@ class CustomerReportController extends Controller
                     ->orWhere('customer_service_reports.ctype', '=', 'followup')
                     ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
             })
-            
+
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
         // dd($reports->all());
@@ -52,8 +52,8 @@ class CustomerReportController extends Controller
         // dd($request->all());
         $this->validate($request, [
             // 'email' => 'required|email|unique:customer_reports',
-            'email'=> 'required|unique:customer_reports,email',
-            'contact_number'=> 'required|unique:customer_reports,contact_number',
+            'email' => 'required|unique:customer_reports,email',
+            'contact_number' => 'required|unique:customer_reports,contact_number',
             //'contact_number' => 'required|unique:customer_reports',
         ]);
         $report = new CustomerReport();
@@ -115,7 +115,7 @@ class CustomerReportController extends Controller
         $report->customer_report_id = $request->customer_report_id;
         $report->ctype = $request->ctype;
         $report->bandwidth = $request->bandwidth;
-        // $report->createdBy = $request->createdBy;
+        $report->visit_phone = $request->visit_phone;
         $report->rate = $request->rate;
         $report->otc = $request->otc;
         $report->remark = $request->remark;

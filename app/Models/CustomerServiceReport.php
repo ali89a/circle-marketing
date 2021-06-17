@@ -11,6 +11,7 @@ class CustomerServiceReport extends Model
 
     protected $fillable = [
         'customer_report_id',
+        'visit_phone',
         'ctype',
         'isp_type',
         'visiting_card',

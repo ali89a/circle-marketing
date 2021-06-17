@@ -16,6 +16,7 @@ class CreateCustomerServiceReportsTable extends Migration
         Schema::create('customer_service_reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_report_id');
+            $table->text('visit_phone');
             $table->text('ctype');
             $table->text('isp_type')->nullable();
             $table->text('visiting_card')->nullable();

@@ -18,7 +18,7 @@ class CustomerReport extends Model
         'address', 
         'contact_person', 
         'email', 
-        'visit_phone', 
+        //'visit_phone', 
        
     ];
 }

@@ -23,7 +23,7 @@ class CreateCustomerReportsTable extends Migration
             $table->text('address');
             $table->text('contact_person');
             $table->text('email')->unique();
-            $table->text('visit_phone');
+            // $table->text('visit_phone');
            
             $table->timestamps();
         });
