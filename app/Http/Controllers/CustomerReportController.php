@@ -25,8 +25,8 @@ class CustomerReportController extends Controller
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
             ->where('customer_reports.createdBy', Auth::user()->id)
             ->where('customer_service_reports.ctype', '=', 'approved')
-            ->where('customer_service_reports.ctype', '=', 'followup')
-            ->where('customer_service_reports.ctype', '=', 'reconnect')
+            ->orWhere('customer_service_reports.ctype', '=', 'followup')
+            ->orWhere('customer_service_reports.ctype', '=', 'reconnect')
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
         // dd($reports->all());
@@ -45,8 +45,10 @@ class CustomerReportController extends Controller
     {
         // dd($request->all());
         $this->validate($request, [
-            'email' => 'required|email|unique:users',
-            'contact_number' => 'required|min:11|numeric',
+            // 'email' => 'required|email|unique:customer_reports',
+            'email'=> 'required|unique:customer_reports,email',
+            'contact_number'=> 'required|unique:customer_reports,contact_number',
+            //'contact_number' => 'required|unique:customer_reports',
         ]);
         $report = new CustomerReport();
         $report->fill($request->all());
