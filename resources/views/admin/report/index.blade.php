@@ -86,7 +86,7 @@
                                         <tr>
                                             <td>{{ $item->id }}</td>
                                             <td>
-                                                @if ($item->ctype == 'followup')
+                                                @if ($item->ctype == 'approved')
                                                 <a href="#" class="btn btn-success btn-circle col-sm">Approved
                                                     <i class="fas fa-check"></i>
                                                 </a>
@@ -96,8 +96,8 @@
                                             <td>{{ $item->ctype }} </td>
                                             <td>{{ $item->isp_type }} </td>
                                             <td>{{ $item->address }} </td>
-                                            <td>{{ $item->location_district }} </td>
-                                            <td>{{ $item->location_upazila }} </td>
+                                            <td>{{ $item->district }} </td>
+                                            <td>{{ $item->upazila }} </td>
                                             <td>{{ $item->contact_number }}</td>
                                             <td>{{ $item->contact_person }}</td>
                                             <td>{{ $item->email }}</td>

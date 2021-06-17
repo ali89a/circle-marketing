@@ -18,7 +18,15 @@ class CustomerReportController extends Controller
 
     public function index()
     {
-        $reports = CustomerServiceReport::where('ctype', 'followUp')->get();
+        // $reports = CustomerReport::where('ctype', 'approved')->get();
+        // $reports = CustomerServiceReport::where('ctype', 'approved')->get();
+        $reports = DB::table('customer_reports')
+            ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+            ->join('districts', 'customer_reports.location_district', 'districts.id')
+            ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+            ->where('customer_service_reports.ctype', '=', 'approved')
+            ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+            ->get();
         // dd($reports->all());
         return view('admin.report.index', compact('reports'));
     }
@@ -98,7 +106,7 @@ class CustomerReportController extends Controller
         // $report->fill($request->all());
         $report->ctype = $request->ctype;
         $report->bandwidth = $request->bandwidth;
-       // $report->createdBy = $request->createdBy;
+        // $report->createdBy = $request->createdBy;
         $report->rate = $request->rate;
         $report->otc = $request->otc;
         $report->remark = $request->remark;
@@ -134,7 +142,7 @@ class CustomerReportController extends Controller
     public function approve($id)
     {
         $report = CustomerServiceReport::find($id);
-        $report->ctype = 'followup';
+        $report->ctype = 'approved';
         $report->save();
         return redirect()->back()->with('message', 'report unpublished successfully');
     }
