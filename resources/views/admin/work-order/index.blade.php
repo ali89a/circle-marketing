@@ -141,7 +141,7 @@
                                                             (4) <i class="fa fa-history"></i></button>
                                                     </form>
                                                 </div>
-                                                <a href="" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-table"></i> Invoice List
+                                                <a href="{{route('invoices', $order->id)}}" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-table"></i> Invoice List
                                                 </a>
                                             </li>
                                         </ul>
