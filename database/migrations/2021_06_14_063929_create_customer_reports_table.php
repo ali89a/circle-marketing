@@ -16,22 +16,15 @@ class CreateCustomerReportsTable extends Migration
         Schema::create('customer_reports', function (Blueprint $table) {
             $table->id();
             $table->text('createdBy');
-            $table->text('contact_number');
-            $table->text('cname');
+            $table->text('contact_number')->unique();
+            $table->text('cname')->unique();
             $table->text('location_district');
             $table->text('location_upazila');
             $table->text('address');
             $table->text('contact_person');
-            $table->text('email');
-            $table->text('visit_phone');
-            $table->text('ctype');
-            $table->text('isp_type');
-            $table->text('visiting_card');
-            $table->text('bandwidth');
-            $table->text('rate');
-            $table->text('otc');
-            $table->text('remark');
-            $table->text('audio');
+            $table->text('email')->unique();
+            // $table->text('visit_phone');
+           
             $table->timestamps();
         });
     }

@@ -35,7 +35,7 @@
                                                 </select>
                                             </td>
                                         </tr>
-                                        <input type="hidden" name="id" id="id"  v-bind:value="item.id" >
+                                         {{-- <input type="text" name="id" id="id"  v-bind:value="item.id" > --}}
                                         <tr>
                                             <td width="200">Client/Organization Name:</td>
                                             <td>
@@ -55,7 +55,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Location:</td>
+                                            <td>Address:</td>
                                             <td>
                                                 <div id="address">@{{item.address}}</div>
                                             </td>
@@ -75,20 +75,21 @@
                                         <tr>
                                             <td>Visit/Phone:</td>
                                             <td>
-                                                {{-- <select class="form-control form-control-sm" id="visit_phone"
+                                                 {{-- <div id="visit_phone">@{{item.visit_phone}}</div> --}}
+                                                <select class="form-control form-control-sm" id="visit_phone"
                                                     name="visit_phone">
                                                     <option label="">Select One</option>
                                                     <option value="visit">Local Visit</option>
                                                     <option value="Cvisit">Corporate Visit</option>
                                                     <option value="phone">Phone</option>
-                                                </select> --}}
-                                                <select name="visit_phone" id="report_id" class="form-control"
+                                                </select>
+                                                {{-- <select name="visit_phone" id="report_id" class="form-control"
                                                     v-model="report_id">
                                                     <option value="">Select one</option>
                                                     <option :value="row.id" v-for="row in item"
                                                         v-html="row.visit_phone" style="max-width: 200px">
                                                     </option>
-                                                </select>
+                                                </select> --}}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -107,6 +108,7 @@
                                                 </select>
                                             </td>
                                         </tr>
+                                             <input type="hidden" name="customer_report_id" id="id"  v-bind:value="item.id" >
                                         <tr>
                                             <td>Bandwidth:</td>
                                             <td><input type="text" class="form-control form-control-sm" name="bandwidth"

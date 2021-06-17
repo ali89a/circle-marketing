@@ -6,7 +6,7 @@
         <section class="card card-body modern-horizontal-wizard">
             <div class=" wizard-modern modern-wizard-example">
                 <div class="bs-stepper-content">
-                    <form method="post" action="{{route('report.store')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('report.store') }}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="createdBy" value="{{ Auth::user()->id }}">
                         <div class="content-header">
@@ -24,7 +24,10 @@
                                             <td>Contact Number:</td>
                                             <td><input type="tel" max="11" name="contact_number"
                                                     class="form-control form-control-sm" value="" required=""
-                                                    placeholder="Must be unique value."></td>
+                                                    placeholder="Must be unique value.">
+                                                {{-- <span
+                                                    class="text-danger">{{$errors->has('contact_number') ? $errors->first('contact_number') : ''}}</span> --}}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td width="200">Client/Organization Name:</td>
@@ -35,30 +38,32 @@
                                             <td>District:</td>
                                             <td>
                                                 <select class="form-control form-control-sm" id="location_district"
-                                                    name="location_district" v-model="district_id" @change="fetch_upazila">
+                                                    name="location_district" v-model="district_id"
+                                                    @change="fetch_upazila">
                                                     <option value="">Select One</option>
                                                     @foreach ($districts as $upazilas)
-                                                    <option value="{{$upazilas->id}}">{{$upazilas->name}}({{$upazilas->bn_name}})
+                                                    <option value="{{ $upazilas->id }}">
+                                                        {{ $upazilas->name }}({{ $upazilas->bn_name }})
                                                     </option>
                                                     @endforeach
                                                 </select>
                                             </td>
                                         </tr>
-                                       {{-- <input type="text" name="id" id="id"  v-bind:value="upazilas.id" > --}}
+                                        {{-- <input type="text" name="id" id="id"  v-bind:value="upazilas.id" > --}}
                                         <tr>
                                             <td>Location: (Upazila) </td>
                                             <td>
-                                                <select name="location_upazila" id="location_upazila" class="form-control"
-                                                    v-model="upazila_id">
+                                                <select name="location_upazila" id="location_upazila"
+                                                    class="form-control" v-model="upazila_id">
                                                     <option value="">Select one</option>
-                                                    <option :value="row.id" v-for="row in upazilas"
-                                                        v-html="row.name" style="max-width: 200px">
+                                                    <option :value="row.id" v-for="row in upazilas" v-html="row.name"
+                                                        style="max-width: 200px">
                                                     </option>
                                                 </select>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Location:</td>
+                                            <td>Address:</td>
                                             <td>
                                                 <textarea name="address" class="form-control form-control-sm"
                                                     value=""></textarea>
@@ -72,7 +77,15 @@
                                         <tr>
                                             <td>Contact Email:</td>
                                             <td><input type="email" name="email" class="form-control form-control-sm"
-                                                    value="" placeholder="Must be unique value."></td>
+                                                    value="" placeholder="Must be unique value.">
+
+                                                {{-- @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror --}}
+
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Visit/Phone:</td>
@@ -203,7 +216,7 @@
 <script src="{{ asset('vue-js/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <script>
     //  console.log('error');
-    $(document).ready(function() {
+        $(document).ready(function() {
             var vue = new Vue({
                 el: '#vue_app',
                 data: {
@@ -218,13 +231,13 @@
                     fetch_upazila() {
                         var vm = this;
                         var slug = vm.district_id;
-                    //check
-                   // alert(slug);
+                        //check
+                        // alert(slug);
 
                         if (slug) {
                             axios.get(this.config.get_url + '/' + slug).then(
                                 function(response) {
-                                    vm.upazilas= response.data;
+                                    vm.upazilas = response.data;
                                     console.log(vm.upazilas);
                                 }).catch(function(error) {
                                 toastr.error('Something went to wrong', {
