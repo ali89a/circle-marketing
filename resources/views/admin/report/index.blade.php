@@ -13,13 +13,16 @@
                                     {{-- <form action="#" method="get"> --}}
                                     <form action="" id="search">
                                         <div class="row">
-                                            {{-- <div class="col-md-4 form-group">
-                                            <label for="fp-range">Submitted By</label>
-                                            <select class="form-control form-control-sm" id="client_type"
-                                                name="location_upazila">
-                                                <option label="">Select One</option>
-                                            </select>
-                                        </div> --}}
+                                            <div class="col-md-4 form-group">
+                                                <label for="fp-range">Submitted By</label>
+                                                <select class="form-control form-control-sm" name="contact_person">
+                                                    <option value="">Submitted By</option>
+                                                    @foreach ($reports as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->contact_person }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                             {{-- <div class="col-md-4 form-group">
                                             <label for="fp-range">Date Range</label>
                                             <input type="text" id="fp-range" name="from_date"
@@ -132,7 +135,6 @@
                                                     <td>{{ $item->contact_number }}</td>
                                                     <td>{{ $item->contact_person }}</td>
                                                     <td>{{ $item->email }}</td>
-                                                    <td> </td>
                                                     <td>{{ $item->bandwidth }}</td>
                                                     <td>{{ $item->rate }}</td>
                                                     <td>{{ $item->otc }}</td>
@@ -204,6 +206,7 @@
 @section('page-js')
     <script src="{{ asset('/') }}app-assets/js/scripts/forms/pickers/form-pickers.js"></script>
 @endsection
+
 @push('script')
     <script type="text/javascript">
         //console.log('error');
