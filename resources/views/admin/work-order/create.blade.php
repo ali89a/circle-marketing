@@ -93,7 +93,7 @@
                             <div class="form-group col-sm-6 col-sm-offset-3">
                             <label for="customer_id">Customer</label>
                                 <select class="form-control form-control-sm" id="customer_id" name="customer_id" required>
-                                    <option label="">Select One</option>
+                                    <option value="">Select One</option>
                                     @foreach($customers as $customer)
                                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                     @endforeach

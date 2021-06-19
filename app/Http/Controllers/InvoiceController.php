@@ -23,6 +23,13 @@ class InvoiceController extends Controller
             return view('admin.work-order.Invoice');
      
     }
+    public function invoiceDetails()
+    {
+       
+           
+            return view('admin.work-order.invoice_details');
+     
+    }
 
     /**
      * Show the form for creating a new resource.

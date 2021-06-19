@@ -242,10 +242,10 @@
                                                             </div>
                                                         </div>
                                                         @endif
-                                                        @if($order->order_approval->noc_approved_status =='Processing' && $order->order_approval->noc_assigned_status =='Done')
-                                                        <a href="" class="btn btn-success btn-xs">Approve</a>
+                                                        @if($order->order_approval->noc_approved_status =='Processing' && $order->order_approval->noc_assigned_status =='done')
+                                                        <a href="{{route('workOrderApprovalNoc',$order->id)}}" class="btn btn-success btn-xs">Approve</a>
                                                         @endif
-                                                        @if($order->order_approval->noc_approved_status =='Approved' && $order->order_approval->noc_assigned_status =='Done')
+                                                        @if($order->order_approval->noc_approved_status =='Approved' && $order->order_approval->noc_assigned_status =='done')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
                                                         @endif
 

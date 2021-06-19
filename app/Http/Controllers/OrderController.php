@@ -199,8 +199,12 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 
-        // try {
-        //     DB::beginTransaction();
+        $request->validate([
+            'customer_id' => 'required',
+        ]);
+
+        try {
+            DB::beginTransaction();
             $order = new Order();
             $order->customer_id = $request->customer_id;
             $order->creator_user_id = Auth::guard('admin')->user()->id;
@@ -248,19 +252,19 @@ class OrderController extends Controller
             $customer_info->upazila_id = $request->upazila_id;
             $customer_info->order_id = $order->id;
             $customer_info->save();
-        //    DB::commit();
+           DB::commit();
             Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
             return redirect()->route('docEdit', ['id' => $order->id]);
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-        //     $output = [
-        //         'success' => 0,
-        //         'msg' => __("messages.something_went_wrong")
-        //     ];
-        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-        //     return back();
-        // }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+            $output = [
+                'success' => 0,
+                'msg' => __("messages.something_went_wrong")
+            ];
+            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+            return back();
+        }
     }
 
     /**
