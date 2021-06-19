@@ -70,7 +70,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <a href="" class="btn btn-primary btn-xs btn-block"><i class="fa fa-print"></i> View</a>
+                                                        <a href="{{url('invoice/details')}}" class="btn btn-primary btn-xs btn-block"><i class="fa fa-print"></i> View</a>
                                                     </td>
 
                                                     <td>
@@ -108,13 +108,13 @@
     </div>
 </div>
 
-@endsection
-@section('css')
+@section('vendor-css')
 
 @endsection
-@section('js')
+@section('page-css')
 
+<link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/css/pages/app-invoice.css">
 @endsection
-@push('script')
+@push('style')
 
 @endpush
