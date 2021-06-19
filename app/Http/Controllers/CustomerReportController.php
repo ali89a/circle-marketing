@@ -20,7 +20,7 @@ class CustomerReportController extends Controller
 
     public function index()
     {
-        $contact = CustomerReport::all();
+        // $contact = CustomerReport::all();
         //groupBy('customer_reports.id')->get();
         $reports = DB::table('customer_reports')
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
@@ -39,7 +39,7 @@ class CustomerReportController extends Controller
         // return view('admin.report.index', compact('reports'), ('contact'));
         return view('admin.report.index', [
             'reports' => $reports,
-         //   'contact' => $contact
+            //   'contact' => $contact
         ]);
     }
 
@@ -131,8 +131,7 @@ class CustomerReportController extends Controller
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-            // ->where('customer_reports.createdBy', Auth::user()->id)
-            // Role::where('name', '!=', 'Super Admin')
+            //->where('customer_reports.createdBy', Auth::user()->id)
             ->where('customer_service_reports.ctype', '=', 'new')
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
@@ -168,11 +167,6 @@ class CustomerReportController extends Controller
             ->where('customer_service_reports.ctype', '=', 'approved')
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
-
-
-        //$reports = CustomerReport::where('customer_reports.createdBy', Auth::user()->id)
-        // ->where('customer_service_reports.ctype', '=', 'approved')
-        // ->get();
         return view('admin.report.followup', compact('reports'));
     }
 
@@ -208,6 +202,8 @@ class CustomerReportController extends Controller
                     )
                     ->where('customer_reports.created_at', '>', $from)
                     ->where('customer_reports.created_at', '<', $to->addDay())
+                    ->where('customer_reports.createdBy', Auth::user()->id)
+
                     ->get();
                 // dd($list);
             } else if (!empty($request->contact_number)) {
@@ -222,15 +218,16 @@ class CustomerReportController extends Controller
                         'upazilas.name as upazila'
                     )
                     ->where('customer_reports.contact_number',  $request->contact_number)
+                    ->where('customer_reports.createdBy', Auth::user()->id)
+
                     ->get();
                 // dd($list);
-                // dd('TEXT');
             } else if (!empty($request->contact_person)) {
-               // dd($request->all());
+                // dd($request->all());
                 $list = DB::table('customer_reports')
-                ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
-                ->join('districts', 'customer_reports.location_district', 'districts.id')
-                ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                    ->join('districts', 'customer_reports.location_district', 'districts.id')
+                    ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
                     ->select(
                         'customer_reports.*',
                         'customer_service_reports.*',
@@ -238,9 +235,11 @@ class CustomerReportController extends Controller
                         'upazilas.name as upazila'
                     )
                     ->where('customer_reports.contact_person', $request->contact_person)
+                    ->where('customer_reports.createdBy', Auth::user()->id)
+
                     ->get();
                 // dd($list);
-               //  dd('TEXT');
+                //  dd('TEXT');
             }
             return view('admin.report.result', [
                 'r'           =>  $list,
