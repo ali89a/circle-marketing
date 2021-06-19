@@ -40,7 +40,7 @@ class OrderController extends Controller
     public function index()
     {
         $data=[
-            'orders'=>Order::with('customer_details')->get(),
+            'orders'=>Order::with('customer_details')->latest()->get(),
             'noc_users' => Admin::role(['NOC Executive','NOC Admin'])->get()
         ];
         return view('admin.work-order.index', $data);
