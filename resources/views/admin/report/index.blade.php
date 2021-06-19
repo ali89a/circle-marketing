@@ -10,9 +10,10 @@
                     <div class="card box">
                         <div class=" card-body box-body">
                             <div class="col-md-12" style="margin-bottom:15px;">
-                                <form action="#" method="get">
+                                {{-- <form action="#" method="get"> --}}
+                                <form action="" id="search">
                                     <div class="row">
-                                        <div class="col-md-4 form-group">
+                                        {{-- <div class="col-md-4 form-group">
                                             <label for="fp-range">Submitted By</label>
                                             <select class="form-control form-control-sm" id="client_type"
                                                 name="location_upazila">
@@ -24,15 +25,37 @@
                                             <input type="text" id="fp-range"
                                                 class="data-type form-control form-control-sm flatpickr-range flatpickr-input active"
                                                 placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
+                                        </div> --}}
+
+                                        <div class="col-sm-4">
+                                            Contact Number/Organization:
+                                            <input type="text" class="form-control " name="contact_number" onclick="">
                                         </div>
+
                                         <div class="col-md-2">
                                             <br>
-                                            <input type="submit" value="Generate Report" class="btn btn-primary"
-                                                style="margin-top:20px">
+                                            {{-- <input type="submit" value="Generate Report" class="btn btn-primary"
+                                                style="margin-top:20px"> --}}
+
+                                         <button @click="search" 
+                                                class="inline-block px-2  text-white bg-blue-600 float-right mr-2 mb-2"
+                                                type="submit" id="searchBtn"><i class="fa fa-search"></i>
+                                                Search
+                                            </button>
+                                            <button
+                                                class="inline-block px-2  text-white bg-yellow-600 float-right mr-2 mb-2"
+                                                type="reset" id="reset">Reset
+                                            </button>
+
                                         </div>
                                     </div>
                                 </form>
-                                <div class="ajaxform">
+
+                                {{-- <div id="result"> --}}
+                                {{-- list will show in this box --}}
+                                {{-- </div>  --}}
+
+                                {{-- <div class="ajaxform">
                                     <div class="row" style="margin-top:20px">
                                         <div class="col-sm-4">
                                             Contact Number/Organization:
@@ -47,7 +70,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col-md-12">
                             </div>
@@ -130,10 +153,18 @@
                                 </table>
                             </div>
                         </div>
+
+                        <div id="result">
+                            {{-- list will show in this box --}}
+                        </div>
+
                     </div>
                 </div>
             </div>
         </section>
+
+
+
     </div>
 </div>
 
@@ -167,5 +198,44 @@
 <script src="{{ asset('/') }}app-assets/js/scripts/forms/pickers/form-pickers.js"></script>
 @endsection
 @push('script')
+<script type="text/javascript">
+    //console.log('error');
+  $(document).ready(function () {
+        $('#reset').click(function() {
+            $('#result').html('');
+        });
+        $('#searchBtn').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'get',
+                url: '{{ route('searchResult') }}',
+                data: $('#search').serialize(),
+               // alert(result);
+                success: function(result) {
+
+                    console.log(result);
+                    $('#result').html(result);
+
+                }
+            });
+        });
+//alert(result);
+        $('#details').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'get',
+                url: '{{ route('searchResult') }}',
+                data: $('#search').serialize(),
+                success: function(result) {
+                    $('#result').html(result);
+
+                }
+            });
+        });
+    });
+
+  
+     
+</script>
 
 @endpush

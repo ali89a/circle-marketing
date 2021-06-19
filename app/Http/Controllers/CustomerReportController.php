@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 
 class CustomerReportController extends Controller
 {
@@ -45,6 +46,7 @@ class CustomerReportController extends Controller
     {
         // dd($request->all());
         $this->validate($request, [
+            'cname' => 'required|unique:customer_reports,cname',
             'email' => 'required|unique:customer_reports,email',
             'contact_number' => 'required|unique:customer_reports,contact_number',
             'visiting_card' => 'required|mimes:jpeg,jpg,png,webp,gif,pdf|max:10240',
@@ -175,5 +177,34 @@ class CustomerReportController extends Controller
     {
         $reports = Upazila::where('district_id', $id)->get();
         return $reports;
+    }
+
+    public function searchResult(Request $request)
+    {
+        // dd($request->all());
+        if ($request->ajax()) {
+            // if (!empty($request->from_date) && !empty($request->to_date)) {
+            //     $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
+            //     $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
+            //     $list = DB::table('customer_reports')
+            //         ->leftJoin('customer_service_reports', 'customer_reports.clientId', '=', 'customer_service_reports.id')
+            //         ->select('customer_reports.*', 'customer_service_reports.*')
+            //         ->where('customer_reports.created_at', '>', $from)
+            //         ->where('tokenscustomer_reports.created_at', '<', $to->addDay())
+            //         ->get();
+            // } else 
+            if (!empty($request->contact_number)) {
+                $list = DB::table('customer_reports')
+                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                    ->select('customer_reports.*', 'customer_service_reports.*')
+                    ->where('customer_reports.contact_number',  $request->contact_number)
+                    ->get();
+                // dd($list);
+                // dd('TEXT');
+            }
+            return view('admin.report.result', [
+                'r'           =>  $list,
+            ]);
+        }
     }
 }
