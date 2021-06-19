@@ -20,8 +20,7 @@ class CustomerReportController extends Controller
 
     public function index()
     {
-        // $contact = CustomerReport::all();
-        //groupBy('customer_reports.id')->get();
+        $contact = CustomerReport::get();
         $reports = DB::table('customer_reports')
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
@@ -39,7 +38,7 @@ class CustomerReportController extends Controller
         // return view('admin.report.index', compact('reports'), ('contact'));
         return view('admin.report.index', [
             'reports' => $reports,
-            //   'contact' => $contact
+            'contact' => $contact
         ]);
     }
 
