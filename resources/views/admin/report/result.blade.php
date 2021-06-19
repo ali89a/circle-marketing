@@ -13,7 +13,6 @@
                 <th>Contact Number</th>
                 <th>Contact Person</th>
                 <th>Email</th>
-
                 <th>Bandwidth</th>
                 <th>Rate</th>
                 <th>OTC</th>
