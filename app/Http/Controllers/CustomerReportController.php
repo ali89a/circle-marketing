@@ -21,7 +21,9 @@ class CustomerReportController extends Controller
     public function index(Request $request)
     {
         //  if ($request->user()->can('report-approve')) {
-        $contact = Admin::all();
+        $contact = Admin::where('admins.id', Auth::user()->id)->first();
+       // dd($contact);
+        //all();
         $reports = DB::table('customer_reports')
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
@@ -40,7 +42,8 @@ class CustomerReportController extends Controller
         //  dd($reports->get());
         // return view('admin.report.index', compact('reports'), ('contact'));
         return view('admin.report.index', [
-            'reports' => $reports->get(),
+            'reports' => $reports->paginate(10),
+            //->get(),
             'contact' => $contact
         ]);
     }
@@ -59,7 +62,7 @@ class CustomerReportController extends Controller
             'email' => 'required|unique:customer_reports,email',
             'contact_number' => 'required|unique:customer_reports,contact_number',
             'visiting_card' => 'required|mimes:jpeg,jpg,png,webp,gif,pdf|max:10240',
-            'audio' => 'required|mimes:3gp,mp3,mpc,msv,wav,awb|max:102400',
+            'audio' => 'mimes:3gp,mp3,mpc,msv,wav,awb|max:102400',
         ]);
         $report = new CustomerReport();
         $report->fill($request->all());
@@ -98,7 +101,7 @@ class CustomerReportController extends Controller
         //dd($request->all());
         $this->validate($request, [
             // 'visiting_card' => 'required|mimes:jpeg,jpg,png,webp,gif|max:10240',
-            'audio' => 'required|mimes:3gp,mp3,mpc,msv,wav,awb|max:102400',
+            'audio' => 'mimes:3gp,mp3,mpc,msv,wav,awb|max:102400',
         ]);
         $report = new CustomerServiceReport();
         $report->customer_report_id = $request->customer_report_id;
@@ -129,7 +132,8 @@ class CustomerReportController extends Controller
     public function pendingList(Request $request)
     {
         // if ($request->user()->can('report-approve')) {
-        $contact = Admin::all();
+        //  $contact = Admin::all();
+        $contact = Admin::where('admins.id', Auth::user()->id)->first();
         $pendingList = DB::table('customer_reports')
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
@@ -146,7 +150,8 @@ class CustomerReportController extends Controller
         )
             ->orderBy('customer_reports.id', 'DESC');
         return view('admin.report.pending', [
-            'pendingList' => $pendingList->get(),
+            'pendingList' => $pendingList->paginate(10),
+            //->get(),
             'contact' => $contact
         ]);
     }

@@ -1,4 +1,5 @@
-<div class="col-md-12 orderlist" style="overflow-y:scroll;">
+ {{-- style="overflow-y:scroll;" --}}
+<div class="col-md-12 orderlist" >
     <table class="table table-bordered table-striped table-responsive">
         <tbody>
             <tr>

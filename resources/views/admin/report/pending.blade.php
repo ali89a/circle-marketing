@@ -16,19 +16,21 @@
                                             <label for="fp-range">Submitted By</label>
                                             <select class="form-control form-control-sm" name="name">
                                                 <option value="">Submitted By</option>
-                                                @foreach ($contact as $item)
-                                                <option value="{{ $item->name }}">{{ $item->name }}
+                                                {{-- @foreach ($contact as $item) --}}
+                                                <option value="{{ $contact->name }}">{{ $contact->name }}
                                                 </option>
-                                                @endforeach
+                                                {{-- @endforeach --}}
                                             </select>
                                         </div>
                                         <div class="col-sm-4">
                                             From Date
-                                            <input type="date" name="from_date" class="form-control ">
+                                            <input type="date" name="from_date" class="form-control flatpickr-basic
+                                                        flatpickr-input" placeholder="YYYY-MM-DD" readonly="readonly">
                                         </div>
                                         <div class="col-sm-4">
                                             To Date
-                                            <input type="date" name="to_date" class="form-control ">
+                                            <input type="date" name="to_date" class="form-control flatpickr-basic
+                                                        flatpickr-input" placeholder="YYYY-MM-DD" readonly="readonly">
                                         </div>
                                         <div class="col-sm-4">
                                             Contact Number/Organization:
@@ -61,7 +63,8 @@
                             </div>
                             <div class="col-md-12">
                             </div>
-                            <div class="col-md-12 orderlist" style="overflow-y:scroll;" id="result">
+                            {{-- style="overflow-y:scroll;" --}}
+                            <div class="col-md-12 orderlist" id="result">
                                 <table class="table table-bordered table-striped table-responsive">
                                     <tbody>
                                         <tr>
@@ -138,9 +141,14 @@
                             </div>
                             <hr>
                             <br>
-                            {{-- <div id="result">--}}
-                                {{-- list will show in this box --}}
-                           {{-- </div> --}}
+                            {{-- <div id="result"> --}}
+                            {{-- list will show in this box --}}
+                            {{-- </div> --}}
+                        </div>
+                        <div class="row form-control-sm mb-2 ml-2">
+                            <ul class="pagination">
+                                <li><a href="" data-ci-pagination-page="20">{{ $pendingList->links() }} ›</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
