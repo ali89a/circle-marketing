@@ -28,6 +28,7 @@ class CreateOrderApprovalsTable extends Migration
             $table->foreignId('noc_assigned_by')->nullable();
             $table->date('noc_assigned_time')->nullable();
             $table->text('noc_assigned_status')->nullable();
+            $table->date('noc_done_time')->nullable();
             $table->foreignId('noc_approved_by')->nullable();
             $table->date('noc_approved_time')->nullable();
             $table->text('noc_approved_status')->nullable();

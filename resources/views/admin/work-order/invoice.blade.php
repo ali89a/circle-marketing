@@ -1,17 +1,18 @@
 @extends('admin.layouts.master')
 
 @section('content')
+
 <div class="content-wrapper">
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Work Order</h2>
+                    <h2 class="content-header-title float-left mb-0">Invoice</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item active">Invoice
+                            <li class="breadcrumb-item active">Invoice List
                             </li>
                         </ol>
                     </div>
@@ -28,10 +29,11 @@
                             <rect x="3" y="14" width="7" height="7"></rect>
                         </svg></button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="{{route('user.index')}}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
+                        <a class="dropdown-item" href="{{route('work-order.index')}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
                                 <polyline points="9 11 12 14 22 4"></polyline>
                                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                            </svg><span class="align-middle">List</span>
+                            </svg><span class="align-middle">Work Order List</span>
                         </a>
                     </div>
                 </div>
@@ -39,82 +41,62 @@
         </div>
     </div>
     <div class="content-body">
-        <!-- Basic Inputs start -->
-        <section id="basic-input">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Invoice List</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderd">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Action</th>
-                                                    <th>Send Mail</th>
-                                                    <th>Invoice ID</th>
-                                                    <th>Order ID</th>
-                                                    <th>Client<br> Confirmation</th>
-                                                    <th>Customer Name</th>
-                                                    <th>Type</th>
-                                                    <th>Status</th>
-                                                    <!--<th>Mail Send Status</th>-->
-                                                    <th>Invoice number</th>
-                                                    <th>Send Count</th>
-                                                    <th>Invoice Date</th>
-                                                    <th>Generate Time</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <a href="{{url('invoice/details')}}" class="btn btn-primary btn-xs btn-block"><i class="fa fa-print"></i> View</a>
-                                                    </td>
+        <!-- Responsive tables start -->
+        <div class="row" id="table-responsive">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Invoice List</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-nowrap">#</th>
+                                    <th scope="col" class="text-nowrap">Invoice No</th>
+                                    <th scope="col" class="text-nowrap">Date</th>
+                                    <th scope="col" class="text-nowrap">billing_address</th>
+                                    <th scope="col" class="text-nowrap">subject</th>
+                                    <th scope="col" class="text-nowrap">previous_due</th>
+                                    <th scope="col" class="text-nowrap text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($invoices as $row)
+                                <tr>
+                                    <td class="text-nowrap">{{ $loop->iteration }}</td>
+                                    <td>{{ $row->invoice_no??'' }}</td>
+                                    <td>{{ $row->invoice_date }}</td>
+                                    <td>{{ $row->billing_address }}</td>
+                                    <td>{{ $row->subject }}</td>
+                                    <td>{{ $row->previous_due }}</td>
+                                    <td>
+                                        <div class="float-right">
 
-                                                    <td>
-                                                        <a class="btn btn-info btn-xs" target="_blank" href=""><i class="fa fa-mail"></i>Send Mail</a>
-                                                    </td>
-                                                    <td>
-                                                        7550 </td>
-                                                    <td>666</td>
-                                                    <td class="">
-                                                        Pending
-                                                    </td>
-                                                    <td>
-                                                        Sufia Khatun(HK Net) </td>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                        new </td>
-                                                    <td>CN_51050</td>
-                                                    <td>3</td>
-                                                    <td>05-Jun-2021</td>
-                                                    <td>05-Jun-2021 02:49:33 PM</td>
-                                                </tr>
+                                            <a href="{{route('InvoiceDetails',$row->id)}}" class="btn btn-sm btn-info">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                Show
+                                            </a>
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Basic Inputs end -->
+        </div>
+        <!-- Responsive tables end -->
     </div>
 </div>
-
-@section('vendor-css')
+@endsection
+@section('js')
 
 @endsection
-@section('page-css')
-
-<link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/css/pages/app-invoice.css">
-@endsection
-@push('style')
+@push('script')
 
 @endpush

@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\OrderCustomerDocument;
+use App\Models\OrderItem;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -39,9 +41,9 @@ class OrderController extends Controller
     }
     public function index()
     {
-        $data=[
-            'orders'=>Order::with('customer_details')->latest()->get(),
-            'noc_users' => Admin::role(['NOC Executive','NOC Admin'])->get()
+        $data = [
+            'orders' => Order::with('customer_details')->latest()->get(),
+            'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get()
         ];
         return view('admin.work-order.index', $data);
     }
@@ -53,11 +55,11 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $data=[
-            'divisions'=>Division::all(),
-            'customers'=>User::all(),
+        $data = [
+            'divisions' => Division::all(),
+            'customers' => User::all(),
         ];
-        return view('admin.work-order.create',$data);
+        return view('admin.work-order.create', $data);
     }
     public function docEdit($id)
     {
@@ -108,29 +110,30 @@ class OrderController extends Controller
     public function orderEdit($id)
     {
         $customer_order = Order::where('id', $id)->first();
-        $users = Admin::role(['Marketing Executive','Marketing Admin'])->get(); 
-        return view('admin.work-order.order_edit', compact('customer_order','users'));
+        $users = Admin::role(['Marketing Executive', 'Marketing Admin'])->get();
+        return view('admin.work-order.order_edit', compact('customer_order', 'users'));
     }
     public function orderDetailEdit($id)
     {
         $customer_order_info = OrderInfo::where('order_id', $id)->first();
-        return view('admin.work-order.order_detail_edit', compact('customer_order_info'));
+        $all_service = Service::all();
+        return view('admin.work-order.order_detail_edit', compact('customer_order_info', 'all_service'));
     }
     public function customerDetailEdit($id)
     {
-        $data=[
-            'divisions'=>Division::all(),
-            'order_customer_info'=>OrderCustomerInfo::where('order_id', $id)->first()
+        $data = [
+            'divisions' => Division::all(),
+            'order_customer_info' => OrderCustomerInfo::where('order_id', $id)->first()
         ];
         return view('admin.work-order.customer_detail_edit', $data);
     }
-    public function customerDetailUpdate(Request $request,$id)
+    public function customerDetailUpdate(Request $request, $id)
     {
-        
+
         try {
             DB::beginTransaction();
 
-            $customer_info =OrderCustomerInfo::where('order_id',$id)->first();
+            $customer_info = OrderCustomerInfo::where('order_id', $id)->first();
             $customer_info->organization = $request->organization;
             $customer_info->client_type = $request->client_type;
             $customer_info->occupation = $request->occupation;
@@ -161,33 +164,45 @@ class OrderController extends Controller
     }
     public function orderDetailUpdate(Request $request, $id)
     {
-        try {
-            DB::beginTransaction();
-            $order_info = OrderInfo::where('order_id', $id)->first();
-            $order_info->internet_capacity_1 = $request->internet_capacity_1;
-            $order_info->internet_price_1 = $request->internet_price_1;
-            $order_info->bdix_capacity_1 = $request->bdix_capacity_1;
-            $order_info->bdix_price_1 = $request->bdix_price_1;
-            $order_info->youtube_capacity_1 = $request->youtube_capacity_1;
-            $order_info->youtube_price_1 = $request->youtube_price_1;
-            $order_info->facebook_capacity_1 = $request->facebook_capacity_1;
-            $order_info->facebook_price_1 = $request->facebook_price_1;
-            $order_info->data_capacity_1 = $request->data_capacity_1;
-            $order_info->data_price_1 = $request->data_price_1;
-            $order_info->save();
-            DB::commit();
+       // dd($request->all());
+
+        // try {
+            $request->validate([
+                'items' => 'array|required',
+
+            ]);
+          //  DB::beginTransaction();
+            $order = Order::find($id);
+
+            $order->total_price = $request->total_price;
+            $order->real_ip = $request->real_ip;
+            $order->core_rent = $request->core_rent;
+            $order->otc = $request->otc;
+            $order->save();
+            OrderItem::where('order_id', $id)->delete();
+            $products = $request->get('items');
+
+            foreach ($products as $key => $product) {
+                $item = new OrderItem();
+                $item->order_id = $order->id;
+                $item->service_id = $product['service_id'];
+                $item->capacity = $product['capacity'];
+                $item->price = $product['price'];
+                $item->save();
+            }
+        //    DB::commit();
             Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
             return redirect()->route('work-order.index');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-            $output = [
-                'success' => 0,
-                'msg' => __("messages.something_went_wrong")
-            ];
-            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-            return back();
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        //     $output = [
+        //         'success' => 0,
+        //         'msg' => __("messages.something_went_wrong")
+        //     ];
+        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+        //     return back();
+        // }
     }
 
     /**
@@ -252,7 +267,7 @@ class OrderController extends Controller
             $customer_info->upazila_id = $request->upazila_id;
             $customer_info->order_id = $order->id;
             $customer_info->save();
-           DB::commit();
+            DB::commit();
             Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
             return redirect()->route('docEdit', ['id' => $order->id]);
         } catch (\Exception $e) {
@@ -305,7 +320,7 @@ class OrderController extends Controller
             $order->price = $request->price;
             $order->scl_id = $request->scl_id;
             $order->gmap_location = $request->gmap_location;
-            $order->link_id = 'NC_'.\App\Classes\LinkId::serial_number();
+            $order->link_id = 'NC_' . \App\Classes\LinkId::serial_number();
             $order->vat = $request->vat;
             $order->order_submission_date = $request->order_submission_date;
             $order->billing_cycle = $request->billing_cycle;
@@ -351,7 +366,7 @@ class OrderController extends Controller
     }
     public function fetch_district(Request $request)
     {
-        $districts = District::where('division_id', $request->id)->orderBy('name','ASC')->get();
+        $districts = District::where('division_id', $request->id)->orderBy('name', 'ASC')->get();
 
         $option = '<option selected disabled hidden value=""> Select one</option>';
         foreach ($districts as $row) {
@@ -362,7 +377,7 @@ class OrderController extends Controller
 
     public function fetch_thana(Request $request)
     {
-        $upazilas = Upazila::where('district_id', $request->id)->orderBy('name','ASC')->get();
+        $upazilas = Upazila::where('district_id', $request->id)->orderBy('name', 'ASC')->get();
 
         $option = '<option selected disabled hidden value=""> Select one</option>';
         foreach ($upazilas as $row) {
