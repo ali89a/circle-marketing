@@ -61,7 +61,7 @@
                             </div>
                             <div class="col-md-12">
                             </div>
-                            <div class="col-md-12 orderlist" style="overflow-y:scroll;">
+                            <div class="col-md-12 orderlist" style="overflow-y:scroll;" id="result">
                                 <table class="table table-bordered table-striped table-responsive">
                                     <tbody>
                                         <tr>
@@ -138,9 +138,9 @@
                             </div>
                             <hr>
                             <br>
-                            <div id="result">
+                            {{-- <div id="result">--}}
                                 {{-- list will show in this box --}}
-                            </div>
+                           {{-- </div> --}}
                         </div>
                     </div>
                 </div>
@@ -191,7 +191,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'get',
-                    url: '{{ route('searchResult') }}',
+                    url: '{{ route('pendingSearchResult') }}',
                     data: $('#search').serialize(),
                     // alert(result);
                     success: function(result) {
@@ -207,7 +207,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'get',
-                    url: '{{ route('searchResult') }}',
+                    url: '{{ route('pendingSearchResult') }}',
                     data: $('#search').serialize(),
                     success: function(result) {
                         $('#result').html(result);

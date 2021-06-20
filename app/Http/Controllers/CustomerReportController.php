@@ -18,22 +18,39 @@ use Carbon\Carbon;
 class CustomerReportController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $contact = CustomerReport::get();
-        $reports = DB::table('customer_reports')
-            ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
-            ->join('districts', 'customer_reports.location_district', 'districts.id')
-            ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-            ->where('customer_reports.createdBy', Auth::user()->id)
-            ->where(function ($query) {
-                $query->where('customer_service_reports.ctype', '=', 'approved')
-                    ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                    ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
-            })
-            ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
-            ->orderBy('customer_reports.id', 'DESC')
-            ->get();
+        if ($request->user()->can('report-approve')) {
+            $contact = CustomerReport::get();
+            $reports = DB::table('customer_reports')
+                ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                ->join('districts', 'customer_reports.location_district', 'districts.id')
+                ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+                //->where('customer_reports.createdBy', Auth::user()->id)
+                ->where(function ($query) {
+                    $query->where('customer_service_reports.ctype', '=', 'approved')
+                        ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                        ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                })
+                ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+                ->orderBy('customer_reports.id', 'DESC')
+                ->get();
+        } else {
+            $contact = CustomerReport::get();
+            $reports = DB::table('customer_reports')
+                ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                ->join('districts', 'customer_reports.location_district', 'districts.id')
+                ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+                ->where('customer_reports.createdBy', Auth::user()->id)
+                ->where(function ($query) {
+                    $query->where('customer_service_reports.ctype', '=', 'approved')
+                        ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                        ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                })
+                ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+                ->orderBy('customer_reports.id', 'DESC')
+                ->get();
+        }
         // dd($reports->all());
         // return view('admin.report.index', compact('reports'), ('contact'));
         return view('admin.report.index', [
@@ -123,17 +140,34 @@ class CustomerReportController extends Controller
         return redirect()->route('report.index');
     }
 
-    public function pendingList()
+    public function pendingList(Request $request)
     {
-        $contact = CustomerReport::all();
-        $pendingList = DB::table('customer_reports')
-            ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
-            ->join('districts', 'customer_reports.location_district', 'districts.id')
-            ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-            //->where('customer_reports.createdBy', Auth::user()->id)
-            ->where('customer_service_reports.ctype', '=', 'new')
-            ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
-            ->get();
+        if ($request->user()->can('report-approve')) {
+            $contact = CustomerReport::all();
+            $pendingList = DB::table('customer_reports')
+                ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                ->join('districts', 'customer_reports.location_district', 'districts.id')
+                ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+                //->where('customer_reports.createdBy', Auth::user()->id)
+                ->where('customer_service_reports.ctype', '=', 'new')
+                ->select(
+                    'customer_reports.*',
+                    'customer_service_reports.*',
+                    'districts.name as district',
+                    'upazilas.name as upazila'
+                )
+                ->get();
+        } else {
+            $contact = CustomerReport::all();
+            $pendingList = DB::table('customer_reports')
+                ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                ->join('districts', 'customer_reports.location_district', 'districts.id')
+                ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+                ->where('customer_reports.createdBy', Auth::user()->id)
+                ->where('customer_service_reports.ctype', '=', 'new')
+                ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+                ->get();
+        }
         return view('admin.report.pending', [
             'pendingList' => $pendingList,
             'contact' => $contact
@@ -202,7 +236,11 @@ class CustomerReportController extends Controller
                     ->where('customer_reports.created_at', '>', $from)
                     ->where('customer_reports.created_at', '<', $to->addDay())
                     ->where('customer_reports.createdBy', Auth::user()->id)
-
+                    ->where(function ($query) {
+                        $query->where('customer_service_reports.ctype', '=', 'approved')
+                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                            ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                    })
                     ->get();
                 // dd($list);
             } else if (!empty($request->contact_number)) {
@@ -218,7 +256,11 @@ class CustomerReportController extends Controller
                     )
                     ->where('customer_reports.contact_number',  $request->contact_number)
                     ->where('customer_reports.createdBy', Auth::user()->id)
-
+                    ->where(function ($query) {
+                        $query->where('customer_service_reports.ctype', '=', 'approved')
+                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                            ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                    })
                     ->get();
                 // dd($list);
             } else if (!empty($request->contact_person)) {
@@ -235,12 +277,81 @@ class CustomerReportController extends Controller
                     )
                     ->where('customer_reports.contact_person', $request->contact_person)
                     ->where('customer_reports.createdBy', Auth::user()->id)
-
+                    ->where(function ($query) {
+                        $query->where('customer_service_reports.ctype', '=', 'approved')
+                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                            ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                    })
                     ->get();
                 // dd($list);
                 //  dd('TEXT');
             }
             return view('admin.report.result', [
+                'r'           =>  $list,
+            ]);
+        }
+    }
+
+    public function pendingSearchResult(Request $request)
+    {
+        // dd($request->all());
+        if ($request->ajax()) {
+            // 
+            if (!empty($request->from_date) && !empty($request->to_date)) {
+                $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
+                $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
+                $list = DB::table('customer_reports')
+                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                    ->join('districts', 'customer_reports.location_district', 'districts.id')
+                    ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+                    ->select(
+                        'customer_reports.*',
+                        'customer_service_reports.*',
+                        'districts.name as district',
+                        'upazilas.name as upazila'
+                    )
+                    ->where('customer_reports.created_at', '>', $from)
+                    ->where('customer_reports.created_at', '<', $to->addDay())
+                    ->where('customer_reports.createdBy', Auth::user()->id)
+                    ->where('customer_service_reports.ctype', '=', 'new')
+                    ->get();
+                // dd($list);
+            } else if (!empty($request->contact_number)) {
+                $list = DB::table('customer_reports')
+                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                    ->join('districts', 'customer_reports.location_district', 'districts.id')
+                    ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+                    ->select(
+                        'customer_reports.*',
+                        'customer_service_reports.*',
+                        'districts.name as district',
+                        'upazilas.name as upazila'
+                    )
+                    ->where('customer_reports.contact_number',  $request->contact_number)
+                    ->where('customer_reports.createdBy', Auth::user()->id)
+                    ->where('customer_service_reports.ctype', '=', 'new')
+                    ->get();
+                // dd($list);
+            } else if (!empty($request->contact_person)) {
+                // dd($request->all());
+                $list = DB::table('customer_reports')
+                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                    ->join('districts', 'customer_reports.location_district', 'districts.id')
+                    ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+                    ->select(
+                        'customer_reports.*',
+                        'customer_service_reports.*',
+                        'districts.name as district',
+                        'upazilas.name as upazila'
+                    )
+                    ->where('customer_reports.contact_person', $request->contact_person)
+                    ->where('customer_reports.createdBy', Auth::user()->id)
+                    ->where('customer_service_reports.ctype', '=', 'new')
+                    ->get();
+                // dd($list);
+                //  dd('TEXT');
+            }
+            return view('admin.report.pendingResult', [
                 'r'           =>  $list,
             ]);
         }
