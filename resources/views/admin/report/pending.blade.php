@@ -14,10 +14,10 @@
                                     <div class="row">
                                         <div class="col-md-4 form-group">
                                             <label for="fp-range">Submitted By</label>
-                                            <select class="form-control form-control-sm" name="contact_person">
+                                            <select class="form-control form-control-sm" name="name">
                                                 <option value="">Submitted By</option>
                                                 @foreach ($contact as $item)
-                                                <option value="{{ $item->contact_person }}">{{ $item->contact_person }}
+                                                <option value="{{ $item->name }}">{{ $item->name }}
                                                 </option>
                                                 @endforeach
                                             </select>
