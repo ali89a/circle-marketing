@@ -26,20 +26,12 @@ class CustomerReportController extends Controller
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-            //->where('customer_reports.createdBy', Auth::user()->id)
             ->where(function ($query) {
                 $query->where('customer_service_reports.ctype', '=', 'approved')
                     ->orWhere('customer_service_reports.ctype', '=', 'followup')
                     ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
             });
-        // ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
-        // ->orderBy('customer_reports.id', 'DESC')
-        // ->get();
-
         if (!$request->user()->can('report-approve')) {
-            //  $reports->;
-            // }// else {
-            // $reports->where('customer_reports.createdBy', Auth::user()->id);
             $reports->where('customer_reports.createdBy', Auth::user()->id);
         }
         $reports->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
@@ -142,15 +134,7 @@ class CustomerReportController extends Controller
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-            //->where('customer_reports.createdBy', Auth::user()->id)
             ->where('customer_service_reports.ctype', '=', 'new');
-        // ->select(
-        //     'customer_reports.*',
-        //     'customer_service_reports.*',
-        //     'districts.name as district',
-        //     'upazilas.name as upazila'
-        // )
-        // ->get();
         if (!$request->user()->can('report-approve')) {
             $pendingList->where('customer_reports.createdBy', Auth::user()->id);
         }
@@ -161,12 +145,6 @@ class CustomerReportController extends Controller
             'upazilas.name as upazila'
         )
             ->orderBy('customer_reports.id', 'DESC');
-
-        // if ($request->user()->can('report-approve')) {
-        //     $pendingList;
-        // } else {
-        //     $pendingList->where('customer_reports.createdBy', Auth::user()->id);
-        // }
         return view('admin.report.pending', [
             'pendingList' => $pendingList->get(),
             'contact' => $contact
@@ -218,7 +196,6 @@ class CustomerReportController extends Controller
     {
         // dd($request->all());
         if ($request->ajax()) {
-            // 
             if (!empty($request->from_date) && !empty($request->to_date)) {
                 $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
                 $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
@@ -226,74 +203,47 @@ class CustomerReportController extends Controller
                     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
                     ->join('districts', 'customer_reports.location_district', 'districts.id')
                     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-                    ->select(
-                        'customer_reports.*',
-                        'customer_service_reports.*',
-                        'districts.name as district',
-                        'upazilas.name as upazila'
-                    )
                     ->where('customer_reports.created_at', '>', $from)
                     ->where('customer_reports.created_at', '<', $to->addDay())
-                    // ->where('customer_reports.createdBy', Auth::user()->id)
                     ->where(function ($query) {
                         $query->where('customer_service_reports.ctype', '=', 'approved')
                             ->orWhere('customer_service_reports.ctype', '=', 'followup')
                             ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
-                    })
-                    ->get();
-                // dd($list);
+                    });
             } else if (!empty($request->contact_number)) {
                 $list = DB::table('customer_reports')
                     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
                     ->join('districts', 'customer_reports.location_district', 'districts.id')
                     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-                    ->select(
-                        'customer_reports.*',
-                        'customer_service_reports.*',
-                        'districts.name as district',
-                        'upazilas.name as upazila'
-                    )
                     ->where('customer_reports.contact_number',  $request->contact_number)
-                    //  ->where('customer_reports.createdBy', Auth::user()->id)
                     ->where(function ($query) {
                         $query->where('customer_service_reports.ctype', '=', 'approved')
                             ->orWhere('customer_service_reports.ctype', '=', 'followup')
                             ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
-                    })
-                    ->get();
-                // dd($list);
+                    });
             } else if (!empty($request->contact_person)) {
                 // dd($request->all());
                 $list = DB::table('customer_reports')
                     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
                     ->join('districts', 'customer_reports.location_district', 'districts.id')
                     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-                    ->select(
-                        'customer_reports.*',
-                        'customer_service_reports.*',
-                        'districts.name as district',
-                        'upazilas.name as upazila'
-                    )
                     ->where('customer_reports.contact_person', $request->contact_person)
-                    //  ->where('customer_reports.createdBy', Auth::user()->id)
                     ->where(function ($query) {
                         $query->where('customer_service_reports.ctype', '=', 'approved')
                             ->orWhere('customer_service_reports.ctype', '=', 'followup')
                             ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
-                    })
-                    ->get();
+                    });
                 // dd($list);
                 //  dd('TEXT');
             }
-
-            if ($request->user()->can('report-approve')) {
-                $list;
-            } else {
+            if (!$request->user()->can('report-approve')) {
                 $list->where('customer_reports.createdBy', Auth::user()->id);
             }
+            $list->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+                ->orderBy('customer_reports.id', 'DESC');
 
             return view('admin.report.result', [
-                'r'           =>  $list,
+                'r'           =>  $list->get(),
             ]);
         }
     }
@@ -302,7 +252,6 @@ class CustomerReportController extends Controller
     {
         // dd($request->all());
         if ($request->ajax()) {
-            // 
             if (!empty($request->from_date) && !empty($request->to_date)) {
                 $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
                 $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
@@ -310,61 +259,34 @@ class CustomerReportController extends Controller
                     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
                     ->join('districts', 'customer_reports.location_district', 'districts.id')
                     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-                    ->select(
-                        'customer_reports.*',
-                        'customer_service_reports.*',
-                        'districts.name as district',
-                        'upazilas.name as upazila'
-                    )
                     ->where('customer_reports.created_at', '>', $from)
                     ->where('customer_reports.created_at', '<', $to->addDay())
-                    //  ->where('customer_reports.createdBy', Auth::user()->id)
-                    ->where('customer_service_reports.ctype', '=', 'new')
-                    ->get();
-                // dd($list);
+                    ->where('customer_service_reports.ctype', '=', 'new');
             } else if (!empty($request->contact_number)) {
                 $list = DB::table('customer_reports')
                     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
                     ->join('districts', 'customer_reports.location_district', 'districts.id')
                     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-                    ->select(
-                        'customer_reports.*',
-                        'customer_service_reports.*',
-                        'districts.name as district',
-                        'upazilas.name as upazila'
-                    )
                     ->where('customer_reports.contact_number',  $request->contact_number)
-                    //  ->where('customer_reports.createdBy', Auth::user()->id)
-                    ->where('customer_service_reports.ctype', '=', 'new')
-                    ->get();
-                // dd($list);
+                    ->where('customer_service_reports.ctype', '=', 'new');
             } else if (!empty($request->contact_person)) {
                 // dd($request->all());
                 $list = DB::table('customer_reports')
                     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
                     ->join('districts', 'customer_reports.location_district', 'districts.id')
                     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-                    ->select(
-                        'customer_reports.*',
-                        'customer_service_reports.*',
-                        'districts.name as district',
-                        'upazilas.name as upazila'
-                    )
                     ->where('customer_reports.contact_person', $request->contact_person)
-                    //  ->where('customer_reports.createdBy', Auth::user()->id)
-                    ->where('customer_service_reports.ctype', '=', 'new')
-                    ->get();
+                    ->where('customer_service_reports.ctype', '=', 'new');
                 // dd($list);
                 //  dd('TEXT');
             }
-            if ($request->user()->can('report-approve')) {
-                $list;
-            } else {
+            if (!$request->user()->can('report-approve')) {
                 $list->where('customer_reports.createdBy', Auth::user()->id);
             }
-
+            $list->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+                ->orderBy('customer_reports.id', 'DESC');
             return view('admin.report.pendingResult', [
-                'r'           =>  $list,
+                'r'           =>  $list->get(),
             ]);
         }
     }
