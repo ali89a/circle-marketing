@@ -24,8 +24,8 @@ class OrderApprovalController extends Controller
     public function workOrderApprovalNoc($id)
     {
 
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
 
             $order_approval = OrderApproval::where('order_id', $id)->first();
             $order_approval->noc_approved_status = "Approved";
@@ -37,21 +37,23 @@ class OrderApprovalController extends Controller
             $order = Order::where('id', $id)->first();
             if ($order->bill_generate_method == 'by_marketing_date') {
                 $mApproval = OrderApproval::where('order_id', $id)->first();
-                \App\Classes\invoiceGenerate::invoice($id, $mApproval->m_approved_time);
+                $start_date=$mApproval->m_approved_time;
+                $end_date='2021-06-30';
+                \App\Classes\invoiceGenerate::invoice($id, $start_date,$end_date);
             }
-            DB::commit();
+            // DB::commit();
             Toastr::success('NOC Admin Approved Successful!.', '', ["progressbar" => true]);
             return redirect()->back();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-            $output = [
-                'success' => 0,
-                'msg' => __("messages.something_went_wrong")
-            ];
-            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-            return back();
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        //     $output = [
+        //         'success' => 0,
+        //         'msg' => __("messages.something_went_wrong")
+        //     ];
+        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+        //     return back();
+        // }
         
     }
     public function nocAssign(Request $request)

@@ -5,11 +5,11 @@ namespace App\Classes;
 
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
-use App\Models\OrderInfo;
+use App\Models\OrderItem;
 
 class invoiceGenerate
 {
-    public static function invoice($order_id, $from_date)
+    public static function invoice($order_id, $from_date,$end_date)
     {
         $invoice = Invoice::create([
             'order_id' => $order_id,
@@ -20,12 +20,15 @@ class invoiceGenerate
             'subject' => 'Paratoly',
             'previous_due' => 20000,
         ]);
-        $order_info = OrderInfo::where('order_id', $order_id)->first();
-        $invoiceItem = new InvoiceItem();
-        $invoiceItem->invoice_no = $invoice->id;
-        $invoiceItem->invoice_description = 'invoice_description';
-        $invoiceItem->unit_price = 'invoice_description';
-        $invoiceItem->amount = 'invoice_description';
-        $invoiceItem->save();
+        $order_infos = OrderItem::where('order_id', $order_id)->get();
+        foreach ($order_infos as $order_info) {
+
+            $invoiceItem = new InvoiceItem();
+            $invoiceItem->invoice_id = $invoice->id;
+            $invoiceItem->invoice_description = $order_info->service->name.' '.'('.$order_info->capacity.')('.$from_date.' to '.$end_date.')';
+            $invoiceItem->unit_price = $order_info->price;
+            $invoiceItem->amount = \App\Classes\PriceCalculation::price($order_info->price,$from_date,$end_date);
+            $invoiceItem->save();
+        }
     }
 }

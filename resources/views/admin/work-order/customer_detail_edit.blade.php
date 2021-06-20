@@ -209,8 +209,7 @@
         $('#division_id').change(function() {
             var id = $('#division_id').val();
             $.ajax({
-                url: '{{url('
-                admin / fetch - district ')}}',
+                url: '{{url('admin/fetch-district')}}',
                 type: 'get',
                 data: {
                     id: id
@@ -226,8 +225,7 @@
         $('#district_id').change(function() {
             var id = $('#district_id').val();
             $.ajax({
-                url: '{{url('
-                admin / fetch - thana ')}}',
+                url: '{{url('admin/fetch-thana')}}',
                 type: 'get',
                 data: {
                     id: id

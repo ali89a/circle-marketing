@@ -93,20 +93,19 @@
                             <h5 class="mb-0">Order Details</h5>
                             <small class="text-muted">Enter Your Order Details.</small>
                         </div>
+
                         <div class="row" id="vue_app">
                             <div class="col-md-6">
                                 <div class="table-responsive">
                                     <table class="table table-bordered mb-0">
                                         <tbody>
                                             <tr>
-                                                <td colspan="4">
+                                                <td colspan="3">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="service_id">Service Type</label>
+                                                        <label class="form-label" for="service_id">Connect Type</label>
                                                         <select class="form-control" @change="fetch_service()" id="service_id" name="service_id" v-model="service_id">
                                                             <option value="">Select Type</option>
-                                                            @foreach($all_service as $service)
-                                                            <option value="{{ $service->id }}">{{ $service->name }}</option>
-                                                            @endforeach
+                                                            <option value="1">Fiber</option>
                                                         </select>
                                                     </div>
                                                 </td>
@@ -115,24 +114,40 @@
                                                 <th style="width:200px">Service</th>
                                                 <th>Capacity</th>
                                                 <th>Price</th>
-                                                <th></th>
                                             </tr>
-                                            <tr v-for="(row, index) in services">
-                                                <td v-html="row.name"></td>
-                                                <td>
-                                                    <input type="hidden" :name="'items['+index+'][service_id]'" class="form-control input-sm" v-bind:value="row.service_id">
-                                                    <input type="number" v-model="row.capacity" :name="'items['+index+'][capacity]'" class="form-control input-sm" required>
-                                                </td>
-                                                <td>
-                                                    <input type="number" v-model="row.price" :name="'items['+index+'][price]'" class="form-control input-sm" required>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger btn-sm" @click="delete_row(row)">x</button>
-                                                </td>
+                                            <tr>
+                                                <td>Internet</td>
+                                                <td style="width:200px"><input type="number" value="{{$customer_order_info->internet_capacity_1}}" name="internet_capacity_1" min="0" class="form-control"></td>
+
+                                                <td><input type="number" step=".01" value="{{$customer_order_info->internet_price_1}}" name="internet_price_1" min="0" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>BDIX</td>
+                                                <td><input type="number" value="{{$customer_order_info->bdix_capacity_1}}" name="bdix_capacity_1" min="0" class="form-control"></td>
+
+                                                <td><input type="number" step=".01" value="{{$customer_order_info->bdix_price_1}}" name="bdix_price_1" min="0" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>It Service 1</td>
+                                                <td><input type="number" value="{{$customer_order_info->youtube_capacity_1}}" name="youtube_capacity_1" min="0" class="form-control"></td>
+
+                                                <td><input type="number" step=".01" value="{{$customer_order_info->youtube_price_1}}" name="youtube_price_1" min="0" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>It Service 2</td>
+                                                <td><input type="number" value="{{$customer_order_info->facebook_capacity_1}}" name="facebook_capacity_1" min="0" class="form-control"></td>
+
+                                                <td><input type="number" step=".01" value="{{$customer_order_info->facebook_price_1}}" name="facebook_price_1" min="0" class="form-control"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Data</td>
+                                                <td><input type="number" value="{{$customer_order_info->data_capacity_1}}" name="data_capacity_1" min="0" class="form-control"></td>
+
+                                                <td><input type="number" step=".01" value="{{$customer_order_info->data_price_1}}" name="data_price_1" min="0" class="form-control"></td>
                                             </tr>
                                             <tr>
                                                 <td>Total Price</td>
-                                                <td colspan="3">
+                                                <td colspan="2">
                                                     <input type="number" step=".01" name="total_price" min="0" class="form-control" value="{{$customer_order_info->order->total_Price}}">
                                                 </td>
                                             </tr>
@@ -144,16 +159,23 @@
                                 <table class="table table-bordered table-striped">
                                     <tbody>
                                         <tr>
+                                            <td>Client Type</td>
+                                            <td class="ctype"><select id="client_type" name="ctype" class="form-control form-control-sm">
+                                                    <option value=""></option>
+                                                    <option value="new">New Client</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
                                             <td>Real IP:</td>
-                                            <td><input type="text" name="real_ip" class="form-control form-control-sm" value="{{$customer_order_info->order->real_ip}}"></td>
+                                            <td><input type="text" name="real_ip" value="" class="form-control form-control-sm" value="{{$customer_order_info->order->real_ip}}"></td>
                                         </tr>
                                         <tr>
                                             <td>Core Rent:</td>
-                                            <td><input type="text" name="core_rent" class="form-control form-control-sm" value="{{$customer_order_info->order->core_rent}}"></td>
+                                            <td><input type="text" name="core_rent" value="" class="form-control form-control-sm" value="{{$customer_order_info->order->core_rent}}"></td>
                                         </tr>
                                         <tr>
                                             <td>OTC</td>
-                                            <td><input type="text" name="otc" class="form-control form-control-sm" value="{{$customer_order_info->order->otc}}"></td>
+                                            <td><input type="text" name="otc" value="" class="form-control form-control-sm" value="{{$customer_order_info->order->otc}}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -171,17 +193,21 @@
                             <button class="btn btn-success btn-submit waves-effect waves-float waves-light">Submit</button>
                         </div>
                     </form>
+
                 </div>
             </div>
         </section>
     </div>
 </div>
+
 @endsection
 @section('vendor-css')
+
 <link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/vendors/css/forms/wizard/bs-stepper.min.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/vendors/css/forms/select/select2.min.css">
 @endsection
 @section('page-css')
+
 <link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/css/core/menu/menu-types/vertical-menu.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/css/plugins/forms/form-validation.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/css/plugins/forms/form-wizard.css">
@@ -202,85 +228,49 @@
 <script src="{{ asset('vue-js/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <script>
     //  console.log('error');
-    $(document).ready(function() {
-        var vue = new Vue({
-            el: '#vue_app',
-            data: {
-                config: {
-                    get_url: "{{ url('admin/fetch-service-by-id') }}",
-                    get_old_items_data: "{{ url('admin/fetch-general-product-info') }}",
+        $(document).ready(function() {
+            var vue = new Vue({
+                el: '#vue_app',
+                data: {
+                    config: {
+                        get_url: "{{ url('admin/fetch-service-by-id') }}",
+                    },
+                  
+                    service_id: '',
+                    services: [],
                 },
+                methods: {
+                    fetch_service() {
+                        var vm = this;
+                        var slug = vm.service_id;
+                        //check
+                        // alert(slug);
 
-                service_id: '',
-                services: [],
-                order_id: "{{$customer_order_info->order_id}}",
-            },
-            methods: {
-                fetch_service() {
-                    var vm = this;
-                    var slug = vm.service_id;
-                    //check
-                    // alert(slug);
-
-                    if (slug) {
-                        axios.get(this.config.get_url + '/' + slug).then(
-                            function(response) {
-                                details = response.data;
-                                console.log(details);
-                                if (!vm.services.some(data => data.service_id === details.id)) {
-                                    vm.services.push({
-                                        service_id: details.id,
-                                        name: details.name,
-                                    });
-                                    vm.service_id = '';
-                                } else {
-                                    toastr.info('Already Selected This Item', {
-                                        closeButton: true,
-                                        progressBar: true,
-                                    });
-
-                                    return false;
-                                }
-
-
-                            }).catch(function(error) {
-                            toastr.error('Something went to wrong', {
-                                closeButton: true,
-                                progressBar: true,
+                        if (slug) {
+                            axios.get(this.config.get_url + '/' + slug).then(
+                                function(response) {
+                                    vm.services = response.data;
+                                    console.log(vm.services);
+                                }).catch(function(error) {
+                                toastr.error('Something went to wrong', {
+                                    closeButton: true,
+                                    progressBar: true,
+                                });
+                                return false;
                             });
-                            return false;
-                        });
+                        }
                     }
                 },
-                delete_row: function(row) {
-                    this.services.splice(this.services.indexOf(row), 1);
-                },
+                updated() {
+                    $('.bSelect').selectpicker('refresh');
+                }
+            });
+            $('.bSelect').selectpicker({
+                liveSearch: true,
+                size: 5
+            });
+        });
 
-                load_old() {
-                    var vm = this;
-                    var slug = vm.order_id;
-                    axios.get(this.config.get_old_items_data + '/' + slug).then(function(response) {
-                        var item = response.data;
-                      console.log(item);
-                        for (key in item) {
-                            vm.services.push(item[key]);
-                        };
-                         
-                    })
-                },
-            },
-            beforeMount() {
-                this.load_old();
-            },
-            updated() {
-                $('.bSelect').selectpicker('refresh');
-            }
-        });
-        $('.bSelect').selectpicker({
-            liveSearch: true,
-            size: 5
-        });
-    });
 </script>
 
 

@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     use HasFactory;
+    public function order()
+    {
+        return $this->belongsTo('App\Models\Order', 'order_id');
+    }
+    public function items(){
+
+        return $this->hasMany(InvoiceItem::class);
+
+    }
     protected $fillable = [
        
         'order_id',  

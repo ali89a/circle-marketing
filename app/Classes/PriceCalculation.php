@@ -8,10 +8,11 @@ use Carbon\Carbon;
 
 class PriceCalculation
 {
-    public static function price($unit_price, $from_date)
+    public static function price($unit_price, $from_date,$end_date)
     {
         
-        $to_date = Carbon::now()->endOfMonth()->toDateString();
+       // $to_date = Carbon::now()->endOfMonth()->toDateString();
+        $to_date = $end_date;
         $to = \Carbon\Carbon::createFromFormat('Y-m-d', $to_date);
         $from = \Carbon\Carbon::createFromFormat('Y-m-d', $from_date);
 
