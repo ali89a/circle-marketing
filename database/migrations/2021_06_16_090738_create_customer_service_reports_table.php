@@ -24,7 +24,7 @@ class CreateCustomerServiceReportsTable extends Migration
             $table->text('rate');
             $table->text('otc');
             $table->text('remark');
-            $table->text('audio');
+            $table->text('audio')->nullable();
             $table->timestamps();
         });
     }
