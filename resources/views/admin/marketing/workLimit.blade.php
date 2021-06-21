@@ -102,18 +102,21 @@
                                             <td><input type="number" name="followup[114]" value="0"></td>
                                             <td><input type="number" name="reconnect[114]" value="0"></td>
                                         </tr>
+                                        <tr class="">
+
+                                            <td colspan="3"></td>
+                                            <td> <input type="submit" value="Save"
+                                                    class="btn btn-primary pull-right form-control">
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
-                                {{-- <div class="col-md-12 offset-md-10">
-                                        <input type="submit" value="Save" class="btn btn-primary pull-right form-control"
-                                            style="width:150px">
-                                    </div> --}}
-                                <div class="form-group row">
-                                    <div class="col-md-12 offset-md-7" >
+                                {{-- <div class="form-group row">
+                                    <div class="col-md-12 offset-md-7">
                                         <br>
                                         <button type="submit" name="btn" class="btn btn-success">Save</button>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </form>
