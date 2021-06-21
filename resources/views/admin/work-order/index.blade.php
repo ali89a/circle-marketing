@@ -354,260 +354,223 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <a class="btn btn-primary btn-xs btn-flat btn-block" data-toggle="collapse" href="#c{{$order->id}}" role="button" aria-expanded="false" aria-controls="c{{$order->id}}">View Details</a>
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="c{{$order->id}}">
-                                                <div class="card card-body">
-                                                    <table class="table table-bordered bw_details">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Location :</td>
-                                                                <td>{{ $order->customer_details->division->name??'' }},{{ $order->customer_details->district->name??'' }},{{ $order->customer_details->upazila->name??'' }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>TA</td>
-                                                                <td>{{ $order->customer_details->technical_address??'' }} </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>BA</td>
-                                                                <td> {{ $order->customer_details->billing_address ??'' }} </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Work order:</td>
-                                                                <td><a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/work_order3.JPG" data-lightbox="work_order3.JPG" class="text-center btn btn-primary btn-xs">View
-                                                                        image</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>IP Agreement</td>
-                                                                <td>
-                                                                    <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/ip_autorize5.jpg" data-lightbox="ip_autorize5.jpg" class="text-center btn btn-primary btn-xs">View
-                                                                        image</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Authorization(Cor)</td>
-                                                                <td>
-                                                                    <a data-fancybox="" data-type="iframe" data-src="https://demo.circlenetworkbd.net/assets/uploads/customer/polly_it1.pdf" href="javascript:;" class="text-center btn btn-primary btn-xs">View
-                                                                        Pdf</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>License Copy</td>
-                                                                <td>
-                                                                    <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/linices9.jpg" data-lightbox="linices9.jpg" class="text-center btn btn-primary btn-xs">View
-                                                                        image</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Trade License</td>
-                                                                <td>
-                                                                    <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/Trade_License7.jpg" data-lightbox="Trade_License7.jpg" class="text-center btn btn-primary btn-xs">View
-                                                                        image</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Nid Copy</td>
-                                                                <td>
-                                                                    <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/nid_final1.JPG" data-lightbox="nid_final1.JPG" class="text-center btn btn-primary btn-xs">View
-                                                                        image</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                        <button type="button" class="btn btn-outline-primary waves-effect btn-block" data-toggle="modal" data-target="#c{{$order->id}}">
+                                            View Details
+                                        </button>
+                                        <div class="modal fade text-left" id="c{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel1">View NOC</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-bordered bw_details">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Location :</td>
+                                                                    <td>{{ $order->customer_details->division->name??'' }},{{ $order->customer_details->district->name??'' }},{{ $order->customer_details->upazila->name??'' }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TA</td>
+                                                                    <td>{{ $order->customer_details->technical_address??'' }} </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>BA</td>
+                                                                    <td> {{ $order->customer_details->billing_address ??'' }} </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Work order:</td>
+                                                                    <td><a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/work_order3.JPG" data-lightbox="work_order3.JPG" class="text-center btn btn-primary btn-xs">View
+                                                                            image</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>IP Agreement</td>
+                                                                    <td>
+                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/ip_autorize5.jpg" data-lightbox="ip_autorize5.jpg" class="text-center btn btn-primary btn-xs">View
+                                                                            image</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Authorization(Cor)</td>
+                                                                    <td>
+                                                                        <a data-fancybox="" data-type="iframe" data-src="https://demo.circlenetworkbd.net/assets/uploads/customer/polly_it1.pdf" href="javascript:;" class="text-center btn btn-primary btn-xs">View
+                                                                            Pdf</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>License Copy</td>
+                                                                    <td>
+                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/linices9.jpg" data-lightbox="linices9.jpg" class="text-center btn btn-primary btn-xs">View
+                                                                            image</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Trade License</td>
+                                                                    <td>
+                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/Trade_License7.jpg" data-lightbox="Trade_License7.jpg" class="text-center btn btn-primary btn-xs">View
+                                                                            image</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Nid Copy</td>
+                                                                    <td>
+                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/nid_final1.JPG" data-lightbox="nid_final1.JPG" class="text-center btn btn-primary btn-xs">View
+                                                                            image</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-dismiss="modal">Close</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <a class="btn btn-primary btn-xs btn-flat btn-block collapsed" data-toggle="collapse" href="#m{{$order->id}}" role="button" aria-expanded="false" aria-controls="m{{$order->id}}">View Marketing</a>
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="m{{$order->id}}">
-                                                <div class="card card-body">
-                                                    <button id="uphistory_666" type="button" class="uphistory btn btn-info btn-xs" data-toggle="modal" data-target="#uphistory">
-                                                        <input type="hidden" value="666">View History
-                                                    </button>
-                                                    <table class="table table-bordered bw_details table-stripd">
-                                                        <caption class="text-center">Marketing Requirement</caption>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>capacity</td>
-                                                                <td>Buffer</td>
-                                                                <td>UP</td>
-                                                                <td>Down</td>
-                                                                <td class=" onlym allhide">price</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Internet (1st)</td>
-                                                                <td>{{ $order->order_info->internet_capacity_1??'' }}</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td class="text-right onlym allhide">{{ $order->order_info->internet_price_1??'' }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Internet(2nd)</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td class="text-right onlym allhide"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>BDIX(1st)</td>
-                                                                <td>{{ $order->order_info->bdix_capacity_1??'' }}</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td class="text-right onlym allhide">{{ $order->order_info->bdix_price_1??'' }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>BDIX(2nd)</td>
-                                                                <td>{{ $order->order_info->internet_price_2??'' }}</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td class="text-right onlym allhide">{{ $order->order_info->internet_price_2??'' }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>It Service 1 (1st)</td>
-                                                                <td>{{ $order->order_info->youtube_capacity_1??'' }}</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td class="text-right onlym allhide">{{ $order->order_info->youtube_price_1??'' }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>It Service 1 (2st)</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td class="text-right onlym allhide"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>It Service 2(1st)</td>
-                                                                <td>{{ $order->order_info->facebook_capacity_1??'' }}</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td class="text-right onlym allhide">{{ $order->order_info->facebook_price_1??'' }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>It Service 2(2nd)</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td class="text-right onlym allhide"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Data (1st)</td>
-                                                                <td>{{ $order->order_info->data_capacity_1??'' }}</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td class="text-right onlym allhide">{{ $order->order_info->data_price_1??'' }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Data(2nd)</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td class="text-right onlym allhide"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Domain</td>
-                                                                <td colspan="4"></td>
-                                                                <td class="text-right onlym allhide"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Hosting</td>
-                                                                <td colspan="4"></td>
-                                                                <td class="text-right onlym allhide"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="5">Combine Price</td>
-                                                                <td class="text-right allhide">{{ $order->total_Price }}</td>
-                                                            </tr>
-                                                            <tr class="onlym">
-                                                                <td colspan="5">OTC</td>
-                                                                <td class="text-right allhide">{{$order->otc}}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="5">Core Rent</td>
-                                                                <td class="text-right allhide">{{$order->core_rent}}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="5">Real Ip</td>
-                                                                <td class="text-right allhide">{{$order->real_ip}}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="mhistory666">
+
+                                        <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#m{{$order->id}}">
+                                            View Marketing
+                                        </button>
+                                        <div class="modal fade text-left" id="m{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel1">View Marketing</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <button id="uphistory_666" type="button" class="uphistory btn btn-info btn-xs" data-toggle="modal" data-target="#uphistory">
+                                                            <input type="hidden" value="666">View History
+                                                        </button>
+                                                        <table class="table table-bordered bw_details table-stripd">
+                                                            <caption class="text-center">Marketing Requirement</caption>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td>capacity</td>
+                                                                    <td>Buffer</td>
+                                                                    <td>UP</td>
+                                                                    <td>Down</td>
+                                                                    <td class=" onlym allhide">price</td>
+                                                                </tr>
+                                                               @foreach($order->order_items as $item)
+                                                                <tr>
+                                                                    <td>{{ $item->service->name??'' }}</td>
+                                                                    <td>{{ $item->capacity??'' }}</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td class="text-right onlym allhide">{{ $item->price??'' }}</td>
+                                                                </tr>
+                                                                @endforeach
+                                                              
+                                                                <tr>
+                                                                    <td colspan="5">Combine Price</td>
+                                                                    <td class="text-right allhide">{{ $order->total_Price }}</td>
+                                                                </tr>
+                                                                <tr class="onlym">
+                                                                    <td colspan="5">OTC</td>
+                                                                    <td class="text-right allhide">{{$order->otc}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="5">Core Rent</td>
+                                                                    <td class="text-right allhide">{{$order->core_rent}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="5">Real Ip</td>
+                                                                    <td class="text-right allhide">{{$order->real_ip}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <a style="margin-top:10px" class="btn btn-primary btn-xs btn-flat btn-block" data-toggle="collapse" href="#n{{$order->id}}" role="button" aria-expanded="false" aria-controls="n{{$order->id}}">View NOC</a>
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="n{{$order->id}}">
-                                                <div class="card card-body">
-                                                    <table class="table table-bordered bw_details">
-                                                        <caption class="text-center">NOC Details</caption>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>Internet</td>
-                                                                <td>GGC</td>
-                                                                <td>FB</td>
-                                                                <td>BDIX</td>
-                                                                <td>DATA</td>
+                                        <br><br>
+                                        <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#noc{{$order->id}}">
+                                            View NOC
+                                        </button>
+                                        <div class="modal fade text-left" id="noc{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel1">View NOC</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-bordered bw_details">
+                                                            <caption class="text-center">NOC Details</caption>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td>Internet</td>
+                                                                    <td>GGC</td>
+                                                                    <td>FB</td>
+                                                                    <td>BDIX</td>
+                                                                    <td>DATA</td>
 
-                                                            </tr>
-                                                            <tr>
-                                                                <td>VLAN</td>
-                                                                <td>2841</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>IP</td>
-                                                                <td>10.11.13.202/30</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Assigned BW</td>
-                                                                <td>1100MB</td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td>3000MB</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Real IP</td>
-                                                                <td colspan="5">{{$order->real_ip}}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>MRTG/Cpanel</td>
-                                                                <td colspan="3">
-                                                                </td>
-                                                                <td>USER: hkrup</td>
-                                                                <td>PASSWORD: circle@hkrup</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>VLAN</td>
+                                                                    <td>{{ $order->noc->vlan_internet??'' }}</td>
+                                                                    <td>{{ $order->noc->vlan_ggc??'' }}</td>
+                                                                    <td>{{ $order->noc->vlan_fb??'' }}</td>
+                                                                    <td>{{ $order->noc->vlan_bdix??'' }}</td>
+                                                                    <td>{{ $order->noc->vlan_data??'' }}</td>
+                                                                   
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>IP</td>
+                                                                    <td>{{ $order->noc->ip_internet??'' }}</td>
+                                                                    <td>{{ $order->noc->ip_ggc??'' }}</td>
+                                                                    <td>{{ $order->noc->ip_fb??'' }}</td>
+                                                                    <td>{{ $order->noc->ip_bdix??'' }}</td>
+                                                                    <td>{{ $order->noc->ip_data??'' }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Assigned BW</td>
+                                                                    <td>{{ $order->noc->assigned_bandwidth_internet??'' }}</td>
+                                                                    <td>{{ $order->noc->assigned_bandwidth_ggc??'' }}</td>
+                                                                    <td>{{ $order->noc->assigned_bandwidth_fb??'' }}</td>
+                                                                    <td>{{ $order->noc->assigned_bandwidth_bdix??'' }}</td>
+                                                                    <td>{{ $order->noc->assigned_bandwidth_data??'' }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Real IP</td>
+                                                                    <td colspan="5">{{ $order->noc->real_id??'' }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>MRTG/Cpanel</td>
+                                                                    <td colspan="3">{{ $order->noc->mrtg_graph_url??'' }}</td>
+                                                                    <td>USER: {{ $order->noc->username??'' }}</td>
+                                                                    <td>PASSWORD: {{ $order->noc->password??'' }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Device Description</td>
+                                                                    <td colspan="5">{{ $order->noc->device_description??'' }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-dismiss="modal">Close</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <br><br>
                                     </td>
                                     <td class="text-center">{{ $order->connect_type }}</td>
                                     <td class="text-center">{{ $order->gmap_location }}</td>

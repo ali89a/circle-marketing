@@ -27,9 +27,13 @@ class Order extends Model
 
         return $this->hasOne('App\Models\OrderApproval', 'order_id');
     }
-    public function order_info()
+    public function noc()
     {
 
-        return $this->hasOne('App\Models\OrderInfo', 'order_id');
+        return $this->hasOne('App\Models\OrderNOCInfo', 'order_id');
+    }
+    public function order_items()
+    {
+        return $this->hasMany('App\Models\OrderItem', 'order_id');
     }
 }
