@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\OrderCustomerDocument;
 use App\Models\OrderItem;
+use App\Models\OrderUpgration;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,15 +40,46 @@ class OrderController extends Controller
     {
         $all_service = Service::all();
         $customer_order_info = OrderInfo::with('order')->where('order_id', $id)->first();
-        return view('admin.work-order.downgration', compact('customer_order_info','all_service'));
+        return view('admin.work-order.downgration', compact('customer_order_info', 'all_service'));
     }
-    public function orderUpgrationUpdate(Request $request,$id)
+    public function orderUpgrationUpdate(Request $request, $id)
     {
-        dd($request->all());
+        //dd($request->all());
+        DB::beginTransaction();
+       
+        $products = $request->get('items');
+
+        foreach ($products as $key => $product) {
+            $item = new OrderUpgration();
+            $item->order_id = $id;
+            $item->service_id = $product['service_id'];
+            $item->capacity = $product['capacity'];
+            $item->upgration = $product['upgration'];
+            $item->price = $product['price'];
+            $item->save();
+        }
+        DB::commit();
+        Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('work-order.index');
     }
-    public function orderDowngrationUpdate(Request $request,$id)
+    public function orderDowngrationUpdate(Request $request, $id)
     {
-        dd($request->all()); 
+        DB::beginTransaction();
+       
+        $products = $request->get('items');
+
+        foreach ($products as $key => $product) {
+            $item = new OrderUpgration();
+            $item->order_id = $id;
+            $item->service_id = $product['service_id'];
+            $item->capacity = $product['capacity'];
+            $item->downgration = $product['downgration'];
+            $item->price = $product['price'];
+            $item->save();
+        }
+        DB::commit();
+        Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('work-order.index');
     }
     public function index()
     {
@@ -176,43 +208,43 @@ class OrderController extends Controller
     {
         // dd($request->all());
 
-        // try {
-        $request->validate([
-            'items' => 'array|required',
+        try {
+            $request->validate([
+                'items' => 'array|required',
 
-        ]);
-        //  DB::beginTransaction();
-        $order = Order::find($id);
+            ]);
+            DB::beginTransaction();
+            $order = Order::find($id);
 
-        $order->total_price = $request->total_price;
-        $order->real_ip = $request->real_ip;
-        $order->core_rent = $request->core_rent;
-        $order->otc = $request->otc;
-        $order->save();
-        OrderItem::where('order_id', $id)->delete();
-        $products = $request->get('items');
+            $order->total_price = $request->total_price;
+            $order->real_ip = $request->real_ip;
+            $order->core_rent = $request->core_rent;
+            $order->otc = $request->otc;
+            $order->save();
+            OrderItem::where('order_id', $id)->delete();
+            $products = $request->get('items');
 
-        foreach ($products as $key => $product) {
-            $item = new OrderItem();
-            $item->order_id = $order->id;
-            $item->service_id = $product['service_id'];
-            $item->capacity = $product['capacity'];
-            $item->price = $product['price'];
-            $item->save();
+            foreach ($products as $key => $product) {
+                $item = new OrderItem();
+                $item->order_id = $order->id;
+                $item->service_id = $product['service_id'];
+                $item->capacity = $product['capacity'];
+                $item->price = $product['price'];
+                $item->save();
+            }
+            DB::commit();
+            Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
+            return redirect()->route('work-order.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+            $output = [
+                'success' => 0,
+                'msg' => __("messages.something_went_wrong")
+            ];
+            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+            return back();
         }
-        //    DB::commit();
-        Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
-        return redirect()->route('work-order.index');
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-        //     $output = [
-        //         'success' => 0,
-        //         'msg' => __("messages.something_went_wrong")
-        //     ];
-        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-        //     return back();
-        // }
     }
     public function nocEdit($id)
     {
