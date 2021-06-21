@@ -65,8 +65,8 @@ class OrderApprovalController extends Controller
     public function nocAssign(Request $request)
     {
 
-        //dd($request->all());
-        $order = OrderApproval::where('order_id', $request->id)->first();
+      // dd($request->all());
+        $order = OrderApproval::where('order_id', $request->order_id)->first();
         $order->noc_assigned_by = $request->noc_assigned_by;
         $order->noc_assigned_status = "Processing";
         $order->noc_approved_status = "Processing";

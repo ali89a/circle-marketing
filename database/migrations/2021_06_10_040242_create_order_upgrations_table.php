@@ -15,17 +15,12 @@ class CreateOrderUpgrationsTable extends Migration
     {
         Schema::create('order_upgrations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id');           
-            $table->text('internet_capacity_1');          
-            $table->text('bdix_capacity_1');           
-            $table->text('youtube_capacity_1');
-            $table->text('facebook_capacity_1');
-            $table->text('data_capacity_1');          
-            $table->text('internet_capacity_2');
-            $table->text('bdix_capacity_2');
-            $table->text('youtube_capacity_2');
-            $table->text('facebook_capacity_2');
-            $table->text('data_capacity_2');
+            $table->unsignedBigInteger('service_id');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade'); 
+            $table->Integer('capacity');
+            $table->double('price', 15, 2)->nullable();
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->date('delivery_date');
             $table->text('status');
             $table->timestamps();

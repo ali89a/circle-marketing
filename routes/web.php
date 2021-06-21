@@ -61,12 +61,17 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
     Route::get('/noc-edit/{id?}', [App\Http\Controllers\OrderController::class, 'nocEdit'])->name('nocEdit');
     Route::put('/noc-update/{id?}', [App\Http\Controllers\OrderController::class, 'nocUpdate'])->name('nocUpdate');
+    
     Route::get('/work-order-upgration/{id?}', [App\Http\Controllers\OrderController::class, 'orderUpgration'])->name('work-order-upgration');
+    Route::put('/work-order-upgration-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderUpgrationUpdate'])->name('orderUpgrationUpdate');
+    
     Route::get('/work-order-downgration/{id?}', [App\Http\Controllers\OrderController::class, 'orderDowngration'])->name('work-order-downgration');
+    Route::put('/work-order-downgration-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDowngrationUpdate'])->name('orderDowngrationUpdate');
+    
     Route::get('/work-order-marketing-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalMarketing'])->name('workOrderApprovalMarketing');
     Route::get('/work-order-account-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalAccount'])->name('workOrderApprovalAccount');
     Route::get('/work-order-coo-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalCOO'])->name('workOrderApprovalCOO');
-    Route::get('/noc-assign/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'nocAssign'])->name('nocAssign');
+    Route::post('/noc-assign', [App\Http\Controllers\OrderApprovalController::class, 'nocAssign'])->name('nocAssign');
     Route::get('/work-order-noc-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalNoc'])->name('workOrderApprovalNoc');
     
     Route::get('/invoices/{id?}', [App\Http\Controllers\InvoiceController::class, 'Invoices'])->name('invoices');
