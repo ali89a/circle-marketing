@@ -18,92 +18,32 @@
                                             <th>Follow UP/Factory Visit</th>
                                             <th>Reconnect/Call</th>
                                         </tr>
-                                        <tr class="hide">
+
+
+                                        {{-- <tr class="hide">
                                             <td>Rokibul Hasan</td>
                                             <td><input type="number" name="newclient[1]" value="5"></td>
                                             <td><input type="number" name="followup[1]" value="3"></td>
                                             <td><input type="number" name="reconnect[1]" value="3"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>rokibul Hasan</td>
-                                            <td><input type="number" name="newclient[23]" value="0"></td>
-                                            <td><input type="number" name="followup[23]" value="0"></td>
-                                            <td><input type="number" name="reconnect[23]" value="0"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Md.Kawcher Ahmed</td>
-                                            <td><input type="number" name="newclient[43]" value="5"></td>
-                                            <td><input type="number" name="followup[43]" value="15"></td>
-                                            <td><input type="number" name="reconnect[43]" value="5"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Md.Mehedi Hasan</td>
-                                            <td><input type="number" name="newclient[45]" value="5"></td>
-                                            <td><input type="number" name="followup[45]" value="10"></td>
-                                            <td><input type="number" name="reconnect[45]" value="2"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Md.Kawsar ahmed</td>
-                                            <td><input type="number" name="newclient[70]" value="0"></td>
-                                            <td><input type="number" name="followup[70]" value="0"></td>
-                                            <td><input type="number" name="reconnect[70]" value="0"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Robiul Islam Jewel</td>
-                                            <td><input type="number" name="newclient[73]" value="10"></td>
-                                            <td><input type="number" name="followup[73]" value="5"></td>
-                                            <td><input type="number" name="reconnect[73]" value="5"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Md Mostafiq</td>
-                                            <td><input type="number" name="newclient[85]" value="5"></td>
-                                            <td><input type="number" name="followup[85]" value="15"></td>
-                                            <td><input type="number" name="reconnect[85]" value="0"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Afroza</td>
-                                            <td><input type="number" name="newclient[86]" value="5"></td>
-                                            <td><input type="number" name="followup[86]" value="15"></td>
-                                            <td><input type="number" name="reconnect[86]" value="5"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Tanvir</td>
-                                            <td><input type="number" name="newclient[88]" value="10"></td>
-                                            <td><input type="number" name="followup[88]" value="8"></td>
-                                            <td><input type="number" name="reconnect[88]" value="5"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Kasmir Rana</td>
-                                            <td><input type="number" name="newclient[90]" value="10"></td>
-                                            <td><input type="number" name="followup[90]" value="15"></td>
-                                            <td><input type="number" name="reconnect[90]" value="0"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Kowshik Ami</td>
-                                            <td><input type="number" name="newclient[106]" value="0"></td>
-                                            <td><input type="number" name="followup[106]" value="0"></td>
-                                            <td><input type="number" name="reconnect[106]" value="0"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Yasin Arafat</td>
-                                            <td><input type="number" name="newclient[108]" value="0"></td>
-                                            <td><input type="number" name="followup[108]" value="0"></td>
-                                            <td><input type="number" name="reconnect[108]" value="0"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Kawcher Ahmed</td>
-                                            <td><input type="number" name="newclient[113]" value="0"></td>
-                                            <td><input type="number" name="followup[113]" value="0"></td>
-                                            <td><input type="number" name="reconnect[113]" value="0"></td>
-                                        </tr>
-                                        <tr class="">
-                                            <td>Marketing Admin</td>
-                                            <td><input type="number" name="newclient[114]" value="0"></td>
-                                            <td><input type="number" name="followup[114]" value="0"></td>
-                                            <td><input type="number" name="reconnect[114]" value="0"></td>
-                                        </tr>
-                                        <tr class="">
+                                        </tr> --}}
 
+                                        @foreach ($workLimit as $item)
+
+                                        <tr class="">
+                                            <td>{{ $item->name }}</td>
+                                            <td><input type="number" name="newclient" class="form-control-sm"
+                                                    value="{{ $item->newclient }}">
+                                            </td>
+                                            <td><input type="number" name="followup" class="form-control-sm"
+                                                    value="{{ $item->followup }}">
+                                            </td>
+                                            <td><input type="number" name="reconnect" class="form-control-sm"
+                                                    value="{{ $item->reconnect }}">
+                                            </td>
+                                        </tr>
+
+                                        @endforeach
+                                        <tr class="">
                                             <td colspan="3"></td>
                                             <td> <input type="submit" value="Save"
                                                     class="btn btn-primary pull-right form-control">

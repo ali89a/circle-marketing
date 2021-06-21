@@ -8,6 +8,7 @@ use App\Models\CustomerServiceReport;
 use App\Models\District;
 use App\Models\Role;
 use App\Models\Upazila;
+use App\Models\WorkLimit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
@@ -22,7 +23,7 @@ class CustomerReportController extends Controller
     {
         //  if ($request->user()->can('report-approve')) {
         $contact = Admin::where('admins.id', Auth::user()->id)->first();
-       // dd($contact);
+        // dd($contact);
         //all();
         $reports = DB::table('customer_reports')
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
@@ -298,14 +299,32 @@ class CustomerReportController extends Controller
         }
     }
 
-    public function marketingWorkLimit(){
-        
-        return view('admin.marketing.workLimit');
+    public function marketingWorkLimit()
+    {
+        $workLimit =
+            //new WorkLimit();
+            DB::table('work_limits')
+            ->join('admins', 'work_limits.admin_id', '=', 'admins.id');
+        // ->select('work_limits.*', 'admins.name');
+        //->get();
+
+        // $result = Model::where(...)->first();
+        // if ($result) { ... }
+        $result = WorkLimit::all();
+        if ($result->isNotEmpty()){
+            $workLimit->select('work_limits.*', 'admins.name');
+        }
+        $workLimit =new Admin();
+     //   $workLimit->select('work_limits.*', 'admins.name');
+        // $workLimit = Admin::all();
+        return view('admin.marketing.workLimit', [
+            'workLimit' => $workLimit->get()
+        ]);
     }
-    
-    public function marketingReportAnalysis(){
-        
+
+    public function marketingReportAnalysis()
+    {
+
         return view('admin.marketing.reportAnalysis');
     }
-    
 }
