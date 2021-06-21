@@ -297,4 +297,15 @@ class CustomerReportController extends Controller
             ]);
         }
     }
+
+    public function marketingWorkLimit(){
+        
+        return view('admin.marketing.workLimit');
+    }
+    
+    public function marketingReportAnalysis(){
+        
+        return view('admin.marketing.reportAnalysis');
+    }
+    
 }
