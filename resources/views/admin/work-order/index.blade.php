@@ -217,11 +217,10 @@
                                                                         </div>
                                                                         <form action="{{route('nocAssign',$order->id)}}" method="post">
                                                                             @csrf
-                                                                            @method('put')
                                                                             <div class="modal-body">
                                                                                 <div class="row">
                                                                                     <div class="form-group col-md-12">
-                                                                                        <input type="text" name="order_id" value="{{$order->id}}" id="order_id">
+                                                                                        <input type="hidden" name="order_id" value="{{$order->id}}" id="order_id">
                                                                                         <label class="form-label" for="noc_assigned_by">Assign User</label>
                                                                                         <select class="form-control" name="noc_assigned_by">
                                                                                             <option value="">Select User</option>
@@ -261,7 +260,7 @@
                                                         @hasrole('NOC Admin|NOC Executive')
                                                         @if(Auth::guard('admin')->user()->id == $order->order_approval->noc_assigned_by)
                                                         @if($order->order_approval->noc_assigned_status=="Processing")
-                                                        <a href="" class="btn btn-success btn-xs">Modify</a>
+                                                        <a href="{{route('nocEdit',$order->id)}}" class="btn btn-success btn-xs">Setup</a>
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_assigned_status ??'' }}</p>
                                                         @endif

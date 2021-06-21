@@ -31,13 +31,23 @@ class OrderController extends Controller
      */
     public function orderUpgration($id)
     {
+        $all_service = Service::all();
         $customer_order_info = OrderInfo::with('order')->where('order_id', $id)->first();
-        return view('admin.work-order.upgration', compact('customer_order_info'));
+        return view('admin.work-order.upgration', compact('customer_order_info', 'all_service'));
     }
     public function orderDowngration($id)
     {
+        $all_service = Service::all();
         $customer_order_info = OrderInfo::with('order')->where('order_id', $id)->first();
-        return view('admin.work-order.downgration', compact('customer_order_info'));
+        return view('admin.work-order.downgration', compact('customer_order_info','all_service'));
+    }
+    public function orderUpgrationUpdate(Request $request,$id)
+    {
+        dd($request->all());
+    }
+    public function orderDowngrationUpdate(Request $request,$id)
+    {
+        dd($request->all()); 
     }
     public function index()
     {

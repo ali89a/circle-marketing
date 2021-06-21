@@ -261,11 +261,11 @@
                     var slug = vm.order_id;
                     axios.get(this.config.get_old_items_data + '/' + slug).then(function(response) {
                         var item = response.data;
-                      console.log(item);
+                        console.log(item);
                         for (key in item) {
                             vm.services.push(item[key]);
                         };
-                         
+
                     })
                 },
             },

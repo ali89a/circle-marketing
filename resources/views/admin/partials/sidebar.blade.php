@@ -8,7 +8,7 @@
         data-i18n="Home">Customer</span></a>
   </li>
 
-  <li class="{{ Request::segment(2) == 'work-order' ? 'has-sub sidebar-group-active open' : '' }} nav-item"><a
+  <li class="{{ Request::segment(2) == 'work-order'||Request::segment(2) == 'service' ? 'has-sub sidebar-group-active open' : '' }} nav-item"><a
       class="d-flex align-items-center" href="#"><i data-feather="layout">
       </i><span class="menu-title text-truncate" data-i18n="Page Layouts">Work Order</span></a>
     <ul class="menu-content">
@@ -21,6 +21,8 @@
         <a class="d-flex align-items-center" href="{{ route('work-order.create') }}"><i data-feather="circle">
           </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Work Order Create</span></a>
       </li>
+      <li class="{{ (Request::segment(2) == 'service' )?'active':''}}"><a class="d-flex align-items-center" href="{{ route('service.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Collapsed Menu">Services</span></a>
+    </li>
       {{-- <li class="{{ (Request::segment(2) == 'admin' )?'active':''}}">
       <a class="d-flex align-items-center" href="{{ route('admin.index') }}"><i data-feather="circle">
         </i><span class="menu-item text-truncate" data-i18n="Without Menu">Admin</span></a>
@@ -93,8 +95,7 @@
         href="{{ route('env-dynamic.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate"
           data-i18n="Collapsed Menu">Env Dynamic</span></a>
     </li>
-    <li class="{{ (Request::segment(2) == 'service' )?'active':''}}"><a class="d-flex align-items-center" href="{{ route('service.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Collapsed Menu">Services</span></a>
-    </li>
+  
   </ul>
 </li>
 </ul>
