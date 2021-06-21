@@ -19,7 +19,7 @@ class CreateOrderNOCInfosTable extends Migration
             $table->text('real_ip')->nullable();
             $table->text('vlan_internet')->nullable();
             $table->text('ip_internet')->nullable();
-            $table->text('assigned_bandwidth')->nullable();
+            $table->text('assigned_bandwidth_internet')->nullable();
             $table->text('vlan_ggc')->nullable();
             $table->text('ip_ggc')->nullable();
             $table->text('assigned_bandwidth_ggc')->nullable();
