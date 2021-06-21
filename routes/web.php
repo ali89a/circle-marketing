@@ -9,6 +9,7 @@ use App\Http\Controllers\EnvDynamicController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CustomerReportController;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/order-detail-edit', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('order.detail.edit');
     
     Route::resource('report', CustomerReportController::class);
+    Route::resource('service', ServiceController::class);
    
     Route::get('/pending-list', [CustomerReportController::class, 'pendingList'])->name('pendingList');
     Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);

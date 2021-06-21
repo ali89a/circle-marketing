@@ -34,10 +34,16 @@ class OrderApprovalController extends Controller
             $order_approval->save();
 
 
-            $order = Order::where('id', $id)->first();
+            $order = Order::where('id', $id)->first(); 
+            $Approval = OrderApproval::where('order_id', $id)->first();
             if ($order->bill_generate_method == 'by_marketing_date') {
-                $mApproval = OrderApproval::where('order_id', $id)->first();
-                $start_date=$mApproval->m_approved_time;
+               
+                $start_date=$Approval->m_approved_time;
+                $end_date='2021-06-30';
+                \App\Classes\invoiceGenerate::invoice($id, $start_date,$end_date);
+            }
+            if ($order->bill_generate_method == 'by_noc_done') {
+                $start_date=$Approval->noc_done_time;
                 $end_date='2021-06-30';
                 \App\Classes\invoiceGenerate::invoice($id, $start_date,$end_date);
             }

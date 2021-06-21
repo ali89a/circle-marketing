@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderItem;
 use App\Models\Service;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class ServiceController extends Controller
 {
@@ -15,7 +16,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'services' => Service::latest('id')->get(),
+        ];
+        return view('admin.service.index', $data);
     }
 
     /**
@@ -25,7 +29,11 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'model' => new Service(),
+        ];
+
+        return view('admin.service.create', $data);
     }
 
     /**
@@ -36,29 +44,18 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-    public function fetchService($id)
-    {
-       $service=Service::find($id);
-       return $service;
-    }
-    public function fetch_general_product_info($id)
-    {
-        $requisition_product = OrderItem::with('service')->where('order_id', $id)->get();
+        $request->validate([
+            'name' => 'required|unique:services,name',
+          
+        ]);
 
-        $location_items = [];
-        foreach ($requisition_product as $row) {
-            array_push($location_items, [
-                'order_id' => $row->order_id,
-                'service_id' => $row->service_id,
-                'name' => $row->service->name,
-                'price' => $row->price,
-                'capacity' => $row->capacity,
-            ]);
-        }
-        return response()->json($location_items);
+        $service = Service::create(['name' => $request->input('name')]);
+       
+
+        Toastr::success('Service Information Created Successfully!.', '', ["progressbar" => true]);
+        return redirect()->route('service.index');
     }
+   
 
     /**
      * Display the specified resource.
@@ -79,7 +76,12 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //
+        $data = [
+            'model' => $service,
+           
+
+        ];
+        return view('admin.service.edit', $data);
     }
 
     /**
@@ -91,7 +93,14 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:services,name,' . $service->id,
+        ]);
+
+        $service->name = $request->input('name');
+        $service->save();
+        Toastr::success('Service Information crated Successfully!.', '', ["progressBar" => true]);
+        return redirect()->route('service.index');
     }
 
     /**
@@ -102,6 +111,30 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        $service->delete();
+        Toastr::success('Service Deleted Successfully!.', '', ["progressBar" => true]);
+        return redirect()->back();
+    }
+
+    public function fetchService($id)
+    {
+       $service=Service::find($id);
+       return $service;
+    }
+    public function fetch_general_product_info($id)
+    {
+        $requisition_product = OrderItem::with('service')->where('order_id', $id)->get();
+
+        $location_items = [];
+        foreach ($requisition_product as $row) {
+            array_push($location_items, [
+                'order_id' => $row->order_id,
+                'service_id' => $row->service_id,
+                'name' => $row->service->name,
+                'price' => $row->price,
+                'capacity' => $row->capacity,
+            ]);
+        }
+        return response()->json($location_items);
     }
 }

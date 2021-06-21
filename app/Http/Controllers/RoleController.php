@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use DB;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Brian2694\Toastr\Facades\Toastr;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -39,7 +40,7 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
 
-        \Toastr::success('Role Information Created Successfully!.', '', ["progressbar" => true]);
+        Toastr::success('Role Information Created Successfully!.', '', ["progressbar" => true]);
         return redirect()->route('role.index');
     }
 
@@ -73,7 +74,7 @@ class RoleController extends Controller
 
         $role->syncPermissions($request->input('permission'));
 
-        \Toastr::success('Role Information crated Successfully!.', '', ["progressBar" => true]);
+        Toastr::success('Role Information crated Successfully!.', '', ["progressBar" => true]);
         return redirect()->route('role.index');
     }
 
@@ -81,7 +82,7 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
         $role->delete();
-        \Toastr::success('Role Deleted Successfully!.', '', ["progressBar" => true]);
+        Toastr::success('Role Deleted Successfully!.', '', ["progressBar" => true]);
         return redirect()->back();
 
     }

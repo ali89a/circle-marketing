@@ -56,9 +56,11 @@
     </li>
   </ul>
 </li>
-<li class="{{ (Request::segment(2) == 'env-dynamic' )?'has-sub sidebar-group-active open':''}} nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="layout"></i><span class="menu-title text-truncate" data-i18n="Page Layouts">Settings</span></a>
+<li class="{{ (Request::segment(2) == 'env-dynamic' )||(Request::segment(2) == 'service' )?'has-sub sidebar-group-active open':''}} nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="layout"></i><span class="menu-title text-truncate" data-i18n="Page Layouts">Settings</span></a>
   <ul class="menu-content">
     <li class="{{ (Request::segment(2) == 'env-dynamic' )?'active':''}}"><a class="d-flex align-items-center" href="{{ route('env-dynamic.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Collapsed Menu">Env Dynamic</span></a>
+    </li>
+    <li class="{{ (Request::segment(2) == 'service' )?'active':''}}"><a class="d-flex align-items-center" href="{{ route('service.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Collapsed Menu">Services</span></a>
     </li>
   </ul>
 </li>
