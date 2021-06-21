@@ -111,7 +111,7 @@
                                                 <th>Contact Number</th>
                                                 <th>Contact Person</th>
                                                 <th>Email</th>
-                                                <th>Contact By</th>
+                                                {{-- <th>Contact By</th> --}}
                                                 <th>Bandwidth</th>
                                                 <th>Rate</th>
                                                 <th>OTC</th>
