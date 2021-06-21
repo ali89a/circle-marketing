@@ -32,16 +32,16 @@
 
                                         <tr class="">
                                             <td>{{ $item->name }}
-                                            <input type="text" name="admin_id" 
+                                            <input type="hidden" name="admin_id[]" 
                                                     value="{{ $item->id }}">
                                             </td>
-                                            <td><input type="number" name="newclient" class="form-control-sm"
+                                            <td><input type="number" name="newclient[]" class="form-control-sm"
                                                     value="{{ $item->newclient }}">
                                             </td>
-                                            <td><input type="number" name="followup" class="form-control-sm"
+                                            <td><input type="number" name="followup[]" class="form-control-sm"
                                                     value="{{ $item->followup }}">
                                             </td>
-                                            <td><input type="number" name="reconnect" class="form-control-sm"
+                                            <td><input type="number" name="reconnect[]" class="form-control-sm"
                                                     value="{{ $item->reconnect }}">
                                             </td>
                                         </tr>

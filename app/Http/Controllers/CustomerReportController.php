@@ -316,9 +316,18 @@ class CustomerReportController extends Controller
 
     public function storeWorkLimit(Request $request)
     {
-        $report =  WorkLimit::find($request->id);
-        $report->fill($request->all());
-        $report->update();
+        // dd($request->all());
+        $admin_id = $request->admin_id;
+        $newclient = $request->newclient;
+        $followup = $request->followup;
+        $reconnect = $request->reconnect;
+        foreach ($admin_id as $key => $no) {
+            $input['admin_id'] = $no;
+            $input['newclient'] = $newclient[$key];
+            $input['followup'] = $followup[$key];
+            $input['reconnect'] = $reconnect[$key];
+            WorkLimit::create($input);
+        }
 
         return redirect(route('marketingWorkLimit'));
     }
