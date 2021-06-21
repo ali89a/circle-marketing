@@ -301,25 +301,26 @@ class CustomerReportController extends Controller
 
     public function marketingWorkLimit()
     {
-        $workLimit =
-            //new WorkLimit();
-            DB::table('work_limits')
+        $workLimit = DB::table('work_limits')
             ->join('admins', 'work_limits.admin_id', '=', 'admins.id');
-        // ->select('work_limits.*', 'admins.name');
-        //->get();
-
-        // $result = Model::where(...)->first();
-        // if ($result) { ... }
         $result = WorkLimit::all();
-        if ($result->isNotEmpty()){
+        if ($result->isNotEmpty()) {
             $workLimit->select('work_limits.*', 'admins.name');
+        } else {
+            $workLimit = new Admin();
         }
-        $workLimit =new Admin();
-     //   $workLimit->select('work_limits.*', 'admins.name');
-        // $workLimit = Admin::all();
         return view('admin.marketing.workLimit', [
             'workLimit' => $workLimit->get()
         ]);
+    }
+
+    public function storeWorkLimit(Request $request)
+    {
+        $report =  WorkLimit::find($request->id);
+        $report->fill($request->all());
+        $report->update();
+
+        return redirect(route('marketingWorkLimit'));
     }
 
     public function marketingReportAnalysis()

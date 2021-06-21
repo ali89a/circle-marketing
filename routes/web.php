@@ -82,5 +82,6 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/pending-search-result', [CustomerReportController::class, 'pendingSearchResult'])->name('pendingSearchResult');
     Route::get('/marketing-work-limit', [CustomerReportController::class, 'marketingWorkLimit'])->name('marketingWorkLimit');
     Route::get('/marketing-report-analysis', [CustomerReportController::class, 'marketingReportAnalysis'])->name('marketingReportAnalysis');
+    Route::post('/store-work-limit', [CustomerReportController::class, 'storeWorkLimit'])->name('storeWorkLimit');
 });
 require('admin.php');

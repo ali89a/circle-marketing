@@ -7,7 +7,8 @@
         <section class="card card-body modern-horizontal-wizard">
             <div class=" wizard-modern modern-wizard-example">
                 <div class="bs-stepper-content">
-                    <form class="form" id="user_form" method="post" action="#" enctype="multipart/form-data">
+                    <form class="form" id="user_form" method="post" action="{{route('storeWorkLimit')}}" enctype="multipart/form-data">
+                        @csrf
                         <div class="row">
                             <div class="col-md-8">
                                 <table class="table table-bordered table-striped">
@@ -30,7 +31,10 @@
                                         @foreach ($workLimit as $item)
 
                                         <tr class="">
-                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->name }}
+                                            <input type="text" name="admin_id" 
+                                                    value="{{ $item->id }}">
+                                            </td>
                                             <td><input type="number" name="newclient" class="form-control-sm"
                                                     value="{{ $item->newclient }}">
                                             </td>
