@@ -93,6 +93,8 @@
         href="{{ route('env-dynamic.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate"
           data-i18n="Collapsed Menu">Env Dynamic</span></a>
     </li>
+    <li class="{{ (Request::segment(2) == 'service' )?'active':''}}"><a class="d-flex align-items-center" href="{{ route('service.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Collapsed Menu">Services</span></a>
+    </li>
   </ul>
 </li>
 </ul>
