@@ -59,6 +59,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/customer-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'customerDetailEdit'])->name('customerDetailEdit');
     Route::put('/customer-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'customerDetailUpdate'])->name('customerDetailUpdate');
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
+    Route::get('/noc-edit/{id?}', [App\Http\Controllers\OrderController::class, 'nocEdit'])->name('nocEdit');
+    Route::put('/noc-update/{id?}', [App\Http\Controllers\OrderController::class, 'nocUpdate'])->name('nocUpdate');
     Route::get('/work-order-upgration/{id?}', [App\Http\Controllers\OrderController::class, 'orderUpgration'])->name('work-order-upgration');
     Route::get('/work-order-downgration/{id?}', [App\Http\Controllers\OrderController::class, 'orderDowngration'])->name('work-order-downgration');
     Route::get('/work-order-marketing-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalMarketing'])->name('workOrderApprovalMarketing');

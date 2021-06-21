@@ -164,35 +164,35 @@ class OrderController extends Controller
     }
     public function orderDetailUpdate(Request $request, $id)
     {
-       // dd($request->all());
+        // dd($request->all());
 
         // try {
-            $request->validate([
-                'items' => 'array|required',
+        $request->validate([
+            'items' => 'array|required',
 
-            ]);
-          //  DB::beginTransaction();
-            $order = Order::find($id);
+        ]);
+        //  DB::beginTransaction();
+        $order = Order::find($id);
 
-            $order->total_price = $request->total_price;
-            $order->real_ip = $request->real_ip;
-            $order->core_rent = $request->core_rent;
-            $order->otc = $request->otc;
-            $order->save();
-            OrderItem::where('order_id', $id)->delete();
-            $products = $request->get('items');
+        $order->total_price = $request->total_price;
+        $order->real_ip = $request->real_ip;
+        $order->core_rent = $request->core_rent;
+        $order->otc = $request->otc;
+        $order->save();
+        OrderItem::where('order_id', $id)->delete();
+        $products = $request->get('items');
 
-            foreach ($products as $key => $product) {
-                $item = new OrderItem();
-                $item->order_id = $order->id;
-                $item->service_id = $product['service_id'];
-                $item->capacity = $product['capacity'];
-                $item->price = $product['price'];
-                $item->save();
-            }
+        foreach ($products as $key => $product) {
+            $item = new OrderItem();
+            $item->order_id = $order->id;
+            $item->service_id = $product['service_id'];
+            $item->capacity = $product['capacity'];
+            $item->price = $product['price'];
+            $item->save();
+        }
         //    DB::commit();
-            Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
-            return redirect()->route('work-order.index');
+        Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('work-order.index');
         // } catch (\Exception $e) {
         //     DB::rollBack();
         //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
@@ -204,7 +204,56 @@ class OrderController extends Controller
         //     return back();
         // }
     }
+    public function nocEdit($id)
+    {
+        $data = [
+            'order_noc' => OrderNOCInfo::where('order_id', $id)->first()
+        ];
+        return view('admin.work-order.noc_edit', $data);
+    }
+    public function nocUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'mrtg_graph_url' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'device_description' => 'required',
 
+        ]);
+        $noc_info = OrderNOCInfo::where('order_id', $id)->first();
+        $noc_info->vlan_internet = $request->vlan_internet;
+        $noc_info->vlan_ggc = $request->vlan_internet;
+        $noc_info->vlan_fb = $request->vlan_internet;
+        $noc_info->vlan_bdix = $request->vlan_internet;
+        $noc_info->vlan_data = $request->vlan_internet;
+
+        $noc_info->ip_internet = $request->ip_internet;
+        $noc_info->ip_ggc = $request->ip_internet;
+        $noc_info->ip_fb = $request->ip_internet;
+        $noc_info->ip_bdix = $request->ip_internet;
+        $noc_info->ip_data = $request->ip_internet;
+
+        $noc_info->assigned_bandwidth_internet = $request->assigned_bandwidth_internet;
+        $noc_info->assigned_bandwidth_ggc = $request->assigned_bandwidth_internet;
+        $noc_info->assigned_bandwidth_fb = $request->assigned_bandwidth_internet;
+        $noc_info->assigned_bandwidth_bdix = $request->assigned_bandwidth_internet;
+        $noc_info->assigned_bandwidth_data = $request->assigned_bandwidth_internet;
+
+        $noc_info->mrtg_graph_url = $request->mrtg_graph_url;
+        $noc_info->username = $request->username;
+        $noc_info->password = $request->password;
+        $noc_info->real_ip = $request->real_ip;
+        $noc_info->device_description = $request->device_description;
+        $noc_info->status = 'done';
+        $noc_info->save();
+
+        $order_approval = OrderApproval::where('order_id', $id)->first();
+        $order_approval->noc_assigned_status = "done";
+        $order_approval->noc_done_time = now();
+        $order_approval->save();
+        Toastr::success('NOC Detail Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('work-order.index');
+    }
     /**
      * Store a newly created resource in storage.
      *
