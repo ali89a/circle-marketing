@@ -301,11 +301,37 @@ class CustomerReportController extends Controller
 
     public function marketingWorkLimit()
     {
+
+        $users = Admin::all();
+
+        // dd($users);
+
+        foreach ($users as $u) {
+            $check = DB::table('work_limits')
+                ->where('admin_id', $u->id)
+                ->first();
+
+            if (empty($check)) {
+                WorkLimit::create([
+                    'admin_id' => $u->id
+                ]);
+            }
+
+            print_r($check);
+            echo '<br>';
+        }
+
+
+        dd();
+
+
+
         $workLimit = DB::table('work_limits')
             ->join('admins', 'work_limits.admin_id', '=', 'admins.id');
         $result = WorkLimit::all();
         if ($result->isNotEmpty()) {
             $workLimit->select('work_limits.*', 'admins.name');
+            $workLimit = new Admin();
         } else {
             $workLimit = new Admin();
         }
@@ -327,6 +353,8 @@ class CustomerReportController extends Controller
             $input['followup'] = $followup[$key];
             $input['reconnect'] = $reconnect[$key];
             WorkLimit::create($input);
+            //  WorkLimit::whereIn('admin_id', '$request->admin_id')->update($input);
+            //  DB::update("update products set display_index = $caseString end where id in ($ids)");
         }
 
         return redirect(route('marketingWorkLimit'));
