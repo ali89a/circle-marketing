@@ -21,4 +21,12 @@ class CustomerReport extends Model
         //'visit_phone', 
        
     ];
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'location_district');
+    }
+    public function upazila()
+    {
+        return $this->belongsTo(Upazila::class, 'location_upazila');
+    }
 }

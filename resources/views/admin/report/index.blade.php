@@ -111,7 +111,6 @@
                                                 <th>Contact Number</th>
                                                 <th>Contact Person</th>
                                                 <th>Email</th>
-                                                {{-- <th>Contact By</th> --}}
                                                 <th>Bandwidth</th>
                                                 <th>Rate</th>
                                                 <th>OTC</th>
@@ -153,21 +152,48 @@
                                                     <td>{{ $item->otc }}</td>
                                                     <td>{{ $item->remark }}</td>
                                                     <td>{{ $item->visit_phone }}</td>
-                                                    <td>
+                                                    {{-- <td>
                                                         <img class="img-fluid" style="width:100px; height: auto;"
                                                             src="{{ asset('storage/visitingCard/' . $item->visiting_card) }}"
-                                                            alt="No Image">
+                                            alt="No Image">
+                                            </td> --}}
+                                                    <td>
+                                                        @if (!empty($item->visiting_card))
+                                                            @if ($extension = pathinfo(storage_path('storage/visitingCard/' . $item->visiting_card) == 'pdf'))
+                                                                {{-- @dd($extension) --}}
+                                                                <embed
+                                                                    src="{{ asset('storage/visitingCard/' . $item->visiting_card) }}"
+                                                                    width="100px" height="100px" />
+                                                            @else
+                                                                <img class="img-fluid" style="width:100px; height: 100px;"
+                                                                    src="{{ asset('storage/visitingCard/' . $item->visiting_card) }}"
+                                                                    alt="No Image">
+                                                            @endif
+                                                        @else
+                                                            <h6>Not Found</h6>
+                                                        @endif
                                                     </td>
                                                     <td>{{ $item->created_at }}</td>
                                                     <td>
-                                                        <div class="audiofile">
+                                                        @if (!empty($item->audio))
+                                                            <div class="audiofile">
+                                                                <audio controls="">
+                                                                    <source
+                                                                        src="{{ asset('storage/audio/' . $item->audio) }}"
+                                                                        type="audio/mpeg">
+                                                                </audio>
+                                                            </div>
+                                                        @else
+                                                            <h6>Not Found</h6>
+                                                        @endif
+                                                        {{-- <div class="audiofile">
                                                             <audio controls="">
                                                                 <source
                                                                     src="{{ asset('storage/audio/' . $item->audio) }}"
                                                                     type="audio/mpeg">
                                                                 Your browser does not support the audio element.
                                                             </audio>
-                                                        </div>
+                                                        </div> --}}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -183,7 +209,7 @@
                                 {{-- list will show in this box --}}
                                 {{-- </div> --}}
                             </div>
-                         
+
                             <div class="row form-control-sm mb-2 ml-2">
                                 <ul class="pagination">
                                     <li><a href="" data-ci-pagination-page="20">{{ $reports->links() }} ›</a></li>
@@ -265,7 +291,6 @@
                 });
             });
         });
-
     </script>
 
 @endpush

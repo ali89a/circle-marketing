@@ -39,37 +39,37 @@
                                         <tr>
                                             <td width="200">Client/Organization Name:</td>
                                             <td>
-                                                <div id="client_name">@{{item.cname}}</div>
+                                                <div id="client_name" :html="c_name"></div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>District:</td>
                                             <td>
-                                                <div id="district">@{{item.location_district}}</div>
+                                              
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Location: (Upazila) </td>
                                             <td>
-                                                <div id="upazila">@{{item.location_upazila}}</div>
+                                               
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Address:</td>
                                             <td>
-                                                <div id="address">@{{item.address}}</div>
+                                             
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Contact Person:</td>
                                             <td>
-                                                <div id="contact_person">@{{item.contact_person}}</div>
+                                            
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Contact Email:</td>
                                             <td>
-                                                <div id="email">@{{item.email}}</div>
+                                               
                                             </td>
                                         </tr>
                                         <tr>
@@ -189,7 +189,8 @@
                     // sub_category_id: '',
                     report_id: '',
                     report: [],
-                    item: [],
+                    item: '',
+                    c_name: '',
                 },
                 methods: {
                     fetch_report() {
@@ -199,8 +200,8 @@
                         if (slug) {
                             axios.get(this.config.get_url + '/' + slug).then(
                                 function(response) {
-                                    vm.item= response.data;
-                                    console.log(vm.item);
+                                    vm.item= response.data.cname;
+                                    console.log( item.c_name);
                                 }).catch(function(error) {
                                 toastr.error('Something went to wrong', {
                                     closeButton: true,
