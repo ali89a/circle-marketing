@@ -19,17 +19,7 @@
                                             <th>Follow UP/Factory Visit</th>
                                             <th>Reconnect/Call</th>
                                         </tr>
-
-
-                                        {{-- <tr class="hide">
-                                            <td>Rokibul Hasan</td>
-                                            <td><input type="number" name="newclient[1]" value="5"></td>
-                                            <td><input type="number" name="followup[1]" value="3"></td>
-                                            <td><input type="number" name="reconnect[1]" value="3"></td>
-                                        </tr> --}}
-
                                         @foreach ($workLimit as $item)
-
                                         <tr class="">
                                             <td>{{ $item->name }}
                                             <input type="hidden" name="admin_id[]" 
@@ -45,7 +35,6 @@
                                                     value="{{ $item->reconnect }}">
                                             </td>
                                         </tr>
-
                                         @endforeach
                                         <tr class="">
                                             <td colspan="3"></td>
@@ -55,12 +44,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                {{-- <div class="form-group row">
-                                    <div class="col-md-12 offset-md-7">
-                                        <br>
-                                        <button type="submit" name="btn" class="btn btn-success">Save</button>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     </form>
