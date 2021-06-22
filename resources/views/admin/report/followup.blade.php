@@ -38,38 +38,28 @@
                                          {{-- <input type="text" name="id" id="id"  v-bind:value="item.id" > --}}
                                         <tr>
                                             <td width="200">Client/Organization Name:</td>
-                                            <td>
-                                                <div id="client_name" :html="c_name"></div>
-                                            </td>
+                                            <td v-html="cname"></td>
                                         </tr>
                                         <tr>
                                             <td>District:</td>
-                                            <td>
-                                              
-                                            </td>
+                                            <td v-html="district"></td>
                                         </tr>
                                         <tr>
                                             <td>Location: (Upazila) </td>
-                                            <td>
-                                               
-                                            </td>
+                                            <td v-html="upazila"></td>
                                         </tr>
                                         <tr>
                                             <td>Address:</td>
-                                            <td>
-                                             
-                                            </td>
+                                            <td v-html="address"> </td>
                                         </tr>
                                         <tr>
                                             <td>Contact Person:</td>
-                                            <td>
-                                            
+                                            <td v-html="person">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Contact Email:</td>
-                                            <td>
-                                               
+                                            <td v-html="email">
                                             </td>
                                         </tr>
                                         <tr>
@@ -190,7 +180,12 @@
                     report_id: '',
                     report: [],
                     item: '',
-                    c_name: '',
+                    cname: '',
+                    district: '',
+                    upazila: '',
+                    email: '',
+                    address: '',
+                    person: '',
                 },
                 methods: {
                     fetch_report() {
@@ -200,8 +195,13 @@
                         if (slug) {
                             axios.get(this.config.get_url + '/' + slug).then(
                                 function(response) {
-                                    vm.item= response.data.cname;
-                                    console.log( item.c_name);
+                                    vm.cname= response.data.cname;
+                                    vm.district= response.data.district.name;
+                                    vm.upazila= response.data.upazila.name;
+                                    vm.email= response.data.email;
+                                    vm.person= response.data.contact_person;
+                                    vm.address= response.data.address;
+                                    console.log(response.data);
                                 }).catch(function(error) {
                                 toastr.error('Something went to wrong', {
                                     closeButton: true,
