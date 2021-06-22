@@ -101,13 +101,13 @@ class CustomerReportController extends Controller
 
     public function update(Request $request)
     {
-        //dd($request->all());
+       // dd($request->all());
         $this->validate($request, [
             // 'visiting_card' => 'required|mimes:jpeg,jpg,png,webp,gif|max:10240',
             'audio' => 'mimes:3gp,mp3,mpc,msv,wav,awb|max:102400',
         ]);
         $report = new CustomerServiceReport();
-        $report->customer_report_id = $request->customer_report_id;
+        $report->customer_report_id = $request->report_id;
         $report->ctype = $request->ctype;
         $report->bandwidth = $request->bandwidth;
         $report->visit_phone = $request->visit_phone;
@@ -135,7 +135,6 @@ class CustomerReportController extends Controller
     public function pendingList(Request $request)
     {
         // if ($request->user()->can('report-approve')) {
-        //  $contact = Admin::all();
         $contact = Admin::where('admins.id', Auth::user()->id)->first();
         $pendingList = DB::table('customer_reports')
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
@@ -190,22 +189,7 @@ class CustomerReportController extends Controller
 
     public function fetchAll($id)
     {
-    $reports = CustomerReport::with('district', 'upazila')->where('id', $id)->first();
-        // $reports = DB::table('customer_reports')
-        //     ->where('id', $id)
-        //     ->first();
-
-        //   dd($reports->toArray());
-
-        // $reports = DB::table('customer_reports')
-        //     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
-        //     ->join('districts', 'customer_reports.location_district', 'districts.id')
-        //     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-        //     ->where('customer_reports.id', $id)
-        //     ->select('customer_reports.*', 'districts.name as district', 'upazilas.name as upazila')
-        //     ->first();
-        // dd($reports);
-
+        $reports = CustomerReport::with('district', 'upazila')->where('id', $id)->first();
         //   $reports = CustomerReport::where('id', $id)->first();
         return $reports;
     }
