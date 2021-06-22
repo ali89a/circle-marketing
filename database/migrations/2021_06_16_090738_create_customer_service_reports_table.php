@@ -20,9 +20,9 @@ class CreateCustomerServiceReportsTable extends Migration
             $table->text('ctype');
             $table->text('isp_type')->nullable();
             $table->text('visiting_card')->nullable();
-            $table->text('bandwidth');
-            $table->text('rate');
-            $table->text('otc');
+            $table->decimal('bandwidth');
+            $table->decimal('rate');
+            $table->decimal('otc');
             $table->text('remark');
             $table->text('audio')->nullable();
             $table->timestamps();

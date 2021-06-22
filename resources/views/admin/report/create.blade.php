@@ -140,17 +140,17 @@
                                         </tr>
                                         <tr>
                                             <td>Bandwidth:</td>
-                                            <td><input type="text" class="form-control form-control-sm" name="bandwidth"
+                                            <td><input type="number" class="form-control form-control-sm" name="bandwidth"
                                                     value="{{ old('bandwidth') }}"></td>
                                         </tr>
                                         <tr>
                                             <td>Rate:</td>
-                                            <td><input type="text" class="form-control form-control-sm" name="rate"
+                                            <td><input type="number" class="form-control form-control-sm" name="rate"
                                                     value="{{ old('rate') }}"></td>
                                         </tr>
                                         <tr>
                                             <td>OTC</td>
-                                            <td><input type="text" name="otc" class="form-control form-control-sm"
+                                            <td><input type="number" name="otc" class="form-control form-control-sm"
                                                     value="{{ old('otc') }}"></td>
                                         </tr>
                                         <tr>
