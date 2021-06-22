@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
+use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -13,7 +15,10 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        $data = [
+            'permissions' => Permission::latest('id')->get(),
+        ];
+        return view('admin.access_control.permission.index', $data);
     }
 
     /**
@@ -23,7 +28,11 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'model' => new Permission,
+        ];
+
+        return view('admin.access_control.permission.create', $data);
     }
 
     /**
@@ -34,7 +43,15 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:permissions,name',
+        ]);
+
+        $permission = Permission::create(['name' => $request->input('name')]);
+
+
+        Toastr::success('Permission Information Created Successfully!.', '', ["progressBar" => true]);
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -56,7 +73,11 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'model' => Permission::find($id),
+
+        ];
+        return view('admin.access_control.permission.edit', $data);
     }
 
     /**
@@ -68,7 +89,14 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:permissions,name,' . $id,
+        ]);
+        $permission = Permission::find($id);
+        $permission->name = $request->input('name');
+        $permission->save();
+        Toastr::success('Permission Information crated Successfully!.', '', ["progressBar" => true]);
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -79,6 +107,9 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $permission = Permission::find($id);
+        $permission->delete();
+        Toastr::success('Permission Deleted Successfully!.', '', ["progressBar" => true]);
+        return redirect()->back();
     }
 }

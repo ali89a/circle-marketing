@@ -112,18 +112,70 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <img src="{{asset('storage/work_order/'.$customer_doc->work_order)}}" alt=" {{ $customer_doc->work_order }}" class="img-fluid">
+                                @if($customer_doc->work_order)
+                                @php
+                                $ext =pathinfo($customer_doc->work_order, PATHINFO_EXTENSION);
+                                @endphp
+                                @if ($ext == 'pdf')
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/work_order/'.$customer_doc->work_order)}}"> <img src="{{asset('app-assets/images/icons/pdf.png')}}" alt=" {{ $customer_doc->work_order }}" class="img-fluid"></a>
+
+                                @else
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/work_order/'.$customer_doc->work_order)}}"> <img src="{{asset('storage/work_order/'.$customer_doc->work_order)}}" alt=" {{ $customer_doc->work_order }}" class="img-fluid"></a>
+                                @endif
+                                @else
+                                <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                @endif
+
                             </div>
                             <div class="form-group col-md-3">
-                                <img src="{{asset('storage/authorization/'.$customer_doc->authorization)}}" alt=" {{ $customer_doc->authorization }}" class="img-fluid">
+
+                                @if($customer_doc->authorization)
+                                @php
+                                $ext =pathinfo($customer_doc->authorization, PATHINFO_EXTENSION);
+                                @endphp
+                                @if ($ext == 'pdf')
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/authorization/'.$customer_doc->authorization)}}"> <img src="{{asset('app-assets/images/icons/pdf.png')}}" alt=" {{ $customer_doc->authorization }}" class="img-fluid"></a>
+
+                                @else
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/authorization/'.$customer_doc->authorization)}}"> <img src="{{asset('storage/authorization/'.$customer_doc->authorization)}}" alt=" {{ $customer_doc->authorization }}" class="img-fluid"></a>
+                                @endif
+                                @else
+                                <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                @endif
+
+
                             </div>
                             <div class="form-group col-md-3">
-                                <img src="{{asset('storage/ip_agreement/'.$customer_doc->ip_agreement)}}" alt=" {{ $customer_doc->ip_agreement }}" class="img-fluid">
+                                @if($customer_doc->ip_agreement)
+                                @php
+                                $ext =pathinfo($customer_doc->ip_agreement, PATHINFO_EXTENSION);
+                                @endphp
+                                @if ($ext == 'pdf')
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/ip_agreement/'.$customer_doc->ip_agreement)}}"> <img src="{{asset('app-assets/images/icons/pdf.png')}}" alt=" {{ $customer_doc->ip_agreement }}" class="img-fluid"></a>
+
+                                @else
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/ip_agreement/'.$customer_doc->ip_agreement)}}"> <img src="{{asset('storage/ip_agreement/'.$customer_doc->ip_agreement)}}" alt=" {{ $customer_doc->ip_agreement }}" class="img-fluid"></a>
+                                @endif
+                                @else
+                                <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                @endif
                             </div>
                             <div class="form-group col-md-3">
-                                <img src="{{asset('storage/noc/'.$customer_doc->noc)}}" alt=" {{ $customer_doc->noc }}" class="img-fluid">
+                                @if($customer_doc->noc)
+                                @php
+                                $ext =pathinfo($customer_doc->noc, PATHINFO_EXTENSION);
+                                @endphp
+                                @if ($ext == 'pdf')
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/noc/'.$customer_doc->noc)}}"> <img src="{{asset('app-assets/images/icons/pdf.png')}}" alt=" {{ $customer_doc->noc }}" class="img-fluid"></a>
+
+                                @else
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/noc/'.$customer_doc->noc)}}"> <img src="{{asset('storage/noc/'.$customer_doc->noc)}}" alt=" {{ $customer_doc->noc }}" class="img-fluid"></a>
+                                @endif
+                                @else
+                                <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                @endif
                             </div>
-                          
+
                         </div>
                         <div class="d-flex justify-content-between">
                             <a href="{{route('customerDetailEdit', $customer_doc->order_id)}}" class="btn btn-primary btn-prev waves-effect waves-float waves-light">
@@ -170,5 +222,11 @@
 <script src="{{ asset('') }}app-assets/js/scripts/forms/form-wizard.js"></script>
 @endsection
 @push('script')
-
+<script>
+    $(document).ready(function() {
+        $('.iframe-popup').magnificPopup({
+            type: 'iframe'
+        });
+    });
+</script>
 @endpush
