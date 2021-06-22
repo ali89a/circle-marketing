@@ -46,7 +46,7 @@ class OrderController extends Controller
     {
         //dd($request->all());
         DB::beginTransaction();
-       
+
         $products = $request->get('items');
 
         foreach ($products as $key => $product) {
@@ -65,7 +65,7 @@ class OrderController extends Controller
     public function orderDowngrationUpdate(Request $request, $id)
     {
         DB::beginTransaction();
-       
+
         $products = $request->get('items');
 
         foreach ($products as $key => $product) {
@@ -105,8 +105,14 @@ class OrderController extends Controller
     }
     public function docEdit($id)
     {
-        $customer_doc = OrderCustomerDocument::where('order_id', $id)->first();
-        return view('admin.work-order.doc_edit', compact('customer_doc'));
+        $customer_info = OrderCustomerInfo::where('order_id', $id)->first();
+        //dd($customer_info);
+        if ($customer_info->organization == '' || $customer_info->client_type == '' || $customer_info->technical_email == '' || $customer_info->occupation == '' || $customer_info->billing_email == '' || $customer_info->mobile == '' || $customer_info->technical_address == '' || $customer_info->billing_address == '' || $customer_info->customer_id == '' || $customer_info->division_id == '' || $customer_info->district_id == '' || $customer_info->upazila_id == '') {
+            return redirect()->back();
+        } else {
+            $customer_doc = OrderCustomerDocument::where('order_id', $id)->first();
+            return view('admin.work-order.doc_edit', compact('customer_doc'));
+        }
     }
 
     public function docUpdate(Request $request, $id)
@@ -151,15 +157,29 @@ class OrderController extends Controller
     }
     public function orderEdit($id)
     {
-        $customer_order = Order::where('id', $id)->first();
-        $users = Admin::role(['Marketing Executive', 'Marketing Admin'])->get();
-        return view('admin.work-order.order_edit', compact('customer_order', 'users'));
+        $customer_document = OrderCustomerDocument::where('order_id', $id)->first();
+        //dd($customer_document);
+        if ($customer_document->work_order == '' || $customer_document->authorization == '' || $customer_document->ip_agreement == '' || $customer_document->noc == '') {
+            Toastr::error('Please Fillup Required Field!.', '', ["progressBar" => true]);
+            return redirect()->back();
+        } else {
+            $customer_order = Order::where('id', $id)->first();
+            $users = Admin::role(['Marketing Executive', 'Marketing Admin'])->get();
+            return view('admin.work-order.order_edit', compact('customer_order', 'users'));
+        }
     }
     public function orderDetailEdit($id)
     {
-        $customer_order_info = OrderInfo::where('order_id', $id)->first();
-        $all_service = Service::all();
-        return view('admin.work-order.order_detail_edit', compact('customer_order_info', 'all_service'));
+        $customer_order = Order::where('id', $id)->first();
+       // dd($customer_order);
+        if ($customer_order->type == '' || $customer_order->price == '' || $customer_order->gmap_location == '' || $customer_order->connect_type == '' || $customer_order->visit_type == '' || $customer_order->bill_generate_method == '' || $customer_order->order_submission_date == '' || $customer_order->billing_cycle == '' || $customer_order->billing_remark == '' || $customer_order->bill_start_date == '' || $customer_order->delivery_date == '') {
+            Toastr::error('Please Fillup Required Field!.', '', ["progressBar" => true]);
+            return redirect()->back();
+        } else {
+            $customer_order_info = OrderInfo::where('order_id', $id)->first();
+            $all_service = Service::all();
+            return view('admin.work-order.order_detail_edit', compact('customer_order_info', 'all_service'));
+        }
     }
     public function customerDetailEdit($id)
     {
@@ -220,6 +240,8 @@ class OrderController extends Controller
             $order->real_ip = $request->real_ip;
             $order->core_rent = $request->core_rent;
             $order->otc = $request->otc;
+            $order->vat = $request->vat;
+            $order->completion_status = 'Complete';
             $order->save();
             OrderItem::where('order_id', $id)->delete();
             $products = $request->get('items');
@@ -313,6 +335,7 @@ class OrderController extends Controller
             DB::beginTransaction();
             $order = new Order();
             $order->customer_id = $request->customer_id;
+            $order->completion_status = 'Processing';
             $order->creator_user_id = Auth::guard('admin')->user()->id;
             $order->save();
 
@@ -359,7 +382,7 @@ class OrderController extends Controller
             $customer_info->order_id = $order->id;
             $customer_info->save();
             DB::commit();
-            Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
+            // Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
             return redirect()->route('docEdit', ['id' => $order->id]);
         } catch (\Exception $e) {
             DB::rollBack();

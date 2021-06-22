@@ -160,13 +160,13 @@
                                             <td rowspan="2"> <label class="form-label" for="security_money_cheque">Security Money</label></td>
                                             <td> <label class="form-label" for="security_money_cheque">Cheque</label></td>
                                             <td>
-                                                <input type="text" id="security_money_cheque" value="{{$customer_order->security_money_cheque}}" name="security_money_cheque" class="form-control" placeholder="Enter Cheque" />
+                                                <input type="text" id="security_money_cheque" value="{{$customer_order->security_money_cheque}}" name="security_money_cheque" class="form-control" placeholder="Enter Cheque Amount" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td> <label class="form-label" for="security_money_cash">Cash</label></td>
                                             <td>
-                                                <input type="text" id="security_money_cash" value="{{$customer_order->security_money_cash}}" name="security_money_cash" class="form-control" placeholder="Enter Cash" />
+                                                <input type="text" id="security_money_cash" value="{{$customer_order->security_money_cash}}" name="security_money_cash" class="form-control" placeholder="Enter Cash Amount" />
                                             </td>
                                         </tr>
                                     </tbody>
