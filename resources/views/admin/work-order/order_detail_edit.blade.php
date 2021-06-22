@@ -155,6 +155,12 @@
                                             <td>OTC</td>
                                             <td><input type="text" name="otc" class="form-control form-control-sm" value="{{$customer_order_info->order->otc}}"></td>
                                         </tr>
+                                        <tr>
+                                            <td> <label class="form-label" for="Vat">Vat</label></td>
+                                            <td>
+                                                <input type="text" id="Vat" value="{{$customer_order->vat}}" name="vat" class="form-control" placeholder="Vat" />
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

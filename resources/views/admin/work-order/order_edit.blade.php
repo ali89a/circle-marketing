@@ -122,19 +122,19 @@
                                 <table class="table table-bordered table-striped">
                                     <tbody>
                                         <tr>
-                                            <td> <label class="form-label" for="scl_id">Scl Id</label></td>
+                                            <td colspan="2"> <label class="form-label" for="scl_id">Scl Id</label></td>
                                             <td>
                                                 <input type="text" value="{{$customer_order->scl_id}}" name="scl_id" id="scl_id" class="form-control" placeholder="SCL ID" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td> <label class="form-label" for="gmap_location">Gmap Location</label></td>
+                                        <td colspan="2"> <label class="form-label" for="gmap_location">Gmap Location</label></td>
                                             <td>
                                                 <input type="text" value="{{$customer_order->gmap_location}}" name="gmap_location" id="gmap_location" class="form-control" placeholder="GMAP Location" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td> <label class="form-label" for="connect_type">Connect Type</label></td>
+                                        <td colspan="2"> <label class="form-label" for="connect_type">Connect Type</label></td>
                                             <td>
                                                 <select class="form-control" name="connect_type">
                                                     <option value="">Select Type</option>
@@ -145,52 +145,9 @@
                                                 </select>
                                             </td>
                                         </tr>
+
                                         <tr>
-                                            <td> <label class="form-label" for="connect_type">Vat</label></td>
-                                            <td>
-                                                <input type="text" id="Vat" value="{{$customer_order->vat}}" name="vat" class="form-control" placeholder="Vat" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="visit_type">Visit Type</label></td>
-                                            <td>
-                                                <select class="form-control" name="visit_type">
-                                                    <option value="">Select Type</option>
-                                                    <option value="visited" {{ $customer_order->visit_type == "visited" ? 'selected' : '' }}>Visited</option>
-                                                    <option value="phone" {{ $customer_order->visit_type == "phone" ? 'selected' : '' }}>Phone</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="order_submission_date">Order Submission Date</label></td>
-                                            <td>
-                                                <input type="text" value="{{$customer_order->order_submission_date}}" name="order_submission_date" id="order_submission_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="billing_cycle">Billing Date/Cycle</label></td>
-                                            <td>
-                                                <select class="form-control" name="billing_cycle">
-                                                    <option value="">Select Date</option>
-                                                    @for ($i = 1; $i <= 31; $i++) <option value="{{ $i }}" {{ $i == $customer_order->billing_cycle ? 'selected' : '' }}>{{ $i }}</option>
-                                                        @endfor
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="bill_start_date">Bill Start Date</label></td>
-                                            <td>
-                                                <input type="text" name="bill_start_date" value="{{$customer_order->bill_start_date}}" id="bill_start_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="delivery_date">Delivery Date</label></td>
-                                            <td>
-                                                <input type="text" name="delivery_date" value="{{$customer_order->delivery_date}}" id="delivery_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="bill_generate_method">Bill Generate Method</label></td>
+                                        <td colspan="2"> <label class="form-label" for="bill_generate_method">Bill Generate Method</label></td>
                                             <td>
                                                 <select class="form-control" name="bill_generate_method">
                                                     <option value="">Select Date</option>
@@ -200,25 +157,18 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td> <label class="form-label" for="security_money_cheque">Security Money Cheque</label></td>
+                                            <td rowspan="2"> <label class="form-label" for="security_money_cheque">Security Money</label></td>
+                                            <td> <label class="form-label" for="security_money_cheque">Cheque</label></td>
                                             <td>
-                                                <input type="text" id="security_money_cheque" value="{{$customer_order->security_money_cheque}}" name="security_money_cheque" class="form-control" placeholder="658921" />
+                                                <input type="text" id="security_money_cheque" value="{{$customer_order->security_money_cheque}}" name="security_money_cheque" class="form-control" placeholder="Enter Cheque" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td> <label class="form-label" for="security_money_cash">Security Money Cash</label></td>
+                                            <td> <label class="form-label" for="security_money_cash">Cash</label></td>
                                             <td>
-                                                <input type="text" id="security_money_cash" value="{{$customer_order->security_money_cash}}" name="security_money_cash" class="form-control" placeholder="658921" />
+                                                <input type="text" id="security_money_cash" value="{{$customer_order->security_money_cash}}" name="security_money_cash" class="form-control" placeholder="Enter Cash" />
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="billing_remark">Billing Remark</label></td>
-                                            <td>
-
-                                                <textarea class="form-control" name="billing_remark" rows="1">{{$customer_order->billing_remark}}</textarea>
-                                            </td>
-                                        </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -227,36 +177,6 @@
                                 <table class="table table-bordered table-striped">
                                     <tbody>
                                         <tr>
-                                            <td> <label class="form-label" for="scl_id">Scl Id</label></td>
-                                            <td>
-                                                <input type="text" value="{{$customer_order->scl_id}}" name="scl_id" id="scl_id" class="form-control" placeholder="SCL ID" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="gmap_location">Gmap Location</label></td>
-                                            <td>
-                                                <input type="text" value="{{$customer_order->gmap_location}}" name="gmap_location" id="gmap_location" class="form-control" placeholder="GMAP Location" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="connect_type">Connect Type</label></td>
-                                            <td>
-                                                <select class="form-control" name="connect_type">
-                                                    <option value="">Select Type</option>
-                                                    <option value="Fiber" {{ $customer_order->connect_type == "Fiber" ? 'selected' : '' }}>Fiber</option>
-                                                    <option value="Hostpot" {{ $customer_order->connect_type == "Hostpot" ? 'selected' : '' }}>Hostpot</option>
-                                                    <option value="Radio" {{ $customer_order->connect_type == "Radio" ? 'selected' : '' }}>Radio</option>
-                                                    <option value="Fiber & Radio" {{ $customer_order->connect_type == "Fiber & Radio" ? 'selected' : '' }}>Fiber & Radio</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="connect_type">Vat</label></td>
-                                            <td>
-                                                <input type="text" id="Vat" value="{{$customer_order->vat}}" name="vat" class="form-control" placeholder="Vat" />
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td> <label class="form-label" for="visit_type">Visit Type</label></td>
                                             <td>
                                                 <select class="form-control" name="visit_type">
@@ -283,6 +203,12 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td> <label class="form-label" for="billing_remark">Billing Remark</label></td>
+                                            <td>
+                                                <textarea class="form-control" name="billing_remark" rows="1">{{$customer_order->billing_remark}}</textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td> <label class="form-label" for="bill_start_date">Bill Start Date</label></td>
                                             <td>
                                                 <input type="text" name="bill_start_date" value="{{$customer_order->bill_start_date}}" id="bill_start_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
@@ -294,36 +220,6 @@
                                                 <input type="text" name="delivery_date" value="{{$customer_order->delivery_date}}" id="delivery_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="bill_generate_method">Bill Generate Method</label></td>
-                                            <td>
-                                                <select class="form-control" name="bill_generate_method">
-                                                    <option value="">Select Date</option>
-                                                    <option value="by_marketing_date" {{ $customer_order->bill_generate_method == 'by_marketing_date' ? 'selected' : '' }}>by_marketing_date</option>
-                                                    <option value="by_noc_done" {{ $customer_order->bill_generate_method == 'by_noc_done' ? 'selected' : '' }}>by_noc_done</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="security_money_cheque">Security Money Cheque</label></td>
-                                            <td>
-                                                <input type="text" id="security_money_cheque" value="{{$customer_order->security_money_cheque}}" name="security_money_cheque" class="form-control" placeholder="658921" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="security_money_cash">Security Money Cash</label></td>
-                                            <td>
-                                                <input type="text" id="security_money_cash" value="{{$customer_order->security_money_cash}}" name="security_money_cash" class="form-control" placeholder="658921" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label class="form-label" for="billing_remark">Billing Remark</label></td>
-                                            <td>
-
-                                                <textarea class="form-control" name="billing_remark" rows="1">{{$customer_order->billing_remark}}</textarea>
-                                            </td>
-                                        </tr>
-
                                     </tbody>
                                 </table>
                             </div>
