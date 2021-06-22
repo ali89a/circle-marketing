@@ -125,10 +125,10 @@
                                         <ul class="list-inline" style="width:120px">
                                             <li>
                                                 <!--Marketing Executive section-->
-                                                <a href="" class="btn btn-danger btn-xs btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
-                                                <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-xs btn-block"><i class="fa fa-edit"></i> Edit</a>
-                                                <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-edit"></i> Upgration</a>
-                                                <a href="{{route('work-order-downgration', $order->id)}}" class="btn btn-info  btn-block btn-xs"><i class="fa fa-edit"></i> Downgration</a>
+                                                <a href="" class="btn btn-danger btn-sm btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
+                                                <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                                <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
+                                                <a href="{{route('work-order-downgration', $order->id)}}" class="btn btn-info  btn-block btn-sm"><i class="fa fa-edit"></i> Downgration</a>
 
                                                 <!--Marketing Admin section-->
 
@@ -137,11 +137,11 @@
                                                 <div class="history">
                                                     <form action="" method="post">
                                                         <input type="hidden" value="666" name="history">
-                                                        <button type="submit" class="btn btn-default btn-xs btn-block">H
+                                                        <button type="submit" class="btn btn-default btn-sm btn-block">H
                                                             (4) <i class="fa fa-history"></i></button>
                                                     </form>
                                                 </div>
-                                                <a href="{{route('invoices', $order->id)}}" class="btn btn-primary  btn-block btn-xs"><i class="fa fa-table"></i> Invoice List
+                                                <a href="{{route('invoices', $order->id)}}" class="btn btn-primary  btn-block btn-sm"><i class="fa fa-table"></i> Invoice List
                                                 </a>
                                             </li>
                                         </ul>
@@ -156,8 +156,13 @@
                                                         @if($order->order_approval->m_approved_status =='Approved')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
                                                         @else
-                                                        <a href="{{route('workOrderApprovalMarketing',$order->id)}}" class="btn btn-success btn-xs">Approve</a>
-                                                        <a href="" class="btn btn-success btn-xs">Modify</a>
+                                                            @if($order->completion_status =='Processing')
+                                                            <p class="bg-danger text-white btn-block">Incomplete</p>
+                                                            @else
+                                                            <a href="{{route('workOrderApprovalMarketing',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
+                                                          
+                                                            <a href="" class="btn btn-warning btn-sm">Modify</a>
+                                                            @endif
                                                         @endif
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
@@ -171,8 +176,8 @@
                                                         @if($order->order_approval->a_approved_status =='Approved')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
                                                         @else
-                                                        <a href="{{route('workOrderApprovalAccount',$order->id)}}" class="btn btn-success btn-xs">Approve</a>
-                                                        <a href="" class="btn btn-success btn-xs">Modify</a>
+                                                        <a href="{{route('workOrderApprovalAccount',$order->id)}}" class="btn btn-success btn-sm">Approve</a>
+                                                        <a href="" class="btn btn-success btn-sm">Modify</a>
                                                         @endif
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
@@ -186,8 +191,8 @@
                                                         @if($order->order_approval->coo_approved_status =='Approved')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
                                                         @else
-                                                        <a href="{{route('workOrderApprovalCOO',$order->id)}}" class="btn btn-success btn-xs">Approve</a>
-                                                        <a href="" class="btn btn-success btn-xs">Modify</a>
+                                                        <a href="{{route('workOrderApprovalCOO',$order->id)}}" class="btn btn-success btn-sm">Approve</a>
+                                                        <a href="" class="btn btn-success btn-sm">Modify</a>
                                                         @endif
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
@@ -200,7 +205,7 @@
                                                     <td class="text-center nstatus666">
                                                         @hasrole('NOC Admin')
                                                         @if($order->order_approval->coo_approved_status =='Approved' && $order->order_approval->noc_approved_status =='Pending'|| $order->order_approval->noc_approved_status =='Processing')
-                                                        <a href="" class="btn btn-success btn-xs">Modify</a>
+                                                        <a href="" class="btn btn-success btn-sm">Modify</a>
                                                         <div class="vertical-modal-ex">
                                                             <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}">
                                                                 Assign
@@ -242,7 +247,7 @@
                                                         </div>
                                                         @endif
                                                         @if($order->order_approval->noc_approved_status =='Processing' && $order->order_approval->noc_assigned_status =='done')
-                                                        <a href="{{route('workOrderApprovalNoc',$order->id)}}" class="btn btn-success btn-xs">Approve</a>
+                                                        <a href="{{route('workOrderApprovalNoc',$order->id)}}" class="btn btn-success btn-sm">Approve</a>
                                                         @endif
                                                         @if($order->order_approval->noc_approved_status =='Approved' && $order->order_approval->noc_assigned_status =='done')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
@@ -260,7 +265,7 @@
                                                         @hasrole('NOC Admin|NOC Executive')
                                                         @if(Auth::guard('admin')->user()->id == $order->order_approval->noc_assigned_by)
                                                         @if($order->order_approval->noc_assigned_status=="Processing")
-                                                        <a href="{{route('nocEdit',$order->id)}}" class="btn btn-success btn-xs">Setup</a>
+                                                        <a href="{{route('nocEdit',$order->id)}}" class="btn btn-success btn-sm">Setup</a>
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_assigned_status ??'' }}</p>
                                                         @endif
@@ -382,42 +387,42 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Work order:</td>
-                                                                    <td><a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/work_order3.JPG" data-lightbox="work_order3.JPG" class="text-center btn btn-primary btn-xs">View
+                                                                    <td><a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/work_order3.JPG" data-lightbox="work_order3.JPG" class="text-center btn btn-primary btn-sm">View
                                                                             image</a>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>IP Agreement</td>
                                                                     <td>
-                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/ip_autorize5.jpg" data-lightbox="ip_autorize5.jpg" class="text-center btn btn-primary btn-xs">View
+                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/ip_autorize5.jpg" data-lightbox="ip_autorize5.jpg" class="text-center btn btn-primary btn-sm">View
                                                                             image</a>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Authorization(Cor)</td>
                                                                     <td>
-                                                                        <a data-fancybox="" data-type="iframe" data-src="https://demo.circlenetworkbd.net/assets/uploads/customer/polly_it1.pdf" href="javascript:;" class="text-center btn btn-primary btn-xs">View
+                                                                        <a data-fancybox="" data-type="iframe" data-src="https://demo.circlenetworkbd.net/assets/uploads/customer/polly_it1.pdf" href="javascript:;" class="text-center btn btn-primary btn-sm">View
                                                                             Pdf</a>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>License Copy</td>
                                                                     <td>
-                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/linices9.jpg" data-lightbox="linices9.jpg" class="text-center btn btn-primary btn-xs">View
+                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/linices9.jpg" data-lightbox="linices9.jpg" class="text-center btn btn-primary btn-sm">View
                                                                             image</a>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Trade License</td>
                                                                     <td>
-                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/Trade_License7.jpg" data-lightbox="Trade_License7.jpg" class="text-center btn btn-primary btn-xs">View
+                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/Trade_License7.jpg" data-lightbox="Trade_License7.jpg" class="text-center btn btn-primary btn-sm">View
                                                                             image</a>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Nid Copy</td>
                                                                     <td>
-                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/nid_final1.JPG" data-lightbox="nid_final1.JPG" class="text-center btn btn-primary btn-xs">View
+                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/nid_final1.JPG" data-lightbox="nid_final1.JPG" class="text-center btn btn-primary btn-sm">View
                                                                             image</a>
                                                                     </td>
                                                                 </tr>
@@ -446,7 +451,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <button id="uphistory_666" type="button" class="uphistory btn btn-info btn-xs" data-toggle="modal" data-target="#uphistory">
+                                                        <button id="uphistory_666" type="button" class="uphistory btn btn-info btn-sm" data-toggle="modal" data-target="#uphistory">
                                                             <input type="hidden" value="666">View History
                                                         </button>
                                                         <table class="table table-bordered bw_details table-stripd">
@@ -460,7 +465,7 @@
                                                                     <td>Down</td>
                                                                     <td class=" onlym allhide">price</td>
                                                                 </tr>
-                                                               @foreach($order->order_items as $item)
+                                                                @foreach($order->order_items as $item)
                                                                 <tr>
                                                                     <td>{{ $item->service->name??'' }}</td>
                                                                     <td>{{ $item->capacity??'' }}</td>
@@ -470,7 +475,7 @@
                                                                     <td class="text-right onlym allhide">{{ $item->price??'' }}</td>
                                                                 </tr>
                                                                 @endforeach
-                                                              
+
                                                                 <tr>
                                                                     <td colspan="5">Combine Price</td>
                                                                     <td class="text-right allhide">{{ $order->total_Price }}</td>
@@ -529,7 +534,7 @@
                                                                     <td>{{ $order->noc->vlan_fb??'' }}</td>
                                                                     <td>{{ $order->noc->vlan_bdix??'' }}</td>
                                                                     <td>{{ $order->noc->vlan_data??'' }}</td>
-                                                                   
+
                                                                 </tr>
                                                                 <tr>
                                                                     <td>IP</td>
