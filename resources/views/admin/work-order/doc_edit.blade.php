@@ -115,13 +115,13 @@
                                 <img src="{{asset('storage/work_order/'.$customer_doc->work_order)}}" alt=" {{ $customer_doc->work_order }}" class="img-fluid">
                             </div>
                             <div class="form-group col-md-3">
-                                <img src="{{asset('storage/work_order/'.$customer_doc->authorization)}}" alt=" {{ $customer_doc->authorization }}" class="img-fluid">
+                                <img src="{{asset('storage/authorization/'.$customer_doc->authorization)}}" alt=" {{ $customer_doc->authorization }}" class="img-fluid">
                             </div>
                             <div class="form-group col-md-3">
-                                <img src="{{asset('storage/work_order/'.$customer_doc->ip_agreement)}}" alt=" {{ $customer_doc->ip_agreement }}" class="img-fluid">
+                                <img src="{{asset('storage/ip_agreement/'.$customer_doc->ip_agreement)}}" alt=" {{ $customer_doc->ip_agreement }}" class="img-fluid">
                             </div>
                             <div class="form-group col-md-3">
-                                <img src="{{asset('storage/work_order/'.$customer_doc->noc)}}" alt=" {{ $customer_doc->noc }}" class="img-fluid">
+                                <img src="{{asset('storage/noc/'.$customer_doc->noc)}}" alt=" {{ $customer_doc->noc }}" class="img-fluid">
                             </div>
                           
                         </div>
