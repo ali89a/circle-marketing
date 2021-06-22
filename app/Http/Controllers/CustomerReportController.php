@@ -61,7 +61,7 @@ class CustomerReportController extends Controller
         $this->validate($request, [
             'cname' => 'required',
             'email' => 'required|unique:customer_reports,email',
-            'contact_number' => 
+            'contact_number' =>
             //'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'required|unique:customer_reports|digits:11,contact_number',
             'visiting_card' => 'required|mimes:jpeg,jpg,png,webp,gif,pdf|max:10240',
@@ -190,7 +190,23 @@ class CustomerReportController extends Controller
 
     public function fetchAll($id)
     {
-        $reports = CustomerReport::where('id', $id)->first();
+    $reports = CustomerReport::with('district', 'upazila')->where('id', $id)->first();
+        // $reports = DB::table('customer_reports')
+        //     ->where('id', $id)
+        //     ->first();
+
+        //   dd($reports->toArray());
+
+        // $reports = DB::table('customer_reports')
+        //     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+        //     ->join('districts', 'customer_reports.location_district', 'districts.id')
+        //     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+        //     ->where('customer_reports.id', $id)
+        //     ->select('customer_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+        //     ->first();
+        // dd($reports);
+
+        //   $reports = CustomerReport::where('id', $id)->first();
         return $reports;
     }
 
@@ -317,28 +333,32 @@ class CustomerReportController extends Controller
             // echo '<br>';
         }
         // dd();
+        $workLimit = DB::table('work_limits')
+            ->join('admins', 'work_limits.admin_id', '=', 'admins.id')
+            ->select('work_limits.*', 'admins.name');
         return view('admin.marketing.workLimit', [
-            'users' => $users
+            'workLimit' => $workLimit->get()
         ]);
+        // return view('admin.marketing.workLimit', [
+        //     'users' => $users
+        // ]);
     }
 
     public function storeWorkLimit(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         //  $admin = WorkLimit::find($request->id);
         $admin = $request->admin_id;
         $newclient = $request->newclient;
         $followup = $request->followup;
         $reconnect = $request->reconnect;
-        // dd($admin);
-        // $admin->update();
         foreach ($admin as $key => $no) {
             $input['admin_id'] = $no;
             $input['newclient'] = $newclient[$key];
             $input['followup'] = $followup[$key];
             $input['reconnect'] = $reconnect[$key];
-            //   WorkLimit::update($input);
-            WorkLimit::whereIn('admin_id', '$request->admin_id')->update($input);
+            WorkLimit::insert($input);
+            //   WorkLimit::whereIn('admin_id', '$request->admin_id')->update($input);
             //  DB::update("update products set display_index = $caseString end where id in ($ids)");
         }
 
