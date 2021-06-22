@@ -1,108 +1,100 @@
-@extends('admin.layout.master')
-
-@section('css')
-<!-- DataTables -->
-<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/libs/datatables/datatables.min.css')}}">
-<link rel="stylesheet" href="{{ asset('vue-js/bootstrap-select/dist/css/bootstrap-select.min.css') }}">
-
-    <style>
-        table[class="table dataTable no-footer"]{
-            width: 100%!important;
-        }
-        table thead th:first-child {
-            width: 5%;
-        }
-        table thead th:nth-child(2) {
-            width: 65%;
-        }
-        table thead th:nth-child(3) {
-            width: 20%;
-        }
-      
-        table thead th:last-child{
-            width: 10%;
-        }
-    </style>
-@endsection
-
-@section('title','Permission Lists')
+@extends('admin.layouts.master')
 
 @section('content')
-    <div class="container-fluid">
-
-        <!-- start page title -->
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">Permission Lists</h4>
-
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-
-                            <li class="breadcrumb-item">
-                            {{-- <button style="margin-right: 9px;" class="btn btn-info pull-right">
-                                    <a style="color: #ffffff;" href="{{route('permission.create')}}">Add
-                                    Permission</a>
-                                </button> --}}
+<div class="content-wrapper">
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-left mb-0">Permission</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a>
                             </li>
-
+                            <li class="breadcrumb-item active">Permission List
+                            </li>
                         </ol>
                     </div>
-
                 </div>
             </div>
         </div>
-        <!-- end page title -->
+        <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
+            <div class="form-group breadcrumb-right">
+                <div class="dropdown">
+                    <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle waves-effect waves-float waves-light" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="{{route('permission.create')}}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
+                                <polyline points="9 11 12 14 22 4"></polyline>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg><span class="align-middle">Add Permission</span></a>
 
 
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <div class="table-responsive">
-                        <table id="datatable" class="display datatable table table-stripped">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Guard Name</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach($permissions as $row)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $row->name}}</td>
-                                        <td>{{ $row->guard_name }}</td>
-                                     
-                                    </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                        
-                        </div>
 
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+    <div class="content-body">
+        <!-- Responsive tables start -->
+        <div class="row" id="table-responsive">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Permission List</h4>
+                    </div>
+                    <div class="table-responsive">
+                    <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-nowrap">#</th>
+                                    <th scope="col" class="text-nowrap">Name</th>
+                                    <th scope="col" class="text-nowrap">Guard</th>
+                                    <th scope="col" class="text-nowrap text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($permissions as $row)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $row->name}}</td>
+                                    <td>{{ $row->guard_name }}</td>
+
+                                    <td>
+                                        <div class="float-right">
+                                            <form action="{{route('permission.destroy', $row->id)}}" method="post">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                @csrf
+                                                <a href="{{ route('permission.edit', $row->id) }}" class="btn btn-primary">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                    Edit
+                                                </a>
+                                                <button id="btnDelete" class="btn btn-danger">Delete</button>
+                                            </form>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Responsive tables end -->
+    </div>
+</div>
+@endsection
+@section('js')
 
 @endsection
+@push('script')
 
-@section('script')
-
-   <!-- Plugins js -->
-    <script src="{{ URL::asset('assets/libs/datatables/datatables.min.js')}}"></script>
-    <!-- Init js-->
-    <script src="{{ URL::asset('assets/js/pages/datatables.init.js')}}"></script>
-    <script src="{{ asset('vue-js/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
-
-  
-
-@endsection
-
+@endpush

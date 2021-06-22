@@ -11,7 +11,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item active">Permission Create
+                            <li class="breadcrumb-item active">Permission Edit
                             </li>
                         </ol>
                     </div>
@@ -45,16 +45,17 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Permission Create</h4>
+                            <h4 class="card-title">Permission Edit</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('permission.store')}}" method="POST" class="">
+                            <form action="{{route('permission.update',$model->id)}}" method="POST" class="">
                                 @csrf
+                                @method('put')
                                 <div class="row">
                                     <div class="col-xl-6 col-md-6 col-12 mb-1">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                                            <input type="text" class="form-control" id="name" name="name" value="{{$model->name}}" placeholder="Enter Name">
                                         </div>
                                     </div>
                                 </div>
