@@ -25,14 +25,14 @@
                                             <div class="col-sm-4">
                                                 From Date
                                                 <input type="date" name="from_date" class="form-control flatpickr-basic
-                                                                            flatpickr-input" placeholder="YYYY-MM-DD"
-                                                    readonly="readonly">
+                                                                                    flatpickr-input"
+                                                    placeholder="YYYY-MM-DD" readonly="readonly">
                                             </div>
                                             <div class="col-sm-4">
                                                 To Date
                                                 <input type="date" name="to_date" class="form-control flatpickr-basic
-                                                                            flatpickr-input" placeholder="YYYY-MM-DD"
-                                                    readonly="readonly">
+                                                                                    flatpickr-input"
+                                                    placeholder="YYYY-MM-DD" readonly="readonly">
                                             </div>
                                             <div class="col-sm-4">
                                                 Contact Number/Organization:
@@ -139,13 +139,13 @@
                                                                     alt="No Image">
                                                             @endif
                                                         @else
-
+                                                            <h6>Not Found</h6>
                                                         @endif
 
                                                     </td>
                                                     <td>{{ $item->created_at }}</td>
                                                     <td>
-                                                       @if (!empty($item->visiting_card))
+                                                        @if (!empty($item->audio))
                                                             <div class="audiofile">
                                                                 <audio controls="">
                                                                     <source
@@ -154,7 +154,7 @@
                                                                 </audio>
                                                             </div>
                                                         @else
-
+                                                            <h6>Not Found</h6>
                                                         @endif
                                                     </td>
                                                 </tr>

@@ -317,11 +317,8 @@ class CustomerReportController extends Controller
             // echo '<br>';
         }
         // dd();
-        $workLimit = DB::table('work_limits')
-            ->join('admins', 'work_limits.admin_id', '=', 'admins.id')
-            ->select('work_limits.*', 'admins.name');
         return view('admin.marketing.workLimit', [
-            'workLimit' => $workLimit->get()
+            'users' => $users
         ]);
     }
 

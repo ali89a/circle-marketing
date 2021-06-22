@@ -28,7 +28,7 @@
                                             <td><input type="number" name="reconnect[1]" value="3"></td>
                                         </tr> --}}
 
-                                        @foreach ($workLimit as $item)
+                                        @foreach ($users as $item)
 
                                         <tr class="">
                                             <td>{{ $item->name }}

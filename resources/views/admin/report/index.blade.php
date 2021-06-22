@@ -170,12 +170,12 @@
                                                                     alt="No Image">
                                                             @endif
                                                         @else
-
+                                                            <h6>Not Found</h6>
                                                         @endif
                                                     </td>
                                                     <td>{{ $item->created_at }}</td>
                                                     <td>
-                                                        @if (!empty($item->visiting_card))
+                                                        @if (!empty($item->audio))
                                                             <div class="audiofile">
                                                                 <audio controls="">
                                                                     <source
@@ -184,7 +184,7 @@
                                                                 </audio>
                                                             </div>
                                                         @else
-
+                                                            <h6>Not Found</h6>
                                                         @endif
                                                         {{-- <div class="audiofile">
                                                             <audio controls="">
