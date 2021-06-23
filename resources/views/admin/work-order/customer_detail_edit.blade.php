@@ -85,7 +85,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="bs-stepper-content">
+                <div class="bs-stepper-content" id="vue_app">
                     <form method="post" action="{{route('customerDetailUpdate',$order_customer_info->order_id)}}">
                         @csrf
                         @method('put')
@@ -139,7 +139,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="division_id">Division</label>
-                                <select class="form-control form-control-sm" id="division_id" name="division_id">
+                                <select class="form-control form-control-sm" id="division_id" name="division_id" v-model="division_id" @change="fetch_district()">
                                     <option value="">Select One</option>
                                     @foreach($divisions as $list)
                                     <option value="{{ $list->id }}" {{ $list->id == $order_customer_info->division_id ? 'selected' : '' }}> {{ $list->name }}({{ $list->bn_name }})</option>
@@ -147,15 +147,21 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="basicSelect">District</label>
-                                <select class="form-control form-control-sm" id="district_id" name="district_id">
+                                <label for="district_id">District</label>
 
+                                <select class="form-control form-control-sm" name="district_id" id="district_id" class="form-control" v-model="district_id" @change="fetch_upazila()">
+                                    <option value="">Select one</option>
+                                    <option :value="row.id" v-for="row in districts" v-html="row.name">
+                                    </option>
                                 </select>
 
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="basicSelect">Upazila</label>
-                                <select class="form-control form-control-sm" id="upazila_id" name="upazila_id">
+                                <label for="upazila_id">Upazila</label>
+                                <select class="form-control form-control-sm" name="upazila_id" id="upazila_id" class="form-control" v-model="upazila_id">
+                                    <option value="">Select one</option>
+                                    <option :value="row.id" v-for="row in upazilas" v-html="row.name">
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -203,41 +209,87 @@
 @section('page-js')
 <script src="{{ asset('') }}app-assets/js/scripts/forms/form-wizard.js"></script>
 @endsection
+
 @push('script')
+<script src="{{ asset('vue-js/vue/dist/vue.js') }}"></script>
+<script src="{{ asset('vue-js/axios/dist/axios.min.js') }}"></script>
+<script src="{{ asset('vue-js/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 <script>
-    $('document').ready(function() {
-        $('#division_id').change(function() {
-            var id = $('#division_id').val();
-            $.ajax({
-                url: '{{url('admin/fetch-district')}}',
-                type: 'get',
-                data: {
-                    id: id
+    //  console.log('error');
+    $(document).ready(function() {
+        var vue = new Vue({
+            el: '#vue_app',
+            data: {
+                config: {
+                    get_district_url: "{{ url('admin/fetch-district-by-division-id') }}",
+                    get_upazila_url: "{{ url('admin/fetch-upazila-by-district-id') }}",
                 },
-                dataType: 'json',
-                success: function(data) {
-                    //console.log(data);
-                    $('#district_id').html(data);
-                }
-            });
-        });
+                division_id: '{{$order_customer_info->division_id}}',
+                district_id: '{{$order_customer_info->district_id}}',
+                upazila_id: '{{$order_customer_info->upazila_id}}',
+                districts: [],
+                upazilas: [],
+                order_id: "{{$order_customer_info->order_id}}",
+            },
+            methods: {
+                fetch_district() {
+                    var vm = this;
+                    var slug = vm.division_id;
+                    if (slug) {
+                        axios.get(this.config.get_district_url + '/' + slug).then(
+                            function(response) {
+                                details = response.data;
+                                console.log(details);
+                                vm.districts = details.districts;
 
-        $('#district_id').change(function() {
-            var id = $('#district_id').val();
-            $.ajax({
-                url: '{{url('admin/fetch-thana')}}',
-                type: 'get',
-                data: {
-                    id: id
+                            }).catch(function(error) {
+                            toastr.error('Something went to wrong', {
+                                closeButton: true,
+                                progressBar: true,
+                            });
+                            return false;
+                        });
+                    }
                 },
-                dataType: 'json',
-                success: function(data) {
-                    //console.log(data);
-                    $('#upazila_id').html(data);
-                }
-            });
-        });
+                fetch_upazila() {
+                    var vm = this;
+                    var slug = vm.district_id;
+                    if (slug) {
+                        axios.get(this.config.get_upazila_url + '/' + slug).then(
+                            function(response) {
+                                details = response.data;
+                                console.log(details);
+                                vm.upazilas = details.upazilas;
 
+                            }).catch(function(error) {
+                            toastr.error('Something went to wrong', {
+                                closeButton: true,
+                                progressBar: true,
+                            });
+                            return false;
+                        });
+                    }
+                },
+                delete_row: function(row) {
+                    this.services.splice(this.services.indexOf(row), 1);
+                },
+            },
+            beforeMount() {
+                this.fetch_district();
+                this.fetch_upazila();
+                
+            },
+            updated() {
+                $('.bSelect').selectpicker('refresh');
+            }
+        });
+        $('.bSelect').selectpicker({
+            liveSearch: true,
+            size: 5
+        });
     });
 </script>
+
+
+
 @endpush
