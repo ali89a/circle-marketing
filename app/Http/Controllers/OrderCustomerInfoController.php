@@ -2,11 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderCustomerInfo;
+use App\Models\District;
 use Illuminate\Http\Request;
+use App\Models\OrderCustomerInfo;
+use App\Models\Upazila;
 
 class OrderCustomerInfoController extends Controller
 {
+
+    public function fetch_district($id)
+    {
+
+        $data = [
+            'districts' => District::where('division_id', $id)->orderBy('name', 'ASC')->get()
+        ];
+
+        return $data;
+    }
+    public function fetch_upazila($id)
+    {
+
+        $data = [
+            'upazilas' => Upazila::where('district_id', $id)->orderBy('name', 'ASC')->get()
+        ];
+
+        return $data;
+    }
     /**
      * Display a listing of the resource.
      *

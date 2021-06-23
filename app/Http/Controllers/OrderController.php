@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\OrderCustomerDocument;
+use App\Models\OrderDowngration;
 use App\Models\OrderItem;
 use App\Models\OrderUpgration;
 use App\Models\Service;
@@ -56,10 +57,11 @@ class OrderController extends Controller
             $item->capacity = $product['capacity'];
             $item->upgration = $product['upgration'];
             $item->price = $product['price'];
+            $item->status = "Pending";
             $item->save();
         }
         DB::commit();
-        Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
+        Toastr::success('Order Upgration Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('work-order.index');
     }
     public function orderDowngrationUpdate(Request $request, $id)
@@ -69,16 +71,17 @@ class OrderController extends Controller
         $products = $request->get('items');
 
         foreach ($products as $key => $product) {
-            $item = new OrderUpgration();
+            $item = new OrderDowngration();
             $item->order_id = $id;
             $item->service_id = $product['service_id'];
             $item->capacity = $product['capacity'];
             $item->downgration = $product['downgration'];
             $item->price = $product['price'];
+            $item->status = "Pending";
             $item->save();
         }
         DB::commit();
-        Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
+        Toastr::success('Order Downgration Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('work-order.index');
     }
     public function index()

@@ -48,6 +48,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
    
     Route::get('/pending-list', [CustomerReportController::class, 'pendingList'])->name('pendingList');
     Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);
+    Route::get('fetch-district-by-division-id/{id}', [App\Http\Controllers\OrderCustomerInfoController::class, 'fetch_district']);
+    Route::get('fetch-upazila-by-district-id/{id}', [App\Http\Controllers\OrderCustomerInfoController::class, 'fetch_upazila']);
     Route::get('fetch-thana', [App\Http\Controllers\OrderController::class, 'fetch_thana']);
     Route::resource('env-dynamic', EnvDynamicController::class);
     Route::get('/doc-edit/{id?}', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('docEdit');
