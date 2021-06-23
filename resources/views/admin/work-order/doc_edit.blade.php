@@ -117,10 +117,10 @@
                                 $ext =pathinfo($customer_doc->work_order, PATHINFO_EXTENSION);
                                 @endphp
                                 @if ($ext == 'pdf')
-                                <a target="_blank" class="iframe-popup" href="{{asset('storage/work_order/'.$customer_doc->work_order)}}"> <img src="{{asset('app-assets/images/icons/pdf.png')}}" alt=" {{ $customer_doc->work_order }}" class="img-fluid"></a>
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/work_order/'.$customer_doc->work_order)}}"> <img src="{{asset('app-assets/images/icons/pdfs-icon.png')}}" alt=" {{ $customer_doc->work_order }}" class="img-fluid"></a>
 
                                 @else
-                                <a target="_blank" class="iframe-popup" href="{{asset('storage/work_order/'.$customer_doc->work_order)}}"> <img src="{{asset('storage/work_order/'.$customer_doc->work_order)}}" alt=" {{ $customer_doc->work_order }}" class="img-fluid"></a>
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/work_order/'.$customer_doc->work_order)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt=" {{ $customer_doc->work_order }}" class="img-fluid"></a>
                                 @endif
                                 @else
                                 <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
@@ -137,7 +137,7 @@
                                 <a target="_blank" class="iframe-popup" href="{{asset('storage/authorization/'.$customer_doc->authorization)}}"> <img src="{{asset('app-assets/images/icons/pdf.png')}}" alt=" {{ $customer_doc->authorization }}" class="img-fluid"></a>
 
                                 @else
-                                <a target="_blank" class="iframe-popup" href="{{asset('storage/authorization/'.$customer_doc->authorization)}}"> <img src="{{asset('storage/authorization/'.$customer_doc->authorization)}}" alt=" {{ $customer_doc->authorization }}" class="img-fluid"></a>
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/authorization/'.$customer_doc->authorization)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt=" {{ $customer_doc->authorization }}" class="img-fluid"></a>
                                 @endif
                                 @else
                                 <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
@@ -154,7 +154,7 @@
                                 <a target="_blank" class="iframe-popup" href="{{asset('storage/ip_agreement/'.$customer_doc->ip_agreement)}}"> <img src="{{asset('app-assets/images/icons/pdf.png')}}" alt=" {{ $customer_doc->ip_agreement }}" class="img-fluid"></a>
 
                                 @else
-                                <a target="_blank" class="iframe-popup" href="{{asset('storage/ip_agreement/'.$customer_doc->ip_agreement)}}"> <img src="{{asset('storage/ip_agreement/'.$customer_doc->ip_agreement)}}" alt=" {{ $customer_doc->ip_agreement }}" class="img-fluid"></a>
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/ip_agreement/'.$customer_doc->ip_agreement)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt=" {{ $customer_doc->ip_agreement }}" class="img-fluid"></a>
                                 @endif
                                 @else
                                 <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
@@ -169,7 +169,7 @@
                                 <a target="_blank" class="iframe-popup" href="{{asset('storage/noc/'.$customer_doc->noc)}}"> <img src="{{asset('app-assets/images/icons/pdf.png')}}" alt=" {{ $customer_doc->noc }}" class="img-fluid"></a>
 
                                 @else
-                                <a target="_blank" class="iframe-popup" href="{{asset('storage/noc/'.$customer_doc->noc)}}"> <img src="{{asset('storage/noc/'.$customer_doc->noc)}}" alt=" {{ $customer_doc->noc }}" class="img-fluid"></a>
+                                <a target="_blank" class="iframe-popup" href="{{asset('storage/noc/'.$customer_doc->noc)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt=" {{ $customer_doc->noc }}" class="img-fluid"></a>
                                 @endif
                                 @else
                                 <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">

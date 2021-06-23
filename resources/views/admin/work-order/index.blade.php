@@ -156,13 +156,13 @@
                                                         @if($order->order_approval->m_approved_status =='Approved')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
                                                         @else
-                                                            @if($order->completion_status =='Processing')
-                                                            <p class="bg-danger text-white btn-block">Incomplete</p>
-                                                            @else
-                                                            <a href="{{route('workOrderApprovalMarketing',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
-                                                          
-                                                            <a href="" class="btn btn-warning btn-sm">Modify</a>
-                                                            @endif
+                                                        @if($order->completion_status =='Processing')
+                                                        <p class="bg-danger text-white btn-block">Incomplete</p>
+                                                        @else
+                                                        <a href="{{route('workOrderApprovalMarketing',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
+
+                                                        <a href="" class="btn btn-warning btn-sm">Modify</a>
+                                                        @endif
                                                         @endif
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
@@ -365,7 +365,7 @@
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title" id="myModalLabel1">View NOC</h4>
+                                                        <h4 class="modal-title" id="myModalLabel1">View Details</h4>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">×</span>
                                                         </button>
@@ -387,43 +387,121 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Work order:</td>
-                                                                    <td><a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/work_order3.JPG" data-lightbox="work_order3.JPG" class="text-center btn btn-primary btn-sm">View
-                                                                            image</a>
+                                                                    <td>
+
+                                                                        @if($order->customer_doc->work_order)
+                                                                        @php
+                                                                        $ext =pathinfo($order->customer_doc->work_order, PATHINFO_EXTENSION);
+                                                                        @endphp
+
+                                                                        @if ($ext == 'pdf')
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block " href="{{asset('storage/work_order/'.$order->customer_doc->work_order)}}">View Pdf</a>
+
+                                                                        @else
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block" href="{{asset('storage/work_order/'.$order->customer_doc->work_order)}}">View image</a>
+                                                                        @endif
+                                                                        @else
+                                                                        No File
+                                                                        @endif
+
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>IP Agreement</td>
                                                                     <td>
-                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/ip_autorize5.jpg" data-lightbox="ip_autorize5.jpg" class="text-center btn btn-primary btn-sm">View
-                                                                            image</a>
+                                                                        @if($order->customer_doc->ip_agreement)
+                                                                        @php
+                                                                        $ext =pathinfo($order->customer_doc->ip_agreement, PATHINFO_EXTENSION);
+                                                                        @endphp
+
+                                                                        @if ($ext == 'pdf')
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block " href="{{asset('storage/ip_agreement/'.$order->customer_doc->ip_agreement)}}">View Pdf</a>
+
+                                                                        @else
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block" href="{{asset('storage/ip_agreement/'.$order->customer_doc->ip_agreement)}}">View image</a>
+                                                                        @endif
+                                                                        @else
+                                                                        No File
+                                                                        @endif
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Authorization(Cor)</td>
                                                                     <td>
-                                                                        <a data-fancybox="" data-type="iframe" data-src="https://demo.circlenetworkbd.net/assets/uploads/customer/polly_it1.pdf" href="javascript:;" class="text-center btn btn-primary btn-sm">View
-                                                                            Pdf</a>
+                                                                        @if($order->customer_doc->authorization)
+                                                                        @php
+                                                                        $ext =pathinfo($order->customer_doc->authorization, PATHINFO_EXTENSION);
+                                                                        @endphp
+
+                                                                        @if ($ext == 'pdf')
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block " href="{{asset('storage/authorization/'.$order->customer_doc->authorization)}}">View Pdf</a>
+
+                                                                        @else
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block" href="{{asset('storage/authorization/'.$order->customer_doc->authorization)}}">View image</a>
+                                                                        @endif
+                                                                        @else
+                                                                        No File
+                                                                        @endif
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>License Copy</td>
                                                                     <td>
-                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/linices9.jpg" data-lightbox="linices9.jpg" class="text-center btn btn-primary btn-sm">View
-                                                                            image</a>
+                                                                        @if($order->customer->btrc_license_url)
+                                                                        @php
+                                                                        $ext =pathinfo($order->customer->btrc_license_url, PATHINFO_EXTENSION);
+                                                                        @endphp
+
+                                                                        @if ($ext == 'pdf')
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block " href="{{asset('storage/btrc_license/'.$order->customer->btrc_license_url)}}">View Pdf</a>
+
+                                                                        @else
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block" href="{{asset('storage/btrc_license/'.$order->customer->btrc_license_url)}}">View image</a>
+                                                                        @endif
+                                                                        @else
+                                                                        No File
+                                                                        @endif
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Trade License</td>
                                                                     <td>
-                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/Trade_License7.jpg" data-lightbox="Trade_License7.jpg" class="text-center btn btn-primary btn-sm">View
-                                                                            image</a>
+                                                                        @if($order->customer->trade_license_url)
+                                                                        @php
+                                                                        $ext =pathinfo($order->customer->trade_license_url, PATHINFO_EXTENSION);
+                                                                        @endphp
+
+                                                                        @if ($ext == 'pdf')
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block " href="{{asset('storage/trade_license/'.$order->customer->trade_license_url)}}">View Pdf</a>
+
+                                                                        @else
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block" href="{{asset('storage/trade_license/'.$order->customer->trade_license_url)}}">View image</a>
+                                                                        @endif
+                                                                        @else
+                                                                        No File
+                                                                        @endif
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Nid Copy</td>
                                                                     <td>
-                                                                        <a id="single_image" href="https://demo.circlenetworkbd.net/assets/uploads/customer/nid_final1.JPG" data-lightbox="nid_final1.JPG" class="text-center btn btn-primary btn-sm">View
+                                                                        @if($order->customer->nid_url)
+                                                                        @php
+                                                                        $ext =pathinfo($order->customer->nid_url, PATHINFO_EXTENSION);
+                                                                        @endphp
+
+                                                                        @if ($ext == 'pdf')
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block" href="{{asset('storage/nid/'.$order->customer->nid_url)}}"> <img src="{{asset('app-assets/images/icons/pdf.png')}}" alt=" {{ $order->customer->nid_url }}" class="img-fluid"></a>
+
+                                                                        @else
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block" href="{{asset('storage/nid/'.$order->customer->nid_url)}}">View
                                                                             image</a>
+
+
+                                                                        @endif
+                                                                        @else
+                                                                        No File
+                                                                        @endif
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -661,5 +739,11 @@
 <script src="{{ asset('/') }}app-assets/js/scripts/forms/pickers/form-pickers.js"></script>
 @endsection
 @push('script')
-
+<script>
+    $(document).ready(function() {
+        $('.iframe-popup').magnificPopup({
+            type: 'iframe'
+        });
+    });
+</script>
 @endpush
