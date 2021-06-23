@@ -54,7 +54,7 @@
                                             <td>Location: (Upazila) </td>
                                             <td>
                                                 <select name="location_upazila" id="location_upazila"
-                                                    class="form-control" v-model="upazila_id">
+                                                    class="form-control form-control-sm" v-model="upazila_id">
                                                     <option value="">Select one</option>
                                                     <option :value="row.id" v-for="row in upazilas" v-html="row.name"
                                                         style="max-width: 200px">

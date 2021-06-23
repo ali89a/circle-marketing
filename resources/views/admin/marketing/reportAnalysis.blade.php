@@ -37,12 +37,12 @@
                                 </div> --}}
                                 <div class="col-sm-2">
                                     <button @click="search" type="submit" id="searchBtn"
-                                        class="btn btn-primary byn-block form-control mt-2">
+                                        class="btn btn-info byn-block form-control mt-2">
                                         Search
                                     </button>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button class="btn btn-primary byn-block form-control mt-2" type="reset"
+                                    <button class="btn btn-warning byn-block form-control mt-2" type="reset"
                                         id="reset">Reset
                                     </button>
                                 </div>

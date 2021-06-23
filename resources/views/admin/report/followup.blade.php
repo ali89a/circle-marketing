@@ -30,7 +30,7 @@
                                                     name="report_id" v-model="report_id" @change="fetch_report">
                                                     <option label="">Select One</option>
                                                     @foreach ($reports as $item)
-                                                    <option value="{{$item->id}}">{{$item->cname}}</option>
+                                                    <option value="{{$item->id}}">{{$item->cname}} ({{ $item->contact_number }})</option>
                                                     @endforeach
                                                 </select>
                                             </td>
