@@ -360,22 +360,22 @@ class CustomerReportController extends Controller
                 $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
                 $list = DB::table('customer_reports')
                     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
-                    ->join('districts', 'customer_reports.location_district', 'districts.id')
-                    ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-                    ->where('customer_reports.created_at', '>', $from)
-                    ->where('customer_reports.created_at', '<', $to->addDay())
-                    ->where('customer_service_reports.ctype', '=', 'new');
+                    ->join('admins', 'customer_reports.createdBy', 'admins.id')
+                    ->where('customer_service_reports.created_at', '>', $from)
+                    ->where('customer_service_reports.created_at', '<', $to->addDay())
+                    ->where('customer_service_reports.ctype', '=', 'new')
+                    ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                    ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
             }
-
-            if (!$request->user()->can('report-approve')) {
-                $list->where('customer_reports.createdBy', Auth::user()->id);
-            }
-            $list->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+            $list->select(
+                'customer_reports.*',
+                'customer_service_reports.*',
+                'admins.name',
+            )
                 ->orderBy('customer_reports.id', 'DESC');
             return view('admin.marketing.result', [
                 'r'           =>  $list->get(),
             ]);
         }
-        
     }
 }
