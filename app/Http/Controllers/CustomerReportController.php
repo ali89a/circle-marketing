@@ -328,10 +328,10 @@ class CustomerReportController extends Controller
         // ]);
     }
 
-    public function storeWorkLimit(Request $request, $id)
+    public function storeWorkLimit(Request $request)
     {
-      //  dd($request->all());
-        $workLimit = WorkLimit::find($id);
+        // dd($request->all());
+        // $workLimit = WorkLimit::find($request->id);
         // $admin = $request->admin_id;
         // $newclient = $request->newclient;
         // $followup = $request->followup;
@@ -342,24 +342,24 @@ class CustomerReportController extends Controller
         //     $input['followup'] = $followup[$key];
         //     $input['reconnect'] = $reconnect[$key];
         //     WorkLimit::insert($input);
-        //   WorkLimit::whereIn('admin_id', '$request->admin_id')->update($input);
-        //  DB::update("update products set display_index = $caseString end where id in ($ids)");
-        //  }
+        //     //  WorkLimit::where('id', $request->id[])->update($input);
+        //}
 
         if (count($request->id) > 0) {
             foreach ($request->id as $item) {
+                // dd($item);
                 $datad = array(
-                   // 'admin_id' => $request->admin_id[$item],
+                    'admin_id' => $request->admin_id[$item],
                     'newclient' => $request->newclient[$item],
                     'followup' => $request->followup[$item],
                     'reconnect' => $request->reconnect[$item],
                 );
+                dd($datad);
                 $workLimit = WorkLimit::where('id', $request->id[$item])->first();
                 $workLimit->update($datad);
             }
         }
-        return back()->with('success', 'update');
-        // return redirect(route('marketingWorkLimit'));
+        return redirect(route('marketingWorkLimit'));
     }
 
     public function marketingReportAnalysis()
