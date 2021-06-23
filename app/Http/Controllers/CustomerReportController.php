@@ -323,39 +323,23 @@ class CustomerReportController extends Controller
         return view('admin.marketing.workLimit', [
             'workLimit' => $workLimit->get()
         ]);
-        // return view('admin.marketing.workLimit', [
-        //     'users' => $users
-        // ]);
     }
 
     public function storeWorkLimit(Request $request)
     {
         // dd($request->all());
-        // $workLimit = WorkLimit::find($request->id);
-        // $admin = $request->admin_id;
-        // $newclient = $request->newclient;
-        // $followup = $request->followup;
-        // $reconnect = $request->reconnect;
-        // foreach ($admin as $key => $no) {
-        //     $input['admin_id'] = $no;
-        //     $input['newclient'] = $newclient[$key];
-        //     $input['followup'] = $followup[$key];
-        //     $input['reconnect'] = $reconnect[$key];
-        //     WorkLimit::insert($input);
-        //     //  WorkLimit::where('id', $request->id[])->update($input);
-        //}
-
+        $workLimit = WorkLimit::find($request->id);
         if (count($request->id) > 0) {
-            foreach ($request->id as $item) {
+            foreach ($request->id as $item => $value) {
                 // dd($item);
                 $datad = array(
-                    'admin_id' => $request->admin_id[$item],
                     'newclient' => $request->newclient[$item],
                     'followup' => $request->followup[$item],
                     'reconnect' => $request->reconnect[$item],
                 );
-                dd($datad);
+                //   dd($datad);
                 $workLimit = WorkLimit::where('id', $request->id[$item])->first();
+                //  dd($workLimit);
                 $workLimit->update($datad);
             }
         }
