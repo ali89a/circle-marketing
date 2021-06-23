@@ -323,71 +323,26 @@ class CustomerReportController extends Controller
         return view('admin.marketing.workLimit', [
             'workLimit' => $workLimit->get()
         ]);
-        // return view('admin.marketing.workLimit', [
-        //     'users' => $users
-        // ]);
     }
 
     public function storeWorkLimit(Request $request)
     {
         // dd($request->all());
-         $workLimit = WorkLimit::find($request->id);
-        // $admin = $request->admin_id;
-        // $newclient = $request->newclient;
-        // $followup = $request->followup;
-        // $reconnect = $request->reconnect;
-        // foreach ($admin as $key => $no) {
-        //     $input['admin_id'] = $no;
-        //     $input['newclient'] = $newclient[$key];
-        //     $input['followup'] = $followup[$key];
-        //     $input['reconnect'] = $reconnect[$key];
-        //     WorkLimit::insert($input);
-        //     //  WorkLimit::where('id', $request->id[])->update($input);
-        //}
-
+        $workLimit = WorkLimit::find($request->id);
         if (count($request->id) > 0) {
-            foreach ($request->id as $item=>$value) {
+            foreach ($request->id as $item => $value) {
                 // dd($item);
                 $datad = array(
                     'newclient' => $request->newclient[$item],
                     'followup' => $request->followup[$item],
                     'reconnect' => $request->reconnect[$item],
                 );
-             //   dd($datad);
+                //   dd($datad);
                 $workLimit = WorkLimit::where('id', $request->id[$item])->first();
-              //  dd($workLimit);
+                //  dd($workLimit);
                 $workLimit->update($datad);
             }
         }
-
-
-        // $newclient = $this->input->post('newclient');
-        // $followup = $this->input->post('followup');
-        // $reconnect = $this->input->post('reconnect');
-        // foreach ($newclient as $key => $value) {
-        //     //var_dump($newclient[$key]);exit;
-        //     $data = array(
-        //         'newclient' => (int) $newclient[$key],
-        //         'followup' => (int) $followup[$key],
-        //         'reconnect' => (int) $reconnect[$key]
-        //     );
-        //     //$query = "update user_profiles set newclient=$newclient[$key],followup=$followup[$key],reconnect=$reconnect[$key] where user_id=$key";
-        //     //$this->db->query($query);       
-        //     $this->db->where('user_id',
-        //         $key
-        //     );
-        //     if ($this->db->update('user_profiles', $data)) {
-        //         $this->session->set_userdata('msg', '<p class="alert alert-success">Save Success.. <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        //             <span aria-hidden="true">&times;</span>
-        //             </button></p>');
-        //     }
-        // }
-
-
-
-
-
-
         return redirect(route('marketingWorkLimit'));
     }
 
