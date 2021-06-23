@@ -363,9 +363,11 @@ class CustomerReportController extends Controller
                     ->join('admins', 'customer_reports.createdBy', 'admins.id')
                     ->where('customer_service_reports.created_at', '>', $from)
                     ->where('customer_service_reports.created_at', '<', $to->addDay())
-                    ->where('customer_service_reports.ctype', '=', 'new')
-                    ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                    ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                    ->where(function ($query) {
+                        $query->where('customer_service_reports.ctype', '=', 'new')
+                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                            ->ORWhere('customer_service_reports.ctype', '=', 'reconnect');
+                    });
             }
             $list->select(
                 'customer_reports.*',
