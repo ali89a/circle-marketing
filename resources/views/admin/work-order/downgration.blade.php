@@ -85,7 +85,7 @@
                                                             <input type="number" v-model="row.capacity" :name="'items['+index+'][capacity]'" class="form-control input-sm" required>
                                                         </td>
                                                         <td>
-                                                            <input type="number" v-model="row.upgration" :name="'items['+index+'][upgration]'" class="form-control input-sm" required>
+                                                            <input type="number" v-model="row.downgration" :name="'items['+index+'][downgration]'" class="form-control input-sm" required>
                                                         </td>
                                                         <td>
                                                             <input type="number" v-model="row.price" :name="'items['+index+'][price]'" class="form-control input-sm" required>
