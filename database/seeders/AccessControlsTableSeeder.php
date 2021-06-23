@@ -81,6 +81,12 @@ class AccessControlsTableSeeder extends Seeder
             ['name' => 'customer-edit', 'guard_name' => 'admin'],
             ['name' => 'customer-delete', 'guard_name' => 'admin'],
             
+            ['name' => 'service-list', 'guard_name' => 'admin'],
+            ['name' => 'service-create', 'guard_name' => 'admin'],
+            ['name' => 'service-show', 'guard_name' => 'admin'],
+            ['name' => 'service-edit', 'guard_name' => 'admin'],
+            ['name' => 'service-delete', 'guard_name' => 'admin'],
+
             ['name' => 'work-order-list', 'guard_name' => 'admin'],
             ['name' => 'work-order-create', 'guard_name' => 'admin'],
             ['name' => 'work-order-show', 'guard_name' => 'admin'],
