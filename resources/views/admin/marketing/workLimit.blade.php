@@ -20,9 +20,10 @@
                                             <th>Reconnect/Call</th>
                                         </tr>
                                         @foreach ($workLimit as $item)
+                                        <input type="hidden" name="id[]" value="{{$item->id}}">
                                         <tr class="">
                                             <td>{{ $item->name }}
-                                            <input type="hidden" name="admin_id[]" 
+                                            <input type="hidden" name="admin_id" 
                                                     value="{{ $item->id }}">
                                             </td>
                                             <td><input type="number" name="newclient[]" class="form-control-sm"

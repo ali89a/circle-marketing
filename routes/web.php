@@ -90,5 +90,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/marketing-work-limit', [CustomerReportController::class, 'marketingWorkLimit'])->name('marketingWorkLimit');
     Route::get('/marketing-report-analysis', [CustomerReportController::class, 'marketingReportAnalysis'])->name('marketingReportAnalysis');
     Route::post('/store-work-limit', [CustomerReportController::class, 'storeWorkLimit'])->name('storeWorkLimit');
+
+    
 });
 require('admin.php');

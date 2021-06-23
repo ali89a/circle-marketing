@@ -101,7 +101,7 @@ class CustomerReportController extends Controller
 
     public function update(Request $request)
     {
-       // dd($request->all());
+        // dd($request->all());
         $this->validate($request, [
             // 'visiting_card' => 'required|mimes:jpeg,jpg,png,webp,gif|max:10240',
             'audio' => 'mimes:3gp,mp3,mpc,msv,wav,awb|max:102400',
@@ -330,22 +330,35 @@ class CustomerReportController extends Controller
 
     public function storeWorkLimit(Request $request)
     {
-        //dd($request->all());
-        //  $admin = WorkLimit::find($request->id);
-        $admin = $request->admin_id;
-        $newclient = $request->newclient;
-        $followup = $request->followup;
-        $reconnect = $request->reconnect;
-        foreach ($admin as $key => $no) {
-            $input['admin_id'] = $no;
-            $input['newclient'] = $newclient[$key];
-            $input['followup'] = $followup[$key];
-            $input['reconnect'] = $reconnect[$key];
-            WorkLimit::insert($input);
-            //   WorkLimit::whereIn('admin_id', '$request->admin_id')->update($input);
-            //  DB::update("update products set display_index = $caseString end where id in ($ids)");
-        }
+        // dd($request->all());
+        // $workLimit = WorkLimit::find($request->id);
+        // $admin = $request->admin_id;
+        // $newclient = $request->newclient;
+        // $followup = $request->followup;
+        // $reconnect = $request->reconnect;
+        // foreach ($admin as $key => $no) {
+        //     $input['admin_id'] = $no;
+        //     $input['newclient'] = $newclient[$key];
+        //     $input['followup'] = $followup[$key];
+        //     $input['reconnect'] = $reconnect[$key];
+        //     WorkLimit::insert($input);
+        //     //  WorkLimit::where('id', $request->id[])->update($input);
+        //}
 
+        if (count($request->id) > 0) {
+            foreach ($request->id as $item) {
+                // dd($item);
+                $datad = array(
+                    'admin_id' => $request->admin_id[$item],
+                    'newclient' => $request->newclient[$item],
+                    'followup' => $request->followup[$item],
+                    'reconnect' => $request->reconnect[$item],
+                );
+                dd($datad);
+                $workLimit = WorkLimit::where('id', $request->id[$item])->first();
+                $workLimit->update($datad);
+            }
+        }
         return redirect(route('marketingWorkLimit'));
     }
 
