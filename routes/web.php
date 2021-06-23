@@ -88,8 +88,9 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/search-result', [CustomerReportController::class, 'searchResult'])->name('searchResult');
     Route::get('/pending-search-result', [CustomerReportController::class, 'pendingSearchResult'])->name('pendingSearchResult');
     Route::get('/marketing-work-limit', [CustomerReportController::class, 'marketingWorkLimit'])->name('marketingWorkLimit');
-    Route::get('/marketing-report-analysis', [CustomerReportController::class, 'marketingReportAnalysis'])->name('marketingReportAnalysis');
     Route::post('/store-work-limit', [CustomerReportController::class, 'storeWorkLimit'])->name('storeWorkLimit');
+    Route::get('/marketing-report-analysis', [CustomerReportController::class, 'marketingReportAnalysis'])->name('marketingReportAnalysis');
+    Route::get('/report-analysis-result', [CustomerReportController::class, 'reportAnalysisResult'])->name('reportAnalysisResult');
 
     
 });

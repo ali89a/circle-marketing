@@ -348,7 +348,34 @@ class CustomerReportController extends Controller
 
     public function marketingReportAnalysis()
     {
-
         return view('admin.marketing.reportAnalysis');
+    }
+
+    public function reportAnalysisResult(Request $request)
+    {
+        // dd($request->all());
+        if ($request->ajax()) {
+            if (!empty($request->from_date) && !empty($request->to_date)) {
+                $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
+                $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
+                $list = DB::table('customer_reports')
+                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                    ->join('districts', 'customer_reports.location_district', 'districts.id')
+                    ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+                    ->where('customer_reports.created_at', '>', $from)
+                    ->where('customer_reports.created_at', '<', $to->addDay())
+                    ->where('customer_service_reports.ctype', '=', 'new');
+            }
+
+            if (!$request->user()->can('report-approve')) {
+                $list->where('customer_reports.createdBy', Auth::user()->id);
+            }
+            $list->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+                ->orderBy('customer_reports.id', 'DESC');
+            return view('admin.marketing.result', [
+                'r'           =>  $list->get(),
+            ]);
+        }
+        
     }
 }
