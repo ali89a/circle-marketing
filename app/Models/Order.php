@@ -13,6 +13,11 @@ class Order extends Model
 
         return $this->hasOne('App\Models\OrderCustomerInfo', 'order_id');
     }
+    public function customer_doc()
+    {
+
+        return $this->hasOne('App\Models\OrderCustomerDocument', 'order_id');
+    }
     public function customer()
     {
 

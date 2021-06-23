@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DivisionSeeder::class);
         $this->call(DistrictSeeder::class);
         $this->call(UpazilaSeeder::class);
+        $this->call(ServiceSeeder::class);
         $this->call(AccessControlsTableSeeder::class);
         // \App\Models\User::factory(10)->create();
     }
