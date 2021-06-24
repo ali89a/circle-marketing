@@ -348,7 +348,37 @@ class CustomerReportController extends Controller
 
     public function marketingReportAnalysis()
     {
-
         return view('admin.marketing.reportAnalysis');
+    }
+
+    public function reportAnalysisResult(Request $request)
+    {
+        // dd($request->all());
+        if ($request->ajax()) {
+            if (!empty($request->from_date) && !empty($request->to_date)) {
+                $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
+                $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
+                $list = DB::table('customer_reports')
+                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                    ->join('admins', 'customer_reports.createdBy', 'admins.id')
+                    ->where('customer_service_reports.created_at', '>', $from)
+                    ->where('customer_service_reports.created_at', '<', $to->addDay())
+                    ->where(function ($query) {
+                        $query->where('customer_service_reports.ctype', '=', 'approved')
+                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                            ->ORWhere('customer_service_reports.ctype', '=', 'reconnect');
+                    });
+            }
+            $list->select(
+                'customer_reports.*',
+                'customer_service_reports.*',
+                'admins.name',
+            )
+                ->groupBy('customer_reports.createdBy')
+                ->orderBy('customer_reports.id', 'DESC');
+            return view('admin.marketing.result', [
+                'r'           =>  $list->get(),
+            ]);
+        }
     }
 }
