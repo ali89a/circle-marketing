@@ -110,6 +110,10 @@
         href="{{ route('district.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate"
           data-i18n="Collapsed Menu">District</span></a>
     </li>
+    <li class="{{ Request::segment(2) == 'upazila' ? 'active' : '' }}"><a class="d-flex align-items-center"
+        href="{{ route('upazila.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate"
+          data-i18n="Collapsed Menu">Upazila</span></a>
+    </li>
   
   </ul>
 </li>

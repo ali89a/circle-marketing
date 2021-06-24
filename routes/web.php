@@ -12,6 +12,7 @@ use App\Http\Controllers\CustomerReportController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\UpazilaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::resource('service', ServiceController::class);
     Route::resource('division', DivisionController::class);
     Route::resource('district', DistrictController::class);
+    Route::resource('upazila', UpazilaController::class);
    
     Route::get('/pending-list', [CustomerReportController::class, 'pendingList'])->name('pendingList');
     Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);

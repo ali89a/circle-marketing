@@ -87,6 +87,24 @@ class AccessControlsTableSeeder extends Seeder
             ['name' => 'service-edit', 'guard_name' => 'admin'],
             ['name' => 'service-delete', 'guard_name' => 'admin'],
 
+            ['name' => 'division-list', 'guard_name' => 'admin'],
+            ['name' => 'division-create', 'guard_name' => 'admin'],
+            ['name' => 'division-show', 'guard_name' => 'admin'],
+            ['name' => 'division-edit', 'guard_name' => 'admin'],
+            ['name' => 'division-delete', 'guard_name' => 'admin'],
+
+            ['name' => 'district-list', 'guard_name' => 'admin'],
+            ['name' => 'district-create', 'guard_name' => 'admin'],
+            ['name' => 'district-show', 'guard_name' => 'admin'],
+            ['name' => 'district-edit', 'guard_name' => 'admin'],
+            ['name' => 'district-delete', 'guard_name' => 'admin'],
+
+            ['name' => 'upazila-list', 'guard_name' => 'admin'],
+            ['name' => 'upazila-create', 'guard_name' => 'admin'],
+            ['name' => 'upazila-show', 'guard_name' => 'admin'],
+            ['name' => 'upazila-edit', 'guard_name' => 'admin'],
+            ['name' => 'upazila-delete', 'guard_name' => 'admin'],
+
             ['name' => 'work-order-list', 'guard_name' => 'admin'],
             ['name' => 'work-order-create', 'guard_name' => 'admin'],
             ['name' => 'work-order-show', 'guard_name' => 'admin'],
