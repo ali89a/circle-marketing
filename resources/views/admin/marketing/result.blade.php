@@ -20,19 +20,25 @@
             <th>Total</th>
         </tr>
         @foreach ($r as $item)
-        <tr class="">
-            <td>{{ $item->name }}</td>
-            <td>{{ $item->id }}</td>
-            <td>(10*1) = 10</td>
-            <td>3.3%</td>
-            <td>0</td>
-            <td>(8*1) =8</td>
-            <td>0%</td>
-            <td>3</td>
-            <td>(5*1)= 5</td>
-            <td>19.8%</td>
-            <td>23.1%</td>
-        </tr>
+            <tr class="">
+                <td>{{ $item->name }}</td>
+                <td>
+                    @if ($item->ctype == 'approved')
+                        {{$item->ctype}}
+
+                        {{-- {{ $item->ctype }} --}}
+                    @endif
+                </td>
+                <td>(10*1) = 10</td>
+                <td>3.3%</td>
+                <td>0</td>
+                <td>(8*1) =8</td>
+                <td>0%</td>
+                <td>3</td>
+                <td>(5*1)= 5</td>
+                <td>19.8%</td>
+                <td>23.1%</td>
+            </tr>
         @endforeach
     </tbody>
 </table>
@@ -65,55 +71,55 @@
             <th>Others</th>
         </tr>
         @foreach ($r as $item)
-        <tr>
-            <td rowspan="4" style="width: 82px">{{$item->name}}</td>
-        </tr>
+            <tr>
+                <td rowspan="4" style="width: 82px">{{ $item->name }}</td>
+            </tr>
 
-        <tr>
-            <td>New Client</td>
-            <td>1</td>
-            <td></td>
-            <td>1</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Followup</td>
-            <td>2</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>4</td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Reconnect</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+            <tr>
+                <td>New Client</td>
+                <td>1</td>
+                <td></td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Followup</td>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Reconnect</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
 
         @endforeach
     </tbody>
