@@ -48,7 +48,7 @@
                             <h4 class="card-title">Customer Edit</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('user.update',$user->id)}}" method="POST" class="">
+                            <form action="{{route('user.update',$user->id)}}" method="POST" class="" enctype="multipart/form-data">
                                 @csrf
                                 @method('put')
                                 <div class="row">
@@ -84,8 +84,8 @@
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label for="vin_no">VIN Number</label>
-                                            <input type="text" class="form-control" id="vin_no" name="vin_no" placeholder="Enter VIN Number" value="{{$user->vin_no}}">
+                                            <label for="vin_no">BIN Number</label>
+                                            <input type="text" class="form-control" id="bin_no" name="bin_no" placeholder="Enter BIN Number" value="{{$user->bin_no}}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
