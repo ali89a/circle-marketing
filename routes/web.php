@@ -9,6 +9,8 @@ use App\Http\Controllers\EnvDynamicController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CustomerReportController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\ServiceController;
 
 /*
@@ -45,6 +47,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     
     Route::resource('report', CustomerReportController::class);
     Route::resource('service', ServiceController::class);
+    Route::resource('division', DivisionController::class);
+    Route::resource('district', DistrictController::class);
    
     Route::get('/pending-list', [CustomerReportController::class, 'pendingList'])->name('pendingList');
     Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);

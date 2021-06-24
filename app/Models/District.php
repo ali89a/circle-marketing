@@ -6,14 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class District extends Model
 {
+    protected $fillable=[
+        'name','division_id'
+    ];
     public function division(){
 
-        return $this->belongsTo('App\Division', 'division_id');
+        return $this->belongsTo('App\Models\Division', 'division_id');
 
     }
     public function upazilas(){
 
-        return $this->hasMany('App\Upazila', 'district_id');
+        return $this->hasMany('App\Models\Upazila', 'district_id');
 
     }
 }

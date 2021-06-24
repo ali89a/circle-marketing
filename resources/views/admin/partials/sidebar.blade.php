@@ -98,4 +98,19 @@
   
   </ul>
 </li>
+<li class="{{ Request::segment(2) == 'district' ? 'has-sub sidebar-group-active open' : '' }} nav-item"><a
+    class="d-flex align-items-center" href="#"><i data-feather="layout"></i><span class="menu-title text-truncate"
+      data-i18n="Page Layouts">Location</span></a>
+  <ul class="menu-content">
+    <li class="{{ Request::segment(2) == 'division' ? 'active' : '' }}"><a class="d-flex align-items-center"
+        href="{{ route('division.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate"
+          data-i18n="Collapsed Menu">Division</span></a>
+    </li>
+    <li class="{{ Request::segment(2) == 'district' ? 'active' : '' }}"><a class="d-flex align-items-center"
+        href="{{ route('district.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate"
+          data-i18n="Collapsed Menu">District</span></a>
+    </li>
+  
+  </ul>
+</li>
 </ul>
