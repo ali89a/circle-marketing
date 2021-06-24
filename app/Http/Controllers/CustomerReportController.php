@@ -387,13 +387,22 @@ class CustomerReportController extends Controller
                             ->ORWhere('customer_service_reports.ctype', '=', 'reconnect');
                     })->get();
             }
-            echo 'new:' . $list->where('ctype', 'new')->count();
-            echo '<br>';
-            echo 'reconnect:' . $list->where('ctype', 'reconnect')->count();
-            echo '<br>';
-            echo 'followup:' . $list->where('ctype', 'followup')->count();
+            // echo 'new:' . $list->where('ctype', 'new')->count();
+            // echo '<br>';
+            // echo 'reconnect:' . $list->where('ctype', 'reconnect')->count();
+            // echo '<br>';
+            // echo 'followup:' . $list->where('ctype', 'followup')->count();
 
-            dd($list);
+            // dd($list);
+
+           // dd($list);
+
+            // $list->select('customer_reports.*', 'customer_service_reports.*', 'admins.name')
+            //     ->groupBy('customer_reports.createdBy')
+            //     ->orderBy('customer_reports.id', 'DESC');
+
+            // dd($list);
+
             return view('admin.marketing.result', [
                 'r'           =>  $list,
             ]);

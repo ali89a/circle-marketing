@@ -23,8 +23,10 @@
             <tr class="">
                 <td>{{ $item->name }}</td>
                 <td>
-                  
-                   {{  }}
+                  @php
+                       $r->where('ctype', 'new')->count();
+                  @endphp
+                 {{$r}}
                 </td>
                 <td>(10*1) = 10</td>
                 <td>3.3%</td>
