@@ -46,7 +46,7 @@ class OrderController extends Controller
     public function orderUpgrationUpdate(Request $request, $id)
     {
         //dd($request->all());
-        DB::beginTransaction();
+        // DB::beginTransaction();
 
         $products = $request->get('items');
 
@@ -60,13 +60,13 @@ class OrderController extends Controller
             $item->status = "Pending";
             $item->save();
         }
-        DB::commit();
+        //  DB::commit();
         Toastr::success('Order Upgration Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('work-order.index');
     }
     public function orderDowngrationUpdate(Request $request, $id)
     {
-        DB::beginTransaction();
+        // DB::beginTransaction();
 
         $products = $request->get('items');
 
@@ -80,7 +80,7 @@ class OrderController extends Controller
             $item->status = "Pending";
             $item->save();
         }
-        DB::commit();
+        //  DB::commit();
         Toastr::success('Order Downgration Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('work-order.index');
     }
@@ -120,43 +120,43 @@ class OrderController extends Controller
 
     public function docUpdate(Request $request, $id)
     {
-        try {
-            DB::beginTransaction();
-            $customer_doc = OrderCustomerDocument::where('order_id', $id)->first();
-            if ($request->work_order != null) {
-                $fileName = time() . '.' . $request->work_order->extension();
-                $request->work_order->move(storage_path('app/public/work_order'), $fileName);
-                $customer_doc->work_order = $fileName;
-            }
-            if ($request->authorization != null) {
-                $fileName = time() . '.' . $request->authorization->extension();
-                $request->authorization->move(storage_path('app/public/authorization'), $fileName);
-                $customer_doc->authorization = $fileName;
-            }
-            if ($request->ip_agreement != null) {
-                $fileName = time() . '.' . $request->ip_agreement->extension();
-                $request->ip_agreement->move(storage_path('app/public/ip_agreement'), $fileName);
-                $customer_doc->ip_agreement = $fileName;
-            }
-            if ($request->noc != null) {
-                $fileName = time() . '.' . $request->noc->extension();
-                $request->noc->move(storage_path('app/public/noc'), $fileName);
-                $customer_doc->noc = $fileName;
-            }
-            $customer_doc->save();
-            DB::commit();
-            Toastr::success('Customer Doc Added Successful!.', '', ["progressbar" => true]);
-            return redirect()->route('orderEdit', ['id' => $id]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-            $output = [
-                'success' => 0,
-                'msg' => __("messages.something_went_wrong")
-            ];
-            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-            return back();
+        // try {
+        //     DB::beginTransaction();
+        $customer_doc = OrderCustomerDocument::where('order_id', $id)->first();
+        if ($request->work_order != null) {
+            $fileName = time() . '.' . $request->work_order->extension();
+            $request->work_order->move(storage_path('app/public/work_order'), $fileName);
+            $customer_doc->work_order = $fileName;
         }
+        if ($request->authorization != null) {
+            $fileName = time() . '.' . $request->authorization->extension();
+            $request->authorization->move(storage_path('app/public/authorization'), $fileName);
+            $customer_doc->authorization = $fileName;
+        }
+        if ($request->ip_agreement != null) {
+            $fileName = time() . '.' . $request->ip_agreement->extension();
+            $request->ip_agreement->move(storage_path('app/public/ip_agreement'), $fileName);
+            $customer_doc->ip_agreement = $fileName;
+        }
+        if ($request->noc != null) {
+            $fileName = time() . '.' . $request->noc->extension();
+            $request->noc->move(storage_path('app/public/noc'), $fileName);
+            $customer_doc->noc = $fileName;
+        }
+        $customer_doc->save();
+        // DB::commit();
+        Toastr::success('Customer Doc Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('orderEdit', ['id' => $id]);
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        //     $output = [
+        //         'success' => 0,
+        //         'msg' => __("messages.something_went_wrong")
+        //     ];
+        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+        //     return back();
+        // }
     }
     public function orderEdit($id)
     {
@@ -174,7 +174,7 @@ class OrderController extends Controller
     public function orderDetailEdit($id)
     {
         $customer_order = Order::where('id', $id)->first();
-       // dd($customer_order);
+        // dd($customer_order);
         if ($customer_order->type == '' || $customer_order->price == '' || $customer_order->gmap_location == '' || $customer_order->connect_type == '' || $customer_order->visit_type == '' || $customer_order->bill_generate_method == '' || $customer_order->order_submission_date == '' || $customer_order->billing_cycle == '' || $customer_order->billing_remark == '' || $customer_order->bill_start_date == '' || $customer_order->delivery_date == '') {
             Toastr::error('Please Fillup Required Field!.', '', ["progressBar" => true]);
             return redirect()->back();
@@ -195,48 +195,48 @@ class OrderController extends Controller
     public function customerDetailUpdate(Request $request, $id)
     {
 
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
 
-            $customer_info = OrderCustomerInfo::where('order_id', $id)->first();
-            $customer_info->organization = $request->organization;
-            $customer_info->client_type = $request->client_type;
-            $customer_info->occupation = $request->occupation;
-            $customer_info->technical_email = $request->technical_email;
-            $customer_info->billing_email = $request->billing_email;
-            $customer_info->technical_address = $request->technical_address;
-            $customer_info->billing_address = $request->billing_address;
-            $customer_info->mobile = $request->mobile;
-            $customer_info->alter_mobile = $request->alter_mobile;
-            $customer_info->customer_id = $request->customer_id;
-            $customer_info->division_id = $request->division_id;
-            $customer_info->district_id = $request->district_id;
-            $customer_info->upazila_id = $request->upazila_id;
-            $customer_info->save();
-            DB::commit();
-            Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
-            return redirect()->route('docEdit', ['id' => $id]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-            $output = [
-                'success' => 0,
-                'msg' => __("messages.something_went_wrong")
-            ];
-            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-            return back();
-        }
+        $customer_info = OrderCustomerInfo::where('order_id', $id)->first();
+        $customer_info->organization = $request->organization;
+        $customer_info->client_type = $request->client_type;
+        $customer_info->occupation = $request->occupation;
+        $customer_info->technical_email = $request->technical_email;
+        $customer_info->billing_email = $request->billing_email;
+        $customer_info->technical_address = $request->technical_address;
+        $customer_info->billing_address = $request->billing_address;
+        $customer_info->mobile = $request->mobile;
+        $customer_info->alter_mobile = $request->alter_mobile;
+        $customer_info->customer_id = $request->customer_id;
+        $customer_info->division_id = $request->division_id;
+        $customer_info->district_id = $request->district_id;
+        $customer_info->upazila_id = $request->upazila_id;
+        $customer_info->save();
+        //  DB::commit();
+        Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('docEdit', ['id' => $id]);
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        //     $output = [
+        //         'success' => 0,
+        //         'msg' => __("messages.something_went_wrong")
+        //     ];
+        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+        //     return back();
+        // }
     }
     public function orderDetailUpdate(Request $request, $id)
     {
         // dd($request->all());
+        $request->validate([
+            'items' => 'array|required',
+        ]);
 
-        try {
-            $request->validate([
-                'items' => 'array|required',
+        // try {
 
-            ]);
-            DB::beginTransaction();
+        //     DB::beginTransaction();
             $order = Order::find($id);
 
             $order->total_price = $request->total_price;
@@ -257,19 +257,19 @@ class OrderController extends Controller
                 $item->price = $product['price'];
                 $item->save();
             }
-            DB::commit();
+          //  DB::commit();
             Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
             return redirect()->route('work-order.index');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-            $output = [
-                'success' => 0,
-                'msg' => __("messages.something_went_wrong")
-            ];
-            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-            return back();
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        //     $output = [
+        //         'success' => 0,
+        //         'msg' => __("messages.something_went_wrong")
+        //     ];
+        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+        //     return back();
+        // }
     }
     public function nocEdit($id)
     {
@@ -336,57 +336,57 @@ class OrderController extends Controller
 
         // try {
         //     DB::beginTransaction();
-            $order = new Order();
-            $order->customer_id = $request->customer_id;
-            $order->completion_status = 'Processing';
-            $order->creator_user_id = Auth::guard('admin')->user()->id;
-            $order->save();
+        $order = new Order();
+        $order->customer_id = $request->customer_id;
+        $order->completion_status = 'Processing';
+        $order->creator_user_id = Auth::guard('admin')->user()->id;
+        $order->save();
 
-            $order_info = new OrderInfo();
-            $order_info->order_id = $order->id;
-            $order_info->save();
+        $order_info = new OrderInfo();
+        $order_info->order_id = $order->id;
+        $order_info->save();
 
-            $order_buffer = new OrderBuffer();
-            $order_buffer->order_id = $order->id;
-            $order_buffer->save();
+        $order_buffer = new OrderBuffer();
+        $order_buffer->order_id = $order->id;
+        $order_buffer->save();
 
-            $order_noc = new OrderNOCInfo();
-            $order_noc->order_id = $order->id;
-            $order_noc->save();
+        $order_noc = new OrderNOCInfo();
+        $order_noc->order_id = $order->id;
+        $order_noc->save();
 
-            $customer_doc = new OrderCustomerDocument();
-            $customer_doc->order_id = $order->id;
-            $customer_doc->save();
+        $customer_doc = new OrderCustomerDocument();
+        $customer_doc->order_id = $order->id;
+        $customer_doc->save();
 
-            $order_approval = new OrderApproval();
-            $order_approval->m_approved_status = 'Pending';
-            $order_approval->a_approved_status = 'Pending';
-            $order_approval->coo_approved_status = 'Pending';
-            $order_approval->noc_assigned_status = 'Pending';
-            $order_approval->noc_approved_status = 'Pending';
-            $order_approval->order_id = $order->id;
-            $order_approval->save();
+        $order_approval = new OrderApproval();
+        $order_approval->m_approved_status = 'Pending';
+        $order_approval->a_approved_status = 'Pending';
+        $order_approval->coo_approved_status = 'Pending';
+        $order_approval->noc_assigned_status = 'Pending';
+        $order_approval->noc_approved_status = 'Pending';
+        $order_approval->order_id = $order->id;
+        $order_approval->save();
 
 
-            $customer_info = new OrderCustomerInfo();
-            $customer_info->organization = $request->organization;
-            $customer_info->client_type = $request->client_type;
-            $customer_info->occupation = $request->occupation;
-            $customer_info->technical_email = $request->technical_email;
-            $customer_info->billing_email = $request->billing_email;
-            $customer_info->technical_address = $request->technical_address;
-            $customer_info->billing_address = $request->billing_address;
-            $customer_info->mobile = $request->mobile;
-            $customer_info->alter_mobile = $request->alter_mobile;
-            $customer_info->customer_id = $request->customer_id;
-            $customer_info->division_id = $request->division_id;
-            $customer_info->district_id = $request->district_id;
-            $customer_info->upazila_id = $request->upazila_id;
-            $customer_info->order_id = $order->id;
-            $customer_info->save();
-           // DB::commit();
-            // Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
-            return redirect()->route('docEdit', ['id' => $order->id]);
+        $customer_info = new OrderCustomerInfo();
+        $customer_info->organization = $request->organization;
+        $customer_info->client_type = $request->client_type;
+        $customer_info->occupation = $request->occupation;
+        $customer_info->technical_email = $request->technical_email;
+        $customer_info->billing_email = $request->billing_email;
+        $customer_info->technical_address = $request->technical_address;
+        $customer_info->billing_address = $request->billing_address;
+        $customer_info->mobile = $request->mobile;
+        $customer_info->alter_mobile = $request->alter_mobile;
+        $customer_info->customer_id = $request->customer_id;
+        $customer_info->division_id = $request->division_id;
+        $customer_info->district_id = $request->district_id;
+        $customer_info->upazila_id = $request->upazila_id;
+        $customer_info->order_id = $order->id;
+        $customer_info->save();
+        // DB::commit();
+        // Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('docEdit', ['id' => $order->id]);
         // } catch (\Exception $e) {
         //     DB::rollBack();
         //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
@@ -430,8 +430,8 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
             $order = Order::where('id', $id)->first();
             $order->type = $request->type;
             $order->price = $request->price;
@@ -456,19 +456,19 @@ class OrderController extends Controller
             $order->marketing_user_id = $request->marketing_user_id;
             $order->accounts_user_id = $request->accounts_user_id;
             $order->save();
-            DB::commit();
+            // DB::commit();
             Toastr::success('Order Info Added Successful!.', '', ["progressbar" => true]);
             return redirect()->route('orderDetailEdit', ['id' => $order->id]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-            $output = [
-                'success' => 0,
-                'msg' => __("messages.something_went_wrong")
-            ];
-            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-            return back();
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        //     $output = [
+        //         'success' => 0,
+        //         'msg' => __("messages.something_went_wrong")
+        //     ];
+        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+        //     return back();
+        // }
     }
 
     /**
