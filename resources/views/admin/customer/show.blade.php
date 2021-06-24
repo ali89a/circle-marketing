@@ -61,7 +61,9 @@
                             </tr>
                             <tr>
                                 <th>Image</th>
-                                <td><img src="{{asset('storage/customer/'.$model->img_url)}}" alt=" {{ $model->img_url }}" class="img-fluid"></td>
+                                <td>
+                                    <img src="{{asset('storage/customer/'.$model->img_url)}}" alt=" No File" class="img-fluid">
+                                </td>
                                 <th>VIN Number</th>
                                 <td>{{$model->vin_no}}</td>
                                 <th>Billing Address</th>
@@ -69,11 +71,55 @@
                             </tr>
                             <tr>
                                 <th>Btrc License</th>
-                                <td><img src="{{asset('storage/btrc_license/'.$model->btrc_license_url)}}" alt=" {{ $model->btrc_license_url }}" class="img-fluid"></td>
+                                <td>
+
+                                    @if($model->img_url)
+                                    @php
+                                    $ext =pathinfo($model->btrc_license_url, PATHINFO_EXTENSION);
+                                    @endphp
+                                    @if ($ext == 'pdf')
+                                    <a target="_blank" class="iframe-popup" href="{{asset('storage/btrc_license/'.$model->btrc_license_url)}}"> <img src="{{asset('app-assets/images/icons/pdfs-icon.png')}}" alt=" {{ $model->btrc_license_url }}" class="img-fluid"></a>
+
+                                    @else
+                                    <a target="_blank" class="iframe-popup" href="{{asset('storage/btrc_license/'.$model->btrc_license_url)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt="" class="img-fluid"></a>
+                                    @endif
+                                    @else
+                                    <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                    @endif
+                                </td>
                                 <th>Trade License</th>
-                                <td><img src="{{asset('storage/trade_license/'.$model->trade_license_url)}}" alt=" {{ $model->trade_license_url }}" class="img-fluid"></td>
+                                <td>
+
+                                    @if($model->img_url)
+                                    @php
+                                    $ext =pathinfo($model->trade_license_url, PATHINFO_EXTENSION);
+                                    @endphp
+                                    @if ($ext == 'pdf')
+                                    <a target="_blank" class="iframe-popup" href="{{asset('storage/trade_license/'.$model->trade_license_url)}}"> <img src="{{asset('app-assets/images/icons/pdfs-icon.png')}}" alt=" {{ $model->trade_license_url }}" class="img-fluid"></a>
+
+                                    @else
+                                    <a target="_blank" class="iframe-popup" href="{{asset('storage/trade_license/'.$model->trade_license_url)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt="" class="img-fluid"></a>
+                                    @endif
+                                    @else
+                                    <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                    @endif
+                                </td>
                                 <th>NID</th>
-                                <td><img src="{{asset('storage/nid/'.$model->nid_url)}}" alt=" {{ $model->nid_url }}" class="img-fluid"></td>
+                                <td>
+
+                                    @if($model->img_url)
+                                    @php
+                                    $ext =pathinfo($model->nid_url, PATHINFO_EXTENSION);
+                                    @endphp
+                                    @if ($ext == 'pdf')
+                                    <a target="_blank" class="iframe-popup" href="{{asset('storage/nid/'.$model->nid_url)}}"> <img src="{{asset('app-assets/images/icons/pdfs-icon.png')}}" alt=" {{ $model->nid_url }}" class="img-fluid"></a>
+                                    @else
+                                    <a target="_blank" class="iframe-popup" href="{{asset('storage/nid/'.$model->nid_url)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt="" class="img-fluid"></a>
+                                    @endif
+                                    @else
+                                    <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                    @endif
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -88,5 +134,11 @@
 
 @endsection
 @push('script')
-
+<script>
+    $(document).ready(function() {
+        $('.iframe-popup').magnificPopup({
+            type: 'iframe'
+        });
+    });
+</script>
 @endpush

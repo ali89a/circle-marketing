@@ -42,13 +42,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8|confirmed'
+            'name' => ['required'],
+            'email' => ['required', 'unique:users', 'max:255'],
+            'mobile' => ['required', 'unique:users', 'max:255'],
+            'password' => ['required','string','min:8','confirmed'],
         ]);
 
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
@@ -80,23 +81,23 @@ class UserController extends Controller
             $user->save();
 
 
-            $details = [
-                'title' => 'Mail from Circle Network',
-                'body' => "Username:$request->email,Password:$request->password"
-            ];
+            // $details = [
+            //     'title' => 'Mail from Circle Network',
+            //     'body' => "Username:$request->email,Password:$request->password"
+            // ];
            
-            Mail::to($request->email)->send(new \App\Mail\CustomerMail($details));
-            DB::commit();
+            // Mail::to($request->email)->send(new \App\Mail\CustomerMail($details));
+            //DB::commit();
 
             Toastr::success('Customer Created Successfully!.', '', ["progressbar" => true]);
             return redirect()->route('user.index');
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-            return back();
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+        //     return back();
+        // }
     }
 
     public function show(User $user)
@@ -123,15 +124,16 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'mobile' => 'required|mobile|unique:users,mobile,' . $user->id,
             /* 'password' => 'required|string|min:8|confirmed',*/
         ]);
 
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
             $user->name = $request->name;
             $user->email = $request->email;
             $user->mobile = $request->mobile;
-            $user->vin_no = $request->vin_no;
+            $user->bin_no = $request->bin_no;
             $user->billing_address = $request->billing_address;
             $user->updator_user_id = Auth::guard('admin')->id();
             if($request->get('password')){
@@ -158,18 +160,18 @@ class UserController extends Controller
                 $user->trade_license_url = $fileName;
             }
             $user->save();
-            DB::commit();
+          //  DB::commit();
             Toastr::success('Customer Updated Successfully!.', '', ["progressbar" => true]);
             return redirect()->route('user.index');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-            $output = ['success' => 0,
-                'msg' => __("messages.something_went_wrong")
-            ];
-            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-            return back();
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        //     $output = ['success' => 0,
+        //         'msg' => __("messages.something_went_wrong")
+        //     ];
+        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+        //     return back();
+        // }
     }
 
     public function destroy($id)
