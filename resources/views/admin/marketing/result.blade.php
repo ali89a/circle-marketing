@@ -23,18 +23,8 @@
             <tr class="">
                 <td>{{ $item->name }}</td>
                 <td>
-                    {{-- {{ $item->new }} --}}
-                    {{-- @if ($item->ctype == 'approved')
-                    @php
-                        $i=$item->ctype;
-                    @endphp
-                    @for ($i = 0; $i < $count; $i++)
-                       
-                    @endfor
-                       
-
-                        {{-- {{ $item->ctype }} --}}
-                    {{-- @endif --}} 
+                  
+                   {{  }}
                 </td>
                 <td>(10*1) = 10</td>
                 <td>3.3%</td>

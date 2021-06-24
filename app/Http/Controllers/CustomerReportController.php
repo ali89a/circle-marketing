@@ -252,9 +252,9 @@ class CustomerReportController extends Controller
                     ->where('admins.name', $request->name)
                     ->where(function ($query) {
                         $query->where('customer_reports.status', '=', 'approved')
-                        ->orWhere('customer_reports.status', '=', 'canceled')
-                        ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                        ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                            ->orWhere('customer_reports.status', '=', 'canceled')
+                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                            ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
                     });
                 // dd($list);
                 //  dd('TEXT');
@@ -317,7 +317,9 @@ class CustomerReportController extends Controller
 
     public function marketingWorkLimit()
     {
+
         $users = Admin::all();
+
         foreach ($users as $u) {
             $check = DB::table('work_limits')
                 ->where('admin_id', $u->id)
@@ -331,9 +333,11 @@ class CustomerReportController extends Controller
             // echo '<br>';
         }
         // dd();
+
         $workLimit = DB::table('work_limits')
             ->join('admins', 'work_limits.admin_id', '=', 'admins.id')
             ->select('work_limits.*', 'admins.name');
+
         return view('admin.marketing.workLimit', [
             'workLimit' => $workLimit->get()
         ]);
@@ -381,24 +385,17 @@ class CustomerReportController extends Controller
                         $query->where('customer_service_reports.ctype', '=', 'new')
                             ->orWhere('customer_service_reports.ctype', '=', 'followup')
                             ->ORWhere('customer_service_reports.ctype', '=', 'reconnect');
-                    });
+                    })->get();
             }
-            $list->select(
-                'customer_reports.*',
-                'customer_service_reports.*',
-                'admins.name',
+            echo 'new:' . $list->where('ctype', 'new')->count();
+            echo '<br>';
+            echo 'reconnect:' . $list->where('ctype', 'reconnect')->count();
+            echo '<br>';
+            echo 'followup:' . $list->where('ctype', 'followup')->count();
 
-                // DB::raw('count(IF(ctype = "approved")) as new'),
-                // DB::raw('count(IF(ctype = "followup")) as followup'),
-                // DB::raw('count(IF(ctype = reconnect)) as reconnect'),
-                // DB::raw('count(IF(present = 0, 1, NULL)) as absent')
-            ) //->groupBy("day")->get();
-
-                //  )
-                ->groupBy('customer_reports.createdBy')
-                ->orderBy('customer_reports.id', 'DESC');
+            dd($list);
             return view('admin.marketing.result', [
-                'r'           =>  $list->get(),
+                'r'           =>  $list,
             ]);
         }
     }
