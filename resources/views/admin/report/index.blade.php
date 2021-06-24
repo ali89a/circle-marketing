@@ -124,8 +124,12 @@
                                                 <tr>
                                                     <td>{{ $item->id }}</td>
                                                     <td>
-                                                        @if ($item->ctype == 'approved')
+                                                        @if ($item->status == 'approved')
                                                             <a href="#" class="btn btn-success btn-circle col-sm">Approved
+                                                                <i class="fas fa-check"></i>
+                                                            </a>
+                                                        @elseif($item->status == 'canceled')
+                                                            <a href="#" class="btn btn-danger btn-circle col-sm">Canceled
                                                                 <i class="fas fa-check"></i>
                                                             </a>
                                                         @elseif($item->ctype == 'followup')

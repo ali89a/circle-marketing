@@ -30,10 +30,15 @@ class CustomerReportController extends Controller
             ->join('districts', 'customer_reports.location_district', 'districts.id')
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
             ->where(function ($query) {
-                $query->where('customer_service_reports.ctype', '=', 'approved')
-                    ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                    ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                $query->where('customer_reports.status', '=', 'approved')
+                    ->orWhere('customer_reports.status', '=', 'canceled');
             });
+        // ->where('customer_reports.status', '=', 'approved');
+        // ->where(function ($query) {
+        //     $query->where('customer_service_reports.ctype', '=', 'approved')
+        //         ->orWhere('customer_service_reports.ctype', '=', 'followup')
+        //         ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+        // });
         if (!$request->user()->can('report-approve')) {
             $reports->where('customer_reports.createdBy', Auth::user()->id);
         }
@@ -140,7 +145,7 @@ class CustomerReportController extends Controller
             ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
             ->join('districts', 'customer_reports.location_district', 'districts.id')
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-            ->where('customer_service_reports.ctype', '=', 'new');
+            ->where('customer_reports.status', '=', 'new');
         if (!$request->user()->can('report-approve')) {
             $pendingList->where('customer_reports.createdBy', Auth::user()->id);
         }
@@ -160,18 +165,19 @@ class CustomerReportController extends Controller
 
     public function approve($id)
     {
-        $report = CustomerServiceReport::find($id);
-        $report->ctype = 'approved';
+        $report = CustomerReport::find($id);
+        $report->status = 'approved';
         $report->save();
-        return redirect()->back()->with('message', 'report unpublished successfully');
+        return redirect()->back()->with('message', 'report approved successfully');
     }
 
     public function cancel($id)
     {
         $report = CustomerReport::find($id);
-        $report->delete();
-        Toastr::success('Information Canceled Successful!.', '', ["progressbar" => true]);
-        return redirect()->route('report.index');
+        $report->status = 'canceled';
+        $report->save();
+        // Toastr::success('Information Canceled Successful!.', '', ["progressbar" => true]);
+        return redirect()->back()->with('message', 'report cancelled successfully');
     }
 
     public function followUp()
@@ -181,7 +187,7 @@ class CustomerReportController extends Controller
             ->join('districts', 'customer_reports.location_district', 'districts.id')
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
             ->where('customer_reports.createdBy', Auth::user()->id)
-            ->where('customer_service_reports.ctype', '=', 'approved')
+            ->where('customer_reports.status', '=', 'approved')
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
         return view('admin.report.followup', compact('reports'));
@@ -214,10 +220,16 @@ class CustomerReportController extends Controller
                     ->where('customer_reports.created_at', '>', $from)
                     ->where('customer_reports.created_at', '<', $to->addDay())
                     ->where(function ($query) {
-                        $query->where('customer_service_reports.ctype', '=', 'approved')
+                        $query->where('customer_reports.status', '=', 'approved')
+                            ->orWhere('customer_reports.status', '=', 'canceled')
                             ->orWhere('customer_service_reports.ctype', '=', 'followup')
                             ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
                     });
+                // ->where(function ($query) {
+                //     $query->where('customer_service_reports.ctype', '=', 'approved')
+                //         ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                //         ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                // });
             } else if (!empty($request->contact_number)) {
                 $list = DB::table('customer_reports')
                     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
@@ -225,7 +237,8 @@ class CustomerReportController extends Controller
                     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
                     ->where('customer_reports.contact_number',  $request->contact_number)
                     ->where(function ($query) {
-                        $query->where('customer_service_reports.ctype', '=', 'approved')
+                        $query->where('customer_reports.status', '=', 'approved')
+                            ->orWhere('customer_reports.status', '=', 'canceled')
                             ->orWhere('customer_service_reports.ctype', '=', 'followup')
                             ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
                     });
@@ -238,9 +251,10 @@ class CustomerReportController extends Controller
                     ->join('admins', 'customer_reports.createdBy', 'admins.id')
                     ->where('admins.name', $request->name)
                     ->where(function ($query) {
-                        $query->where('customer_service_reports.ctype', '=', 'approved')
-                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                            ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                        $query->where('customer_reports.status', '=', 'approved')
+                        ->orWhere('customer_reports.status', '=', 'canceled')
+                        ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                        ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
                     });
                 // dd($list);
                 //  dd('TEXT');
@@ -270,14 +284,14 @@ class CustomerReportController extends Controller
                     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
                     ->where('customer_reports.created_at', '>', $from)
                     ->where('customer_reports.created_at', '<', $to->addDay())
-                    ->where('customer_service_reports.ctype', '=', 'new');
+                    ->where('customer_reports.status', '=', 'new');
             } else if (!empty($request->contact_number)) {
                 $list = DB::table('customer_reports')
                     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
                     ->join('districts', 'customer_reports.location_district', 'districts.id')
                     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
                     ->where('customer_reports.contact_number',  $request->contact_number)
-                    ->where('customer_service_reports.ctype', '=', 'new');
+                    ->where('customer_reports.status', '=', 'new');
             } else if (!empty($request->name)) {
                 // dd($request->all());
                 $list = DB::table('customer_reports')
@@ -286,7 +300,7 @@ class CustomerReportController extends Controller
                     ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
                     ->join('admins', 'customer_reports.createdBy', 'admins.id')
                     ->where('admins.name', $request->name)
-                    ->where('customer_service_reports.ctype', '=', 'new');
+                    ->where('customer_reports.status', '=', 'new');
                 // dd($list);
                 //  dd('TEXT');
             }
@@ -364,7 +378,7 @@ class CustomerReportController extends Controller
                     ->where('customer_service_reports.created_at', '>', $from)
                     ->where('customer_service_reports.created_at', '<', $to->addDay())
                     ->where(function ($query) {
-                        $query->where('customer_service_reports.ctype', '=', 'approved')
+                        $query->where('customer_service_reports.ctype', '=', 'new')
                             ->orWhere('customer_service_reports.ctype', '=', 'followup')
                             ->ORWhere('customer_service_reports.ctype', '=', 'reconnect');
                     });
@@ -373,7 +387,14 @@ class CustomerReportController extends Controller
                 'customer_reports.*',
                 'customer_service_reports.*',
                 'admins.name',
-            )
+
+                // DB::raw('count(IF(ctype = "approved")) as new'),
+                // DB::raw('count(IF(ctype = "followup")) as followup'),
+                // DB::raw('count(IF(ctype = reconnect)) as reconnect'),
+                // DB::raw('count(IF(present = 0, 1, NULL)) as absent')
+            ) //->groupBy("day")->get();
+
+                //  )
                 ->groupBy('customer_reports.createdBy')
                 ->orderBy('customer_reports.id', 'DESC');
             return view('admin.marketing.result', [
