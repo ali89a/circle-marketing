@@ -55,6 +55,7 @@
                                     <th scope="col" class="text-nowrap">#</th>
                                     <th scope="col" class="text-nowrap">Upazila Name</th>
                                     <th scope="col" class="text-nowrap">District Name</th>
+                                    <th scope="col" class="text-nowrap">Division Name</th>
                                     <th scope="col" class="text-nowrap text-right">Action</th>
                                 </tr>
                             </thead>
@@ -64,6 +65,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $row->name}}</td>
                                     <td>{{ $row->district->name??''}}</td>
+                                    <td>{{ $row->district->division->name??''}}</td>
                                     <td>
                                         <div class="float-right">
                                             <form action="{{route('upazila.destroy', $row->id)}}" method="post">
