@@ -24,6 +24,7 @@ class CreateCustomerReportsTable extends Migration
             $table->string('contact_person');
             $table->text('email')->unique();
             // $table->text('visit_phone');
+            $table->enum('status', ['new', 'approved', 'canceled']);
            
             $table->timestamps();
         });

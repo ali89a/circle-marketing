@@ -25,13 +25,13 @@
                                             <div class="col-sm-4">
                                                 From Date
                                                 <input type="date" name="from_date" class="form-control flatpickr-basic
-                                                                                    flatpickr-input"
+                                                                                            flatpickr-input"
                                                     placeholder="YYYY-MM-DD" readonly="readonly">
                                             </div>
                                             <div class="col-sm-4">
                                                 To Date
                                                 <input type="date" name="to_date" class="form-control flatpickr-basic
-                                                                                    flatpickr-input"
+                                                                                            flatpickr-input"
                                                     placeholder="YYYY-MM-DD" readonly="readonly">
                                             </div>
                                             <div class="col-sm-4">
@@ -95,16 +95,21 @@
                                                     <td>{{ $item->id }}</td>
                                                     <td>
                                                         @can('report-approve')
-                                                            @if ($item->ctype == 'new')
+                                                            @if ($item->status == 'new')
                                                                 <a href="{{ route('approve', ['id' => $item->id]) }}"
                                                                     class="btn btn-success btn-circle col-sm">Approve
                                                                     <i class="fas fa-check"></i>
+                                                                </a>
+                                                                <a href="{{ route('cancel', ['id' => $item->id]) }}"
+                                                                    class="mt-1 btn btn-danger btn-circle col-sm">Cancel
+                                                                    <i class="fas fa-exclamation-triangle"></i>
                                                                 </a>
                                                             @endif
                                                         @endcan
                                                         <a href="#" class="mt-1 btn btn-primary btn-circle col-sm">Pending
                                                             <i class="fas fa-exclamation-triangle"></i>
                                                         </a>
+
                                                     </td>
                                                     <td>{{ $item->cname }}</td>
                                                     <td>{{ $item->ctype }} </td>

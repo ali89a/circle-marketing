@@ -18,6 +18,7 @@ class CustomerReport extends Model
         'address', 
         'contact_person', 
         'email', 
+        'status', 
         //'visit_phone', 
        
     ];
