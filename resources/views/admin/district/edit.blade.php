@@ -56,8 +56,9 @@
                                         <div class="form-group">
                                             <label for="division_id">Division</label>
                                             <select class="select2 form-control" name="division_id">
+                                                <option value="">Select One</option>
                                                 @forelse($divisions as $division)
-                                                <option value="{{$division->id}}" {{ $division->id == $model->division_id ?'selected':'' }} >{{$division->name}}</option>
+                                                <option value="{{$division->id}}" {{ $division->id == $model->division_id ?'selected':'' }}>{{$division->name}}</option>
                                                 @empty
                                                 @endforelse
 

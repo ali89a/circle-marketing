@@ -289,7 +289,4 @@
         });
     });
 </script>
-
-
-
 @endpush
