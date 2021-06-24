@@ -187,7 +187,7 @@ class CustomerReportController extends Controller
             ->join('districts', 'customer_reports.location_district', 'districts.id')
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
             ->where('customer_reports.createdBy', Auth::user()->id)
-            ->where('customer_service_reports.ctype', '=', 'approved')
+            ->where('customer_reports.status', '=', 'approved')
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
         return view('admin.report.followup', compact('reports'));
