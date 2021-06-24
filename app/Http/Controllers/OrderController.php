@@ -100,9 +100,16 @@ class OrderController extends Controller
      */
     public function create()
     {
+
+        if (Auth::guard('admin')->user()->hasRole('Marketing Executive') || Auth::guard('admin')->user()->hasRole('Marketing Admin')) {
+            $users=User::where('creator_user_id',Auth::guard('admin')->user()->id)->latest()->get();
+        }else{
+            $users=User::latest()->get();
+        }
+
         $data = [
             'divisions' => Division::all(),
-            'customers' => User::all(),
+            'customers' => $users,
         ];
         return view('admin.work-order.create', $data);
     }

@@ -15,15 +15,23 @@ class UserController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:customer-list|customer-create|customer-edit|customer-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:customer-create', ['only' => ['create','store']]);
-         $this->middleware('permission:customer-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:customer-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:customer-list|customer-create|customer-edit|customer-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:customer-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:customer-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:customer-delete', ['only' => ['destroy']]);
     }
     public function index()
     {
+
+        if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
+            $user = User::where('creator_user_id', Auth::guard('admin')->user()->id)->latest()->get();
+        } else {
+            $user = User::latest()->get();
+        }
+        // dd(Auth::guard('admin')->user()->hasRole('Marketing Executive'));
+
         $data = [
-            'users' => User::latest()->get(),
+            'users' =>  $user,
         ];
         return view('admin.customer.index', $data);
     }
@@ -45,52 +53,52 @@ class UserController extends Controller
             'name' => ['required'],
             'email' => ['required', 'unique:users', 'max:255'],
             'mobile' => ['required', 'unique:users', 'max:255'],
-            'password' => ['required','string','min:8','confirmed'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         // try {
         //     DB::beginTransaction();
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->mobile = $request->mobile;
-            $user->bin_no = $request->bin_no;
-            $user->billing_address = $request->billing_address;
-            $user->creator_user_id = Auth::guard('admin')->id();
-            $user->password = bcrypt($request->password);
-            if ($request->img_url != null) {
-                $fileName = time() . '.' . $request->img_url->extension();
-                $request->img_url->move(storage_path('app/public/customer'), $fileName);
-                $user->img_url = $fileName;
-            }
-            if ($request->btrc_license_url != null) {
-                $fileName = time() . '.' . $request->btrc_license_url->extension();
-                $request->btrc_license_url->move(storage_path('app/public/btrc_license'), $fileName);
-                $user->btrc_license_url = $fileName;
-            }
-            if ($request->nid_url != null) {
-                $fileName = time() . '.' . $request->nid_url->extension();
-                $request->nid_url->move(storage_path('app/public/nid'), $fileName);
-                $user->nid_url = $fileName;
-            }
-            if ($request->trade_license_url != null) {
-                $fileName = time() . '.' . $request->trade_license_url->extension();
-                $request->trade_license_url->move(storage_path('app/public/trade_license'), $fileName);
-                $user->trade_license_url = $fileName;
-            }
-            $user->save();
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->mobile = $request->mobile;
+        $user->bin_no = $request->bin_no;
+        $user->billing_address = $request->billing_address;
+        $user->creator_user_id = Auth::guard('admin')->id();
+        $user->password = bcrypt($request->password);
+        if ($request->img_url != null) {
+            $fileName = time() . '.' . $request->img_url->extension();
+            $request->img_url->move(storage_path('app/public/customer'), $fileName);
+            $user->img_url = $fileName;
+        }
+        if ($request->btrc_license_url != null) {
+            $fileName = time() . '.' . $request->btrc_license_url->extension();
+            $request->btrc_license_url->move(storage_path('app/public/btrc_license'), $fileName);
+            $user->btrc_license_url = $fileName;
+        }
+        if ($request->nid_url != null) {
+            $fileName = time() . '.' . $request->nid_url->extension();
+            $request->nid_url->move(storage_path('app/public/nid'), $fileName);
+            $user->nid_url = $fileName;
+        }
+        if ($request->trade_license_url != null) {
+            $fileName = time() . '.' . $request->trade_license_url->extension();
+            $request->trade_license_url->move(storage_path('app/public/trade_license'), $fileName);
+            $user->trade_license_url = $fileName;
+        }
+        $user->save();
 
 
-            // $details = [
-            //     'title' => 'Mail from Circle Network',
-            //     'body' => "Username:$request->email,Password:$request->password"
-            // ];
-           
-            // Mail::to($request->email)->send(new \App\Mail\CustomerMail($details));
-            //DB::commit();
+        // $details = [
+        //     'title' => 'Mail from Circle Network',
+        //     'body' => "Username:$request->email,Password:$request->password"
+        // ];
 
-            Toastr::success('Customer Created Successfully!.', '', ["progressbar" => true]);
-            return redirect()->route('user.index');
+        // Mail::to($request->email)->send(new \App\Mail\CustomerMail($details));
+        //DB::commit();
+
+        Toastr::success('Customer Created Successfully!.', '', ["progressbar" => true]);
+        return redirect()->route('user.index');
 
         // } catch (\Exception $e) {
         //     DB::rollBack();
@@ -130,39 +138,39 @@ class UserController extends Controller
 
         // try {
         //     DB::beginTransaction();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->mobile = $request->mobile;
-            $user->bin_no = $request->bin_no;
-            $user->billing_address = $request->billing_address;
-            $user->updator_user_id = Auth::guard('admin')->id();
-            if($request->get('password')){
-                $user->password=bcrypt($request->get('password'));
-            }
-            if ($request->img_url != null) {
-                $fileName = time() . '.' . $request->img_url->extension();
-                $request->img_url->move(storage_path('app/public/customer'), $fileName);
-                $user->img_url = $fileName;
-            }
-            if ($request->btrc_license_url != null) {
-                $fileName = time() . '.' . $request->btrc_license_url->extension();
-                $request->btrc_license_url->move(storage_path('app/public/btrc_license'), $fileName);
-                $user->btrc_license_url = $fileName;
-            }
-            if ($request->nid_url != null) {
-                $fileName = time() . '.' . $request->nid_url->extension();
-                $request->nid_url->move(storage_path('app/public/nid'), $fileName);
-                $user->nid_url = $fileName;
-            }
-            if ($request->trade_license_url != null) {
-                $fileName = time() . '.' . $request->trade_license_url->extension();
-                $request->trade_license_url->move(storage_path('app/public/trade_license'), $fileName);
-                $user->trade_license_url = $fileName;
-            }
-            $user->save();
-          //  DB::commit();
-            Toastr::success('Customer Updated Successfully!.', '', ["progressbar" => true]);
-            return redirect()->route('user.index');
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->mobile = $request->mobile;
+        $user->bin_no = $request->bin_no;
+        $user->billing_address = $request->billing_address;
+        $user->updator_user_id = Auth::guard('admin')->id();
+        if ($request->get('password')) {
+            $user->password = bcrypt($request->get('password'));
+        }
+        if ($request->img_url != null) {
+            $fileName = time() . '.' . $request->img_url->extension();
+            $request->img_url->move(storage_path('app/public/customer'), $fileName);
+            $user->img_url = $fileName;
+        }
+        if ($request->btrc_license_url != null) {
+            $fileName = time() . '.' . $request->btrc_license_url->extension();
+            $request->btrc_license_url->move(storage_path('app/public/btrc_license'), $fileName);
+            $user->btrc_license_url = $fileName;
+        }
+        if ($request->nid_url != null) {
+            $fileName = time() . '.' . $request->nid_url->extension();
+            $request->nid_url->move(storage_path('app/public/nid'), $fileName);
+            $user->nid_url = $fileName;
+        }
+        if ($request->trade_license_url != null) {
+            $fileName = time() . '.' . $request->trade_license_url->extension();
+            $request->trade_license_url->move(storage_path('app/public/trade_license'), $fileName);
+            $user->trade_license_url = $fileName;
+        }
+        $user->save();
+        //  DB::commit();
+        Toastr::success('Customer Updated Successfully!.', '', ["progressbar" => true]);
+        return redirect()->route('user.index');
         // } catch (\Exception $e) {
         //     DB::rollBack();
         //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
