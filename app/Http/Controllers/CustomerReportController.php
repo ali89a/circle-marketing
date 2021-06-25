@@ -376,16 +376,35 @@ class CustomerReportController extends Controller
             if (!empty($request->from_date) && !empty($request->to_date)) {
                 $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
                 $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
-                $list = DB::table('customer_reports')
-                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
-                    ->join('admins', 'customer_reports.createdBy', 'admins.id')
-                    ->where('customer_service_reports.created_at', '>', $from)
-                    ->where('customer_service_reports.created_at', '<', $to->addDay())
-                    ->where(function ($query) {
-                        $query->where('customer_service_reports.ctype', '=', 'new')
-                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                            ->ORWhere('customer_service_reports.ctype', '=', 'reconnect');
-                    })->get();
+                // $list = DB::table('customer_reports')
+                //     ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                //     ->join('admins', 'customer_reports.createdBy', 'admins.id')
+                //     ->where('customer_service_reports.created_at', '>', $from)
+                //     ->where('customer_service_reports.created_at', '<', $to->addDay())
+                //     ->where(function ($query) {
+                //         $query->where('customer_service_reports.ctype', '=', 'new')
+                //             ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                //             ->ORWhere('customer_service_reports.ctype', '=', 'reconnect');
+                //     })
+                //     ->groupBy('customer_reports.createdBy')
+                //     ->get();
+
+
+
+
+                $list = DB::table('customer_service_reports')
+                ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                ->leftJoin('admins', 'customer_reports.createdBy', 'admins.id')
+                ->where('customer_service_reports.created_at', '>', $from)
+                ->where('customer_service_reports.created_at', '<', $to->addDay())
+                ->where(function ($query) {
+                    $query->where('customer_service_reports.ctype', '=', 'new')
+                    ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                        ->ORWhere('customer_service_reports.ctype', '=', 'reconnect');
+                })
+                   // ->groupBy('customer_service_reports.id')
+                    ->groupBy('customer_reports.createdBy')
+                    ->get();
             }
             // echo 'new:' . $list->where('ctype', 'new')->count();
             // echo '<br>';
@@ -395,13 +414,13 @@ class CustomerReportController extends Controller
 
             // dd($list);
 
-           // dd($list);
+           //  dd($list);
 
             // $list->select('customer_reports.*', 'customer_service_reports.*', 'admins.name')
             //     ->groupBy('customer_reports.createdBy')
             //     ->orderBy('customer_reports.id', 'DESC');
 
-            // dd($list);
+           // dd($list);
 
             return view('admin.marketing.result', [
                 'r'           =>  $list,

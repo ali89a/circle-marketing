@@ -23,14 +23,23 @@
             <tr class="">
                 <td>{{ $item->name }}</td>
                 <td>
-                  @php
+                    {{-- @php
                        $r->where('ctype', 'new')->count();
                   @endphp
-                 {{$r}}
+                 {{$r}} --}}
+                    @php
+                        echo 'new:' . $r->where('ctype', 'new')->count();
+                        echo '<br>';
+                    @endphp
                 </td>
                 <td>(10*1) = 10</td>
                 <td>3.3%</td>
-                <td>0</td>
+                <td>
+                    @php
+                        echo 'followup:' . $r->where('ctype', 'followup')->count();
+                        echo '<br>';
+                    @endphp
+                </td>
                 <td>(8*1) =8</td>
                 <td>0%</td>
                 <td>3</td>
