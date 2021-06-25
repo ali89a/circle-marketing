@@ -188,6 +188,7 @@ class CustomerReportController extends Controller
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
             ->where('customer_reports.createdBy', Auth::user()->id)
             ->where('customer_reports.status', '=', 'approved')
+            ->where('customer_service_reports.ctype', '=', 'new')
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
         return view('admin.report.followup', compact('reports'));
@@ -400,10 +401,10 @@ class CustomerReportController extends Controller
                 ->where(function ($query) {
                     $query->where('customer_service_reports.ctype', '=', 'new')
                     ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                        ->ORWhere('customer_service_reports.ctype', '=', 'reconnect');
+                        ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
                 })
                    // ->groupBy('customer_service_reports.id')
-                    ->groupBy('customer_reports.createdBy')
+                    ->groupBy('admins.id')
                     ->get();
             }
             // echo 'new:' . $list->where('ctype', 'new')->count();
