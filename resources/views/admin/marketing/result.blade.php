@@ -39,12 +39,12 @@
                         echo 'followup:' . $r->where('ctype', 'followup')->count();
                         echo '<br>';
                     @endphp
-                  
+
                 </td>
                 <td>(8*1) =8</td>
                 <td>0%</td>
                 <td>
-                      @php
+                    @php
                         echo 'reconnect:' . $r->where('ctype', 'reconnect')->count();
                         echo '<br>';
                     @endphp

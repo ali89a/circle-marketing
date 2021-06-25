@@ -20,7 +20,7 @@
                                                 <th>Follow UP/Factory Visit</th>
                                                 <th>Reconnect/Call</th>
                                             </tr>
-                                          
+                                         
                                                 @foreach ($workLimit as $item)
                                                     <input type="hidden" name="id[]" value="{{ $item->id }}">
                                                     <tr class="">
@@ -38,7 +38,7 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
-                                          
+                                         
                                             <tr class="">
                                                 <td colspan="3"></td>
                                                 <td> <input type="submit" value="Save"
