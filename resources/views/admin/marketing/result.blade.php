@@ -23,47 +23,63 @@
         {{-- @dd($users) --}}
         {{-- @dd($r) --}}
         {{-- @if ($r->createdBy == $users->id) --}}
-        @foreach ($r as $item)
+        @foreach ($users as $user)
+            @foreach ($r as $item)
+                @if ($user->id == $item->createdBy)
+
+                    {{-- @if ($item->ctype == 'new') --}}
+                    {{-- @dd('new') --}}
+                    {{-- @elseif($item->ctype == 'followup') --}}
+                    {{-- @dd('followup') --}}
+                    {{-- @elseif($item->ctype == 'reconnect')
+                        @dd('reconnect')
+                    @endif --}}
 
 
-            <tr class="">
-                <td>{{ $item->name }}</td>
-                <td>
-                    {{-- @php
-                        $r::select(/DB::raw('COUNT(id) as count'), 'ctype')
-                            ->having('count', '>', 1)
-                            ->get();
-                    @endphp --}}
+                    {{-- @endforeach
+                    @endforeach --}}
+                    <tr class="">
+                        <td></td>
+                        <td>
+                            @if ($item->ctype == 'new')
+                                @php
+                                    $sum = 0;
+                                @endphp
+                                @for ($i = 0; $i < $count; $i++)
+                                    {{ $sum += $i }}
+                                @endfor
 
-                    {{-- @php
-                        echo $r
-                            ->where('ctype', 'new')->count();
-                        // echo $r->where('ctype', 'new')->count();
-                    @endphp --}}
+                                {{-- echo $r->where('ctype', 'new')->count(); --}}
+                            @endif
+                        </td>
+                        <td>(10*1) = 10</td>
+                        <td>3.3%</td>
+                        <td>
+                            @if ($item->ctype == 'followup')
 
-                </td>
-                <td>(10*1) = 10</td>
-                <td>3.3%</td>
-                <td>
-                    {{-- @php
-                        echo $r->where('ctype', 'followup');
-                    @endphp --}}
+                                {{ 'followup' }}
+                                {{-- echo $r->where('ctype', 'new')->count(); --}}
 
-                </td>
-                <td>(8*1) =8</td>
-                <td>0%</td>
-                <td>
-                    {{-- @php
-                        echo $r->where('ctype', 'reconnect')->count();
-                    @endphp --}}
-                </td>
-                <td>(5*1)= 5</td>
-                <td>19.8%</td>
-                <td>23.1%</td>
-            </tr>
+                            @endif
+                        </td>
+                        <td>(8*1) =8</td>
+                        <td>0%</td>
+                        <td>
+                            @if ($item->ctype == 'reconnect')
 
+                                {{ 'reconnect' }}
+
+                            @endif
+                        </td>
+                        <td>(5*1)= 5</td>
+                        <td>19.8%</td>
+                        <td>23.1%</td>
+                    </tr>
+
+
+                @endif
+            @endforeach
         @endforeach
-        {{-- @endif --}}
     </tbody>
 </table>
 

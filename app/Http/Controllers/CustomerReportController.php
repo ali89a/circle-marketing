@@ -429,20 +429,41 @@ class CustomerReportController extends Controller
                         $query->where('customer_service_reports.ctype', '=', 'new')
                             ->orWhere('customer_service_reports.ctype', '=', 'followup')
                             ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
-                    })->groupBy('createdBy')->get();
-                    //->groupBy('createdBy')
-                    //->get();
+                    })
+                    //->groupBy('name')
+                    ->get();
+                //->groupBy('createdBy')
                 // dd($list);
-
-                // ->groupBy('createdBy')
-               // $list->where('ctype', 'new')->where('ctype', 'followup')->where('ctype', 'reconnect')->count();
-                // ->get();
-               // dd($list);
                 $users = Admin::all();
+                $total = array();
+
+                foreach ($users as $u) {
+
+                    $total[$u->id]['new'] =  DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'new')
+                        ->count();
+
+                    $total[$u->id]['followup'] =  DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'followup')
+                        ->count();
+
+                    $total[$u->id]['reconnect'] =  DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'reconnect')
+                        ->count();
+                }
+
+                dd($total);
+
                 // $list->where('customer_reports.createdBy', $users->id)->get();
                 return view('admin.marketing.result', [
                     'r'           =>  $list,
-                    'users'           =>  $users,
+                    'users'       =>  $users,
                 ]);
             }
         }
