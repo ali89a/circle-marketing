@@ -458,12 +458,13 @@ class CustomerReportController extends Controller
                         ->count();
                 }
 
-                dd($total);
+                // dd($total);
 
                 // $list->where('customer_reports.createdBy', $users->id)->get();
                 return view('admin.marketing.result', [
                     'r'           =>  $list,
                     'users'       =>  $users,
+                    'total'       =>  $total
                 ]);
             }
         }
