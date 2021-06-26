@@ -19,40 +19,50 @@
             <th>Reconnect %</th>
             <th>Total</th>
         </tr>
-        @foreach ($r as $item)
-            <tr class="">
-                <td>{{ $item->name }}</td>
-                <td>
-                    {{-- @php
-                       $r->where('ctype', 'new')->count();
-                  @endphp
-                 {{$r}} --}}
-                    @php
-                        echo 'new:' . $r->where('ctype', 'new')->count();
-                        echo '<br>';
-                    @endphp
-                </td>
-                <td>(10*1) = 10</td>
-                <td>3.3%</td>
-                <td>
-                    @php
-                        echo 'followup:' . $r->where('ctype', 'followup')->count();
-                        echo '<br>';
-                    @endphp
+        @foreach ($users as $u)
+            {{-- @dd($users->all()) --}}
+            @php
+                $reports = DB::table('customer_reports')
+                    ->where('createdBy', $u->id)
+                    ->get();
+            @endphp
+            {{-- @dd($reports->all()) --}}
+            @foreach ($reports as $report)
+                @php
+                    $services = DB::table('customer_service_reports')
+                        ->where('customer_report_id', $report->id)
+                        ->get();
+                @endphp
+                @foreach ($services as $service)
+                    {{-- @dd($services->all()) --}}
+                    <tr class="">
+                        <td>{{ $u->name }}</td>
+                        <td>
+                            @php
+                                echo $service->where('ctype', 'new')->count();
+                            @endphp
+                        </td>
+                        <td>(10*1) = 10</td>
+                        <td>3.3%</td>
+                        <td>
+                            @php
+                                echo $service->where('ctype', 'followup')->count();
+                            @endphp
 
-                </td>
-                <td>(8*1) =8</td>
-                <td>0%</td>
-                <td>
-                    @php
-                        echo 'reconnect:' . $r->where('ctype', 'reconnect')->count();
-                        echo '<br>';
-                    @endphp
-                </td>
-                <td>(5*1)= 5</td>
-                <td>19.8%</td>
-                <td>23.1%</td>
-            </tr>
+                        </td>
+                        <td>(8*1) =8</td>
+                        <td>0%</td>
+                        <td>
+                            @php
+                                echo $service->where('ctype', 'reconnect')->count();
+                            @endphp
+                        </td>
+                        <td>(5*1)= 5</td>
+                        <td>19.8%</td>
+                        <td>23.1%</td>
+                    </tr>
+                @endforeach
+            @endforeach
         @endforeach
     </tbody>
 </table>

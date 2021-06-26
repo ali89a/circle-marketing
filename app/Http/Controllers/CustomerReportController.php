@@ -320,25 +320,25 @@ class CustomerReportController extends Controller
     {
 
         $users = Admin::all();
-       // if(Admin::id()->permission == 'report-approve') {
-            foreach ($users as $u) {
-                $check = DB::table('work_limits')
-                    ->where('admin_id', $u->id)
-                    ->first();
-                if (empty($check)) {
-                    WorkLimit::create([
-                        'admin_id' => $u->id
-                    ]);
-                }
-                // print_r($check);
-                // echo '<br>';
+        // if(Admin::id()->permission == 'report-approve') {
+        foreach ($users as $u) {
+            $check = DB::table('work_limits')
+                ->where('admin_id', $u->id)
+                ->first();
+            if (empty($check)) {
+                WorkLimit::create([
+                    'admin_id' => $u->id
+                ]);
             }
-            // dd();
-     //   }
+            // print_r($check);
+            // echo '<br>';
+        }
+        // dd();
+        //   }
         $workLimit = DB::table('work_limits')
             ->join('admins', 'work_limits.admin_id', '=', 'admins.id')
             ->select('work_limits.*', 'admins.name');
-       
+
         return view('admin.marketing.workLimit', [
             'workLimit' => $workLimit->get()
         ]);
@@ -389,7 +389,7 @@ class CustomerReportController extends Controller
                     })
                     // ->groupBy('customer_service_reports.id')
                     // ->groupBy('admins.id')
-                    ->groupBy('customer_reports.createdBy')
+                    //->groupBy('customer_reports.createdBy')
                     //->groupBy('customer_service_reports.customer_report_id')
                     //  ->get();
                     // $list = CustomerServiceReport::select(DB::raw('count(*), ctype'))
@@ -411,9 +411,10 @@ class CustomerReportController extends Controller
             //     ->orderBy('customer_reports.id', 'DESC');
 
             // dd($list);
-
+            $users = Admin::all();
             return view('admin.marketing.result', [
                 'r'           =>  $list,
+                'users'           =>  $users,
             ]);
         }
     }
