@@ -19,51 +19,51 @@
             <th>Reconnect %</th>
             <th>Total</th>
         </tr>
-        @foreach ($users as $u)
-            {{-- @dd($users->all()) --}}
-            @php
-                $reports = DB::table('customer_reports')
-                    ->where('createdBy', $u->id)
-                    ->get();
-            @endphp
-            {{-- @dd($reports->all()) --}}
-            @foreach ($reports as $report)
-                @php
-                    $services = DB::table('customer_service_reports')
-                        ->where('customer_report_id', $report->id)
-                        ->get();
-                @endphp
-                @foreach ($services as $service)
-                    {{-- @dd($services->all()) --}}
-                    <tr class="">
-                        <td>{{ $u->name }}</td>
-                        <td>
-                            @php
-                                echo $service->where('ctype', 'new')->count();
-                            @endphp
-                        </td>
-                        <td>(10*1) = 10</td>
-                        <td>3.3%</td>
-                        <td>
-                            @php
-                                echo $service->where('ctype', 'followup')->count();
-                            @endphp
 
-                        </td>
-                        <td>(8*1) =8</td>
-                        <td>0%</td>
-                        <td>
-                            @php
-                                echo $service->where('ctype', 'reconnect')->count();
-                            @endphp
-                        </td>
-                        <td>(5*1)= 5</td>
-                        <td>19.8%</td>
-                        <td>23.1%</td>
-                    </tr>
-                @endforeach
-            @endforeach
+        {{-- @dd($users) --}}
+        {{-- @dd($r) --}}
+        {{-- @if ($r->createdBy == $users->id) --}}
+        @foreach ($r as $item)
+
+
+            <tr class="">
+                <td>{{ $item->name }}</td>
+                <td>
+                    {{-- @php
+                        $r::select(/DB::raw('COUNT(id) as count'), 'ctype')
+                            ->having('count', '>', 1)
+                            ->get();
+                    @endphp --}}
+
+                    {{-- @php
+                        echo $r
+                            ->where('ctype', 'new')->count();
+                        // echo $r->where('ctype', 'new')->count();
+                    @endphp --}}
+
+                </td>
+                <td>(10*1) = 10</td>
+                <td>3.3%</td>
+                <td>
+                    {{-- @php
+                        echo $r->where('ctype', 'followup');
+                    @endphp --}}
+
+                </td>
+                <td>(8*1) =8</td>
+                <td>0%</td>
+                <td>
+                    {{-- @php
+                        echo $r->where('ctype', 'reconnect')->count();
+                    @endphp --}}
+                </td>
+                <td>(5*1)= 5</td>
+                <td>19.8%</td>
+                <td>23.1%</td>
+            </tr>
+
         @endforeach
+        {{-- @endif --}}
     </tbody>
 </table>
 
