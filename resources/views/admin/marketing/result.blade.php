@@ -22,9 +22,14 @@
         {{-- @dd($total) --}}
         {{-- @dd($users) --}}
         {{-- @dd($r) --}}
+
+
         @foreach ($total as $item)
+
             <tr class="">
-                <td></td>
+
+                <td> {{ $item['name'] }}</td>
+
                 <td>
                     {{-- @dd($item) --}}
                     {{ $item['new'] }}
@@ -46,7 +51,9 @@
                 <td>(5*1)= 5</td>
                 <td>19.8%</td>
                 <td>23.1%</td>
+
             </tr>
+
 
         @endforeach
     </tbody>
@@ -56,7 +63,7 @@
 <br>
 
 
-<table class="table table-bordered tableisp table-stripd table-condensed table-responsive">
+{{-- <table class="table table-bordered tableisp table-stripd table-condensed table-responsive">
     <tbody>
         <tr>
             <th class="text-center">Name</th>
@@ -99,6 +106,7 @@
                 <td></td>
                 <td></td>
             </tr>
+
             <tr>
                 <td>Followup</td>
                 <td>2</td>
@@ -132,4 +140,4 @@
 
         @endforeach
     </tbody>
-</table>
+</table> --}}
