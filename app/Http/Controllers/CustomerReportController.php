@@ -188,6 +188,7 @@ class CustomerReportController extends Controller
             ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
             ->where('customer_reports.createdBy', Auth::user()->id)
             ->where('customer_reports.status', '=', 'approved')
+            ->where('customer_service_reports.ctype', '=', 'new')
             ->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
             ->get();
         return view('admin.report.followup', compact('reports'));
@@ -252,9 +253,9 @@ class CustomerReportController extends Controller
                     ->where('admins.name', $request->name)
                     ->where(function ($query) {
                         $query->where('customer_reports.status', '=', 'approved')
-                        ->orWhere('customer_reports.status', '=', 'canceled')
-                        ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                        ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                            ->orWhere('customer_reports.status', '=', 'canceled')
+                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                            ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
                     });
                 // dd($list);
                 //  dd('TEXT');
@@ -317,7 +318,9 @@ class CustomerReportController extends Controller
 
     public function marketingWorkLimit()
     {
+
         $users = Admin::all();
+        // if(Admin::id()->permission == 'report-approve') {
         foreach ($users as $u) {
             $check = DB::table('work_limits')
                 ->where('admin_id', $u->id)
@@ -331,9 +334,11 @@ class CustomerReportController extends Controller
             // echo '<br>';
         }
         // dd();
+        //   }
         $workLimit = DB::table('work_limits')
             ->join('admins', 'work_limits.admin_id', '=', 'admins.id')
             ->select('work_limits.*', 'admins.name');
+
         return view('admin.marketing.workLimit', [
             'workLimit' => $workLimit->get()
         ]);
@@ -348,8 +353,8 @@ class CustomerReportController extends Controller
                 // dd($item);
                 $datad = array(
                     'newclient' => $request->newclient[$item],
-                    'followup' => $request->followup[$item],
-                    'reconnect' => $request->reconnect[$item],
+                    'followupclient' => $request->followupclient[$item],
+                    'reconnectclient' => $request->reconnectclient[$item],
                 );
                 //   dd($datad);
                 $workLimit = WorkLimit::where('id', $request->id[$item])->first();
@@ -365,6 +370,49 @@ class CustomerReportController extends Controller
         return view('admin.marketing.reportAnalysis');
     }
 
+    public function reportAnalysisResult222(Request $request)
+    {
+        // dd($request->all());
+        if ($request->ajax()) {
+            if (!empty($request->from_date) && !empty($request->to_date)) {
+                $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
+                $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
+                $list = DB::table('customer_service_reports')
+                    ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                    ->leftJoin('admins', 'customer_reports.createdBy', 'admins.id')
+                    ->where('customer_service_reports.created_at', '>', $from)
+                    ->where('customer_service_reports.created_at', '<', $to->addDay())
+                    ->where(function ($query) {
+                        $query->where('customer_service_reports.ctype', '=', 'new')
+                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                            ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                    })
+                    ->get();
+            }
+            // echo 'new:' . $list->where('ctype', 'new')->count();
+            // echo '<br>';
+            // echo 'reconnect:' . $list->where('ctype', 'reconnect')->count();
+            // echo '<br>';
+            // echo 'followup:' . $list->where('ctype', 'followup')->count();
+
+            // dd($list);
+
+            //  dd($list);
+
+            // $list->select('customer_reports.*', 'customer_service_reports.*', 'admins.name')
+            //     ->groupBy('customer_reports.createdBy')
+            //     ->orderBy('customer_reports.id', 'DESC');
+
+            // dd($list);
+            $users = Admin::all();
+            return view('admin.marketing.result', [
+                'r'           =>  $list,
+                'users'           =>  $users,
+            ]);
+        }
+    }
+
+
     public function reportAnalysisResult(Request $request)
     {
         // dd($request->all());
@@ -372,34 +420,122 @@ class CustomerReportController extends Controller
             if (!empty($request->from_date) && !empty($request->to_date)) {
                 $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
                 $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
-                $list = DB::table('customer_reports')
-                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
-                    ->join('admins', 'customer_reports.createdBy', 'admins.id')
+                $list = DB::table('customer_service_reports')
+                    ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                    ->leftJoin('admins', 'customer_reports.createdBy', 'admins.id')
                     ->where('customer_service_reports.created_at', '>', $from)
                     ->where('customer_service_reports.created_at', '<', $to->addDay())
                     ->where(function ($query) {
                         $query->where('customer_service_reports.ctype', '=', 'new')
                             ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                            ->ORWhere('customer_service_reports.ctype', '=', 'reconnect');
-                    });
+                            ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                    })->get();
+                // dd($list);
+                $users = Admin::all();
+                $total = array();
+                foreach ($users as $u) {
+                    $total[$u->id]['name'] = $u->name;
+
+                    $total[$u->id]['new'] = DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'new')
+                        ->count();
+
+                    $total[$u->id]['followup'] = DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'followup')
+                        ->count();
+
+                    $total[$u->id]['reconnect'] = DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'reconnect')
+                        ->count();
+
+                    $total[$u->id]['newclient'] = DB::table('work_limits')
+                        ->where('work_limits.admin_id', $u->id)
+                        ->select('work_limits.newclient')->first();
+                    $total[$u->id]['followupclient'] = DB::table('work_limits')
+                        ->where('work_limits.admin_id', $u->id)
+                        ->select('work_limits.followupclient')->first();
+                    $total[$u->id]['reconnectclient'] = DB::table('work_limits')
+                        ->where('work_limits.admin_id', $u->id)
+                        ->select('work_limits.reconnectclient')->first();
+                }
+               // dd($total);
+                return view('admin.marketing.result', [
+                    'r'           =>  $list,
+                    'users'       =>  $users,
+                    'total'       =>  $total
+                ]);
             }
-            $list->select(
-                'customer_reports.*',
-                'customer_service_reports.*',
-                'admins.name',
+        }
+    }
 
-                // DB::raw('count(IF(ctype = "approved")) as new'),
-                // DB::raw('count(IF(ctype = "followup")) as followup'),
-                // DB::raw('count(IF(ctype = reconnect)) as reconnect'),
-                // DB::raw('count(IF(present = 0, 1, NULL)) as absent')
-            ) //->groupBy("day")->get();
 
-                //  )
-                ->groupBy('customer_reports.createdBy')
-                ->orderBy('customer_reports.id', 'DESC');
-            return view('admin.marketing.result', [
-                'r'           =>  $list->get(),
-            ]);
+
+
+
+
+    public function reportAnalysisResult33(Request $request)
+    {
+        // dd($request->all());
+        if ($request->ajax()) {
+            if (!empty($request->from_date) && !empty($request->to_date)) {
+                $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
+                $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
+                $list = DB::table('customer_service_reports')
+                    ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                    ->leftJoin('admins', 'customer_reports.createdBy', 'admins.id')
+                    ->where('customer_service_reports.created_at', '>', $from)
+                    ->where('customer_service_reports.created_at', '<', $to->addDay())
+                    ->where(function ($query) {
+                        $query->where('customer_service_reports.ctype', '=', 'new')
+                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                            ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                    })
+                    //->groupBy('name')
+                    ->get();
+                //->groupBy('createdBy')
+                // dd($list);
+                $users = Admin::all();
+                $total = array();
+
+                foreach ($users as $u) {
+
+                    $total[$u->id]['new'] =  DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        // ->leftJoin('work_limits', 'customer_reports.createdBy', 'work_limits.admin_id')
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'new')
+                        ->count();
+
+                    $total[$u->id]['followup'] =  DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'followup')
+                        ->count();
+
+                    $total[$u->id]['reconnect'] =  DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'reconnect')
+                        ->count();
+                }
+
+                //  dd($total);
+
+                // $list->where('customer_reports.createdBy', $users->id)->get();
+                return view('admin.marketing.result', [
+                    'r'           =>  $list,
+                    'users'       =>  $users,
+                    'total'       =>  $total
+                ]);
+            }
         }
     }
 }

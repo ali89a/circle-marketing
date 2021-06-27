@@ -11,7 +11,7 @@ class WorkLimit extends Model
     protected $fillable=[
         'admin_id',
         'newclient',
-        'followup',
-        'reconnect'
+        'followupclient',
+        'reconnectclient'
     ];
 }
