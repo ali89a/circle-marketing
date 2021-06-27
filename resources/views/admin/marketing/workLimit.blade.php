@@ -30,11 +30,11 @@
                                                         <td><input type="number" name="newclient[]" class="form-control-sm"
                                                                 value="{{ $item->newclient }}">
                                                         </td>
-                                                        <td><input type="number" name="followup[]" class="form-control-sm"
-                                                                value="{{ $item->followup }}">
+                                                        <td><input type="number" name="followupclient[]" class="form-control-sm"
+                                                                value="{{ $item->followupclient }}">
                                                         </td>
-                                                        <td><input type="number" name="reconnect[]" class="form-control-sm"
-                                                                value="{{ $item->reconnect }}">
+                                                        <td><input type="number" name="reconnectclient[]" class="form-control-sm"
+                                                                value="{{ $item->reconnectclient }}">
                                                         </td>
                                                     </tr>
                                                 @endforeach

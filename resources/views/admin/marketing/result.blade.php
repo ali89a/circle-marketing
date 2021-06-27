@@ -31,24 +31,20 @@
                 <td> {{ $item['name'] }}</td>
 
                 <td>
-                    {{-- @dd($item) --}}
                     {{ $item['new'] }}
-                    {{-- echo $r->where('ctype', 'new')->count(); --}}
                 </td>
-                <td>(10*1) = 10</td>
+                <td>{{ $item['newclient']->newclient }}</td>
                 <td>3.3%</td>
                 <td>
                     {{ $item['followup'] }}
                     {{-- echo $r->where('ctype', 'new')->count(); --}}
                 </td>
-                <td>(8*1) =8</td>
+                <td>{{ $item['followupclient']->followupclient }}</td>
                 <td>0%</td>
                 <td>
-
-
                     {{ $item['reconnect'] }}
                 </td>
-                <td>(5*1)= 5</td>
+                <td>{{ $item['reconnectclient']->reconnectclient }}</td>
                 <td>19.8%</td>
                 <td>23.1%</td>
 

@@ -17,8 +17,8 @@ class CreateWorkLimitsTable extends Migration
             $table->id();
             $table->foreignId('admin_id');
             $table->integer('newclient')->nullable();
-            $table->integer('followup')->nullable();
-            $table->integer('reconnect')->nullable();
+            $table->integer('followupclient')->nullable();
+            $table->integer('reconnectclient')->nullable();
             $table->timestamps();
         });
     }
