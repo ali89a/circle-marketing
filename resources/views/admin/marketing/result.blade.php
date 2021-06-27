@@ -2,7 +2,7 @@
 <button onclick="window.print();" class="btn btn-primary noprint"><i class="fa fa-print"></i>
     Print</button>
 <caption>
-    <h2 class="text-center">03-Jan-2021 to 03-Jan-2021</h2>
+    <h2 class="text-center">{{ $from->format("d M Y") }} to {{ $to->format("d M Y") }}</h2>
 </caption>
 <table class="table table-bordered table-stripd ana">
     <tbody>
@@ -27,9 +27,7 @@
         @foreach ($total as $item)
 
             <tr class="">
-
                 <td> {{ $item['name'] }}</td>
-
                 <td>
                     {{ $item['new'] }}
                 </td>
@@ -38,7 +36,7 @@
                         $result = 1;
                         $result = $item['newclient']->newclient * $different_days;
                     @endphp
-                    {{ $item['newclient']->newclient }} * {{$different_days}} = {{ $result }}
+                    {{ $item['newclient']->newclient }} * {{ $different_days }} = {{ $result }}
                 </td>
                 <td>
                     @php
@@ -74,7 +72,8 @@
                         $result = 1;
                         $result = $item['reconnectclient']->reconnectclient * $different_days;
                     @endphp
-                    {{ $item['reconnectclient']->reconnectclient }} * {{ $different_days }} = {{ $result }}</td>
+                    {{ $item['reconnectclient']->reconnectclient }} * {{ $different_days }} = {{ $result }}
+                </td>
                 <td>
                     @php
                         $result1 = $item['reconnect'] * 33;
@@ -89,10 +88,7 @@
                     @endphp
                     {{ number_format((float) $sum, 2, '.', '') }}%
                 </td>
-
             </tr>
-
-
         @endforeach
     </tbody>
 </table>
@@ -101,7 +97,7 @@
 <br>
 
 
-{{-- <table class="table table-bordered tableisp table-stripd table-condensed table-responsive">
+<table class="table table-bordered tableisp table-stripd table-condensed table-responsive">
     <tbody>
         <tr>
             <th class="text-center">Name</th>
@@ -126,56 +122,61 @@
         </tr>
         @foreach ($total as $item)
             <tr>
-                <td rowspan="4" style="width: 82px"></td>
+                <td rowspan="4" style="width: 82px"> {{ $item['name'] }}</td>
             </tr>
 
-            <tr>
-                <td>New Client</td>
-                <td>1</td>
-                <td></td>
-                <td>1</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <tr>
-                <td>Followup</td>
-                <td>2</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>4</td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Reconnect</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            @if (!empty($item['new']))
+                <tr>
+                    <td>New Client</td>
+                    <td>{{ $item['new'] }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @endif
+            @if (!empty($item['followup']))
+                <tr>
+                    <td>Followup</td>
+                    <td>{{ $item['followup'] }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @endif
+            @if (!empty($item['reconnect']))
+                <tr>
+                    <td>Reconnect</td>
+                    <td>{{ $item['reconnect'] }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @endif
 
         @endforeach
     </tbody>
-</table> --}}
+</table>
