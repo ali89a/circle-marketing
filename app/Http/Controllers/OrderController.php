@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Service;
 use App\Models\Upazila;
 use App\Models\District;
 use App\Models\Division;
 use App\Models\OrderInfo;
+use App\Models\OrderItem;
 use App\Models\Admin\Admin;
-use App\Models\OrderApproval;
 use App\Models\OrderBuffer;
 use App\Models\OrderNOCInfo;
 use Illuminate\Http\Request;
+use App\Models\OrderApproval;
+use App\Models\OrderUpgration;
+use App\Models\OrderDowngration;
 use App\Models\OrderCustomerInfo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
-use App\Models\OrderCustomerDocument;
-use App\Models\OrderDowngration;
-use App\Models\OrderItem;
-use App\Models\OrderUpgration;
-use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
+use App\Models\OrderCustomerDocument;
 
 class OrderController extends Controller
 {
@@ -31,6 +32,44 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function searchOrderResult(Request $request)
+    {
+       
+         if ($request->ajax()) {
+            if (!empty($request->from_date) && !empty($request->to_date)) {
+                $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
+                $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
+dd($to);
+
+              
+               $orders= Order::with('customer_details')->latest()->get();
+            } else if (!empty($request->name)) {
+                // dd($request->all());
+                $list = DB::table('customer_reports')
+                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+                    ->join('districts', 'customer_reports.location_district', 'districts.id')
+                    ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+                    ->join('admins', 'customer_reports.createdBy', 'admins.id')
+                    ->where('admins.name', $request->name)
+                    ->where(function ($query) {
+                        $query->where('customer_reports.status', '=', 'approved')
+                        ->orWhere('customer_reports.status', '=', 'canceled')
+                        ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                        ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                    });
+                // dd($list);
+                //  dd('TEXT');
+            } else if (!empty($request->client_type)) {
+                $orders=[];
+            }
+            $data = [
+                'orders' => $orders,
+                'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get()
+            ];
+
+            return view('admin.work-order.result',$data);
+        }
+    }
     public function orderUpgration($id)
     {
         $all_service = Service::all();
