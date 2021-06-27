@@ -33,20 +33,62 @@
                 <td>
                     {{ $item['new'] }}
                 </td>
-                <td>{{ $item['newclient']->newclient }}</td>
-                <td>3.3%</td>
+                <td>
+                    @php
+                        $result = 1;
+                        $result = $item['newclient']->newclient * 1;
+                    @endphp
+                    {{ $item['newclient']->newclient }} * 1 = {{ $result }}
+                </td>
+                <td>
+                    @php
+                        $result1 = $item['new'] * 33;
+                        $result2 = $item['newclient']->newclient * 1;
+                        $result3 = $result1 / $result2;
+                    @endphp
+                    {{ number_format((float) $result3, 2, '.', '') }}%
+                </td>
                 <td>
                     {{ $item['followup'] }}
                     {{-- echo $r->where('ctype', 'new')->count(); --}}
                 </td>
-                <td>{{ $item['followupclient']->followupclient }}</td>
-                <td>0%</td>
+                <td>
+                    @php
+                        $result = 1;
+                        $result = $item['followupclient']->followupclient * 1;
+                    @endphp
+                    {{ $item['followupclient']->followupclient }} * 1 = {{ $result }}</td>
+                <td>
+                    @php
+                        $result1 = $item['followup'] * 33;
+                        $result2 = $item['followupclient']->followupclient * 1;
+                        $result4 = $result1 / $result2;
+                    @endphp
+                    {{ number_format((float) $result4, 2, '.', '') }}%
+                </td>
                 <td>
                     {{ $item['reconnect'] }}
                 </td>
-                <td>{{ $item['reconnectclient']->reconnectclient }}</td>
-                <td>19.8%</td>
-                <td>23.1%</td>
+                <td>
+                    @php
+                        $result = 1;
+                        $result = $item['reconnectclient']->reconnectclient * 1;
+                    @endphp
+                    {{ $item['reconnectclient']->reconnectclient }} * 1 = {{ $result }}</td>
+                <td>
+                    @php
+                        $result1 = $item['reconnect'] * 33;
+                        $result2 = $item['reconnectclient']->reconnectclient * 1;
+                        $result5 = $result1 / $result2;
+                    @endphp
+                    {{ number_format((float) $result5, 2, '.', '') }}%
+                </td>
+                <td>
+                    @php
+                        $sum = $result3 + $result4 + $result5;
+                    @endphp
+                    {{ number_format((float) $sum, 2, '.', '') }}%
+                </td>
 
             </tr>
 
