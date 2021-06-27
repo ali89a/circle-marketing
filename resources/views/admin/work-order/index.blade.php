@@ -42,63 +42,74 @@
             <div class="col-12">
                 <div class="card">
                     <div class="box ml-2 mr-2 mt-2">
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <label class="form-label" for="pincode2">Marketing Progress</label>
-                                <select class="form-control form-control-sm" name="visit_type">
-                                    <option value="">Select Option</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="pending">Pending</option>
-                                </select>
+                        <form action="" id="search">
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label class="form-label" for="pincode2">Marketing Progress</label>
+                                    <select class="form-control form-control-sm" name="m_approved_status">
+                                        <option value="">Select Option</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="form-label" for="pincode2">NOC Progress</label>
+                                    <select class="form-control form-control-sm" name="noc_approved_status">
+                                        <option value="">Select Option</option>
+                                        <option value="done">Done</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="form-label" for="vertical-landmark">Org/Customer/ID</label>
+                                    <input type="text" name="org_name" id="vertical-landmark" class="form-control form-control-sm" placeholder="Enter Org/Customer/ID" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="form-label" for="vertical-landmark">Link ID/SCL ID</label>
+                                    <input type="text" name="scl_id" id="vertical-landmark" class="form-control form-control-sm" placeholder="Link ID/SCL ID" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="form-label" for="pincode2">Submitted By</label>
+                                    <select class="form-control form-control-sm" name="submitted_by">
+                                        <option value="">Select Type</option>
+                                        <option value="visited">Visited</option>
+                                        <option value="phone">Phone</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="form-label" for="pincode2">Client Type</label>
+                                    <select class="form-control form-control-sm" name="client_type">
+                                        <option value="">Select</option>
+                                        <option value="isp">ISP</option>
+                                        <option value="corporate">Corporate</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group col-md-2">
-                                <label class="form-label" for="pincode2">NOC Progress</label>
-                                <select class="form-control form-control-sm" name="visit_type">
-                                    <option value="">Select Option</option>
-                                    <option value="done">Done</option>
-                                    <option value="pending">Pending</option>
-                                </select>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    From Date
+                                    <input type="date" name="from_date" class="form-control flatpickr-basic flatpickr-input" placeholder="YYYY-MM-DD" readonly="readonly">
+                                </div>
+                                <div class="col-sm-4">
+                                    To Date
+                                    <input type="date" name="to_date" class="form-control flatpickr-basic flatpickr-input" placeholder="YYYY-MM-DD" readonly="readonly">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button @click="search" type="submit" id="searchBtn" class="btn btn-primary byn-block form-control mt-2">
+                                        Search
+                                    </button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-warning byn-block form-control mt-2" type="reset" id="reset">Reset
+                                    </button>
+                                </div>
                             </div>
-                            <div class="form-group col-md-2">
-                                <label class="form-label" for="vertical-landmark">Org/Customer/ID</label>
-                                <input type="text" name="scl_id" id="vertical-landmark" class="form-control form-control-sm" placeholder="Borough bridge" />
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label class="form-label" for="vertical-landmark">Link ID/SCL ID</label>
-                                <input type="text" name="scl_id" id="vertical-landmark" class="form-control form-control-sm" placeholder="Borough bridge" />
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label class="form-label" for="pincode2">Submitted By</label>
-                                <select class="form-control form-control-sm" name="visit_type">
-                                    <option value="">Select Type</option>
-                                    <option value="visited">Visited</option>
-                                    <option value="phone">Phone</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label class="form-label" for="pincode2">Client Type</label>
-                                <select class="form-control form-control-sm" name="visit_type">
-                                    <option value="">Select</option>
-                                    <option value="isp">ISP</option>
-                                    <option value="corporate">Corporate</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label for="fp-range">Range</label>
-                                <input type="text" id="fp-range" class="data-type form-control form-control-sm flatpickr-range flatpickr-input active" placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
-                            </div>
-                            <div class="col-sm-3">
-                                <button type="submit" style="margin-top:20px;" class="btn btn-info"><i class="fa fa-search"></i>Search</button>
-                                <a style="margin-top:20px;" href="#" class="btn btn-primary"><i class="fa fa-refresh"></i>Refresh</a>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="card-header">
                         <h4 class="card-title">Work Order List</h4>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="result">
                         <table class="table mb-0">
                             <thead>
                                 <tr class="alert alert-dark">
@@ -746,4 +757,29 @@
         });
     });
 </script>
+<script type="text/javascript">
+    //console.log('error');
+    $(document).ready(function() {
+        $('#reset').click(function() {
+            $('#result').html('');
+        });
+        $('#searchBtn').on('click', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'get',
+                url: '{{ route('searchOrderResult') }}',
+                data: $('#search').serialize(),
+                // alert(data);
+                success: function(result) {
+
+                    console.log(result);
+                    $('#result').html(result);
+
+                }
+            });
+        });
+
+    });
+</script>
+
 @endpush
