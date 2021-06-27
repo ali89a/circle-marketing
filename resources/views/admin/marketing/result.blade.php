@@ -36,14 +36,14 @@
                 <td>
                     @php
                         $result = 1;
-                        $result = $item['newclient']->newclient * 1;
+                        $result = $item['newclient']->newclient * $different_days;
                     @endphp
-                    {{ $item['newclient']->newclient }} * 1 = {{ $result }}
+                    {{ $item['newclient']->newclient }} * {{$different_days}} = {{ $result }}
                 </td>
                 <td>
                     @php
                         $result1 = $item['new'] * 33;
-                        $result2 = $item['newclient']->newclient * 1;
+                        $result2 = $item['newclient']->newclient * $different_days;
                         $result3 = $result1 / $result2;
                     @endphp
                     {{ number_format((float) $result3, 2, '.', '') }}%
@@ -55,13 +55,13 @@
                 <td>
                     @php
                         $result = 1;
-                        $result = $item['followupclient']->followupclient * 1;
+                        $result = $item['followupclient']->followupclient * $different_days;
                     @endphp
-                    {{ $item['followupclient']->followupclient }} * 1 = {{ $result }}</td>
+                    {{ $item['followupclient']->followupclient }} * {{ $different_days }} = {{ $result }}</td>
                 <td>
                     @php
                         $result1 = $item['followup'] * 33;
-                        $result2 = $item['followupclient']->followupclient * 1;
+                        $result2 = $item['followupclient']->followupclient * $different_days;
                         $result4 = $result1 / $result2;
                     @endphp
                     {{ number_format((float) $result4, 2, '.', '') }}%
@@ -72,13 +72,13 @@
                 <td>
                     @php
                         $result = 1;
-                        $result = $item['reconnectclient']->reconnectclient * 1;
+                        $result = $item['reconnectclient']->reconnectclient * $different_days;
                     @endphp
-                    {{ $item['reconnectclient']->reconnectclient }} * 1 = {{ $result }}</td>
+                    {{ $item['reconnectclient']->reconnectclient }} * {{ $different_days }} = {{ $result }}</td>
                 <td>
                     @php
                         $result1 = $item['reconnect'] * 33;
-                        $result2 = $item['reconnectclient']->reconnectclient * 1;
+                        $result2 = $item['reconnectclient']->reconnectclient * $different_days;
                         $result5 = $result1 / $result2;
                     @endphp
                     {{ number_format((float) $result5, 2, '.', '') }}%
