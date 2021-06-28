@@ -432,24 +432,24 @@ class CustomerReportController extends Controller
 
                     $total[$u->id]['new'] = DB::table('customer_service_reports')
                         ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_service_reports.created_at', '>=', $from)
-                        ->where('customer_service_reports.created_at', '<=', $to)
+                        ->where('customer_service_reports.created_at', '>', $from)
+                        ->where('customer_service_reports.created_at', '<', $to)
                         ->where('customer_reports.createdBy', $u->id)
                         ->where('customer_service_reports.ctype', 'new')
                         ->count();
 
                     $total[$u->id]['followup'] = DB::table('customer_service_reports')
                         ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_service_reports.created_at', '>=', $from)
-                        ->where('customer_service_reports.created_at', '<=', $to)
+                        ->where('customer_service_reports.created_at', '>', $from)
+                        ->where('customer_service_reports.created_at', '<', $to)
                         ->where('customer_reports.createdBy', $u->id)
                         ->where('customer_service_reports.ctype', 'followup')
                         ->count();
 
                     $total[$u->id]['reconnect'] = DB::table('customer_service_reports')
                         ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_service_reports.created_at', '>=', $from)
-                        ->where('customer_service_reports.created_at', '<=', $to)
+                        ->where('customer_service_reports.created_at', '>', $from)
+                        ->where('customer_service_reports.created_at', '<', $to)
                         ->where('customer_reports.createdBy', $u->id)
                         ->where('customer_service_reports.ctype', 'reconnect')
                         ->count();
@@ -473,7 +473,7 @@ class CustomerReportController extends Controller
                     ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
                     ->leftJoin('admins', 'customer_reports.createdBy', 'admins.id')
                     ->where('customer_service_reports.created_at', '>', $from)
-                    ->where('customer_service_reports.created_at', '<', $to->addDay())
+                    ->where('customer_service_reports.created_at', '<', $to)
                     ->where(function ($query) {
                         $query->where('customer_service_reports.ctype', '=', 'new')
                             ->orWhere('customer_service_reports.ctype', '=', 'followup')
