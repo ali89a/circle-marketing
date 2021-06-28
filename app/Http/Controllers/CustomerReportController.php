@@ -468,21 +468,23 @@ class CustomerReportController extends Controller
                 $different_days = $from->diffInDays($to->addDay());
                 //  dd($different_days);
 
-
-                $list = DB::table('customer_service_reports')
-                    ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                    ->leftJoin('admins', 'customer_reports.createdBy', 'admins.id')
-                    ->where('customer_service_reports.created_at', '>', $from)
-                    ->where('customer_service_reports.created_at', '<', $to)
-                    ->where(function ($query) {
-                        $query->where('customer_service_reports.ctype', '=', 'new')
-                            ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                            ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
-                    })
-                    ->groupBy('admins.id')
-                    ->get();
-
-                // dd($list);
+                foreach ($users as $u) {
+                    $list = DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        ->leftJoin('admins', 'customer_reports.createdBy', 'admins.id')
+                        ->where('customer_service_reports.created_at', '>', $from)
+                        ->where('customer_service_reports.created_at', '<', $to)
+                        ->where(function ($query) {
+                            $query->where('customer_service_reports.ctype', '=', 'new')
+                                ->orWhere('customer_service_reports.ctype', '=', 'followup')
+                                ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
+                        })
+                       // ->where('customer_reports.createdBy', $u->id)
+                        ->groupBy('customer_reports.createdBy')
+                        ->get();
+                }
+                // echo($list->count);
+                //dd($list);
 
 
                 return view('admin.marketing.result', [
@@ -490,7 +492,8 @@ class CustomerReportController extends Controller
                     'different_days'       =>  $different_days,
                     'from'       =>  $from,
                     'to'       =>  $to,
-                    'list' => $list
+                    'list' => $list,
+                    //  'totalList' => $list->count()
                 ]);
             }
         }
