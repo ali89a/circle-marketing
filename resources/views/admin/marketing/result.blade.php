@@ -2,7 +2,7 @@
 <button onclick="window.print();" class="btn btn-primary noprint"><i class="fa fa-print"></i>
     Print</button>
 <caption>
-    <h2 class="text-center">{{ $from->format("d M Y") }} to {{ $to->format("d M Y") }}</h2>
+    <h2 class="text-center">{{ $from->format('d M Y') }} to {{ $to->format('d M Y') }}</h2>
 </caption>
 <table class="table table-bordered table-stripd ana">
     <tbody>
@@ -55,7 +55,8 @@
                         $result = 1;
                         $result = $item['followupclient']->followupclient * $different_days;
                     @endphp
-                    {{ $item['followupclient']->followupclient }} * {{ $different_days }} = {{ $result }}</td>
+                    {{ $item['followupclient']->followupclient }} * {{ $different_days }} = {{ $result }}
+                </td>
                 <td>
                     @php
                         $result1 = $item['followup'] * 33;
@@ -120,62 +121,129 @@
             <th>Corporate</th>
             <th>Others</th>
         </tr>
-        @foreach ($total as $item)
+        @foreach ($list as $item)
             <tr>
-                <td rowspan="4" style="width: 82px"> {{ $item['name'] }}</td>
+                <td rowspan="4" style="width: 82px"> {{ $item->name }}</td>
             </tr>
 
-            @if (!empty($item['new']))
+            {{-- @if (!empty($item['new'])) --}}
+            @if (!empty($item->ctype == 'new'))
                 <tr>
                     <td>New Client</td>
-                    <td>{{ $item['new'] }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        @if ($item->isp_type == 'category_a')
+                            {{ 1 }}
+                        @else
+                        @endif
+                    </td>
+                    <td>
+                        @if ($item->isp_type == 'category_b')
+                            {{ 1 }}
+                        @else
+                        @endif
+
+                    </td>
+                    <td>
+                        @if ($item->isp_type == 'category_c')
+                            {{ 1 }}
+                        @else
+                        @endif
+
+                    </td>
+                    <td>
+                          @if ($item->isp_type == 'south_zonal')
+                            {{ 1 }}
+                        @else
+                        @endif
+                    </td>
+                    <td>
+                         @if ($item->isp_type == 'north_zonal')
+                            {{ 1 }}
+                        @else
+                        @endif
+                    </td>
+                    <td>
+                          @if ($item->isp_type == 'west_zonal')
+                            {{ 1 }}
+                        @else
+                        @endif
+                    </td>
+                    <td>
+                          @if ($item->isp_type == 'central_zonal')
+                            {{ 1 }}
+                        @else
+                        @endif
+                    </td>
+                    <td>
+                          @if ($item->isp_type == 'nationwide')
+                            {{ 1 }}
+                        @else
+                        @endif
+                    </td>
+                    <td>
+                          @if ($item->isp_type == 'local')
+                            {{ 1 }}
+                        @else
+                        @endif
+                    </td>
+                    <td>
+                          @if ($item->isp_type == 'corporate')
+                            {{ 1 }}
+                        @else
+                        @endif
+                    </td>
+                    <td>
+                          @if ($item->isp_type == 'non_license')
+                            {{ 1 }}
+                        @else
+                        @endif
+                    </td>
+                    <td>
+                          @if ($item->isp_type == 'others')
+                            {{ 1 }}
+                        @else
+                        @endif
+                    </td>
                 </tr>
             @endif
-            @if (!empty($item['followup']))
-                <tr>
-                    <td>Followup</td>
-                    <td>{{ $item['followup'] }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            @endif
-            @if (!empty($item['reconnect']))
-                <tr>
-                    <td>Reconnect</td>
-                    <td>{{ $item['reconnect'] }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            @endif
+            {{-- @if (!empty($item['followup'])) --}}
+            <tr>
+                <td>Followup</td>
+                <td>
+                    {{-- {{ $item['followup'] }} --}}
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            {{-- @endif --}}
+            {{-- @if (!empty($item['reconnect'])) --}}
+            <tr>
+                <td>Reconnect</td>
+                <td>
+                    {{-- {{ $item['reconnect'] }} --}}
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            {{-- @endif --}}
 
         @endforeach
     </tbody>
