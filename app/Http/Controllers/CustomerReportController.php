@@ -479,7 +479,7 @@ class CustomerReportController extends Controller
                                 ->orWhere('customer_service_reports.ctype', '=', 'followup')
                                 ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
                         })
-                       // ->where('customer_reports.createdBy', $u->id)
+                        //->where('customer_reports.createdBy', $u->id)
                         ->groupBy('customer_reports.createdBy')
                         ->get();
                 }

@@ -141,20 +141,21 @@
                             {{ 1 }}
                         @else
                         @endif
-
                     </td>
                     <td>
                         @if ($item->isp_type == 'category_c')
-                            {{-- @php
+                        {{-- @dd($item->isp_type) --}}
+                        {{-- @dd($item->length) --}}
+                            @php
                                 $sum = 0;
                             @endphp
-                            @for ($i = 0; $i < $13; $i++)
+                            @for ($i = 0; $i < 2; $i++)
                                 @php
                                     $sum += $i;
                                 @endphp
-                            @endfor --}}
+                            @endfor
 
-                            {{-- {{ 1 }} --}}
+                            {{ $sum }}
                         @else
                         @endif
 
