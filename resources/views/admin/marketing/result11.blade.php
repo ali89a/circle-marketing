@@ -126,101 +126,31 @@
                 <td rowspan="4" style="width: 82px"> {{ $item->name }}</td>
             </tr>
 
-
+            {{-- @if (!empty($item['new'])) --}}
             @if (!empty($item->ctype == 'new'))
                 <tr>
                     <td>New Client</td>
                     <td>
                         @if ($item->isp_type == 'category_a')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'category_b')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'category_c')
-                        {{-- @dd($item->isp_type) --}}
-                        {{-- @dd($item->length) --}}
                             @php
                                 $sum = 0;
                             @endphp
-                            @for ($i = 0; $i < 2; $i++)
+                            @for ($i = 0; $i < $totalList; $i++)
                                 @php
                                     $sum += $i;
                                 @endphp
-                            @endfor
-
+                            @endfor 
                             {{ $sum }}
                         @else
-                        @endif
-
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'south_zonal')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'north_zonal')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'west_zonal')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'central_zonal')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'nationwide')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'local')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'corporate')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'non_license')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'others')
-                            {{ 1 }}
-                        @else
+                        {{ ''}}
                         @endif
                     </td>
                 </tr>
             @endif
-
-            <tr>
+            {{-- @if (!empty($item['followup'])) --}} <tr>
                 <td>Followup</td>
                 <td>
-
+                    {{-- {{ $item['followup'] }} --}}
                 </td>
                 <td></td>
                 <td></td>
@@ -234,11 +164,12 @@
                 <td></td>
                 <td></td>
             </tr>
-
+            {{-- @endif --}}
+            {{-- @if (!empty($item['reconnect'])) --}}
             <tr>
                 <td>Reconnect</td>
                 <td>
-
+                    {{-- {{ $item['reconnect'] }} --}}
                 </td>
                 <td></td>
                 <td></td>
@@ -252,7 +183,7 @@
                 <td></td>
                 <td></td>
             </tr>
-
+            {{-- @endif --}}
 
         @endforeach
     </tbody>
