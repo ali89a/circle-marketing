@@ -461,7 +461,7 @@ class CustomerReportController extends Controller
                         ->select('work_limits.reconnectclient')->first();
                 }
                 // dd($total);
-                $different_days = $from->diffInDays($to);
+                $different_days = $from->diffInDays($to->addDay());
                 //  dd($different_days);
                 return view('admin.marketing.result', [
                     'total'       =>  $total,
