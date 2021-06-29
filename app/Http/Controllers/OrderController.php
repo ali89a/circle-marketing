@@ -34,40 +34,57 @@ class OrderController extends Controller
      */
     public function searchOrderResult(Request $request)
     {
-       
-         if ($request->ajax()) {
-            if (!empty($request->from_date) && !empty($request->to_date)) {
-                $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
-                $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
-dd($to);
+        //dd($request->all());
 
-              
-               $orders= Order::with('customer_details')->latest()->get();
-            } else if (!empty($request->name)) {
-                // dd($request->all());
-                $list = DB::table('customer_reports')
-                    ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
-                    ->join('districts', 'customer_reports.location_district', 'districts.id')
-                    ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
-                    ->join('admins', 'customer_reports.createdBy', 'admins.id')
-                    ->where('admins.name', $request->name)
-                    ->where(function ($query) {
-                        $query->where('customer_reports.status', '=', 'approved')
-                        ->orWhere('customer_reports.status', '=', 'canceled')
-                        ->orWhere('customer_service_reports.ctype', '=', 'followup')
-                        ->orWhere('customer_service_reports.ctype', '=', 'reconnect');
-                    });
-                // dd($list);
-                //  dd('TEXT');
-            } else if (!empty($request->client_type)) {
-                $orders=[];
+        if ($request->ajax()) {
+            if (empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && empty($request->client_type) && !empty($request->from_date) && !empty($request->to_date)) {
+            
+                dd('17');
+            }
+            elseif (empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && !empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
+            
+                dd('16');
+            }
+            elseif (empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && !empty($request->submitted_by) && empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
+            
+                dd('15');
+            }
+            elseif (empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && !empty($request->scl_id) && empty($request->submitted_by) && empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
+            
+                dd('14');
+            }
+            elseif (empty($request->m_approved_status) && empty($request->noc_approved_status) && !empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
+            
+                dd('13');
+            }
+            elseif (empty($request->m_approved_status) && !empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
+            
+                dd('12');
+            }
+            elseif (!empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
+            
+                dd('11');
+            }
+            //END SINGLE FIELD 
+            elseif (empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && !empty($request->client_type) && !empty($request->from_date) && !empty($request->to_date)) {
+            
+                dd('21');
+            }
+            elseif (!empty($request->m_approved_status) && !empty($request->noc_approved_status) && !empty($request->org_name) && !empty($request->scl_id) && !empty($request->submitted_by) && !empty($request->client_type) && !empty($request->from_date) && !empty($request->to_date)) {
+               dd('3');
+                $start = Carbon::parse($request->from_date)->format('Y-m-d');
+                $end = Carbon::parse($request->to_date)->format('Y-m-d');
+
+                $orders = Order::with('customer_details')->whereBetween('created_at', [$start . " 00:00:00", $end . " 23:59:59"])->latest()->get();
+            } else {
+                $orders = [];
             }
             $data = [
                 'orders' => $orders,
                 'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get()
             ];
 
-            return view('admin.work-order.result',$data);
+            return view('admin.work-order.result', $data);
         }
     }
     public function orderUpgration($id)
@@ -141,9 +158,9 @@ dd($to);
     {
 
         if (Auth::guard('admin')->user()->hasRole('Marketing Executive') || Auth::guard('admin')->user()->hasRole('Marketing Admin')) {
-            $users=User::where('creator_user_id',Auth::guard('admin')->user()->id)->latest()->get();
-        }else{
-            $users=User::latest()->get();
+            $users = User::where('creator_user_id', Auth::guard('admin')->user()->id)->latest()->get();
+        } else {
+            $users = User::latest()->get();
         }
 
         $data = [
@@ -283,29 +300,29 @@ dd($to);
         // try {
 
         //     DB::beginTransaction();
-            $order = Order::find($id);
+        $order = Order::find($id);
 
-            $order->total_price = $request->total_price;
-            $order->real_ip = $request->real_ip;
-            $order->core_rent = $request->core_rent;
-            $order->otc = $request->otc;
-            $order->vat = $request->vat;
-            $order->completion_status = 'Complete';
-            $order->save();
-            OrderItem::where('order_id', $id)->delete();
-            $products = $request->get('items');
+        $order->total_price = $request->total_price;
+        $order->real_ip = $request->real_ip;
+        $order->core_rent = $request->core_rent;
+        $order->otc = $request->otc;
+        $order->vat = $request->vat;
+        $order->completion_status = 'Complete';
+        $order->save();
+        OrderItem::where('order_id', $id)->delete();
+        $products = $request->get('items');
 
-            foreach ($products as $key => $product) {
-                $item = new OrderItem();
-                $item->order_id = $order->id;
-                $item->service_id = $product['service_id'];
-                $item->capacity = $product['capacity'];
-                $item->price = $product['price'];
-                $item->save();
-            }
-          //  DB::commit();
-            Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
-            return redirect()->route('work-order.index');
+        foreach ($products as $key => $product) {
+            $item = new OrderItem();
+            $item->order_id = $order->id;
+            $item->service_id = $product['service_id'];
+            $item->capacity = $product['capacity'];
+            $item->price = $product['price'];
+            $item->save();
+        }
+        //  DB::commit();
+        Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('work-order.index');
         // } catch (\Exception $e) {
         //     DB::rollBack();
         //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
@@ -478,33 +495,33 @@ dd($to);
     {
         // try {
         //     DB::beginTransaction();
-            $order = Order::where('id', $id)->first();
-            $order->type = $request->type;
-            $order->price = $request->price;
-            $order->scl_id = $request->scl_id;
-            $order->gmap_location = $request->gmap_location;
-            $order->link_id = 'NC_' . \App\Classes\LinkId::serial_number();
-            $order->vat = $request->vat;
-            $order->order_submission_date = $request->order_submission_date;
-            $order->billing_cycle = $request->billing_cycle;
-            $order->billing_remark = $request->billing_remark;
-            $order->bill_start_date = $request->bill_start_date;
-            $order->delivery_date = $request->delivery_date;
-            $order->bill_generate_method = $request->bill_generate_method;
-            $order->total_Price = $request->total_Price;
-            $order->core_rent = $request->core_rent;
-            $order->otc = $request->otc;
-            $order->real_ip = $request->real_ip;
-            $order->visit_type = $request->visit_type;
-            $order->connect_type = $request->connect_type;
-            $order->security_money_cheque = $request->security_money_cheque;
-            $order->security_money_cash = $request->security_money_cash;
-            $order->marketing_user_id = $request->marketing_user_id;
-            $order->accounts_user_id = $request->accounts_user_id;
-            $order->save();
-            // DB::commit();
-            Toastr::success('Order Info Added Successful!.', '', ["progressbar" => true]);
-            return redirect()->route('orderDetailEdit', ['id' => $order->id]);
+        $order = Order::where('id', $id)->first();
+        $order->type = $request->type;
+        $order->price = $request->price;
+        $order->scl_id = $request->scl_id;
+        $order->gmap_location = $request->gmap_location;
+        $order->link_id = 'NC_' . \App\Classes\LinkId::serial_number();
+        $order->vat = $request->vat;
+        $order->order_submission_date = $request->order_submission_date;
+        $order->billing_cycle = $request->billing_cycle;
+        $order->billing_remark = $request->billing_remark;
+        $order->bill_start_date = $request->bill_start_date;
+        $order->delivery_date = $request->delivery_date;
+        $order->bill_generate_method = $request->bill_generate_method;
+        $order->total_Price = $request->total_Price;
+        $order->core_rent = $request->core_rent;
+        $order->otc = $request->otc;
+        $order->real_ip = $request->real_ip;
+        $order->visit_type = $request->visit_type;
+        $order->connect_type = $request->connect_type;
+        $order->security_money_cheque = $request->security_money_cheque;
+        $order->security_money_cash = $request->security_money_cash;
+        $order->marketing_user_id = $request->marketing_user_id;
+        $order->accounts_user_id = $request->accounts_user_id;
+        $order->save();
+        // DB::commit();
+        Toastr::success('Order Info Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('orderDetailEdit', ['id' => $order->id]);
         // } catch (\Exception $e) {
         //     DB::rollBack();
         //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());

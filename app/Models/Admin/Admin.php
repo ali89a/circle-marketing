@@ -48,4 +48,12 @@ class Admin extends Authenticatable
         $delay = now()->addSeconds(10);
         $this->notify((new ResetPasswordNotification($token))->delay($delay));
     }
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order', 'creator_user_id');
+    }
+    public function customers()
+    {
+        return $this->hasMany('App\Models\User', 'creator_user_id');
+    }
 }

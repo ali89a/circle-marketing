@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('content')
+
 <div class="content-wrapper">
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
@@ -60,62 +61,12 @@
                                         <th>Name</th>
                                         <th>Customer Count</th>
                                     </tr>
-
-
+                                    @foreach($marketing_users as $user)
                                     <tr>
-                                        <td>kawcher</td>
-                                        <td>154</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->customers->count() }}</td>
                                     </tr>
-
-                                    <tr>
-                                        <td>sumon</td>
-                                        <td>29</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>mehedi</td>
-                                        <td>153</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>robiul</td>
-                                        <td>24</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>mostafiq</td>
-                                        <td>58</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Afroza</td>
-                                        <td>77</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>tanvir</td>
-                                        <td>50</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Mahin</td>
-                                        <td>2</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>kowshik</td>
-                                        <td>3</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>yetfix</td>
-                                        <td>1</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>madmin</td>
-                                        <td>1</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -134,36 +85,14 @@
                                         <th>Total Count</th>
                                     </tr>
 
-
+                                    @foreach($marketing_users as $user)
                                     <tr>
-                                        <td>kawcher</td>
-                                        <td>68</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->orders->count() }}</td>
                                     </tr>
+                                    @endforeach
 
-                                    <tr>
-                                        <td>mehedi</td>
-                                        <td>94</td>
-                                    </tr>
 
-                                    <tr>
-                                        <td>robiul</td>
-                                        <td>9</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>mostafiq</td>
-                                        <td>30</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Afroza</td>
-                                        <td>32</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>tanvir</td>
-                                        <td>3</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -192,11 +121,11 @@
                                     </tr>
                                     <tr>
 
-                                        <td>2</td>
-                                        <td>0</td>
-                                        <td>1</td>
-                                        <td>2</td>
-                                        <td>0</td>
+                                        <td>{{ \App\Models\OrderApproval::where('m_approved_status','Pending')->count() }}</td>
+                                        <td>{{ \App\Models\OrderApproval::where('coo_approved_status','Pending')->count() }}</td>
+                                        <td>{{ \App\Models\OrderApproval::where('noc_approved_status','Pending')->count() }}</td>
+                                        <td>{{ \App\Models\OrderApproval::where('m_approved_status','Pending')->count() }}</td>
+                                        <td>{{ \App\Models\OrderApproval::where('a_approved_status','Pending')->count() }}</td>
                                     </tr>
 
                                 </tbody>
@@ -318,7 +247,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Multiple Column</h4>
+                            <!-- <h4 class="card-title">Multiple Column</h4> -->
                         </div>
                         <div class="card-body table-responsive">
                             <table class="table table-bordered table-striped">
