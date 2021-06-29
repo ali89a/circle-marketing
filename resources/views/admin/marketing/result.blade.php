@@ -121,101 +121,54 @@
             <th>Corporate</th>
             <th>Others</th>
         </tr>
-        @foreach ($list as $item)
+        @foreach ($total as $r)
+            {{-- @dd($total) --}}
+            
             <tr>
-                <td rowspan="4" style="width: 82px"> {{ $item->name }}</td>
+                <td rowspan="4" style="width: 82px"> 
+                   {{ $r['name'] }}
+                </td>
             </tr>
-
-
-            @if (!empty($item->ctype == 'new'))
-                <tr>
-                    <td>New Client</td>
-                    <td>
-                        @if ($item->isp_type == 'category_a')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'category_b')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'category_c')
-                        @dd($item->isp_type)
-                        {{-- @dd($item->length) --}}
-                            @php
-                                $sum = 0;
-                            @endphp
-                            @for ($i = 0; $i < 2; $i++)
-                                @php
-                                    $sum += $i;
-                                @endphp
-                            @endfor
-
-                            {{ $sum }}
-                        @else
-                        @endif
-
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'south_zonal')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'north_zonal')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'west_zonal')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'central_zonal')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'nationwide')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'local')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'corporate')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'non_license')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                    <td>
-                        @if ($item->isp_type == 'others')
-                            {{ 1 }}
-                        @else
-                        @endif
-                    </td>
-                </tr>
-            @endif
+            <tr>
+                <td>New Client</td>
+                <td>
+                     {{ $r['category_a'] }}
+                </td>
+                <td>
+                     {{ $r['category_b'] }}
+                </td>
+                <td>
+                     {{ $r['category_c'] }}
+                </td>
+                  <td>
+                     {{-- {{ $r['south_zonal'] }} --}}
+                </td>
+                <td>
+                     {{-- {{ $r['north_zonal'] }} --}}
+                </td>
+                <td>
+                     {{-- {{ $r['west_zonal'] }} --}}
+                </td>
+                <td>
+                     {{-- {{ $r['central_zonal'] }} --}}
+                </td>
+                <td>
+                     {{-- {{ $r['nationwide'] }} --}}
+                </td>
+                <td>
+                     {{-- {{ $r['local'] }} --}}
+                </td>
+                <td>
+                     {{-- {{ $r['corporate'] }} --}}
+                </td>
+                <td>
+                     {{-- {{ $r['non_license'] }} --}}
+                </td>
+                <td>
+                     {{-- {{ $r['others'] }} --}}
+                </td>
+            </tr>
+            {{-- @endif --}}
 
             <tr>
                 <td>Followup</td>

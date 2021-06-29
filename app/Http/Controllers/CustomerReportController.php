@@ -424,12 +424,10 @@ class CustomerReportController extends Controller
             if (!empty($request->from_date) && !empty($request->to_date)) {
                 $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
                 $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
-
                 $users = Admin::all();
                 $total = array();
                 foreach ($users as $u) {
                     $total[$u->id]['name'] = $u->name;
-
                     $total[$u->id]['new'] = DB::table('customer_service_reports')
                         ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
                         ->where('customer_service_reports.created_at', '>', $from)
@@ -437,7 +435,6 @@ class CustomerReportController extends Controller
                         ->where('customer_reports.createdBy', $u->id)
                         ->where('customer_service_reports.ctype', 'new')
                         ->count();
-
                     $total[$u->id]['followup'] = DB::table('customer_service_reports')
                         ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
                         ->where('customer_service_reports.created_at', '>', $from)
@@ -445,7 +442,6 @@ class CustomerReportController extends Controller
                         ->where('customer_reports.createdBy', $u->id)
                         ->where('customer_service_reports.ctype', 'followup')
                         ->count();
-
                     $total[$u->id]['reconnect'] = DB::table('customer_service_reports')
                         ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
                         ->where('customer_service_reports.created_at', '>', $from)
@@ -453,7 +449,6 @@ class CustomerReportController extends Controller
                         ->where('customer_reports.createdBy', $u->id)
                         ->where('customer_service_reports.ctype', 'reconnect')
                         ->count();
-
                     $total[$u->id]['newclient'] = DB::table('work_limits')
                         ->where('work_limits.admin_id', $u->id)
                         ->select('work_limits.newclient')->first();
@@ -463,8 +458,28 @@ class CustomerReportController extends Controller
                     $total[$u->id]['reconnectclient'] = DB::table('work_limits')
                         ->where('work_limits.admin_id', $u->id)
                         ->select('work_limits.reconnectclient')->first();
+
+
+                    $total[$u->id]['category_a'] = DB::table('customer_service_reports')
+                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'new')
+                        ->where('customer_service_reports.isp_type', 'category_a')
+                        ->count();
+                    $total[$u->id]['category_b'] = DB::table('customer_service_reports')
+                    ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'new')
+                        ->where('customer_service_reports.isp_type', 'category_b')
+                        ->count();
+                    $total[$u->id]['category_c'] = DB::table('customer_service_reports')
+                    ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                        ->where('customer_reports.createdBy', $u->id)
+                        ->where('customer_service_reports.ctype', 'new')
+                        ->where('customer_service_reports.isp_type', 'category_c')
+                        ->count();
                 }
-                // dd($total);
+               // dd($total);
                 $different_days = $from->diffInDays($to->addDay());
                 //  dd($different_days);
 
@@ -485,19 +500,19 @@ class CustomerReportController extends Controller
                 }
                 // echo($list->count);
                 //dd($list);
-
-
                 return view('admin.marketing.result', [
                     'total'       =>  $total,
                     'different_days'       =>  $different_days,
                     'from'       =>  $from,
                     'to'       =>  $to,
                     'list' => $list,
-                    //  'totalList' => $list->count()
+                    //'reportArray' => $reportArray
                 ]);
             }
         }
     }
+
+
 
 
 
