@@ -32,7 +32,7 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   
+
     public function orderUpgration($id)
     {
         $all_service = Service::all();
@@ -53,6 +53,10 @@ class OrderController extends Controller
         $products = $request->get('items');
 
         foreach ($products as $key => $product) {
+            $order_item = OrderItem::where('order_id', $id)->where('service_id', $product['service_id'])->first();
+            $order_item->upgration = $product['upgration'];
+            $order_item->save();
+
             $item = new OrderUpgration();
             $item->order_id = $id;
             $item->service_id = $product['service_id'];

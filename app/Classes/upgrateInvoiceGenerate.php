@@ -3,28 +3,23 @@
 
 namespace App\Classes;
 
-use Carbon\Carbon;
-use App\Models\Order;
 use App\Models\Invoice;
-use App\Models\OrderItem;
 use App\Models\InvoiceItem;
+use App\Models\OrderItem;
 
-class invoiceGenerate
+class upgrateInvoiceGenerate
 {
     public static function invoice($order_id, $from_date,$end_date)
     {
-        $order = Order::find($order_id);
         $invoice = Invoice::create([
             'order_id' => $order_id,
             'invoice_no' => \App\Classes\InvoiceNumber::serial_number(),
-            'link_id' =>  $order->link_id,
+            'link_id' => 1,
             'invoice_date' => now(),
-            'billing_address' => $order->customer_details->billing_address,
-            'subject' => 'New Installation Bill Month Of '.now()->format('M').'-'.Carbon::now()->year,
-            'status' => 'New',
-            'previous_due' => 0,
-            'core_rent' => $order->core_rent,
-            'otc' => $order->otc,
+            'billing_address' => 'Paratoly',
+            'subject' => 'Paratoly',
+            'status' => 'upgrate',
+            'previous_due' => 20000,
         ]);
         $order_infos = OrderItem::where('order_id', $order_id)->get();
         foreach ($order_infos as $order_info) {

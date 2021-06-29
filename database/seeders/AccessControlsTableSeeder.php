@@ -32,8 +32,43 @@ class AccessControlsTableSeeder extends Seeder
                     'password' => bcrypt('12345678'),
                 ], [
                     'id'=>'3',
-                    'name' => 'Guest',
-                    'email' => 'guest@gmail.com',
+                    'name' => 'CEO',
+                    'email' => 'ceo@gmail.com',
+                    'password' => bcrypt('12345678'),
+                ], [
+                    'id'=>'4',
+                    'name' => 'COO',
+                    'email' => 'coo@gmail.com',
+                    'password' => bcrypt('12345678'),
+                ],[
+                    'id'=>'5',
+                    'name' => 'Marketing Admin',
+                    'email' => 'ma@gmail.com',
+                    'password' => bcrypt('12345678'),
+                ],[
+                    'id'=>'6',
+                    'name' => 'Marketing Executive',
+                    'email' => 'me@gmail.com',
+                    'password' => bcrypt('12345678'),
+                ],[
+                    'id'=>'7',
+                    'name' => 'Accounts Admin',
+                    'email' => 'aa@gmail.com',
+                    'password' => bcrypt('12345678'),
+                ],[
+                    'id'=>'8',
+                    'name' => 'Accounts Executive',
+                    'email' => 'ae@gmail.com',
+                    'password' => bcrypt('12345678'),
+                ],[
+                    'id'=>'9',
+                    'name' => 'NOC Admin',
+                    'email' => 'na@gmail.com',
+                    'password' => bcrypt('12345678'),
+                ],[
+                    'id'=>'10',
+                    'name' => 'NOC Executive',
+                    'email' => 'ne@gmail.com',
                     'password' => bcrypt('12345678'),
                 ],
             ];
@@ -121,6 +156,13 @@ class AccessControlsTableSeeder extends Seeder
             ['role_id' => 1, 'model_type' => 'App\Models\Admin\Admin', 'model_id' => $dev->id],
             ['role_id' => 2, 'model_type' => 'App\Models\Admin\Admin', 'model_id' => 2],
             ['role_id' => 3, 'model_type' => 'App\Models\Admin\Admin', 'model_id' => 3],
+            ['role_id' => 4, 'model_type' => 'App\Models\Admin\Admin', 'model_id' => 4],
+            ['role_id' => 5, 'model_type' => 'App\Models\Admin\Admin', 'model_id' => 5],
+            ['role_id' => 6, 'model_type' => 'App\Models\Admin\Admin', 'model_id' => 6],
+            ['role_id' => 7, 'model_type' => 'App\Models\Admin\Admin', 'model_id' => 7],
+            ['role_id' => 8, 'model_type' => 'App\Models\Admin\Admin', 'model_id' => 8],
+            ['role_id' => 9, 'model_type' => 'App\Models\Admin\Admin', 'model_id' => 9],
+            ['role_id' => 10, 'model_type' => 'App\Models\Admin\Admin', 'model_id' => 10],
         ];
         DB::table('model_has_roles')->insert($data);
         //Data for role permission pivot

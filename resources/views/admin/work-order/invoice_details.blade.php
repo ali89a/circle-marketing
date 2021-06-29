@@ -49,7 +49,7 @@
                                 <div class="col-xl-8 p-0">
                                     <h6 class="mb-2">To:</h6>
                                     <h6 class="mb-25">{{$invoice->order->customer_details->organization}}</h6>
-                                    <p class="card-text mb-25">{{$invoice->order->customer_details->billing_address}}</p>
+                                    <p class="card-text mb-25">{{$invoice->billing_address}}</p>
                                 </div>
                                 <div class="col-xl-4 p-0 mt-xl-0 mt-2">
                                     <table>
@@ -60,7 +60,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="pr-1">Link ID:</td>
-                                                <td>{{$invoice->order->link_id}}</td>
+                                                <td>{{$invoice->link_id}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="pr-1">Invoice Date:</td>
@@ -70,6 +70,7 @@
                                     </table>
                                 </div>
                             </div>
+                            <h5><strong>Subject:</strong> {{$invoice->subject}}</h5>
                         </div>
                         <!-- Address and Contact ends -->
 
@@ -101,8 +102,8 @@
                                         </td>
                                     </tr>
                                     @php
-                                   $subtotal= $subtotal+$item->amount;
-                                   @endphp
+                                    $subtotal= $subtotal+$item->amount;
+                                    @endphp
                                     @endforeach
                                 </tbody>
                             </table>
@@ -122,20 +123,30 @@
                                             <p class="invoice-total-amount">{{$subtotal}}</p>
                                         </div>
                                         <div class="invoice-total-item">
+                                            <p class="invoice-total-title">Core Rent:</p>
+                                            <p class="invoice-total-amount"> {{$invoice->core_rent}}</p>
+                                        </div>
+                                        @if($invoice->otc)
+                                        <div class="invoice-total-item">
+                                            <p class="invoice-total-title">OTC:</p>
+                                            <p class="invoice-total-amount"> {{$invoice->otc}}</p>
+                                        </div>
+                                        @endif
+                                        <div class="invoice-total-item">
                                             <p class="invoice-total-title">Previous Due:</p>
                                             <p class="invoice-total-amount"> {{$invoice->previous_due}}</p>
                                         </div>
                                         <hr class="my-50">
                                         <div class="invoice-total-item">
                                             <p class="invoice-total-title">Total:</p>
-                                            <p class="invoice-total-amount">{{$subtotal+$invoice->previous_due}}</p>
+                                            <p class="invoice-total-amount">{{$total=$subtotal+$invoice->previous_due+ $invoice->otc + $invoice->core_rent}}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <p class="card-text mb-0">
-                                    In Word: {{ \App\Classes\ConvertNumber::convert_number_to_words($subtotal+$invoice->previous_due) }} Taka Only.
+                                    In Word: {{ \App\Classes\ConvertNumber::convert_number_to_words($total) }} Taka Only.
                                 </p>
                             </div>
                         </div>

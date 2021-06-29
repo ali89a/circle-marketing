@@ -26,6 +26,9 @@ class Invoice extends Model
         'invoice_date',
         'subject',
         'previous_due',
+        'status',
+        'core_rent',
+        'otc',
        
     ];
 }

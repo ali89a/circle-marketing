@@ -187,8 +187,8 @@
                                                         @if($order->order_approval->a_approved_status =='Approved')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
                                                         @else
-                                                        <a href="{{route('workOrderApprovalAccount',$order->id)}}" class="btn btn-success btn-sm">Approve</a>
-                                                        <a href="" class="btn btn-success btn-sm">Modify</a>
+                                                        <a href="{{route('workOrderApprovalAccount',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
+                                                        <a href="" class="btn btn-warning btn-sm">Modify</a>
                                                         @endif
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
@@ -202,8 +202,8 @@
                                                         @if($order->order_approval->coo_approved_status =='Approved')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
                                                         @else
-                                                        <a href="{{route('workOrderApprovalCOO',$order->id)}}" class="btn btn-success btn-sm">Approve</a>
-                                                        <a href="" class="btn btn-success btn-sm">Modify</a>
+                                                        <a href="{{route('workOrderApprovalCOO',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
+                                                        <a href="" class="btn btn-warning btn-sm">Modify</a>
                                                         @endif
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
@@ -216,9 +216,9 @@
                                                     <td class="text-center nstatus666">
                                                         @hasrole('NOC Admin')
                                                         @if($order->order_approval->coo_approved_status =='Approved' && $order->order_approval->noc_approved_status =='Pending'|| $order->order_approval->noc_approved_status =='Processing')
-                                                        <a href="" class="btn btn-success btn-sm">Modify</a>
+                                                        <a href="" class="btn btn-warning btn-sm mb-1">Modify</a>
                                                         <div class="vertical-modal-ex">
-                                                            <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}">
+                                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}">
                                                                 Assign
                                                             </button>
                                                             <!-- Modal -->
@@ -258,7 +258,7 @@
                                                         </div>
                                                         @endif
                                                         @if($order->order_approval->noc_approved_status =='Processing' && $order->order_approval->noc_assigned_status =='done')
-                                                        <a href="{{route('workOrderApprovalNoc',$order->id)}}" class="btn btn-success btn-sm">Approve</a>
+                                                        <a href="{{route('workOrderApprovalNoc',$order->id)}}" class="btn btn-success btn-sm mt-1">Approve</a>
                                                         @endif
                                                         @if($order->order_approval->noc_approved_status =='Approved' && $order->order_approval->noc_assigned_status =='done')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
@@ -558,9 +558,9 @@
                                                                 <tr>
                                                                     <td>{{ $item->service->name??'' }}</td>
                                                                     <td>{{ $item->capacity??'' }}</td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td></td>
+                                                                    <td>{{ $item->buffer??'' }}</td>
+                                                                    <td>{{ $item->upgration??'' }}</td>
+                                                                    <td>{{ $item->downgration??'' }}</td>
                                                                     <td class="text-right onlym allhide">{{ $item->price??'' }}</td>
                                                                 </tr>
                                                                 @endforeach
