@@ -281,26 +281,27 @@ class CustomerReportController extends Controller
 
     public function marketingWorkLimit()
     {
-        // if (Auth::guard('admin')->user()->hasRole('Marketing Executive') || Auth::guard('admin')->user()->hasRole('Marketing Admin')) {
-        $users = Admin::all();
-        foreach ($users as $u) {
-            if ($u->hasRole('Marketing Executive') || $u->hasRole('Marketing Admin')) {
-                $check = DB::table('work_limits')
-                    ->where('admin_id', $u->id)
-                    ->first();
-                if (empty($check)) {
-                    WorkLimit::create([
-                        'admin_id' => $u->id
-                    ]);
+        if (Auth::guard('admin')->user()->hasRole('Marketing Executive') || Auth::guard('admin')->user()->hasRole('Marketing Admin')) {
+            $users = Admin::all();
+            foreach ($users as $u) {
+                if ($u->hasRole('Marketing Executive') || $u->hasRole('Marketing Admin')) {
+                    $check = DB::table('work_limits')
+                        ->where('admin_id', $u->id)
+                        ->first();
+                    if (empty($check)) {
+                        WorkLimit::create([
+                            'admin_id' => $u->id
+                        ]);
+                    }
                 }
+                $workLimit = DB::table('work_limits')
+                    ->join('admins', 'work_limits.admin_id', '=', 'admins.id')
+                    ->select('work_limits.*', 'admins.name');
             }
-            $workLimit = DB::table('work_limits')
-                ->join('admins', 'work_limits.admin_id', '=', 'admins.id')
-                ->select('work_limits.*', 'admins.name');
+            return view('admin.marketing.workLimit', [
+                'workLimit' => $workLimit->get()
+            ]);
         }
-        return view('admin.marketing.workLimit', [
-            'workLimit' => $workLimit->get()
-        ]);
     }
 
     public function storeWorkLimit(Request $request)
