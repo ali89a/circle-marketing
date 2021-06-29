@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('customer.layouts.master')
 
 @section('content')
 <div class="content-wrapper">
@@ -9,7 +9,7 @@
                     <h2 class="content-header-title float-left mb-0">Work Order</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('admin/home') }}">Home</a>
+                            <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a>
                             </li>
                             <li class="breadcrumb-item active">Work Order Create
                             </li>
@@ -33,7 +33,7 @@
             <div class="bs-stepper wizard-modern modern-wizard-example">
                 <div class="bs-stepper-header">
                     <div class="step active">
-                        <a href="{{route('customerDetailEdit', $order_customer_info->order_id)}}" class="step-trigger">
+                        <a href="{{route('customer.customerDetailEdit', $order_customer_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">1 </span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Customer Details</span>
@@ -48,7 +48,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('docEdit', $order_customer_info->order_id)}}" class="step-trigger">
+                        <a href="{{route('customer.docEdit', $order_customer_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">2</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Document Info</span>
@@ -62,7 +62,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('orderEdit', $order_customer_info->order_id)}}" class="step-trigger">
+                        <a href="{{route('customer.orderEdit', $order_customer_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Info</span>
@@ -76,7 +76,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('orderDetailEdit', $order_customer_info->order_id)}}" class="step-trigger">
+                        <a href="{{route('customer.orderDetailEdit', $order_customer_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">4</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Details </span>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="bs-stepper-content" id="vue_app">
-                    <form method="post" action="{{route('customerDetailUpdate',$order_customer_info->order_id)}}">
+                    <form method="post" action="{{route('customer.customerDetailUpdate',$order_customer_info->order_id)}}">
                         @csrf
                         @method('put')
                         <div class="content-header">
@@ -221,8 +221,8 @@
             el: '#vue_app',
             data: {
                 config: {
-                    get_district_url: "{{ url('admin/fetch-district-by-division-id') }}",
-                    get_upazila_url: "{{ url('admin/fetch-upazila-by-district-id') }}",
+                    get_district_url: "{{ url('customer/fetch-district-by-division-id') }}",
+                    get_upazila_url: "{{ url('customer/fetch-upazila-by-district-id') }}",
                 },
                 division_id: '{{$order_customer_info->division_id}}',
                 district_id: '{{$order_customer_info->district_id}}',

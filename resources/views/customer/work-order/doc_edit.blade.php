@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('customer.layouts.master')
 
 @section('content')
 <div class="content-wrapper">
@@ -9,7 +9,7 @@
                     <h2 class="content-header-title float-left mb-0">Work Order</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('admin/home') }}">Home</a>
+                            <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a>
                             </li>
                             <li class="breadcrumb-item active">Work Order Create
                             </li>
@@ -33,7 +33,7 @@
             <div class="bs-stepper wizard-modern modern-wizard-example">
                 <div class="bs-stepper-header">
                     <div class="step">
-                        <a href="{{route('customerDetailEdit', $customer_doc->order_id)}}" class="step-trigger">
+                        <a href="{{route('customer.customerDetailEdit', $customer_doc->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">1 </span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Customer Details</span>
@@ -48,7 +48,7 @@
                         </svg>
                     </div>
                     <div class="step active">
-                        <a href="{{route('docEdit', $customer_doc->order_id)}}" class="step-trigger">
+                        <a href="{{route('customer.docEdit', $customer_doc->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">2</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Document Info</span>
@@ -57,7 +57,7 @@
                         </a>
                     </div>
                     <div class="step">
-                        <a href="{{route('orderEdit',$customer_doc->order_id)}}" class="step-trigger">
+                        <a href="{{route('customer.orderEdit',$customer_doc->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Info</span>
@@ -72,7 +72,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('orderDetailEdit')}}" class="step-trigger">
+                        <a href="{{route('customer.orderDetailEdit',$customer_doc->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">4</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Details </span>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="bs-stepper-content">
-                    <form method="post" action="{{route('docUpdate',$customer_doc->order_id)}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('customer.docUpdate',$customer_doc->order_id)}}" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="content-header">
@@ -178,7 +178,7 @@
 
                         </div>
                         <div class="d-flex justify-content-between">
-                            <a href="{{route('customerDetailEdit', $customer_doc->order_id)}}" class="btn btn-primary btn-prev waves-effect waves-float waves-light">
+                            <a href="{{route('customer.customerDetailEdit', $customer_doc->order_id)}}" class="btn btn-primary btn-prev waves-effect waves-float waves-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0">
                                     <line x1="19" y1="12" x2="5" y2="12"></line>
                                     <polyline points="12 19 5 12 12 5"></polyline>

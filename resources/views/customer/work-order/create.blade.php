@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('customer.layouts.master')
 
 @section('content')
 <div class="content-wrapper">
@@ -9,7 +9,7 @@
                     <h2 class="content-header-title float-left mb-0">Work Order</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('admin/home') }}">Home</a>
+                            <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a>
                             </li>
                             <li class="breadcrumb-item active">Work Order Create
                             </li>
@@ -83,23 +83,12 @@
                 </div>
                 <div class="bs-stepper-content">
 
-                    <form method="post" action="{{route('work-order.store')}}">
+                    <form method="post" action="{{route('customer.order.store')}}">
                         @csrf
                         <div class="content-header">
                             <h5 class="mb-0">Customer Details</h5>
                         </div>
                         <hr style="border: 1px solid">
-                        <div class="row">
-                            <div class="form-group col-sm-6 col-sm-offset-3">
-                            <label for="customer_id">Customer</label>
-                                <select class="form-control form-control-sm" id="customer_id" name="customer_id" required>
-                                    <option value="">Select One</option>
-                                    @foreach($customers as $customer)
-                                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="organization">Organization</label>
@@ -217,7 +206,7 @@
         $('#division_id').change(function() {
             var id = $('#division_id').val();
             $.ajax({
-                url: '{{url('admin/fetch-district')}}',
+                url: '{{url('customer/fetch-district')}}',
                 type: 'get',
                 data: {
                     id: id
@@ -233,7 +222,7 @@
         $('#district_id').change(function() {
             var id = $('#district_id').val();
             $.ajax({
-                url: '{{url('admin/fetch-thana')}}',
+                url: '{{url('customer/fetch-thana')}}',
                 type: 'get',
                 data: {
                     id: id

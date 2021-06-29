@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('customer.layouts.master')
 
 @section('content')
 <div class="content-wrapper">
@@ -33,7 +33,7 @@
             <div class="bs-stepper wizard-modern modern-wizard-example">
                 <div class="bs-stepper-header">
                     <div class="step">
-                        <a href="{{route('customerDetailEdit', $customer_order_info->order_id)}}" class="step-trigger">
+                        <a href="{{route('customer.customerDetailEdit', $customer_order_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">1 </span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Customer Details</span>
@@ -48,7 +48,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('docEdit', $customer_order_info->order_id)}}" class="step-trigger">
+                        <a href="{{route('customer.docEdit', $customer_order_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">2</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Document Info</span>
@@ -62,7 +62,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('orderEdit', $customer_order_info->order_id)}}" class="step-trigger">
+                        <a href="{{route('customer.orderEdit', $customer_order_info->order_id)}}" class="step-trigger">
                             <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Info</span>
@@ -76,7 +76,7 @@
                         </svg>
                     </div>
                     <div class="step active">
-                        <a href="{{route('orderDetailEdit')}}" class="step-trigger">
+                        <a href="{{route('customer.orderDetailEdit')}}" class="step-trigger">
                             <span class="bs-stepper-box">4</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Details </span>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="bs-stepper-content">
-                    <form method="post" action="{{route('orderDetailUpdate',$customer_order_info->order_id)}}">
+                    <form method="post" action="{{route('customer.orderDetailUpdate',$customer_order_info->order_id)}}">
                         @csrf
                         @method('put')
                         <div class="content-header">
@@ -213,8 +213,8 @@
             el: '#vue_app',
             data: {
                 config: {
-                    get_url: "{{ url('admin/fetch-service-by-id') }}",
-                    get_old_items_data: "{{ url('admin/fetch-general-product-info') }}",
+                    get_url: "{{ url('customer/fetch-service-by-id') }}",
+                    get_old_items_data: "{{ url('customer/fetch-general-product-info') }}",
                 },
 
                 service_id: '',
