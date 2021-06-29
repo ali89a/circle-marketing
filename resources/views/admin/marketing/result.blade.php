@@ -144,7 +144,7 @@
                     </td>
                     <td>
                         @if ($item->isp_type == 'category_c')
-                        {{-- @dd($item->isp_type) --}}
+                        @dd($item->isp_type)
                         {{-- @dd($item->length) --}}
                             @php
                                 $sum = 0;
