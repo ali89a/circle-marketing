@@ -5,14 +5,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\UpazilaController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\EnvDynamicController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CustomerReportController;
-use App\Http\Controllers\DistrictController;
-use App\Http\Controllers\DivisionController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\UpazilaController;
+use App\Http\Controllers\Customer\WorkOrderController;
+use App\Http\Controllers\WorkOrderFilterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,7 +85,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/work-order-noc-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalNoc'])->name('workOrderApprovalNoc');
     
     
-    Route::get('/search-order-result', [OrderController::class, 'searchOrderResult'])->name('searchOrderResult');
+    Route::get('/search-order-result', [WorkOrderFilterController::class, 'searchOrderResult'])->name('searchOrderResult');
 
     Route::get('/invoices/{id?}', [App\Http\Controllers\InvoiceController::class, 'Invoices'])->name('invoices');
     Route::get('/invoice/details/{id?}', [App\Http\Controllers\InvoiceController::class, 'invoiceDetails'])->name('InvoiceDetails');
@@ -103,4 +105,29 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     
 });
+
+
+
+Route::middleware('auth')->prefix('customer')->name('customer.')->group(function () {
+
+    Route::resource('order', WorkOrderController::class);
+    Route::get('/customer-detail-edit/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'customerDetailEdit'])->name('customerDetailEdit');
+    Route::get('fetch-district-by-division-id/{id}', [App\Http\Controllers\OrderCustomerInfoController::class, 'fetch_district']);
+    Route::get('fetch-upazila-by-district-id/{id}', [App\Http\Controllers\OrderCustomerInfoController::class, 'fetch_upazila']);
+    Route::put('/customer-detail-update/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'customerDetailUpdate'])->name('customerDetailUpdate');
+   
+    Route::get('/doc-edit/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'docEdit'])->name('docEdit');
+    Route::put('/doc-update/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'docUpdate'])->name('docUpdate');
+
+    Route::get('/order-edit/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'orderEdit'])->name('orderEdit');
+    Route::get('/order-detail-edit/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'orderDetailEdit'])->name('orderDetailEdit');
+    Route::put('/order-detail-update/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
+    Route::get('/fetch-service-by-id/{id?}', [App\Http\Controllers\ServiceController::class, 'fetchService']);
+    Route::get('/fetch-general-product-info/{id}', [App\Http\Controllers\ServiceController::class, 'fetch_general_product_info']);
+    
+
+    Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);
+    Route::get('fetch-thana', [App\Http\Controllers\OrderController::class, 'fetch_thana']);
+});
+
 require('admin.php');

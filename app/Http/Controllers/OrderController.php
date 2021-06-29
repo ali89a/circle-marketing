@@ -32,61 +32,7 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function searchOrderResult(Request $request)
-    {
-        //dd($request->all());
-
-        if ($request->ajax()) {
-            if (empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && empty($request->client_type) && !empty($request->from_date) && !empty($request->to_date)) {
-            
-                dd('17');
-            }
-            elseif (empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && !empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
-            
-                dd('16');
-            }
-            elseif (empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && !empty($request->submitted_by) && empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
-            
-                dd('15');
-            }
-            elseif (empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && !empty($request->scl_id) && empty($request->submitted_by) && empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
-            
-                dd('14');
-            }
-            elseif (empty($request->m_approved_status) && empty($request->noc_approved_status) && !empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
-            
-                dd('13');
-            }
-            elseif (empty($request->m_approved_status) && !empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
-            
-                dd('12');
-            }
-            elseif (!empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && empty($request->client_type) && empty($request->from_date) && empty($request->to_date)) {
-            
-                dd('11');
-            }
-            //END SINGLE FIELD 
-            elseif (empty($request->m_approved_status) && empty($request->noc_approved_status) && empty($request->org_name) && empty($request->scl_id) && empty($request->submitted_by) && !empty($request->client_type) && !empty($request->from_date) && !empty($request->to_date)) {
-            
-                dd('21');
-            }
-            elseif (!empty($request->m_approved_status) && !empty($request->noc_approved_status) && !empty($request->org_name) && !empty($request->scl_id) && !empty($request->submitted_by) && !empty($request->client_type) && !empty($request->from_date) && !empty($request->to_date)) {
-               dd('3');
-                $start = Carbon::parse($request->from_date)->format('Y-m-d');
-                $end = Carbon::parse($request->to_date)->format('Y-m-d');
-
-                $orders = Order::with('customer_details')->whereBetween('created_at', [$start . " 00:00:00", $end . " 23:59:59"])->latest()->get();
-            } else {
-                $orders = [];
-            }
-            $data = [
-                'orders' => $orders,
-                'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get()
-            ];
-
-            return view('admin.work-order.result', $data);
-        }
-    }
+   
     public function orderUpgration($id)
     {
         $all_service = Service::all();

@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('customer.layouts.master')
 @section('content')
 <div class="content-wrapper">
     <div class="content-header row">
@@ -8,7 +8,7 @@
                     <h2 class="content-header-title float-left mb-0">Work Order</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a>
+                            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a>
                             </li>
                             <li class="breadcrumb-item active">Work Order List
                             </li>
@@ -26,8 +26,8 @@
                             <rect x="14" y="14" width="7" height="7"></rect>
                             <rect x="3" y="14" width="7" height="7"></rect>
                         </svg></button>
-                    <div class="dropdown-menu dropdown-menu-right" style="">
-                        <a class="dropdown-item" href="{{route('work-order.create')}}"><svg xmlns="#" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="{{route('customer.order.create')}}"><svg xmlns="#" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
                                 <polyline points="9 11 12 14 22 4"></polyline>
                                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                             </svg><span class="align-middle">Add Work Order</span></a>
@@ -41,71 +41,6 @@
         <div class="row" id="table-responsive">
             <div class="col-12">
                 <div class="card">
-                    <div class="box ml-2 mr-2 mt-2">
-                        <form action="" id="search">
-                            <div class="row">
-                                <div class="form-group col-md-2">
-                                    <label class="form-label" for="pincode2">Marketing Progress</label>
-                                    <select class="form-control form-control-sm" name="m_approved_status">
-                                        <option value="">Select Option</option>
-                                        <option value="approved">Approved</option>
-                                        <option value="pending">Pending</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label class="form-label" for="pincode2">NOC Progress</label>
-                                    <select class="form-control form-control-sm" name="noc_approved_status">
-                                        <option value="">Select Option</option>
-                                        <option value="done">Done</option>
-                                        <option value="pending">Pending</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label class="form-label" for="vertical-landmark">Org/Customer/ID</label>
-                                    <input type="text" name="org_name" id="vertical-landmark" class="form-control form-control-sm" placeholder="Enter Org/Customer/ID" />
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label class="form-label" for="vertical-landmark">Link ID/SCL ID</label>
-                                    <input type="text" name="scl_id" id="vertical-landmark" class="form-control form-control-sm" placeholder="Link ID/SCL ID" />
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label class="form-label" for="pincode2">Submitted By</label>
-                                    <select class="form-control form-control-sm" name="submitted_by">
-                                        <option value="">Select Type</option>
-                                        <option value="visited">Visited</option>
-                                        <option value="phone">Phone</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label class="form-label" for="pincode2">Client Type</label>
-                                    <select class="form-control form-control-sm" name="client_type">
-                                        <option value="">Select</option>
-                                        <option value="isp">ISP</option>
-                                        <option value="corporate">Corporate</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    From Date
-                                    <input type="date" name="from_date" class="form-control flatpickr-basic flatpickr-input" placeholder="YYYY-MM-DD" readonly="readonly">
-                                </div>
-                                <div class="col-sm-4">
-                                    To Date
-                                    <input type="date" name="to_date" class="form-control flatpickr-basic flatpickr-input" placeholder="YYYY-MM-DD" readonly="readonly">
-                                </div>
-                                <div class="col-sm-2">
-                                    <button @click="search" type="submit" id="searchBtn" class="btn btn-primary byn-block form-control mt-2">
-                                        Search
-                                    </button>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button class="btn btn-warning byn-block form-control mt-2" type="reset" id="reset">Reset
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                     <div class="card-header">
                         <h4 class="card-title">Work Order List</h4>
                     </div>
@@ -163,129 +98,40 @@
                                                 <tr>
                                                     <td class="bg-gray">M A</td>
                                                     <td class="text-center mstatus666">
-                                                        @hasrole('Marketing Admin')
-                                                        @if($order->order_approval->m_approved_status =='Approved')
+                                                      
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
-                                                        @else
-                                                        @if($order->completion_status =='Processing')
-                                                        <p class="bg-danger text-white btn-block">Incomplete</p>
-                                                        @else
-                                                        <a href="{{route('workOrderApprovalMarketing',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
-
-                                                        <a href="" class="btn btn-warning btn-sm">Modify</a>
-                                                        @endif
-                                                        @endif
-                                                        @else
-                                                        <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
-                                                        @endhasrole
+                                                       
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">A A</td>
                                                     <td class="text-center acstatus666">
-                                                        @hasrole('Accounts Admin')
-                                                        @if($order->order_approval->a_approved_status =='Approved')
+                                                    
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
-                                                        @else
-                                                        <a href="{{route('workOrderApprovalAccount',$order->id)}}" class="btn btn-success btn-sm">Approve</a>
-                                                        <a href="" class="btn btn-success btn-sm">Modify</a>
-                                                        @endif
-                                                        @else
-                                                        <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
-                                                        @endhasrole
+                                                      
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">COO</td>
                                                     <td class="text-center coostatus666">
-                                                        @hasrole('COO')
-                                                        @if($order->order_approval->coo_approved_status =='Approved')
+                                                      
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
-                                                        @else
-                                                        <a href="{{route('workOrderApprovalCOO',$order->id)}}" class="btn btn-success btn-sm">Approve</a>
-                                                        <a href="" class="btn btn-success btn-sm">Modify</a>
-                                                        @endif
-                                                        @else
-                                                        <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
-                                                        @endhasrole
+                                                     
 
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">N A</td>
                                                     <td class="text-center nstatus666">
-                                                        @hasrole('NOC Admin')
-                                                        @if($order->order_approval->coo_approved_status =='Approved' && $order->order_approval->noc_approved_status =='Pending'|| $order->order_approval->noc_approved_status =='Processing')
-                                                        <a href="" class="btn btn-success btn-sm">Modify</a>
-                                                        <div class="vertical-modal-ex">
-                                                            <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}">
-                                                                Assign
-                                                            </button>
-                                                            <!-- Modal -->
-                                                            <div class="modal fade" id="exampleModalCenter{{$order->id}}" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="exampleModalCenterTitle">Assign</h5>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">×</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <form action="{{route('nocAssign',$order->id)}}" method="post">
-                                                                            @csrf
-                                                                            <div class="modal-body">
-                                                                                <div class="row">
-                                                                                    <div class="form-group col-md-12">
-                                                                                        <input type="hidden" name="order_id" value="{{$order->id}}" id="order_id">
-                                                                                        <label class="form-label" for="noc_assigned_by">Assign User</label>
-                                                                                        <select class="form-control" name="noc_assigned_by">
-                                                                                            <option value="">Select User</option>
-                                                                                            @foreach($noc_users as $user)
-                                                                                            <option value="{{ $user->id }}" {{  $user->id==$order->order_approval->noc_assigned_by? 'selected' : '' }}>{{ $user->name }}</option>
-                                                                                            @endforeach
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="submit" class="btn btn-primary waves-effect waves-float waves-light">Submit</button>
-                                                                                <button type="button" class="btn btn-danger waves-effect waves-float waves-light" data-dismiss="modal">Cancle</button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        @endif
-                                                        @if($order->order_approval->noc_approved_status =='Processing' && $order->order_approval->noc_assigned_status =='done')
-                                                        <a href="{{route('workOrderApprovalNoc',$order->id)}}" class="btn btn-success btn-sm">Approve</a>
-                                                        @endif
-                                                        @if($order->order_approval->noc_approved_status =='Approved' && $order->order_approval->noc_assigned_status =='done')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
-                                                        @endif
-
-                                                        @else
-                                                        <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
-                                                        @endhasrole
-
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">NWS</td>
                                                     <td class="text-center nstatus666">
-                                                        @hasrole('NOC Admin|NOC Executive')
-                                                        @if(Auth::guard('admin')->user()->id == $order->order_approval->noc_assigned_by)
-                                                        @if($order->order_approval->noc_assigned_status=="Processing")
-                                                        <a href="{{route('nocEdit',$order->id)}}" class="btn btn-success btn-sm">Setup</a>
-                                                        @else
+                                                      
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_assigned_status ??'' }}</p>
-                                                        @endif
-                                                        @else
-                                                        <p class="bg-gray btn-block">{{ $order->order_approval->noc_assigned_status ??'' }}</p>
-                                                        @endif
-                                                        @else
-                                                        <p class="bg-gray btn-block">{{ $order->order_approval->noc_assigned_status ??'' }}</p>
-                                                        @endhasrole
+                                                    
 
                                                     </td>
                                                 </tr>

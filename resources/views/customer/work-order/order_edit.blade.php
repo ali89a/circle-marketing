@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('customer.layouts.master')
 
 @section('content')
 <div class="content-wrapper">
@@ -9,7 +9,7 @@
                     <h2 class="content-header-title float-left mb-0">Work Order</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('admin/home') }}">Home</a>
+                            <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a>
                             </li>
                             <li class="breadcrumb-item active">Work Order Create
                             </li>
@@ -32,7 +32,7 @@
             <div class="bs-stepper wizard-modern modern-wizard-example">
                 <div class="bs-stepper-header">
                     <div class="step">
-                        <a href="{{route('customerDetailEdit', $customer_order->id)}}" class="step-trigger">
+                        <a href="{{route('customer.customerDetailEdit', $customer_order->id)}}" class="step-trigger">
                             <span class="bs-stepper-box">1 </span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Customer Details</span>
@@ -46,7 +46,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('docEdit',$customer_order->id)}}" class="step-trigger">
+                        <a href="{{route('customer.docEdit',$customer_order->id)}}" class="step-trigger">
                             <span class="bs-stepper-box">2</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Document Info</span>
@@ -60,7 +60,7 @@
                         </svg>
                     </div>
                     <div class="step active">
-                        <a href="{{route('orderEdit',$customer_order->id)}}" class="step-trigger">
+                        <a href="{{route('customer.orderEdit',$customer_order->id)}}" class="step-trigger">
                             <span class="bs-stepper-box">3</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Info</span>
@@ -74,7 +74,7 @@
                         </svg>
                     </div>
                     <div class="step">
-                        <a href="{{route('orderDetailEdit',$customer_order->id)}}" class="step-trigger">
+                        <a href="{{route('customer.orderDetailEdit',$customer_order->id)}}" class="step-trigger">
                             <span class="bs-stepper-box">4</span>
                             <span class="bs-stepper-label">
                                 <span class="bs-stepper-title">Order Details </span>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="bs-stepper-content">
-                    <form method="post" action="{{route('work-order.update',$customer_order->id)}}">
+                    <form method="post" action="{{route('customer.order.update',$customer_order->id)}}">
                         @csrf
                         @method('put')
                         <div class="content-header">
