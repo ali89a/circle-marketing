@@ -319,9 +319,10 @@ class CustomerReportController extends Controller
 
     public function marketingWorkLimit()
     {
-        if (Auth::guard('admin')->user()->hasRole('Marketing Executive') || Auth::guard('admin')->user()->hasRole('Marketing Admin')) {
-            $users = Admin::all();
-            foreach ($users as $u) {
+        // if (Auth::guard('admin')->user()->hasRole('Marketing Executive') || Auth::guard('admin')->user()->hasRole('Marketing Admin')) {
+        $users = Admin::all();
+        foreach ($users as $u) {
+            if ($u->hasRole('Marketing Executive') || $u->hasRole('Marketing Admin')) {
                 $check = DB::table('work_limits')
                     ->where('admin_id', $u->id)
                     ->first();
@@ -330,44 +331,45 @@ class CustomerReportController extends Controller
                         'admin_id' => $u->id
                     ]);
                 }
-                // print_r($check);
-                // echo '<br>';
-                // dd();
-                //   }
-                $workLimit = DB::table('work_limits')
-                    ->join('admins', 'work_limits.admin_id', '=', 'admins.id')
-                    ->select('work_limits.*', 'admins.name');
             }
-            return view('admin.marketing.workLimit', [
-                'workLimit' => $workLimit->get()
-            ]);
+            // print_r($check);
+            // echo '<br>';
+            // dd();
+            //   }
+            $workLimit = DB::table('work_limits')
+                ->join('admins', 'work_limits.admin_id', '=', 'admins.id')
+                ->select('work_limits.*', 'admins.name');
         }
+        return view('admin.marketing.workLimit', [
+            'workLimit' => $workLimit->get()
+        ]);
+        // }
     }
 
     public function storeWorkLimit(Request $request)
     {
-        if (
-            Auth::guard('admin')->user()->hasRole('Marketing Executive')
-            || Auth::guard('admin')->user()->hasRole('Marketing Admin')
-        ) {
-            // dd($request->all());
-            $workLimit = WorkLimit::find($request->id);
-            if (count($request->id) > 0) {
-                foreach ($request->id as $item => $value) {
-                    // dd($item);
-                    $datad = array(
-                        'newclient' => $request->newclient[$item],
-                        'followupclient' => $request->followupclient[$item],
-                        'reconnectclient' => $request->reconnectclient[$item],
-                    );
-                    //   dd($datad);
-                    $workLimit = WorkLimit::where('id', $request->id[$item])->first();
-                    //  dd($workLimit);
-                    $workLimit->update($datad);
-                }
+        // if (
+        //     Auth::guard('admin')->user()->hasRole('Marketing Executive')
+        //     || Auth::guard('admin')->user()->hasRole('Marketing Admin')
+        // ) {
+        // dd($request->all());
+        $workLimit = WorkLimit::find($request->id);
+        if (count($request->id) > 0) {
+            foreach ($request->id as $item => $value) {
+                // dd($item);
+                $datad = array(
+                    'newclient' => $request->newclient[$item],
+                    'followupclient' => $request->followupclient[$item],
+                    'reconnectclient' => $request->reconnectclient[$item],
+                );
+                //   dd($datad);
+                $workLimit = WorkLimit::where('id', $request->id[$item])->first();
+                //  dd($workLimit);
+                $workLimit->update($datad);
             }
-            return redirect(route('marketingWorkLimit'));
         }
+        return redirect(route('marketingWorkLimit'));
+        //  }
     }
 
     public function marketingReportAnalysis()
@@ -429,96 +431,98 @@ class CustomerReportController extends Controller
                 $users = Admin::all();
                 $total = array();
                 foreach ($users as $u) {
-                    $total[$u->id]['name'] = $u->name;
-                    $total[$u->id]['new'] = DB::table('customer_service_reports')
-                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_service_reports.created_at', '>', $from)
-                        ->where('customer_service_reports.created_at', '<', $to)
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'new')
-                        ->count();
-                    $total[$u->id]['followup'] = DB::table('customer_service_reports')
-                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_service_reports.created_at', '>', $from)
-                        ->where('customer_service_reports.created_at', '<', $to)
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'followup')
-                        ->count();
-                    $total[$u->id]['reconnect'] = DB::table('customer_service_reports')
-                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_service_reports.created_at', '>', $from)
-                        ->where('customer_service_reports.created_at', '<', $to)
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'reconnect')
-                        ->count();
-                    $total[$u->id]['newclient'] = DB::table('work_limits')
-                        ->where('work_limits.admin_id', $u->id)
-                        ->select('work_limits.newclient')->first();
-                    $total[$u->id]['followupclient'] = DB::table('work_limits')
-                        ->where('work_limits.admin_id', $u->id)
-                        ->select('work_limits.followupclient')->first();
-                    $total[$u->id]['reconnectclient'] = DB::table('work_limits')
-                        ->where('work_limits.admin_id', $u->id)
-                        ->select('work_limits.reconnectclient')->first();
+                    if ($u->hasRole('Marketing Executive') || $u->hasRole('Marketing Admin')) {
+                        $total[$u->id]['name'] = $u->name;
+                        $total[$u->id]['new'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'new')
+                            ->count();
+                        $total[$u->id]['followup'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'followup')
+                            ->count();
+                        $total[$u->id]['reconnect'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'reconnect')
+                            ->count();
+                        $total[$u->id]['newclient'] = DB::table('work_limits')
+                            ->where('work_limits.admin_id', $u->id)
+                            ->select('work_limits.newclient')->first();
+                        $total[$u->id]['followupclient'] = DB::table('work_limits')
+                            ->where('work_limits.admin_id', $u->id)
+                            ->select('work_limits.followupclient')->first();
+                        $total[$u->id]['reconnectclient'] = DB::table('work_limits')
+                            ->where('work_limits.admin_id', $u->id)
+                            ->select('work_limits.reconnectclient')->first();
 
 
 
-                    $total[$u->id]['new1'] = DB::table('customer_service_reports')
-                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'new')
-                        ->where('customer_service_reports.isp_type', 'category_a')
-                        ->count();
-                    $total[$u->id]['new2'] = DB::table('customer_service_reports')
-                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'new')
-                        ->where('customer_service_reports.isp_type', 'category_b')
-                        ->count();
-                    $total[$u->id]['new3'] = DB::table('customer_service_reports')
-                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'new')
-                        ->where('customer_service_reports.isp_type', 'category_c')
-                        ->count();
+                        $total[$u->id]['new1'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'new')
+                            ->where('customer_service_reports.isp_type', 'category_a')
+                            ->count();
+                        $total[$u->id]['new2'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'new')
+                            ->where('customer_service_reports.isp_type', 'category_b')
+                            ->count();
+                        $total[$u->id]['new3'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'new')
+                            ->where('customer_service_reports.isp_type', 'category_c')
+                            ->count();
 
-                    $total[$u->id]['follow1'] = DB::table('customer_service_reports')
-                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'followup')
-                        ->where('customer_service_reports.isp_type', 'category_a')
-                        ->count();
-                    $total[$u->id]['follow2'] = DB::table('customer_service_reports')
-                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'followup')
-                        ->where('customer_service_reports.isp_type', 'category_b')
-                        ->count();
-                    $total[$u->id]['follow3'] = DB::table('customer_service_reports')
-                        ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'followup')
-                        ->where('customer_service_reports.isp_type', 'category_c')
-                        ->count();
-                        
-                    $total[$u->id]['reconnect1'] = DB::table('customer_service_reports')
-                    ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'reconnect')
-                        ->where('customer_service_reports.isp_type', 'category_a')
-                        ->count();
-                    $total[$u->id]['reconnect2'] = DB::table('customer_service_reports')
-                    ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'reconnect')
-                        ->where('customer_service_reports.isp_type', 'category_b')
-                        ->count();
-                    $total[$u->id]['reconnect3'] = DB::table('customer_service_reports')
-                    ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
-                        ->where('customer_reports.createdBy', $u->id)
-                        ->where('customer_service_reports.ctype', 'reconnect')
-                        ->where('customer_service_reports.isp_type', 'category_c')
-                        ->count();
+                        $total[$u->id]['follow1'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'followup')
+                            ->where('customer_service_reports.isp_type', 'category_a')
+                            ->count();
+                        $total[$u->id]['follow2'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'followup')
+                            ->where('customer_service_reports.isp_type', 'category_b')
+                            ->count();
+                        $total[$u->id]['follow3'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'followup')
+                            ->where('customer_service_reports.isp_type', 'category_c')
+                            ->count();
+
+                        $total[$u->id]['reconnect1'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'reconnect')
+                            ->where('customer_service_reports.isp_type', 'category_a')
+                            ->count();
+                        $total[$u->id]['reconnect2'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'reconnect')
+                            ->where('customer_service_reports.isp_type', 'category_b')
+                            ->count();
+                        $total[$u->id]['reconnect3'] = DB::table('customer_service_reports')
+                            ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_reports.createdBy', $u->id)
+                            ->where('customer_service_reports.ctype', 'reconnect')
+                            ->where('customer_service_reports.isp_type', 'category_c')
+                            ->count();
+                    }
                 }
                 //  dd($total);
                 $different_days = $from->diffInDays($to->addDay());
