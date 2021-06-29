@@ -114,6 +114,7 @@ class CustomerReportController extends Controller
         $report = new CustomerServiceReport();
         $report->customer_report_id = $request->report_id;
         $report->ctype = $request->ctype;
+        $report->isp_type = $request->isp_type;
         $report->bandwidth = $request->bandwidth;
         $report->visit_phone = $request->visit_phone;
         $report->rate = $request->rate;

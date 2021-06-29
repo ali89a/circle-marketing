@@ -131,7 +131,7 @@
                                                         <option value="category_a">Category A</option>
                                                         <option value="category_b">Category B</option>
                                                         <option value="category_c">Category C</option>
-                                                        <option value="south_zonal">South zonal</option>
+                                                        {{-- <option value="south_zonal">South zonal</option>
                                                         <option value="north_zonal">North zonal</option>
                                                         <option value="west_zonal">West zonal</option>
                                                         <option value="central_zonal">Central</option>
@@ -139,7 +139,7 @@
                                                         <option value="local">Local Client/Home</option>
                                                         <option value="corporate">Corporate Client</option>
                                                         <option value="non_license">Non License</option>
-                                                        <option value="others">Others</option>
+                                                        <option value="others">Others</option> --}}
                                                     </select>
                                                 </td>
                                             </tr>
