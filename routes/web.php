@@ -60,23 +60,23 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('fetch-upazila-by-district-id/{id}', [App\Http\Controllers\OrderCustomerInfoController::class, 'fetch_upazila']);
     Route::get('fetch-thana', [App\Http\Controllers\OrderController::class, 'fetch_thana']);
     Route::resource('env-dynamic', EnvDynamicController::class);
-    Route::get('/doc-edit/{id?}', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('docEdit');
-    Route::put('/doc-update/{id?}', [App\Http\Controllers\OrderController::class, 'docUpdate'])->name('docUpdate');
+    Route::get('/doc-edit/{id?}', [App\Http\Controllers\OrderCustomerDocumentController::class, 'docEdit'])->name('docEdit');
+    Route::put('/doc-update/{id?}', [App\Http\Controllers\OrderCustomerDocumentController::class, 'docUpdate'])->name('docUpdate');
     Route::get('/order-edit/{id?}', [App\Http\Controllers\OrderController::class, 'orderEdit'])->name('orderEdit');
     Route::get('/order-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('orderDetailEdit');
     Route::get('/fetch-service-by-id/{id?}', [App\Http\Controllers\ServiceController::class, 'fetchService'])->name('fetchService');
     Route::get('/fetch-general-product-info/{id}', [App\Http\Controllers\ServiceController::class, 'fetch_general_product_info'])->name('fetch_general_product_info');
-    Route::get('/customer-detail-edit/{id?}', [App\Http\Controllers\OrderController::class, 'customerDetailEdit'])->name('customerDetailEdit');
-    Route::put('/customer-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'customerDetailUpdate'])->name('customerDetailUpdate');
+    Route::get('/customer-detail-edit/{id?}', [App\Http\Controllers\OrderCustomerInfoController::class, 'customerDetailEdit'])->name('customerDetailEdit');
+    Route::put('/customer-detail-update/{id?}', [App\Http\Controllers\OrderCustomerInfoController::class, 'customerDetailUpdate'])->name('customerDetailUpdate');
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
-    Route::get('/noc-edit/{id?}', [App\Http\Controllers\OrderController::class, 'nocEdit'])->name('nocEdit');
-    Route::put('/noc-update/{id?}', [App\Http\Controllers\OrderController::class, 'nocUpdate'])->name('nocUpdate');
+    Route::get('/noc-edit/{id?}', [App\Http\Controllers\OrderNOCInfoController::class, 'nocEdit'])->name('nocEdit');
+    Route::put('/noc-update/{id?}', [App\Http\Controllers\OrderNOCInfoController::class, 'nocUpdate'])->name('nocUpdate');
     
-    Route::get('/work-order-upgration/{id?}', [App\Http\Controllers\OrderController::class, 'orderUpgration'])->name('work-order-upgration');
-    Route::put('/work-order-upgration-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderUpgrationUpdate'])->name('orderUpgrationUpdate');
+    Route::get('/work-order-upgration/{id?}', [App\Http\Controllers\OrderUpgrationController::class, 'orderUpgration'])->name('work-order-upgration');
+    Route::put('/work-order-upgration-update/{id?}', [App\Http\Controllers\OrderUpgrationController::class, 'orderUpgrationUpdate'])->name('orderUpgrationUpdate');
     
-    Route::get('/work-order-downgration/{id?}', [App\Http\Controllers\OrderController::class, 'orderDowngration'])->name('work-order-downgration');
-    Route::put('/work-order-downgration-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDowngrationUpdate'])->name('orderDowngrationUpdate');
+    Route::get('/work-order-downgration/{id?}', [App\Http\Controllers\OrderDowngrationController::class, 'orderDowngration'])->name('work-order-downgration');
+    Route::put('/work-order-downgration-update/{id?}', [App\Http\Controllers\OrderDowngrationController::class, 'orderDowngrationUpdate'])->name('orderDowngrationUpdate');
     
     Route::get('/work-order-marketing-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalMarketing'])->name('workOrderApprovalMarketing');
     Route::get('/work-order-account-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalAccount'])->name('workOrderApprovalAccount');

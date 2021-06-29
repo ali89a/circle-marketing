@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Service;
@@ -16,8 +15,6 @@ use App\Models\OrderBuffer;
 use App\Models\OrderNOCInfo;
 use Illuminate\Http\Request;
 use App\Models\OrderApproval;
-use App\Models\OrderUpgration;
-use App\Models\OrderDowngration;
 use App\Models\OrderCustomerInfo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -32,64 +29,6 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function orderUpgration($id)
-    {
-        $all_service = Service::all();
-        $customer_order_info = OrderInfo::with('order')->where('order_id', $id)->first();
-        return view('admin.work-order.upgration', compact('customer_order_info', 'all_service'));
-    }
-    public function orderDowngration($id)
-    {
-        $all_service = Service::all();
-        $customer_order_info = OrderInfo::with('order')->where('order_id', $id)->first();
-        return view('admin.work-order.downgration', compact('customer_order_info', 'all_service'));
-    }
-    public function orderUpgrationUpdate(Request $request, $id)
-    {
-        //dd($request->all());
-        // DB::beginTransaction();
-
-        $products = $request->get('items');
-
-        foreach ($products as $key => $product) {
-            $order_item = OrderItem::where('order_id', $id)->where('service_id', $product['service_id'])->first();
-            $order_item->upgration = $product['upgration'];
-            $order_item->save();
-
-            $item = new OrderUpgration();
-            $item->order_id = $id;
-            $item->service_id = $product['service_id'];
-            $item->capacity = $product['capacity'];
-            $item->upgration = $product['upgration'];
-            $item->price = $product['price'];
-            $item->status = "Pending";
-            $item->save();
-        }
-        //  DB::commit();
-        Toastr::success('Order Upgration Added Successful!.', '', ["progressbar" => true]);
-        return redirect()->route('work-order.index');
-    }
-    public function orderDowngrationUpdate(Request $request, $id)
-    {
-        // DB::beginTransaction();
-
-        $products = $request->get('items');
-
-        foreach ($products as $key => $product) {
-            $item = new OrderDowngration();
-            $item->order_id = $id;
-            $item->service_id = $product['service_id'];
-            $item->capacity = $product['capacity'];
-            $item->downgration = $product['downgration'];
-            $item->price = $product['price'];
-            $item->status = "Pending";
-            $item->save();
-        }
-        //  DB::commit();
-        Toastr::success('Order Downgration Added Successful!.', '', ["progressbar" => true]);
-        return redirect()->route('work-order.index');
-    }
     public function index()
     {
         $data = [
@@ -119,58 +58,7 @@ class OrderController extends Controller
         ];
         return view('admin.work-order.create', $data);
     }
-    public function docEdit($id)
-    {
-        $customer_info = OrderCustomerInfo::where('order_id', $id)->first();
-        //dd($customer_info);
-        if ($customer_info->organization == '' || $customer_info->client_type == '' || $customer_info->technical_email == '' || $customer_info->occupation == '' || $customer_info->billing_email == '' || $customer_info->mobile == '' || $customer_info->technical_address == '' || $customer_info->billing_address == '' || $customer_info->customer_id == '' || $customer_info->division_id == '' || $customer_info->district_id == '' || $customer_info->upazila_id == '') {
-            return redirect()->back();
-        } else {
-            $customer_doc = OrderCustomerDocument::where('order_id', $id)->first();
-            return view('admin.work-order.doc_edit', compact('customer_doc'));
-        }
-    }
-
-    public function docUpdate(Request $request, $id)
-    {
-        // try {
-        //     DB::beginTransaction();
-        $customer_doc = OrderCustomerDocument::where('order_id', $id)->first();
-        if ($request->work_order != null) {
-            $fileName = time() . '.' . $request->work_order->extension();
-            $request->work_order->move(storage_path('app/public/work_order'), $fileName);
-            $customer_doc->work_order = $fileName;
-        }
-        if ($request->authorization != null) {
-            $fileName = time() . '.' . $request->authorization->extension();
-            $request->authorization->move(storage_path('app/public/authorization'), $fileName);
-            $customer_doc->authorization = $fileName;
-        }
-        if ($request->ip_agreement != null) {
-            $fileName = time() . '.' . $request->ip_agreement->extension();
-            $request->ip_agreement->move(storage_path('app/public/ip_agreement'), $fileName);
-            $customer_doc->ip_agreement = $fileName;
-        }
-        if ($request->noc != null) {
-            $fileName = time() . '.' . $request->noc->extension();
-            $request->noc->move(storage_path('app/public/noc'), $fileName);
-            $customer_doc->noc = $fileName;
-        }
-        $customer_doc->save();
-        // DB::commit();
-        Toastr::success('Customer Doc Added Successful!.', '', ["progressbar" => true]);
-        return redirect()->route('orderEdit', ['id' => $id]);
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-        //     $output = [
-        //         'success' => 0,
-        //         'msg' => __("messages.something_went_wrong")
-        //     ];
-        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-        //     return back();
-        // }
-    }
+   
     public function orderEdit($id)
     {
         $customer_document = OrderCustomerDocument::where('order_id', $id)->first();
@@ -197,49 +85,7 @@ class OrderController extends Controller
             return view('admin.work-order.order_detail_edit', compact('customer_order_info', 'all_service'));
         }
     }
-    public function customerDetailEdit($id)
-    {
-        $data = [
-            'divisions' => Division::all(),
-            'order_customer_info' => OrderCustomerInfo::where('order_id', $id)->first()
-        ];
-        return view('admin.work-order.customer_detail_edit', $data);
-    }
-    public function customerDetailUpdate(Request $request, $id)
-    {
-
-        // try {
-        //     DB::beginTransaction();
-
-        $customer_info = OrderCustomerInfo::where('order_id', $id)->first();
-        $customer_info->organization = $request->organization;
-        $customer_info->client_type = $request->client_type;
-        $customer_info->occupation = $request->occupation;
-        $customer_info->technical_email = $request->technical_email;
-        $customer_info->billing_email = $request->billing_email;
-        $customer_info->technical_address = $request->technical_address;
-        $customer_info->billing_address = $request->billing_address;
-        $customer_info->mobile = $request->mobile;
-        $customer_info->alter_mobile = $request->alter_mobile;
-        $customer_info->customer_id = $request->customer_id;
-        $customer_info->division_id = $request->division_id;
-        $customer_info->district_id = $request->district_id;
-        $customer_info->upazila_id = $request->upazila_id;
-        $customer_info->save();
-        //  DB::commit();
-        Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
-        return redirect()->route('docEdit', ['id' => $id]);
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-        //     $output = [
-        //         'success' => 0,
-        //         'msg' => __("messages.something_went_wrong")
-        //     ];
-        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-        //     return back();
-        // }
-    }
+ 
     public function orderDetailUpdate(Request $request, $id)
     {
         // dd($request->all());
@@ -284,56 +130,7 @@ class OrderController extends Controller
         //     return back();
         // }
     }
-    public function nocEdit($id)
-    {
-        $data = [
-            'order_noc' => OrderNOCInfo::where('order_id', $id)->first()
-        ];
-        return view('admin.work-order.noc_edit', $data);
-    }
-    public function nocUpdate(Request $request, $id)
-    {
-        $request->validate([
-            'mrtg_graph_url' => 'required',
-            'username' => 'required',
-            'password' => 'required',
-            'device_description' => 'required',
-
-        ]);
-        $noc_info = OrderNOCInfo::where('order_id', $id)->first();
-        $noc_info->vlan_internet = $request->vlan_internet;
-        $noc_info->vlan_ggc = $request->vlan_internet;
-        $noc_info->vlan_fb = $request->vlan_internet;
-        $noc_info->vlan_bdix = $request->vlan_internet;
-        $noc_info->vlan_data = $request->vlan_internet;
-
-        $noc_info->ip_internet = $request->ip_internet;
-        $noc_info->ip_ggc = $request->ip_internet;
-        $noc_info->ip_fb = $request->ip_internet;
-        $noc_info->ip_bdix = $request->ip_internet;
-        $noc_info->ip_data = $request->ip_internet;
-
-        $noc_info->assigned_bandwidth_internet = $request->assigned_bandwidth_internet;
-        $noc_info->assigned_bandwidth_ggc = $request->assigned_bandwidth_internet;
-        $noc_info->assigned_bandwidth_fb = $request->assigned_bandwidth_internet;
-        $noc_info->assigned_bandwidth_bdix = $request->assigned_bandwidth_internet;
-        $noc_info->assigned_bandwidth_data = $request->assigned_bandwidth_internet;
-
-        $noc_info->mrtg_graph_url = $request->mrtg_graph_url;
-        $noc_info->username = $request->username;
-        $noc_info->password = $request->password;
-        $noc_info->real_ip = $request->real_ip;
-        $noc_info->device_description = $request->device_description;
-        $noc_info->status = 'done';
-        $noc_info->save();
-
-        $order_approval = OrderApproval::where('order_id', $id)->first();
-        $order_approval->noc_assigned_status = "done";
-        $order_approval->noc_done_time = now();
-        $order_approval->save();
-        Toastr::success('NOC Detail Added Successful!.', '', ["progressbar" => true]);
-        return redirect()->route('work-order.index');
-    }
+  
     /**
      * Store a newly created resource in storage.
      *

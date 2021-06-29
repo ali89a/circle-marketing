@@ -2,13 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Upazila;
 use App\Models\District;
+use App\Models\Division;
 use Illuminate\Http\Request;
 use App\Models\OrderCustomerInfo;
-use App\Models\Upazila;
+use Brian2694\Toastr\Facades\Toastr;
 
 class OrderCustomerInfoController extends Controller
 {
+
+    public function customerDetailEdit($id)
+    {
+        $data = [
+            'divisions' => Division::all(),
+            'order_customer_info' => OrderCustomerInfo::where('order_id', $id)->first()
+        ];
+        return view('admin.work-order.customer_detail_edit', $data);
+    }
+    public function customerDetailUpdate(Request $request, $id)
+    {
+
+        // try {
+        //     DB::beginTransaction();
+
+        $customer_info = OrderCustomerInfo::where('order_id', $id)->first();
+        $customer_info->organization = $request->organization;
+        $customer_info->client_type = $request->client_type;
+        $customer_info->occupation = $request->occupation;
+        $customer_info->technical_email = $request->technical_email;
+        $customer_info->billing_email = $request->billing_email;
+        $customer_info->technical_address = $request->technical_address;
+        $customer_info->billing_address = $request->billing_address;
+        $customer_info->mobile = $request->mobile;
+        $customer_info->alter_mobile = $request->alter_mobile;
+        $customer_info->customer_id = $request->customer_id;
+        $customer_info->division_id = $request->division_id;
+        $customer_info->district_id = $request->district_id;
+        $customer_info->upazila_id = $request->upazila_id;
+        $customer_info->save();
+        //  DB::commit();
+        Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('docEdit', ['id' => $id]);
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        //     $output = [
+        //         'success' => 0,
+        //         'msg' => __("messages.something_went_wrong")
+        //     ];
+        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+        //     return back();
+        // }
+    }
 
     public function fetch_district($id)
     {
