@@ -33,6 +33,8 @@ class invoiceGenerate
             $invoiceItem->invoice_id = $invoice->id;
             $invoiceItem->invoice_description = $order_info->service->name.' '.'('.$order_info->capacity.')('.$from_date.' to '.$end_date.')';
             $invoiceItem->unit_price = $order_info->price;
+            $invoiceItem->order_id = $order_info->order_id;
+            $invoiceItem->service_id = $order_info->service_id;
             $invoiceItem->amount = \App\Classes\PriceCalculation::price($order_info->price,$from_date,$end_date);
             $invoiceItem->save();
         }

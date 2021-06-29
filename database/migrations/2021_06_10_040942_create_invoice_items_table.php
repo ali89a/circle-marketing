@@ -19,6 +19,10 @@ class CreateInvoiceItemsTable extends Migration
             $table->text('invoice_description');
             $table->decimal('unit_price');
             $table->decimal('amount');
+            $table->unsignedBigInteger('service_id');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->timestamps();
         });
     }
