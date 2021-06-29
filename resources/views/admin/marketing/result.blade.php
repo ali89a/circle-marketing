@@ -121,6 +121,9 @@
             <th>Corporate</th>
             <th>Others</th>
         </tr>
+
+       
+
         @foreach ($total as $r)
             {{-- @dd($total) --}}
 
@@ -138,7 +141,6 @@
                     {{ $r['new2'] }}
                 </td>
                 <td>
-                    
                     {{ $r['new3'] }}
                 </td>
                 <td>

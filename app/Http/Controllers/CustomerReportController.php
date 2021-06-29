@@ -546,7 +546,7 @@ class CustomerReportController extends Controller
                     'from'       =>  $from,
                     'to'       =>  $to,
                     'list' => $list,
-                    //'reportArray' => $reportArray
+                    'users' => $users
                 ]);
             }
         }
