@@ -123,49 +123,50 @@
         </tr>
         @foreach ($total as $r)
             {{-- @dd($total) --}}
-            
+
             <tr>
-                <td rowspan="4" style="width: 82px"> 
-                   {{ $r['name'] }}
+                <td rowspan="4" style="width: 82px">
+                    {{ $r['name'] }}
                 </td>
             </tr>
             <tr>
                 <td>New Client</td>
                 <td>
-                     {{ $r['category_a'] }}
+                    {{ $r['new1'] }}
                 </td>
                 <td>
-                     {{ $r['category_b'] }}
+                    {{ $r['new2'] }}
                 </td>
                 <td>
-                     {{ $r['category_c'] }}
-                </td>
-                  <td>
-                     {{-- {{ $r['south_zonal'] }} --}}
+                    
+                    {{ $r['new3'] }}
                 </td>
                 <td>
-                     {{-- {{ $r['north_zonal'] }} --}}
+                    {{-- {{ $r['south_zonal'] }} --}}
                 </td>
                 <td>
-                     {{-- {{ $r['west_zonal'] }} --}}
+                    {{-- {{ $r['north_zonal'] }} --}}
                 </td>
                 <td>
-                     {{-- {{ $r['central_zonal'] }} --}}
+                    {{-- {{ $r['west_zonal'] }} --}}
                 </td>
                 <td>
-                     {{-- {{ $r['nationwide'] }} --}}
+                    {{-- {{ $r['central_zonal'] }} --}}
                 </td>
                 <td>
-                     {{-- {{ $r['local'] }} --}}
+                    {{-- {{ $r['nationwide'] }} --}}
                 </td>
                 <td>
-                     {{-- {{ $r['corporate'] }} --}}
+                    {{-- {{ $r['local'] }} --}}
                 </td>
                 <td>
-                     {{-- {{ $r['non_license'] }} --}}
+                    {{-- {{ $r['corporate'] }} --}}
                 </td>
                 <td>
-                     {{-- {{ $r['others'] }} --}}
+                    {{-- {{ $r['non_license'] }} --}}
+                </td>
+                <td>
+                    {{-- {{ $r['others'] }} --}}
                 </td>
             </tr>
             {{-- @endif --}}
@@ -173,10 +174,10 @@
             <tr>
                 <td>Followup</td>
                 <td>
-
+                    {{ $r['follow1'] }}
                 </td>
-                <td></td>
-                <td></td>
+                <td> {{ $r['follow2'] }}</td>
+                <td> {{ $r['follow3'] }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -191,10 +192,10 @@
             <tr>
                 <td>Reconnect</td>
                 <td>
-
+                    {{ $r['reconnect1'] }}
                 </td>
-                <td></td>
-                <td></td>
+                <td> {{ $r['reconnect2'] }}</td>
+                <td> {{ $r['reconnect3'] }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
