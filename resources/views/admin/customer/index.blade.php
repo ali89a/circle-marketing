@@ -56,6 +56,9 @@
                                     <th scope="col" class="text-nowrap">#</th>
                                     <th scope="col" class="text-nowrap">Name</th>
                                     <th scope="col" class="text-nowrap">Email</th>
+                                    <th scope="col" class="text-nowrap">Mobile</th>
+                                    <th scope="col" class="text-nowrap">Bin</th>
+                                    <th scope="col" class="text-nowrap">Billing Address</th>
                                     <th scope="col" class="text-nowrap text-right">Action</th>
                                 </tr>
                             </thead>
@@ -65,6 +68,9 @@
                                     <td class="text-nowrap">{{ $loop->iteration }}</td>
                                     <td>{{ $row->name }}</td>
                                     <td>{{ $row->email }}</td>
+                                    <td>{{ $row->mobile }}</td>
+                                    <td>{{ $row->bin_no }}</td>
+                                    <td>{{ $row->billing_address }}</td>
                                     <td>
                                         <div class="float-right">
                                             <form action="{{route('user.destroy', $row->id)}}" method="post">

@@ -73,7 +73,7 @@
                                 <th>Btrc License</th>
                                 <td>
 
-                                    @if($model->img_url)
+                                    @if($model->btrc_license_url)
                                     @php
                                     $ext =pathinfo($model->btrc_license_url, PATHINFO_EXTENSION);
                                     @endphp
@@ -90,7 +90,7 @@
                                 <th>Trade License</th>
                                 <td>
 
-                                    @if($model->img_url)
+                                    @if($model->trade_license_url)
                                     @php
                                     $ext =pathinfo($model->trade_license_url, PATHINFO_EXTENSION);
                                     @endphp
@@ -107,7 +107,7 @@
                                 <th>NID</th>
                                 <td>
 
-                                    @if($model->img_url)
+                                    @if($model->nid_url)
                                     @php
                                     $ext =pathinfo($model->nid_url, PATHINFO_EXTENSION);
                                     @endphp

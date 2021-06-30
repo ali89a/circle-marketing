@@ -48,19 +48,19 @@
                             <h4 class="card-title">Customer Create</h4>
                         </div>
                         <div class="card-body">
-                        <form method="post" action="{{ route('user.store') }}" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('user.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ old('name') }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email">
+                                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" value="{{ old('email') }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
@@ -78,13 +78,13 @@
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="mobile">Mobile</label>
-                                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile">
+                                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile" value="{{ old('mobile') }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="bin_no">BIN Number</label>
-                                            <input type="text" class="form-control" id="bin_no" name="bin_no" placeholder="Enter BIN Number">
+                                            <input type="text" class="form-control" id="bin_no" name="bin_no" placeholder="Enter BIN Number" value="{{ old('bin_no') }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-md-6 col-12">
@@ -114,9 +114,23 @@
                                     <div class="col-xl-12 col-md-12 col-12">
                                         <div class="form-group">
                                             <label for="billing_address">Billing Address</label>
-                                            <input type="text" class="form-control" id="billing_address" name="billing_address">
+                                            <input type="text" class="form-control" id="billing_address" name="billing_address" value="{{ old('billing_address') }}">
                                         </div>
                                     </div>
+                                    @if (Auth::guard('admin')->user()->hasRole('Super Admin|Admin'))
+
+                                    <div class="col-xl-12 col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label for="marketing_user_id">Assign Marketing</label>
+                                            <select class="form-control" id="marketing_user_id" name="marketing_user_id" required>
+                                                <option value="">Select One</option>
+                                                @foreach($marketing_users as $user)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
                                 <button class="btn btn-primary waves-effect waves-float waves-light" type="submit">Submit</button>
                             </form>

@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use App\Models\OrderApproval;
 use App\Models\OrderUpgration;
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -22,19 +23,28 @@ class OrderUpgrationController extends Controller
         //dd($request->all());
         // DB::beginTransaction();
 
-        $products = $request->get('items');
+        $services = $request->get('items');
 
-        foreach ($products as $key => $product) {
-            $order_item = OrderItem::where('order_id', $id)->where('service_id', $product['service_id'])->first();
-            $order_item->upgration = $product['upgration'];
+        foreach ($services as $key => $service) {
+
+            $order_item = OrderItem::where('order_id', $id)->where('service_id', $service['service_id'])->first();
+            $order_item->upgration = $service['upgration'];
             $order_item->save();
+
+            $order_approval = OrderApproval::where('order_id', $id)->first();
+            $order_approval->m_approved_status = 'Pending';
+            $order_approval->a_approved_status = 'Pending';
+            $order_approval->coo_approved_status = 'Pending';
+            $order_approval->noc_assigned_status = 'Pending';
+            $order_approval->noc_approved_status = 'Pending';
+            $order_approval->save();
 
             $item = new OrderUpgration();
             $item->order_id = $id;
-            $item->service_id = $product['service_id'];
-            $item->capacity = $product['capacity'];
-            $item->upgration = $product['upgration'];
-            $item->price = $product['price'];
+            $item->service_id = $service['service_id'];
+            $item->capacity = $service['capacity'];
+            $item->upgration = $service['upgration'];
+            $item->price = $service['price'];
             $item->status = "Pending";
             $item->save();
         }
