@@ -79,7 +79,7 @@
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="mobile">Mobile</label>
-                                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile"  value="{{$user->mobile}}">
+                                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile" value="{{$user->mobile}}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
@@ -88,28 +88,82 @@
                                             <input type="text" class="form-control" id="bin_no" name="bin_no" placeholder="Enter BIN Number" value="{{$user->bin_no}}">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12">
+                                    <div class="col-xl-4 col-md-4 col-8">
                                         <div class="form-group">
                                             <label for="img_url">Image</label>
                                             <input type="file" class="form-control" id="img_url" name="img_url">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12">
+                                    <div class="col-xl-2 col-md-2 col-4">
+                                        <img style="height: 100px;padding: 5px;" src="{{asset('storage/customer/'.$user->img_url)}}" alt=" No File" class="img-fluid">
+                                    </div>
+                                    <div class="col-xl-4 col-md-4 col-8">
                                         <div class="form-group">
                                             <label for="btrc_license_url"> BTRC License</label>
                                             <input type="file" class="form-control" id="btrc_license_url" name="btrc_license_url">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12">
+                                    <div class="col-xl-2 col-md-2 col-4">
+
+                                        @if($user->btrc_license_url)
+                                        @php
+                                        $ext =pathinfo($user->btrc_license_url, PATHINFO_EXTENSION);
+                                        @endphp
+                                        @if ($ext == 'pdf')
+                                        <a target="_blank" class="iframe-popup" href="{{asset('storage/btrc_license/'.$user->btrc_license_url)}}"> <img src="{{asset('app-assets/images/icons/pdfs-icon.png')}}" alt=" {{ $user->btrc_license_url }}" class="img-fluid"></a>
+
+                                        @else
+                                        <a target="_blank" class="iframe-popup" href="{{asset('storage/btrc_license/'.$user->btrc_license_url)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt="" class="img-fluid"></a>
+                                        @endif
+                                        @else
+                                        <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-4 col-md-4 col-8">
                                         <div class="form-group">
                                             <label for="nid_url">NID </label>
                                             <input type="file" class="form-control" id="nid_url" name="nid_url">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-6 col-12">
+                                    <div class="col-xl-2 col-md-2 col-4">
+                                        @if($user->nid_url)
+                                        @php
+                                        $ext =pathinfo($user->nid_url, PATHINFO_EXTENSION);
+                                        @endphp
+                                        @if ($ext == 'pdf')
+                                        <a target="_blank" class="iframe-popup" href="{{asset('storage/nid/'.$user->nid_url)}}"> <img src="{{asset('app-assets/images/icons/pdfs-icon.png')}}" alt=" {{ $user->nid_url }}" class="img-fluid"></a>
+                                        @else
+                                        <a target="_blank" class="iframe-popup" href="{{asset('storage/nid/'.$user->nid_url)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt="" class="img-fluid"></a>
+                                        @endif
+                                        @else
+                                        <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-4 col-md-4 col-8">
                                         <div class="form-group">
                                             <label for="trade_license_url">Trade License</label>
                                             <input type="file" class="form-control" id="trade_license_url" name="trade_license_url">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-2 col-md-2 col-4">
+                                        @if($user->trade_license_url)
+                                        @php
+                                        $ext =pathinfo($user->trade_license_url, PATHINFO_EXTENSION);
+                                        @endphp
+                                        @if ($ext == 'pdf')
+                                        <a target="_blank" class="iframe-popup" href="{{asset('storage/trade_license/'.$user->trade_license_url)}}"> <img src="{{asset('app-assets/images/icons/pdfs-icon.png')}}" alt=" {{ $user->trade_license_url }}" class="img-fluid"></a>
+
+                                        @else
+                                        <a target="_blank" class="iframe-popup" href="{{asset('storage/trade_license/'.$user->trade_license_url)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt="" class="img-fluid"></a>
+                                        @endif
+                                        @else
+                                        <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-12 col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label for="billing_address">Billing Address</label>
+                                            <input type="text" class="form-control" id="billing_address" name="billing_address" value="{{$user->billing_address}}">
                                         </div>
                                     </div>
                                 </div>
@@ -132,5 +186,11 @@
 
 @endsection
 @push('script')
-
+<script>
+    $(document).ready(function() {
+        $('.iframe-popup').magnificPopup({
+            type: 'iframe'
+        });
+    });
+</script>
 @endpush
