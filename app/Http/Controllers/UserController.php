@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Admin\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -39,9 +40,10 @@ class UserController extends Controller
 
     public function create()
     {
+       
         $data = [
             'model' => new User(),
-            'roles' => Role::where('name', '!=', 'Super Admin')->pluck('name', 'id'),
+            'marketing_users' => Admin::role(['Marketing Executive', 'Marketing Admin'])->get()
         ];
 
         return view('admin.customer.create', $data);
@@ -64,7 +66,7 @@ class UserController extends Controller
         $user->mobile = $request->mobile;
         $user->bin_no = $request->bin_no;
         $user->billing_address = $request->billing_address;
-        $user->creator_user_id = Auth::guard('admin')->id();
+        $user->creator_user_id =  $request->marketing_user_id ? $request->marketing_user_id:Auth::guard('admin')->id();
         $user->password = bcrypt($request->password);
         if ($request->img_url != null) {
             $fileName = time() . '.' . $request->img_url->extension();

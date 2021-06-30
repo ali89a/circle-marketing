@@ -48,7 +48,7 @@
                             <h4 class="card-title">Customer Create</h4>
                         </div>
                         <div class="card-body">
-                        <form method="post" action="{{ route('user.store') }}" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('user.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-6 col-md-6 col-12">
@@ -117,6 +117,20 @@
                                             <input type="text" class="form-control" id="billing_address" name="billing_address">
                                         </div>
                                     </div>
+                                    @if (Auth::guard('admin')->user()->hasRole('Super Admin|Admin'))
+
+                                    <div class="col-xl-12 col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label for="marketing_user_id">Assign Marketing</label>
+                                            <select class="form-control" id="marketing_user_id" name="marketing_user_id" required>
+                                                <option value="">Select One</option>
+                                                @foreach($marketing_users as $user)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
                                 <button class="btn btn-primary waves-effect waves-float waves-light" type="submit">Submit</button>
                             </form>
