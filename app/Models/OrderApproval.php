@@ -22,6 +22,6 @@ class OrderApproval extends Model
     }
     public function noc_assign_user()
     {
-        return $this->belongsTo('App\Models\Admin\Admin', 'noc_assigned_by','id');
+        return $this->belongsTo('App\Models\Admin\Admin', 'noc_assigning_by','id');
     }
 }

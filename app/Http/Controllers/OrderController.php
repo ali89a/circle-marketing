@@ -172,7 +172,7 @@ class OrderController extends Controller
         $order_approval->m_approved_status = 'Pending';
         $order_approval->a_approved_status = 'Pending';
         $order_approval->coo_approved_status = 'Pending';
-        $order_approval->noc_assigned_status = 'Pending';
+        $order_approval->noc_processing_status = 'Pending';
         $order_approval->noc_approved_status = 'Pending';
         $order_approval->order_id = $order->id;
         $order_approval->save();
