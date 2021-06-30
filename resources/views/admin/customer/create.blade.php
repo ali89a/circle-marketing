@@ -54,13 +54,13 @@
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ old('name') }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email">
+                                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" value="{{ old('email') }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
@@ -78,13 +78,13 @@
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="mobile">Mobile</label>
-                                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile">
+                                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile" value="{{ old('mobile') }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="bin_no">BIN Number</label>
-                                            <input type="text" class="form-control" id="bin_no" name="bin_no" placeholder="Enter BIN Number">
+                                            <input type="text" class="form-control" id="bin_no" name="bin_no" placeholder="Enter BIN Number" value="{{ old('bin_no') }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-md-6 col-12">
@@ -114,7 +114,7 @@
                                     <div class="col-xl-12 col-md-12 col-12">
                                         <div class="form-group">
                                             <label for="billing_address">Billing Address</label>
-                                            <input type="text" class="form-control" id="billing_address" name="billing_address">
+                                            <input type="text" class="form-control" id="billing_address" name="billing_address" value="{{ old('billing_address') }}">
                                         </div>
                                     </div>
                                     @if (Auth::guard('admin')->user()->hasRole('Super Admin|Admin'))
