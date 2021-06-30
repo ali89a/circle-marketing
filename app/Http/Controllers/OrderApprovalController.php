@@ -21,6 +21,25 @@ class OrderApprovalController extends Controller
     {
         //
     }
+    public function modifyDescription(Request $request, $id)
+    {
+        $order_approval = OrderApproval::where('order_id', $id)->first();
+
+        $order_approval->m_approved_status = 'Pending';
+        $order_approval->a_approved_status = 'Pending';
+        $order_approval->coo_approved_status = 'Pending';
+        $order_approval->noc_assigned_status = 'Pending';
+        $order_approval->noc_approved_status = 'Pending';
+
+        $order_approval->modify_description = $request->modify_description;
+        $order_approval->modify_time = now();
+        $order_approval->modify_by = Auth::guard('admin')->user()->id;
+        $order_approval->save();
+
+        Toastr::success('Modify Send Successful!.', '', ["progressbar" => true]);
+        return redirect()->back();
+
+    }
     public function workOrderApprovalNoc($id)
     {
 
