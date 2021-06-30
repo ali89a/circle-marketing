@@ -79,8 +79,25 @@
                                                 <th>Rating</th>
                                                 <th>Review</th>
                                             </tr>
-                                            <tr>
-                                            </tr>
+                                            @foreach ($crms as $item)
+                                                <tr>
+                                                    <td>{{ $item->id }}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>{{ $item->applicantname }}</td>
+                                                    <td>{{ $item->client_type }}</td>
+                                                    <td></td>
+                                                    <td>{{ $item->uplink }}</td>
+                                                    <td>{{ $item->issue_type }}</td>
+                                                    <td>{{ $item->issue_details }}</td>
+                                                    <td>{{ $item->start_date }}</td>
+                                                    <td>{{ $item->user }}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>{{ $item->remark }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                     {{-- {{ $reports->links() }} --}}

@@ -108,7 +108,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     Route::resource('customer-relation', CustomerRelationController::class);
     Route::get('/crm-work-limit', [CustomerRelationController::class, 'crmWorkLimit'])->name('customerWorkLimit');
-    // Route::post('/store-work-limit', [CustomerRelationController::class, 'storeWorkLimit'])->name('storeWorkLimit');
+     Route::post('/store-crm-work-limit', [CustomerRelationController::class, 'storeWorkLimit'])->name('crmWorkLimit');
     Route::get('/crm-work-analysis', [CustomerRelationController::class, 'crmWorkAnalysis'])->name('customerWorkAnalysis');
     // Route::get('/crm-analysis-result', [CustomerRelationController::class, 'crmAnalysisResult'])->name('reportAnalysisResult');
 

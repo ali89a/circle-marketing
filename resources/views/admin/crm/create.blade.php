@@ -6,39 +6,32 @@
             <section class="card card-body modern-horizontal-wizard">
                 <div class=" wizard-modern modern-wizard-example">
                     <div class="bs-stepper-content">
-
-
-
-                        <form class="form" id="user_form" method="post" action="#" enctype="multipart/form-data">
+                        <form class="form" id="user_form" method="post" action="{{ route('customer-relation.store') }}"
+                            enctype="multipart/form-data">
+                            @csrf
                             <div class="row">
                                 <div class="col-md-12">
                                     <table class="table table-bordered">
-
                                     </table>
-
                                 </div>
                                 <div class="col-md-6">
-
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr>
                                                 <td>Applicant/Customer:</td>
                                                 <td colspan="2">
-                                                    <select name="location_upazila" id="applicantname"
-                                                        class="form-control form-control-sm" name="applicantname">
+                                                    <select name="applicantname" id="applicantname"
+                                                        class="form-control form-control-sm">
                                                         <option value="">Select Applicant/Customer</option>
                                                         <option value="880">(880)Mohammad Ali(E-Network)</option>
                                                     </select>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>Uplink pop:</td>
                                                 <td><input type="text" name="uplink" class="form-control form-control-sm"
                                                         required=""></td>
                                             </tr>
-
-
                                             <tr>
                                                 <td>Issue Type</td>
                                                 <td>
@@ -53,7 +46,6 @@
                                                     </select>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>Client Type</td>
                                                 <td>
@@ -65,30 +57,18 @@
                                                     </select>
                                                 </td>
                                             </tr>
-
-
-
-
-
                                         </tbody>
                                     </table>
-
-
-
-
                                 </div>
                                 <div class="col-md-6">
-
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr>
                                                 <td>Problem Start Date</td>
                                                 <td>
                                                     <input type="date" name="start_date"
-                                                        class="form-control flatpickr-basic
-                                                                                                            flatpickr-input" placeholder="YYYY-MM-DD"
-                                                        readonly="readonly">
-
+                                                        class="form-control flatpickr-basic flatpickr-input"
+                                                        placeholder="YYYY-MM-DD" readonly="readonly">
                                                     {{-- <input type="text" name="start_date" class="datepicker form-control"> --}}
                                                 </td>
                                             </tr>
@@ -98,11 +78,9 @@
                                                     <textarea name="issue_details" class="form-control"></textarea>
                                                 </td>
                                             </tr>
-
                                             <tr>
                                                 <td>Assign To</td>
-                                                <td><select id="userlist" name="user"
-                                                        class="form-control form-control-sm">
+                                                <td><select id="userlist" name="user" class="form-control form-control-sm">
                                                         <option value="">Select User</option>
                                                         <option value="0">No User</option>
                                                         <option value="1">(1)Rokibul Hasan(rokibul)</option>
