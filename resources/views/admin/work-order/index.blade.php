@@ -138,9 +138,10 @@
                                                 <!--Marketing Executive section-->
                                                 <a href="" class="btn btn-danger btn-sm btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
                                                 <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                                @if($order->order_approval->noc_processing_status =='Done')
                                                 <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
                                                 <a href="{{route('work-order-downgration', $order->id)}}" class="btn btn-info  btn-block btn-sm"><i class="fa fa-edit"></i> Downgration</a>
-
+@endif
                                                 <!--Marketing Admin section-->
 
                                                 <!--Account Executive section-->
