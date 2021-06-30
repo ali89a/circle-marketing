@@ -22,7 +22,7 @@ class CreateCustomerReportsTable extends Migration
             $table->text('location_upazila');
             $table->text('address');
             $table->string('contact_person');
-            $table->text('email')->unique();
+            $table->string('email')->unique();
             // $table->text('visit_phone');
             $table->enum('status', ['new', 'approved', 'canceled']);
            
