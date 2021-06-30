@@ -70,31 +70,28 @@ class CustomerRelationController extends Controller
 
     public function crmWorkLimit()
     {
-           $workLimit =CrmWorkLimit::all();
-            // DB::table('crm_work_limits')
-            //         ->select('work_limits.*', 'admins.name');
-            
-               
-        return view('admin.crm.workLimit'
-        ,['workLimit' => $workLimit]
-    );
+        $workLimit = CrmWorkLimit::first();
+        // DB::table('crm_work_limits')
+        //         ->select('work_limits.*', 'admins.name');
+
+
+        return view(
+            'admin.crm.workLimit',
+            ['workLimit' => $workLimit]
+        );
     }
 
     public function storeWorkLimit(Request $request)
     {
         $workLimit = CrmWorkLimit::find($request->id);
-        if (count($request->id) > 0) {
-            foreach ($request->id as $item => $value) {
-                $datad = array(
-                    'blimit' => $request->blimit[$item],
-                    // 'mlimit' => $request->mlimit[$item],
-                    // 'climit' => $request->climit[$item],
-                    // 'llimit' => $request->llimit[$item],
-                );
-                $workLimit = CrmWorkLimit::where('id', $request->id[$item])->first();
-                $workLimit->update($datad);
-            }
-        }
+            $datad = array(
+                'blimit' => $request->blimit,
+                'mlimit' => $request->mlimit,
+                'climit' => $request->climit,
+                'llimit' => $request->llimit,
+            );
+            $workLimit = CrmWorkLimit::where('id', $request->id)->first();
+            $workLimit->update($datad);
         return redirect(route('customerWorkLimit'));
     }
 

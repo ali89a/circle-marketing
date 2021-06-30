@@ -12,32 +12,31 @@
                             @csrf
 
                             <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-bordered">
-
-                                    </table>
-
-                                </div>
                                 <div class="col-md-6">
                                     <h2 class="text-center">CRM Daily Work Limit</h2>
                                     <table class="table table-bordered">
                                         <tbody>
+                                            <input type="hidden" name="id" value="{{ $workLimit->id }}">
                                             <tr>
-                                                
+                                                <td>Corporate Limit</td>
+                                                <td><input type="number" name="blimit" value="{{ $workLimit->blimit }}">
+                                                </td>
                                             </tr>
-                                            @foreach ($workLimit as $item)
-                                                <input type="hidden" name="id[]" value="{{ $item->id }}">
-                                                <tr class="">
-                                                    <td>
-                                                        {{-- {{ $item->name }}
-                                                        <input type="hidden" name="blimit[]" value="{{ $item->blimit }}"> --}}
-                                                    </td>
-                                                    <td><input type="number" name="blimit[]" class="form-control-sm"
-                                                            value="{{ $item->blimit }}">
-                                                    </td>
-                                                    
-                                                </tr>
-                                            @endforeach
+                                            <tr>
+                                                <td>Local Limit</td>
+                                                <td><input type="number" name="mlimit" value="{{ $workLimit->mlimit }}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Corporate Limit</td>
+                                                <td><input type="number" name="climit" value="{{ $workLimit->climit }}">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Local Limit</td>
+                                                <td><input type="number" name="llimit" value="{{ $workLimit->llimit }}">
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

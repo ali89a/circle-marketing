@@ -11,8 +11,8 @@ class CrmWorkLimit extends Model
     
     protected $fillable = [
         'blimit',
-        // 'mlimit',
-        // 'climit',
-        // 'llimit'
+        'mlimit',
+        'climit',
+        'llimit'
     ];
 }
