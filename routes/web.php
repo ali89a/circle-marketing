@@ -13,6 +13,7 @@ use App\Http\Controllers\EnvDynamicController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CustomerReportController;
+use App\Http\Controllers\CustomerRelationController;
 use App\Http\Controllers\Customer\WorkOrderController;
 use App\Http\Controllers\WorkOrderFilterController;
 
@@ -47,13 +48,13 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/doc-edit', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('doc.edit');
     Route::get('/order-edit', [App\Http\Controllers\OrderController::class, 'orderEdit'])->name('order.edit');
     Route::get('/order-detail-edit', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('order.detail.edit');
-    
+
     Route::resource('report', CustomerReportController::class);
     Route::resource('service', ServiceController::class);
     Route::resource('division', DivisionController::class);
     Route::resource('district', DistrictController::class);
     Route::resource('upazila', UpazilaController::class);
-   
+
     Route::get('/pending-list', [CustomerReportController::class, 'pendingList'])->name('pendingList');
     Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);
     Route::get('fetch-district-by-division-id/{id}', [App\Http\Controllers\OrderCustomerInfoController::class, 'fetch_district']);
@@ -71,25 +72,25 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
     Route::get('/noc-edit/{id?}', [App\Http\Controllers\OrderNOCInfoController::class, 'nocEdit'])->name('nocEdit');
     Route::put('/noc-update/{id?}', [App\Http\Controllers\OrderNOCInfoController::class, 'nocUpdate'])->name('nocUpdate');
-    
+
     Route::get('/work-order-upgration/{id?}', [App\Http\Controllers\OrderUpgrationController::class, 'orderUpgration'])->name('work-order-upgration');
     Route::put('/work-order-upgration-update/{id?}', [App\Http\Controllers\OrderUpgrationController::class, 'orderUpgrationUpdate'])->name('orderUpgrationUpdate');
-    
+
     Route::get('/work-order-downgration/{id?}', [App\Http\Controllers\OrderDowngrationController::class, 'orderDowngration'])->name('work-order-downgration');
     Route::put('/work-order-downgration-update/{id?}', [App\Http\Controllers\OrderDowngrationController::class, 'orderDowngrationUpdate'])->name('orderDowngrationUpdate');
-    
+
     Route::get('/work-order-marketing-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalMarketing'])->name('workOrderApprovalMarketing');
     Route::get('/work-order-account-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalAccount'])->name('workOrderApprovalAccount');
     Route::get('/work-order-coo-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalCOO'])->name('workOrderApprovalCOO');
     Route::post('/noc-assign', [App\Http\Controllers\OrderApprovalController::class, 'nocAssign'])->name('nocAssign');
     Route::get('/work-order-noc-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalNoc'])->name('workOrderApprovalNoc');
-    
-    
+
+
     Route::get('/search-order-result', [WorkOrderFilterController::class, 'searchOrderResult'])->name('searchOrderResult');
 
     Route::get('/invoices/{id?}', [App\Http\Controllers\InvoiceController::class, 'Invoices'])->name('invoices');
     Route::get('/invoice/details/{id?}', [App\Http\Controllers\InvoiceController::class, 'invoiceDetails'])->name('InvoiceDetails');
-   
+
     Route::get('/approve/{id?}', [CustomerReportController::class, 'approve'])->name('approve');
     Route::get('/cancel/{id?}', [CustomerReportController::class, 'cancel'])->name('cancel');
     Route::get('/followup', [CustomerReportController::class, 'followUp'])->name('followUp');
@@ -103,7 +104,12 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/marketing-report-analysis', [CustomerReportController::class, 'marketingReportAnalysis'])->name('marketingReportAnalysis');
     Route::get('/report-analysis-result', [CustomerReportController::class, 'reportAnalysisResult'])->name('reportAnalysisResult');
 
-    
+    Route::resource('customer-relation', CustomerRelationController::class);
+    Route::get('/crm-work-limit', [CustomerRelationController::class, 'crmWorkLimit'])->name('customerWorkLimit');
+    // Route::post('/store-work-limit', [CustomerRelationController::class, 'storeWorkLimit'])->name('storeWorkLimit');
+    Route::get('/crm-work-analysis', [CustomerRelationController::class, 'crmWorkAnalysis'])->name('customerWorkAnalysis');
+    // Route::get('/crm-analysis-result', [CustomerRelationController::class, 'crmAnalysisResult'])->name('reportAnalysisResult');
+
 });
 
 
@@ -115,7 +121,7 @@ Route::middleware('auth')->prefix('customer')->name('customer.')->group(function
     Route::get('fetch-district-by-division-id/{id}', [App\Http\Controllers\OrderCustomerInfoController::class, 'fetch_district']);
     Route::get('fetch-upazila-by-district-id/{id}', [App\Http\Controllers\OrderCustomerInfoController::class, 'fetch_upazila']);
     Route::put('/customer-detail-update/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'customerDetailUpdate'])->name('customerDetailUpdate');
-   
+
     Route::get('/doc-edit/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'docEdit'])->name('docEdit');
     Route::put('/doc-update/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'docUpdate'])->name('docUpdate');
 
@@ -124,7 +130,7 @@ Route::middleware('auth')->prefix('customer')->name('customer.')->group(function
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\Customer\WorkOrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
     Route::get('/fetch-service-by-id/{id?}', [App\Http\Controllers\ServiceController::class, 'fetchService']);
     Route::get('/fetch-general-product-info/{id}', [App\Http\Controllers\ServiceController::class, 'fetch_general_product_info']);
-    
+
 
     Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);
     Route::get('fetch-thana', [App\Http\Controllers\OrderController::class, 'fetch_thana']);

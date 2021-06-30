@@ -332,7 +332,7 @@ class CustomerReportController extends Controller
         if ($request->ajax()) {
             if (!empty($request->from_date) && !empty($request->to_date)) {
                 $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
-                $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
+                $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date)->addDay();
                 $users = Admin::all();
                 $total = array();
                 foreach ($users as $u) {
@@ -342,6 +342,7 @@ class CustomerReportController extends Controller
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
                             ->where('customer_service_reports.created_at', '>', $from)
                             ->where('customer_service_reports.created_at', '<', $to)
+                            // ->whereBetween('created_at', [$from . " 00:00:00", $to . " 23:59:59"])
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'new')
                             ->count();
@@ -349,6 +350,8 @@ class CustomerReportController extends Controller
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
                             ->where('customer_service_reports.created_at', '>', $from)
                             ->where('customer_service_reports.created_at', '<', $to)
+                            // ->where('customer_service_reports.created_at', '>=', [$from . " 00:00:00"])
+                            // ->where('customer_service_reports.created_at', '<=', [$to . " 23:59:59"])
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'followup')
                             ->count();
@@ -370,61 +373,79 @@ class CustomerReportController extends Controller
                             ->select('work_limits.reconnectclient')->first();
                         $total[$u->id]['new1'] = DB::table('customer_service_reports')
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'new')
                             ->where('customer_service_reports.isp_type', 'category_a')
                             ->count();
                         $total[$u->id]['new2'] = DB::table('customer_service_reports')
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'new')
                             ->where('customer_service_reports.isp_type', 'category_b')
                             ->count();
                         $total[$u->id]['new3'] = DB::table('customer_service_reports')
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'new')
                             ->where('customer_service_reports.isp_type', 'category_c')
                             ->count();
                         $total[$u->id]['follow1'] = DB::table('customer_service_reports')
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'followup')
                             ->where('customer_service_reports.isp_type', 'category_a')
                             ->count();
                         $total[$u->id]['follow2'] = DB::table('customer_service_reports')
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'followup')
                             ->where('customer_service_reports.isp_type', 'category_b')
                             ->count();
                         $total[$u->id]['follow3'] = DB::table('customer_service_reports')
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'followup')
                             ->where('customer_service_reports.isp_type', 'category_c')
                             ->count();
                         $total[$u->id]['reconnect1'] = DB::table('customer_service_reports')
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'reconnect')
                             ->where('customer_service_reports.isp_type', 'category_a')
                             ->count();
                         $total[$u->id]['reconnect2'] = DB::table('customer_service_reports')
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'reconnect')
                             ->where('customer_service_reports.isp_type', 'category_b')
                             ->count();
                         $total[$u->id]['reconnect3'] = DB::table('customer_service_reports')
                             ->leftJoin('customer_reports', 'customer_service_reports.customer_report_id', '=', 'customer_reports.id')
+                            ->where('customer_service_reports.created_at', '>', $from)
+                            ->where('customer_service_reports.created_at', '<', $to)
                             ->where('customer_reports.createdBy', $u->id)
                             ->where('customer_service_reports.ctype', 'reconnect')
                             ->where('customer_service_reports.isp_type', 'category_c')
                             ->count();
                     }
                 }
-                $different_days = $from->diffInDays($to->addDay());
+                $different_days = $from->diffInDays($to); //
                 return view('admin.marketing.result', [
                     'total'       =>  $total,
                     'different_days'       =>  $different_days,
