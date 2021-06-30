@@ -52,12 +52,12 @@ class CustomerRelationController extends Controller
 
     public function crmWorkLimit()
     {
-        return view('');
+        return view('admin.crm.workLimit');
     }
 
 
     public function crmWorkAnalysis()
     {
-        return view('');
+        return view('admin.crm.analysis');
     }
 }
