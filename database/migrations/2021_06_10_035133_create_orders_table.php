@@ -35,6 +35,7 @@ class CreateOrdersTable extends Migration
             $table->text('visit_type')->nullable();
             $table->text('security_money_cheque')->nullable();
             $table->text('security_money_cash')->nullable();
+            $table->enum('invoice_type', ['New','Upgrate','Downgrate'])->default('New');
             $table->enum('completion_status', ['Processing','Complete'])->default('Processing');
             $table->foreignId('marketing_user_id')->nullable();
             $table->foreignId('accounts_user_id')->nullable();

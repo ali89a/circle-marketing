@@ -28,7 +28,7 @@ class OrderApprovalController extends Controller
         $order_approval->m_approved_status = 'Pending';
         $order_approval->a_approved_status = 'Pending';
         $order_approval->coo_approved_status = 'Pending';
-        $order_approval->noc_assigned_status = 'Pending';
+        $order_approval->noc_processing_status = 'Pending';
         $order_approval->noc_approved_status = 'Pending';
 
         $order_approval->modify_description = $request->modify_description;
@@ -86,9 +86,10 @@ class OrderApprovalController extends Controller
 
       // dd($request->all());
         $order = OrderApproval::where('order_id', $request->order_id)->first();
-        $order->noc_assigned_by = $request->noc_assigned_by;
-        $order->noc_assigned_status = "Processing";
-        $order->noc_approved_status = "Processing";
+        $order->noc_assigning_by = $request->noc_assigned_by;
+        $order->noc_assigned_by = Auth::guard('admin')->user()->id;
+        $order->noc_processing_status = "Processing";
+        $order->noc_approved_status = "Assigned";
         $order->noc_assigned_time = now();
         $order->save();
 

@@ -67,53 +67,60 @@
                                                     </tr>
                                                     <tr>
                                                         <th>VLAN</th>
-                                                        <td><input type="text" value="{{$order_noc->vlan_internet}}" name="vlan_internet"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_ggc}}" name="vlan_ggc"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_fb}}" name="vlan_fb"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_bdix}}" name="vlan_bdix"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_data}}" name="vlan_data"  class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->vlan_internet}}" name="vlan_internet" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->vlan_ggc}}" name="vlan_ggc" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->vlan_fb}}" name="vlan_fb" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->vlan_bdix}}" name="vlan_bdix" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->vlan_data}}" name="vlan_data" class="form-control"></td>
                                                     </tr>
                                                     <tr>
                                                         <th>IP</th>
-                                                        <td><input type="text" value="{{$order_noc->ip_internet}}" name="ip_internet"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->ip_ggc}}" name="ip_ggc"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->ip_fb}}" name="ip_fb"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->ip_bdix}}" name="ip_bdix"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->ip_data}}" name="ip_data"  class="form-control"></td>
-                                                       
+                                                        <td><input type="text" value="{{$order_noc->ip_internet}}" name="ip_internet" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->ip_ggc}}" name="ip_ggc" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->ip_fb}}" name="ip_fb" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->ip_bdix}}" name="ip_bdix" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->ip_data}}" name="ip_data" class="form-control"></td>
+
                                                     </tr>
                                                     <tr>
                                                         <th>Assigned BW</th>
-                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_internet}}" name="assigned_bandwidth_internet"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_ggc}}" name="assigned_bandwidth_ggc"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_fb}}" name="assigned_bandwidth_fb"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_bdix}}" name="assigned_bandwidth_bdix"  class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_data}}" name="assigned_bandwidth_data"  class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_internet}}" name="assigned_bandwidth_internet" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_ggc}}" name="assigned_bandwidth_ggc" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_fb}}" name="assigned_bandwidth_fb" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_bdix}}" name="assigned_bandwidth_bdix" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_data}}" name="assigned_bandwidth_data" class="form-control"></td>
                                                     </tr>
                                                     <tr>
-                                                       
+
                                                         <th>MRTG/Cpanel</th>
                                                         <td>
-                                                            <input type="text" name="mrtg_graph_url"  class="form-control" value="{{$order_noc->mrtg_graph_url}}" required>
+                                                            <input type="text" name="mrtg_graph_url" class="form-control" value="{{$order_noc->mrtg_graph_url}}" required>
                                                         </td>
                                                         <th>Username</th>
                                                         <td>
-                                                            <input type="text" name="username"  class="form-control" value="{{$order_noc->username}}" required>
+                                                            <input type="text" name="username" class="form-control" value="{{$order_noc->username}}" required>
                                                         </td>
                                                         <th>Passwword</th>
                                                         <td>
-                                                            <input type="text" name="password"  class="form-control" value="{{$order_noc->password}}" required>
+                                                            <input type="text" name="password" class="form-control" value="{{$order_noc->password}}" required>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                       
+
                                                         <th>Real IP</th>
                                                         <td>
-                                                        <input type="text" name="real_ip"  class="form-control" value="{{$order_noc->real_ip}}" required>
+                                                            <input type="text" name="real_ip" class="form-control" value="{{$order_noc->real_ip}}" required>
                                                         </td>
                                                         <th>Device Description</th>
-                                                        <td colspan="3">
-                                                           <textarea name="device_description" class="form-control" rows="1" required>{{$order_noc->device_description}}</textarea>
+                                                        <td>
+                                                            <textarea name="device_description" class="form-control" rows="1" required>{{$order_noc->device_description}}</textarea>
+                                                        </td>
+                                                        <th>Status</th>
+                                                        <td>
+                                                            <select class="form-control" name="status">
+                                                                <option value="Processing">Processing</option>
+                                                                <option value="Done">Done</option>
+                                                            </select>
                                                         </td>
                                                     </tr>
                                                 </tbody>

@@ -49,11 +49,11 @@ class OrderNOCInfoController extends Controller
         $noc_info->password = $request->password;
         $noc_info->real_ip = $request->real_ip;
         $noc_info->device_description = $request->device_description;
-        $noc_info->status = 'done';
+        $noc_info->status = $request->status;
         $noc_info->save();
 
         $order_approval = OrderApproval::where('order_id', $id)->first();
-        $order_approval->noc_assigned_status = "done";
+        $order_approval->noc_processing_status = $request->status;
         $order_approval->noc_done_time = now();
         $order_approval->save();
         Toastr::success('NOC Detail Added Successful!.', '', ["progressbar" => true]);

@@ -146,8 +146,11 @@
 
                                                     <tr>
                                                         <td>Upgradation Delivery Date:</td>
-                                                        <td><input type="text" class="datepicker" name="upgrade_delivery_date" required=""></td>
+                                                        <td>
+                                                            <input type="text" name="upgrade_delivery_date" id="upgrade_delivery_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
+                                                        </td>
                                                     </tr>
+
 
                                                     <tr>
                                                         <td>Billing by</td>
@@ -179,10 +182,35 @@
 </div>
 
 @endsection
-@section('css')
+@section('vendor-css')
+<link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/vendors/css/pickers/pickadate/pickadate.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
 
+<link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/vendors/css/forms/wizard/bs-stepper.min.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/vendors/css/forms/select/select2.min.css">
 @endsection
-@section('js')
+@section('page-css')
+<link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/css/core/menu/menu-types/vertical-menu.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/css/plugins/forms/pickers/form-flat-pickr.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/css/plugins/forms/pickers/form-pickadate.css">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/css/core/menu/menu-types/vertical-menu.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/css/plugins/forms/form-validation.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('') }}app-assets/css/plugins/forms/form-wizard.css">
+@endsection
+@push('style')
+
+@endpush
+@section('vendor-js')
+<script src="{{ asset('/') }}app-assets/vendors/js/pickers/pickadate/picker.js"></script>
+<script src="{{ asset('/') }}app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
+<script src="{{ asset('/') }}app-assets/vendors/js/pickers/pickadate/picker.time.js"></script>
+<script src="{{ asset('/') }}app-assets/vendors/js/pickers/pickadate/legacy.js"></script>
+<script src="{{ asset('/') }}app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+@endsection
+@section('page-js')
+<script src="{{ asset('/') }}app-assets/js/scripts/forms/pickers/form-pickers.js"></script>
+<script src="{{ asset('') }}app-assets/js/scripts/forms/form-wizard.js"></script>
 
 @endsection
 
