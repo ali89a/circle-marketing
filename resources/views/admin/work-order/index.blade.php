@@ -172,7 +172,10 @@
                                                         @else
                                                         <a href="{{route('workOrderApprovalMarketing',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
 
-                                                        <a href="" class="btn btn-warning btn-sm">Modify</a>
+                                                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modify{{$order->id}}">
+                                                            Modify
+                                                        </button>
+
                                                         @endif
                                                         @endif
                                                         @else
@@ -188,7 +191,9 @@
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
                                                         @else
                                                         <a href="{{route('workOrderApprovalAccount',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
-                                                        <a href="" class="btn btn-warning btn-sm">Modify</a>
+                                                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modify{{$order->id}}">
+                                                            Modify
+                                                        </button>
                                                         @endif
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
@@ -203,7 +208,9 @@
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
                                                         @else
                                                         <a href="{{route('workOrderApprovalCOO',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
-                                                        <a href="" class="btn btn-warning btn-sm">Modify</a>
+                                                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modify{{$order->id}}">
+                                                            Modify
+                                                        </button>
                                                         @endif
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
@@ -291,6 +298,34 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div class="modal fade text-left" id="modify{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel1">Modify</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="{{route('modifyDescription',$order->id)}}" method="post">
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <input type="hidden" name="order_id" value="{{$order->id}}" id="order_id">
+                                                                    <textarea class="form-control" name="modify_description"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary waves-effect waves-float waves-light">Submit</button>
+                                                            <button type="button" class="btn btn-danger waves-effect waves-float waves-light" data-dismiss="modal">Cancle</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </td>
                                     <td>
                                         <table class="table table-bordered bg-orange">

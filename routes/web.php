@@ -72,6 +72,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
     Route::get('/noc-edit/{id?}', [App\Http\Controllers\OrderNOCInfoController::class, 'nocEdit'])->name('nocEdit');
     Route::put('/noc-update/{id?}', [App\Http\Controllers\OrderNOCInfoController::class, 'nocUpdate'])->name('nocUpdate');
+    
+    Route::post('/modify-description/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'modifyDescription'])->name('modifyDescription');
 
     Route::get('/work-order-upgration/{id?}', [App\Http\Controllers\OrderUpgrationController::class, 'orderUpgration'])->name('work-order-upgration');
     Route::put('/work-order-upgration-update/{id?}', [App\Http\Controllers\OrderUpgrationController::class, 'orderUpgrationUpdate'])->name('orderUpgrationUpdate');
