@@ -69,23 +69,26 @@
   </ul>
 </li>
 
-<li class="{{ Request::segment(2) == 'crm' ? 'has-sub sidebar-group-active open' : '' }} nav-item"><a
+<li class="{{ Request::segment(2) == 'customer-relation' ? 'has-sub sidebar-group-active open' : '' }} nav-item"><a
     class="d-flex align-items-center" href="#"><i data-feather="layout"></i><span class="menu-title text-truncate"
       data-i18n="Page Layouts">CRM</span><span
       class="badge badge-light-danger badge-pill ml-auto mr-1">3</span></a>
   <ul class="menu-content">
-    <li><a class="d-flex align-items-center" href="{{ route('customer-relation.create') }}"><i data-feather="circle"></i><span
-          class="menu-item text-truncate" data-i18n="Collapsed Menu">Add new Issue</span></a>
+
+     <li class="{{ Request::segment(2) == 'customer-relation' && Request::segment(3) == 'create' ? 'active' : '' }}">
+      <a class="d-flex align-items-center" href="{{ route('customer-relation.create') }}"><i data-feather="circle">
+        </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Add New Issue</span></a>
     </li>
-    <li class="{{ Request::segment(2) == 'crm' ? 'active' : '' }}"><a class="d-flex align-items-center"
+
+    <li class="{{ Request::segment(2) == '' ? 'active' : '' }}"><a class="d-flex align-items-center"
         href="{{ route('customer-relation.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate"
           data-i18n="Layout Boxed">View All</span></a>
     </li>
-    <li class="{{ Request::segment(2) == 'crm' ? 'active' : '' }}"><a class="d-flex align-items-center"
+    <li class="{{ Request::segment(2) == '' ? 'active' : '' }}"><a class="d-flex align-items-center"
         href="{{ route('customerWorkLimit') }}"><i data-feather="circle"></i><span class="menu-item text-truncate"
           data-i18n="Without Menu">CRM Work Limit</span></a>
     </li>
-     <li class="{{ Request::segment(2) == 'crm' ? 'active' : '' }}"><a class="d-flex align-items-center"
+     <li class="{{ Request::segment(2) == '' ? 'active' : '' }}"><a class="d-flex align-items-center"
         href="{{ route('customerWorkAnalysis') }}"><i data-feather="circle"></i><span class="menu-item text-truncate"
           data-i18n="Without Menu">CRM Work Analysis</span></a>
     </li>
