@@ -223,7 +223,10 @@
                                                     <td class="bg-gray">N A</td>
                                                     <td class="text-center nstatus666">
                                                         @hasrole('NOC Admin')
-                                                        @if($order->order_approval->noc_processing_status =='Pending' && $order->order_approval->noc_approved_status =='Pending')
+                                                        @if($order->order_approval->coo_approved_status =='Pending' && $order->order_approval->noc_processing_status =='Pending' && $order->order_approval->noc_approved_status =='Pending')
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
+                                                        @endif
+                                                        @if($order->order_approval->coo_approved_status =='Approved' && $order->order_approval->noc_processing_status =='Pending' && $order->order_approval->noc_approved_status =='Pending')
                                                         <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target="#modify{{$order->id}}">
                                                             Modify
                                                         </button>
