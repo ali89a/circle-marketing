@@ -17,8 +17,13 @@ class CreateInvoiceItemsTable extends Migration
             $table->id();
             $table->foreignId('invoice_id');
             $table->text('invoice_description');
+            $table->date('from_date');
+            $table->date('to_date');
+            $table->Integer('used_total_days');
+            $table->decimal('per_day_price');  
+            $table->decimal('amount');  
+            $table->Integer('capacity');
             $table->decimal('unit_price');
-            $table->decimal('amount');
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->unsignedBigInteger('order_id');

@@ -38,7 +38,6 @@ class OrderApprovalController extends Controller
 
         Toastr::success('Modify Send Successful!.', '', ["progressbar" => true]);
         return redirect()->back();
-
     }
     public function workOrderApprovalNoc($id)
     {
@@ -46,29 +45,36 @@ class OrderApprovalController extends Controller
         // try {
         //     DB::beginTransaction();
 
-            $order_approval = OrderApproval::where('order_id', $id)->first();
-            $order_approval->noc_approved_status = "Approved";
-            $order_approval->noc_approved_time = now();
-            $order_approval->noc_approved_by = Auth::guard('admin')->user()->id;
-            $order_approval->save();
+        $order_approval = OrderApproval::where('order_id', $id)->first();
+        $order_approval->noc_approved_status = "Approved";
+        $order_approval->noc_approved_time = now();
+        $order_approval->noc_approved_by = Auth::guard('admin')->user()->id;
+        $order_approval->save();
 
 
-            $order = Order::where('id', $id)->first(); 
-            $Approval = OrderApproval::where('order_id', $id)->first();
-            if ($order->bill_generate_method == 'by_marketing_date') {
-               
-                $start_date=$Approval->m_approved_time;
-                $end_date='2021-06-30';
-                \App\Classes\invoiceGenerate::invoice($id, $start_date,$end_date);
+        $order = Order::where('id', $id)->first();
+        $Approval = OrderApproval::where('order_id', $id)->first();
+        $end_date = \Carbon\Carbon::now()->endOfMonth()->toDateString();
+        if ($order->bill_generate_method == 'by_marketing_date') {
+
+            $start_date = $Approval->m_approved_time;
+            if ($order->invoice_type == 'New') {
+                \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
+            } else if ($order->invoice_type == 'Upgrate') {
+                \App\Classes\upgrateInvoiceGenerate::invoice($id, $start_date, $end_date);
             }
-            if ($order->bill_generate_method == 'by_noc_done') {
-                $start_date=$Approval->noc_done_time;
-                $end_date='2021-06-30';
-                \App\Classes\invoiceGenerate::invoice($id, $start_date,$end_date);
+        }
+        if ($order->bill_generate_method == 'by_noc_done') {
+            $start_date = $Approval->noc_done_time;
+            if ($order->invoice_type == 'New') {
+                \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
+            } else if ($order->invoice_type = 'Upgrate') {
+                \App\Classes\upgrateInvoiceGenerate::invoice($id, $start_date, $end_date);
             }
-            // DB::commit();
-            Toastr::success('NOC Admin Approved Successful!.', '', ["progressbar" => true]);
-            return redirect()->back();
+        }
+        // DB::commit();
+        Toastr::success('NOC Admin Approved Successful!.', '', ["progressbar" => true]);
+        return redirect()->back();
         // } catch (\Exception $e) {
         //     DB::rollBack();
         //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
@@ -79,12 +85,12 @@ class OrderApprovalController extends Controller
         //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
         //     return back();
         // }
-        
+
     }
     public function nocAssign(Request $request)
     {
 
-      // dd($request->all());
+        // dd($request->all());
         $order = OrderApproval::where('order_id', $request->order_id)->first();
         $order->noc_assigning_by = $request->noc_assigned_by;
         $order->noc_assigned_by = Auth::guard('admin')->user()->id;

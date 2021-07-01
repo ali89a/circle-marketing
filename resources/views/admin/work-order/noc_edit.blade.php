@@ -118,8 +118,8 @@
                                                         <th>Status</th>
                                                         <td>
                                                             <select class="form-control" name="status">
-                                                                <option value="Processing">Processing</option>
-                                                                <option value="Done">Done</option>
+                                                                <option value="Processing" {{ $order_noc->status=="Processing"?"selected":'' }}>Processing</option>
+                                                                <option value="Done" {{ $order_noc->status=="Done"?"selected":'' }}>Done</option>
                                                             </select>
                                                         </td>
                                                     </tr>
