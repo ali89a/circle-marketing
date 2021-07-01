@@ -25,7 +25,7 @@
                                                 <td>Applicant/Customer:</td>
                                                 <td colspan="2">
                                                     <select name="applicantname" id="applicantname"
-                                                        class="form-control form-control-sm">
+                                                        class="form-control form-control-sm" disabled="true">
                                                         <option value="">Select Applicant/Customer</option>
                                                         @foreach ($customers as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -37,7 +37,7 @@
                                                 <td>Work Order:</td>
                                                 <td colspan="2">
                                                     <select name="workOrder" id="workOrder"
-                                                        class="form-control form-control-sm">
+                                                        class="form-control form-control-sm" disabled="true">
                                                         <option value="">Select Work Order</option>
                                                         @foreach ($workOrders as $item)
                                                             <option value="{{ $item->id }}">{{ $item->id }}</option>
@@ -48,10 +48,62 @@
                                             <tr>
                                                 <td>Uplink pop:</td>
                                                 <td><input type="text" name="uplink" class="form-control form-control-sm"
-                                                        value="{{ $crm->uplink }}" required=""></td>
+                                                        value="{{ $crm->uplink }}" required="" readonly></td>
                                             </tr>
                                             <tr>
-                                                <td>Issue Type</td>
+                                                <td>Client Type</td>
+                                                <td>
+                                                    <select name="client_type" class="form-control form-control-sm"
+                                                        disabled="true">
+                                                        <option value="">Select Type</option>
+                                                        <option value="bandwidth">Bandwidth Client</option>
+                                                        <option value="mac">Mac Client</option>
+                                                        <option value="corporate">Corporate Client</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Problem Start Date</td>
+                                                <td>
+                                                    <input type="date" name="start_date" value="{{ $crm->start_date }}"
+                                                        class="form-control flatpickr-basic flatpickr-input"
+                                                        placeholder="YYYY-MM-DD" disabled="true">
+                                                    {{-- <input type="text" name="start_date" class="datepicker form-control"> --}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Issue Details</td>
+                                                <td>
+                                                    <textarea name="issue_details" class="form-control"
+                                                        disabled="true">{{ $crm->issue_details }}</textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td>Assign To</td>
+                                                <td><select id="user" name="user" class="form-control form-control-sm"
+                                                        disabled="true">
+                                                        <option value="">Select User</option>
+                                                        @foreach ($admins as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Remark</td>
+                                                <td>
+                                                    <textarea name="remark" class="form-control"
+                                                        disabled="true">{{ $crm->remark }}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: red"><b>Issue Type ***</b></td>
                                                 <td>
                                                     <select name="issue_type" class="form-control form-control-sm">
                                                         <option value="">Select Type</option>
@@ -65,79 +117,24 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Client Type</td>
-                                                <td>
-                                                    <select name="client_type" class="form-control form-control-sm">
-                                                        <option value="">Select Type</option>
-                                                        <option value="bandwidth">Bandwidth Client</option>
-                                                        <option value="mac">Mac Client</option>
-                                                        <option value="corporate">Corporate Client</option>
-                                                    </select>
-                                                </td>
+                                                <td style="color: red"><b>Rating ***</b></td>
+                                                <td><input type="text" name="rating" class="form-control form-control-sm"
+                                                        value=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: red"><b>Feedback ***</b></td>
+                                                <td><input type="text" name="feedback" class="form-control form-control-sm"
+                                                        value=""></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-md-6">
-                                    <table class="table table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <td>Problem Start Date</td>
-                                                <td>
-                                                    <input type="date" name="start_date" value="{{ $crm->start_date }}"
-                                                        class="form-control flatpickr-basic flatpickr-input"
-                                                        placeholder="YYYY-MM-DD" readonly="readonly">
-                                                    {{-- <input type="text" name="start_date" class="datepicker form-control"> --}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Issue Details</td>
-                                                <td>
-                                                    <textarea name="issue_details"
-                                                        class="form-control">{{ $crm->issue_details }}</textarea>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Assign To</td>
-                                                <td><select id="user" name="user" class="form-control form-control-sm">
-                                                        <option value="">Select User</option>
-                                                        @foreach ($admins as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Remark</td>
-                                                <td>
-                                                    <textarea name="remark"
-                                                        class="form-control">{{ $crm->remark }}</textarea>
-                                                </td>
-                                            </tr>
-
-
-                                        </tbody>
-                                    </table>
-
-
-
-                                </div>
-
-                                {{-- <div class="col-md-12">
-                                    <a href="#" class="btn btn-default"><i class="fa fa-arrow-left"></i> Back to List</a>
-                                    <input type="submit" value="Submit" class="btn btn-primary pull-right"
-                                        style="width:150px">
-                                </div> --}}
-
                                 <div class="col-md-12 offset-md-10">
                                     <br>
                                     <input type="submit" value="Submit" class="btn btn-primary pull-right">
                                 </div>
                             </div>
-
                         </form>
-
-
                     </div>
                 </div>
             </section>
