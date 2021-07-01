@@ -25,6 +25,8 @@ class CreateCustomerRelationsTable extends Migration
             $table->text('issue_details');
             $table->string('user');
             $table->text('remark');
+            $table->text('rating')->nullable();
+            $table->text('feedback')->nullable();
             $table->timestamps();
         });
     }

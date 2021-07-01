@@ -144,7 +144,13 @@ class CustomerRelationController extends Controller
                     ->join('users', 'customer_relations.applicantname', '=', 'users.id')
                     ->join('admins', 'customer_relations.user', '=', 'admins.id')
                     ->where('users.mobile',  $request->mobile);
+            } else if (!empty($request->issue_type)) {
+                $list = DB::table('customer_relations')
+                    ->join('users', 'customer_relations.applicantname', '=', 'users.id')
+                    ->join('admins', 'customer_relations.user', '=', 'admins.id')
+                    ->where('customer_relations.issue_type',  $request->issue_type);
             }
+
             $list->select('customer_relations.*', 'users.*', 'users.name as userName', 'admins.name as adminName')
                 ->orderBy('customer_relations.id', 'DESC');
             return view('admin.crm.result', [

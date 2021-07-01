@@ -119,12 +119,12 @@
                                             <tr>
                                                 <td style="color: red"><b>Rating ***</b></td>
                                                 <td><input type="text" name="rating" class="form-control form-control-sm"
-                                                        value=""></td>
+                                                        value="{{ $crm->rating }}"></td>
                                             </tr>
                                             <tr>
                                                 <td style="color: red"><b>Feedback ***</b></td>
                                                 <td><input type="text" name="feedback" class="form-control form-control-sm"
-                                                        value=""></td>
+                                                        value="{{ $crm->feedback }}"></td>
                                             </tr>
                                         </tbody>
                                     </table>

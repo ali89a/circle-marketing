@@ -25,8 +25,23 @@
              @foreach ($crms as $item)
                  <tr>
                      <td>{{ $item->id }}</td>
-                     <td></td>
-                     <td></td>
+                     <td>
+                         <a href="{{ route('crmModify', ['id' => $item->id]) }}"
+                             class="btn btn-success btn-circle col-sm">Modify
+                             <i class="fas fa-check"></i>
+                         </a>
+                     </td>
+                     <td>
+                         @if ($item->issue_type == 'no_issue' || $item->issue_type == 'not_responding')
+                             <a href="#" class="btn btn-danger btn-circle col-sm">Closed
+                                 <i class="fas fa-check"></i>
+                             </a>
+                         @else
+                             <a href="#" class="btn btn-warning btn-circle col-sm">Pending
+                                 <i class="fas fa-check"></i>
+                             </a>
+                         @endif
+                     </td>
                      <td></td>
                      <td>{{ $item->userName }}</td>
                      <td>{{ $item->client_type }}</td>

@@ -19,6 +19,8 @@ class CustomerRelation extends Model
         'start_date',
         'issue_details',
         'user',
-        'remark'
+        'remark',
+        'rating',
+        'feedback'
     ];
 }
