@@ -11,6 +11,7 @@ class CustomerRelation extends Model
 
     protected $fillable = [
         'applicantname',
+        'workOrder',
         'createdBy',
         'uplink',
         'issue_type',

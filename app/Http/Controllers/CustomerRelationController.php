@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin\Admin;
 use App\Models\CrmWorkLimit;
 use App\Models\CustomerRelation;
+use App\Models\Order;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
@@ -19,10 +20,10 @@ class CustomerRelationController extends Controller
     {
         // $crms = CustomerRelation::all();
         $crms = DB::table('customer_relations')
-            ->leftJoin('users', 'customer_relations.applicantname', '=', 'users.id')
-            ->leftJoin('admins', 'customer_relations.user', '=', 'admins.id')
-            ->select('customer_relations.*', 'users.*', 'users.name as userName', 'admins.name as adminName')
-            ->orderBy('customer_relations.id', 'desc')
+            ->join('users', 'customer_relations.applicantname', '=', 'users.id')
+            ->join('admins', 'customer_relations.user', '=', 'admins.id')
+            ->select('customer_relations.*', 'users.mobile', 'users.name as userName', 'admins.name as adminName')
+            ->orderBy('customer_relations.id', 'DESC')
             ->get();
         return view('admin.crm.index', compact('crms'));
     }
@@ -32,9 +33,11 @@ class CustomerRelationController extends Controller
     {
         $customers = User::all();
         $admins = Admin::all();
+        $workOrders = Order::all();
         return view('admin.crm.create', [
             'customers' => $customers,
-            'admins' => $admins
+            'admins' => $admins,
+            'workOrders' => $workOrders
         ]);
     }
 
@@ -55,15 +58,30 @@ class CustomerRelationController extends Controller
     }
 
 
-    public function edit(CustomerRelation $customerRelation)
+    public function edit($id)
     {
-        //
+        $crm = CustomerRelation::find($id);
+        $customers = User::all();
+        $admins = Admin::all();
+        $workOrders = Order::all();
+
+        return view('admin.crm.edit', [
+            'crm' => $crm,
+            'customers' => $customers,
+            'admins' => $admins,
+            'workOrders' => $workOrders
+        ]);
     }
 
 
-    public function update(Request $request, CustomerRelation $customerRelation)
+    public function update(Request $request)
     {
-        //
+        //dd($request->all());
+        $crm = CustomerRelation::find($request->id);
+        $crm->fill($request->all());
+        $crm->update();
+        Toastr::success('Information Updated Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('customer-relation.index');
     }
 
 
@@ -109,14 +127,14 @@ class CustomerRelationController extends Controller
                 $from = $request->from_date == '' ? today() : Carbon::parse($request->from_date);
                 $to   = $request->to_date == '' ? today() : Carbon::parse($request->to_date);
                 $list = DB::table('customer_relations')
-                    ->leftJoin('users', 'customer_relations.applicantname', '=', 'users.id')
-                    ->leftJoin('admins', 'customer_relations.user', '=', 'admins.id')
+                    ->join('users', 'customer_relations.applicantname', '=', 'users.id')
+                    ->join('admins', 'customer_relations.user', '=', 'admins.id')
                     ->where('customer_relations.created_at', '>', $from)
                     ->where('customer_relations.created_at', '<', $to->addDay());
             } else if (!empty($request->mobile)) {
                 $list = DB::table('customer_relations')
-                    ->leftJoin('users', 'customer_relations.applicantname', '=', 'users.id')
-                    ->leftJoin('admins', 'customer_relations.user', '=', 'admins.id')
+                    ->join('users', 'customer_relations.applicantname', '=', 'users.id')
+                    ->join('admins', 'customer_relations.user', '=', 'admins.id')
                     ->where('users.mobile',  $request->mobile);
             }
             $list->select('customer_relations.*', 'users.*', 'users.name as userName', 'admins.name as adminName')

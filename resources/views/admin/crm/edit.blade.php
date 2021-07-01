@@ -6,9 +6,11 @@
             <section class="card card-body modern-horizontal-wizard">
                 <div class=" wizard-modern modern-wizard-example">
                     <div class="bs-stepper-content">
-                        <form class="form" method="post" action="{{ route('customer-relation.store') }}"
+                        <form class="form" id="user_form" method="post"
+                            action="{{ route('customer-relation.update', $crm->id) }}" name="editForm"
                             enctype="multipart/form-data">
                             @csrf
+                            @method('put')
                             <div class="row">
                                 <div class="col-md-12">
                                     <table class="table table-bordered">
@@ -17,7 +19,8 @@
                                 <div class="col-md-6">
                                     <table class="table table-bordered">
                                         <tbody>
-                                            <input type="hidden" name="createdBy" value="{{ Auth::user()->id }}">
+                                            {{-- <input type="hidden" name="createdBy" value="{{ Auth::user()->id }}"> --}}
+                                            <input type="hidden" name="id" value="{{ $crm->id }}">
                                             <tr>
                                                 <td>Applicant/Customer:</td>
                                                 <td colspan="2">
@@ -37,7 +40,7 @@
                                                         class="form-control form-control-sm">
                                                         <option value="">Select Work Order</option>
                                                         @foreach ($workOrders as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->type }}</option>
+                                                            <option value="{{ $item->id }}">{{ $item->id }}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
@@ -45,7 +48,7 @@
                                             <tr>
                                                 <td>Uplink pop:</td>
                                                 <td><input type="text" name="uplink" class="form-control form-control-sm"
-                                                        required=""></td>
+                                                        value="{{ $crm->uplink }}" required=""></td>
                                             </tr>
                                             <tr>
                                                 <td>Issue Type</td>
@@ -81,7 +84,7 @@
                                             <tr>
                                                 <td>Problem Start Date</td>
                                                 <td>
-                                                    <input type="date" name="start_date"
+                                                    <input type="date" name="start_date" value="{{ $crm->start_date }}"
                                                         class="form-control flatpickr-basic flatpickr-input"
                                                         placeholder="YYYY-MM-DD" readonly="readonly">
                                                     {{-- <input type="text" name="start_date" class="datepicker form-control"> --}}
@@ -90,44 +93,71 @@
                                             <tr>
                                                 <td>Issue Details</td>
                                                 <td>
-                                                    <textarea name="issue_details" class="form-control"></textarea>
+                                                    <textarea name="issue_details"
+                                                        class="form-control">{{ $crm->issue_details }}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Assign To</td>
-                                                <td><select id="userlist" name="user" class="form-control form-control-sm">
+                                                <td><select id="user" name="user" class="form-control form-control-sm">
                                                         <option value="">Select User</option>
                                                         @foreach ($admins as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                            </option>
                                                         @endforeach
                                                     </select></td>
                                             </tr>
                                             <tr>
                                                 <td>Remark</td>
                                                 <td>
-                                                    <textarea name="remark" class="form-control"></textarea>
+                                                    <textarea name="remark"
+                                                        class="form-control">{{ $crm->remark }}</textarea>
                                                 </td>
                                             </tr>
+
+
                                         </tbody>
                                     </table>
+
+
+
                                 </div>
+
+                                {{-- <div class="col-md-12">
+                                    <a href="#" class="btn btn-default"><i class="fa fa-arrow-left"></i> Back to List</a>
+                                    <input type="submit" value="Submit" class="btn btn-primary pull-right"
+                                        style="width:150px">
+                                </div> --}}
+
                                 <div class="col-md-12 offset-md-10">
                                     <br>
                                     <input type="submit" value="Submit" class="btn btn-primary pull-right">
                                 </div>
                             </div>
+
                         </form>
+
+
                     </div>
                 </div>
             </section>
         </div>
     </div>
 
+    <script>
+        document.forms['editForm'].elements['applicantname'].value = {{ $crm->applicantname }}
+        document.forms['editForm'].elements['workOrder'].value = {{ $crm->workOrder }}
+        document.forms['editForm'].elements['issue_type'].value = "{{ $crm->issue_type }}"
+        document.forms['editForm'].elements['client_type'].value = "{{ $crm->client_type }}"
+        document.forms['editForm'].elements['user'].value = {{ $crm->user }}
+    </script>
+
 @endsection
 
 @section('vendor-css')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/vendors/css/pickers/pickadate/pickadate.css">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('/') }}app-assets/vendors/css/pickers/pickadate/pickadate.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('/') }}app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
 
