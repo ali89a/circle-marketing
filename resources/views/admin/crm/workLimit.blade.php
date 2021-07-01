@@ -18,12 +18,12 @@
                                         <tbody>
                                             <input type="hidden" name="id" value="{{ $workLimit->id }}">
                                             <tr>
-                                                <td>Corporate Limit</td>
+                                                <td>Bandwidth Limit</td>
                                                 <td><input type="number" name="blimit" value="{{ $workLimit->blimit }}">
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Local Limit</td>
+                                                <td>MAC Limit</td>
                                                 <td><input type="number" name="mlimit" value="{{ $workLimit->mlimit }}">
                                                 </td>
                                             </tr>

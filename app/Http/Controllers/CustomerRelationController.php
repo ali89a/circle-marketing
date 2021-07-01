@@ -91,13 +91,21 @@ class CustomerRelationController extends Controller
     }
 
 
-    public function crmWorkLimit()
+    public function crmWorkLimit(Request $request)
     {
+
+        $check = DB::table('crm_work_limits')
+            // ->where('admin_id', $u->id)
+            ->first();
+        if (empty($check)) {
+            CrmWorkLimit::create([
+                'id' => $request->id
+            ]);
+        }
+
+
         $workLimit = CrmWorkLimit::first();
-        return view(
-            'admin.crm.workLimit',
-            ['workLimit' => $workLimit]
-        );
+        return view('admin.crm.workLimit', ['workLimit' => $workLimit]);
     }
 
     public function storeWorkLimit(Request $request)
