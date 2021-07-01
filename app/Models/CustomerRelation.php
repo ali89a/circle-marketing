@@ -11,6 +11,7 @@ class CustomerRelation extends Model
 
     protected $fillable = [
         'applicantname',
+        'createdBy',
         'uplink',
         'issue_type',
         'client_type',
@@ -18,6 +19,5 @@ class CustomerRelation extends Model
         'issue_details',
         'user',
         'remark'
-
     ];
 }

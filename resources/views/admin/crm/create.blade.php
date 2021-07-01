@@ -17,13 +17,16 @@
                                 <div class="col-md-6">
                                     <table class="table table-bordered">
                                         <tbody>
+                                              <input type="hidden" name="createdBy" value="{{ Auth::user()->id }}">
                                             <tr>
                                                 <td>Applicant/Customer:</td>
                                                 <td colspan="2">
                                                     <select name="applicantname" id="applicantname"
                                                         class="form-control form-control-sm">
                                                         <option value="">Select Applicant/Customer</option>
-                                                        <option value="880">(880)Mohammad Ali(E-Network)</option>
+                                                        @foreach ($customers as $item)
+                                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </td>
                                             </tr>
@@ -82,9 +85,12 @@
                                                 <td>Assign To</td>
                                                 <td><select id="userlist" name="user" class="form-control form-control-sm">
                                                         <option value="">Select User</option>
-                                                        <option value="0">No User</option>
-                                                        <option value="1">(1)Rokibul Hasan(rokibul)</option>
-                                                        <option value="114">(114)Marketing Admin(madmin)</option>
+                                                        @foreach ($admins as $item)
+                                                              <option value="{{$item->id}}">{{$item->name}}</option>
+                                                        @endforeach
+                                                      
+                                                        {{-- <option value="1">(1)Rokibul Hasan(rokibul)</option>
+                                                        <option value="114">(114)Marketing Admin(madmin)</option> --}}
                                                     </select></td>
                                             </tr>
                                             <tr>

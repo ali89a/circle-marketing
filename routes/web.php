@@ -111,7 +111,9 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
      Route::post('/store-crm-work-limit', [CustomerRelationController::class, 'storeWorkLimit'])->name('crmWorkLimit');
     Route::get('/crm-work-analysis', [CustomerRelationController::class, 'crmWorkAnalysis'])->name('customerWorkAnalysis');
     // Route::get('/crm-analysis-result', [CustomerRelationController::class, 'crmAnalysisResult'])->name('reportAnalysisResult');
-
+    Route::get('/crm-search-result', [CustomerRelationController::class, 'crmSearchResult'])->name('crmSearchResult');
+    
+    
 });
 
 
