@@ -37,15 +37,15 @@
                                                 <td><input type="number" name="llimit" value="{{ $workLimit->llimit }}">
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <input type="submit" value="Submit"
+                                                        class="ml-5 btn btn-primary pull-right" style="width:150px">
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                                <div class="col-md-6">
-                                </div>
-                                <div class="col-md-12">
-                                    <a href="#" class="btn btn-default"><i class="fa fa-arrow-left"></i> Back to List</a>
-                                    <input type="submit" value="Submit" class="btn btn-primary pull-right"
-                                        style="width:150px">
                                 </div>
                             </div>
                         </form>

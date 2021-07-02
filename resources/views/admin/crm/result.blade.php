@@ -20,7 +20,7 @@
                  <th>Remark</th>
                  <th>Feedback</th>
                  <th>Rating</th>
-                 <th>Review</th>
+                 {{-- <th>Review</th> --}}
              </tr>
              @foreach ($crms as $item)
                  <tr>
@@ -31,18 +31,19 @@
                              <i class="fas fa-check"></i>
                          </a>
                      </td>
+                     <td></td>
                      <td>
                          @if ($item->issue_type == 'no_issue' || $item->issue_type == 'not_responding')
-                             <a href="#" class="btn btn-danger btn-circle col-sm">Closed
+                             <a href="#" class="btn btn-danger btn-circle col-sm">Close
                                  <i class="fas fa-check"></i>
                              </a>
                          @else
-                             <a href="#" class="btn btn-warning btn-circle col-sm">Pending
+                             <a href="#" class="btn btn-success btn-circle col-sm">Open
                                  <i class="fas fa-check"></i>
                              </a>
                          @endif
                      </td>
-                     <td></td>
+                  
                      <td>{{ $item->userName }}</td>
                      <td>{{ $item->client_type }}</td>
                      <td>{{ $item->mobile }}</td>
@@ -54,9 +55,9 @@
                      <td>{{ date('d-M-Y g:i: a ', strtotime($item->created_at)) }}</td>
                      <td>{{ $item->adminName }}</td>
                      <td>{{ $item->remark }}</td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
+                     <td>{{ $item->feedback }}</td>
+                     <td>{{ $item->rating }}</td>
+                     {{-- <td></td> --}}
                  </tr>
              @endforeach
          </tbody>
