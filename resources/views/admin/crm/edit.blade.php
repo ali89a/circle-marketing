@@ -86,14 +86,16 @@
                                         <tbody>
                                             <tr>
                                                 <td>Assign To</td>
-                                                <td><select id="user" name="user" class="form-control form-control-sm"
+                                                <td>
+                                                    <select id="user" name="user" class="form-control form-control-sm"
                                                         disabled="true">
                                                         <option value="">Select User</option>
                                                         @foreach ($admins as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }}
                                                             </option>
                                                         @endforeach
-                                                    </select></td>
+                                                    </select>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Remark</td>
@@ -118,13 +120,31 @@
                                             </tr>
                                             <tr>
                                                 <td style="color: red"><b>Rating ***</b></td>
-                                                <td><input type="text" name="rating" class="form-control form-control-sm"
-                                                        value="{{ $crm->rating }}"></td>
+                                                <td>
+                                                    <select id="rating" name="rating" class="form-control form-control-sm">
+                                                        <option value="">Select One</option>
+                                                        <option value="solved">Solved</option>
+                                                        <option value="not_solved">Not Solved</option>
+                                                    </select>
+                                                    {{-- <input type="text" name="rating" class="form-control form-control-sm"
+                                                        value="{{ $crm->rating }}"> --}}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td style="color: red"><b>Feedback ***</b></td>
-                                                <td><input type="text" name="feedback" class="form-control form-control-sm"
-                                                        value="{{ $crm->feedback }}"></td>
+                                                <td>
+                                                    <select id="feedback" name="feedback"
+                                                        class="form-control form-control-sm">
+                                                        <option value="">Select One</option>
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                    {{-- <input type="text" name="feedback" class="form-control form-control-sm"
+                                                        value="{{ $crm->feedback }}"> --}}
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -147,6 +167,8 @@
         document.forms['editForm'].elements['issue_type'].value = "{{ $crm->issue_type }}"
         document.forms['editForm'].elements['client_type'].value = "{{ $crm->client_type }}"
         document.forms['editForm'].elements['user'].value = {{ $crm->user }}
+        document.forms['editForm'].elements['rating'].value = "{{ $crm->rating }}"
+        document.forms['editForm'].elements['feedback'].value = "{{ $crm->feedback }}"
     </script>
 
 @endsection
