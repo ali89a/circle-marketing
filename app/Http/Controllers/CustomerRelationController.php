@@ -58,6 +58,22 @@ class CustomerRelationController extends Controller
     }
 
 
+    public function review($id)
+    {
+        $crm = CustomerRelation::find($id);
+        $customers = User::all();
+        $admins = Admin::all();
+        $workOrders = Order::all();
+
+        return view('admin.crm.review', [
+            'crm' => $crm,
+            'customers' => $customers,
+            'admins' => $admins,
+            'workOrders' => $workOrders
+        ]);
+    }
+
+
     public function edit($id)
     {
         $crm = CustomerRelation::find($id);
@@ -147,7 +163,7 @@ class CustomerRelationController extends Controller
                     ->where('customer_relations.issue_type',  $request->issue_type);
             }
 
-            $list->select('customer_relations.*', 'users.*', 'users.name as userName', 'admins.name as adminName')
+            $list->select('customer_relations.*', 'users.mobile', 'users.name as userName', 'admins.name as adminName')
                 ->orderBy('customer_relations.id', 'DESC');
             return view('admin.crm.result', [
                 'crms'           =>  $list->get(),

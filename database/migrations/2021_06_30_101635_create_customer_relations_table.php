@@ -16,7 +16,7 @@ class CreateCustomerRelationsTable extends Migration
         Schema::create('customer_relations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('applicantname');
-            $table->text('workOrder');
+            $table->text('workOrder')->nullable();
             $table->text('createdBy');
             $table->text('uplink');
             $table->enum('issue_type', ['no_issue', 'not_responding', 'marketing', 'fiber', 'support', 'account']);

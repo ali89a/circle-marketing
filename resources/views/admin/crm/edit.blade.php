@@ -25,7 +25,7 @@
                                                 <td>Applicant/Customer:</td>
                                                 <td colspan="2">
                                                     <select name="applicantname" id="applicantname"
-                                                        class="form-control form-control-sm" disabled="true">
+                                                        class="form-control form-control-sm">
                                                         <option value="">Select Applicant/Customer</option>
                                                         @foreach ($customers as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -33,7 +33,7 @@
                                                     </select>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            {{-- <tr>
                                                 <td>Work Order:</td>
                                                 <td colspan="2">
                                                     <select name="workOrder" id="workOrder"
@@ -44,17 +44,16 @@
                                                         @endforeach
                                                     </select>
                                                 </td>
-                                            </tr>
+                                            </tr> --}}
                                             <tr>
                                                 <td>Uplink pop:</td>
                                                 <td><input type="text" name="uplink" class="form-control form-control-sm"
-                                                        value="{{ $crm->uplink }}" required="" readonly></td>
+                                                        value="{{ $crm->uplink }}" required=""></td>
                                             </tr>
                                             <tr>
                                                 <td>Client Type</td>
                                                 <td>
-                                                    <select name="client_type" class="form-control form-control-sm"
-                                                        disabled="true">
+                                                    <select name="client_type" class="form-control form-control-sm">
                                                         <option value="">Select Type</option>
                                                         <option value="bandwidth">Bandwidth Client</option>
                                                         <option value="mac">Mac Client</option>
@@ -67,15 +66,15 @@
                                                 <td>
                                                     <input type="date" name="start_date" value="{{ $crm->start_date }}"
                                                         class="form-control flatpickr-basic flatpickr-input"
-                                                        placeholder="YYYY-MM-DD" disabled="true">
+                                                        placeholder="YYYY-MM-DD">
                                                     {{-- <input type="text" name="start_date" class="datepicker form-control"> --}}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Issue Details</td>
                                                 <td>
-                                                    <textarea name="issue_details" class="form-control"
-                                                        disabled="true">{{ $crm->issue_details }}</textarea>
+                                                    <textarea name="issue_details"
+                                                        class="form-control">{{ $crm->issue_details }}</textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -87,8 +86,7 @@
                                             <tr>
                                                 <td>Assign To</td>
                                                 <td>
-                                                    <select id="user" name="user" class="form-control form-control-sm"
-                                                        disabled="true">
+                                                    <select id="user" name="user" class="form-control form-control-sm">
                                                         <option value="">Select User</option>
                                                         @foreach ($admins as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }}
@@ -100,8 +98,8 @@
                                             <tr>
                                                 <td>Remark</td>
                                                 <td>
-                                                    <textarea name="remark" class="form-control"
-                                                        disabled="true">{{ $crm->remark }}</textarea>
+                                                    <textarea name="remark"
+                                                        class="form-control">{{ $crm->remark }}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -163,7 +161,7 @@
 
     <script>
         document.forms['editForm'].elements['applicantname'].value = {{ $crm->applicantname }}
-        document.forms['editForm'].elements['workOrder'].value = {{ $crm->workOrder }}
+        //document.forms['editForm'].elements['workOrder'].value = {{ $crm->workOrder }}
         document.forms['editForm'].elements['issue_type'].value = "{{ $crm->issue_type }}"
         document.forms['editForm'].elements['client_type'].value = "{{ $crm->client_type }}"
         document.forms['editForm'].elements['user'].value = {{ $crm->user }}
