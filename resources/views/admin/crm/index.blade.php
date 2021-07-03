@@ -84,8 +84,13 @@
                                                     <td>{{ $item->id }}</td>
                                                    
                                                     <td>
-                                                        <a href="{{ route('crmModify', ['id' => $item->id]) }}"
-                                                            class="btn btn-success btn-circle col-sm">Modify
+                                                        <a href="{{ route('crmReview', ['id' => $item->id]) }}"
+                                                            class="btn btn-success btn-circle col-sm">Review Report
+                                                            <i class="fas fa-check"></i>
+                                                        </a>
+                                                      
+                                                         <a href="{{ route('crmModify', ['id' => $item->id]) }}"
+                                                            class="mt-1 btn btn-primary btn-circle col-sm">Modify
                                                             <i class="fas fa-check"></i>
                                                         </a>
                                                     </td>

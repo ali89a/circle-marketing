@@ -58,6 +58,22 @@ class CustomerRelationController extends Controller
     }
 
 
+    public function review($id)
+    {
+        $crm = CustomerRelation::find($id);
+        $customers = User::all();
+        $admins = Admin::all();
+        $workOrders = Order::all();
+
+        return view('admin.crm.review', [
+            'crm' => $crm,
+            'customers' => $customers,
+            'admins' => $admins,
+            'workOrders' => $workOrders
+        ]);
+    }
+
+
     public function edit($id)
     {
         $crm = CustomerRelation::find($id);

@@ -25,7 +25,7 @@
                                                 <td>Applicant/Customer:</td>
                                                 <td colspan="2">
                                                     <select name="applicantname" id="applicantname"
-                                                        class="form-control form-control-sm">
+                                                        class="form-control form-control-sm" disabled="true">
                                                         <option value="">Select Applicant/Customer</option>
                                                         @foreach ($customers as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -48,12 +48,13 @@
                                             <tr>
                                                 <td>Uplink pop:</td>
                                                 <td><input type="text" name="uplink" class="form-control form-control-sm"
-                                                        value="{{ $crm->uplink }}" required=""></td>
+                                                        value="{{ $crm->uplink }}" required="" readonly></td>
                                             </tr>
                                             <tr>
                                                 <td>Client Type</td>
                                                 <td>
-                                                    <select name="client_type" class="form-control form-control-sm">
+                                                    <select name="client_type" class="form-control form-control-sm"
+                                                        disabled="true">
                                                         <option value="">Select Type</option>
                                                         <option value="bandwidth">Bandwidth Client</option>
                                                         <option value="mac">Mac Client</option>
@@ -66,15 +67,15 @@
                                                 <td>
                                                     <input type="date" name="start_date" value="{{ $crm->start_date }}"
                                                         class="form-control flatpickr-basic flatpickr-input"
-                                                        placeholder="YYYY-MM-DD">
+                                                        placeholder="YYYY-MM-DD" disabled="true">
                                                     {{-- <input type="text" name="start_date" class="datepicker form-control"> --}}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Issue Details</td>
                                                 <td>
-                                                    <textarea name="issue_details"
-                                                        class="form-control">{{ $crm->issue_details }}</textarea>
+                                                    <textarea name="issue_details" class="form-control"
+                                                        disabled="true">{{ $crm->issue_details }}</textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -86,7 +87,8 @@
                                             <tr>
                                                 <td>Assign To</td>
                                                 <td>
-                                                    <select id="user" name="user" class="form-control form-control-sm">
+                                                    <select id="user" name="user" class="form-control form-control-sm"
+                                                        disabled="true">
                                                         <option value="">Select User</option>
                                                         @foreach ($admins as $item)
                                                             <option value="{{ $item->id }}">{{ $item->name }}
@@ -98,14 +100,14 @@
                                             <tr>
                                                 <td>Remark</td>
                                                 <td>
-                                                    <textarea name="remark"
-                                                        class="form-control">{{ $crm->remark }}</textarea>
+                                                    <textarea name="remark" class="form-control"
+                                                        disabled="true">{{ $crm->remark }}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="color: red"><b>Issue Type ***</b></td>
+                                                <td>Issue Type</td>
                                                 <td>
-                                                    <select name="issue_type" class="form-control form-control-sm">
+                                                    <select name="issue_type" class="form-control form-control-sm" disabled="true">
                                                         <option value="">Select Type</option>
                                                         <option value="no_issue">No Issue</option>
                                                         <option value="not_responding">Not Responding</option>
@@ -117,9 +119,9 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="color: red"><b>Rating ***</b></td>
+                                                <td>Rating</td>
                                                 <td>
-                                                    <select id="rating" name="rating" class="form-control form-control-sm">
+                                                    <select id="rating" name="rating" class="form-control form-control-sm" disabled="true">
                                                         <option value="">Select One</option>
                                                         <option value="solved">Solved</option>
                                                         <option value="not_solved">Not Solved</option>
@@ -129,10 +131,10 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="color: red"><b>Feedback ***</b></td>
+                                                <td>Feedback</td>
                                                 <td>
                                                     <select id="feedback" name="feedback"
-                                                        class="form-control form-control-sm">
+                                                        class="form-control form-control-sm"  disabled="true">
                                                         <option value="">Select One</option>
                                                         <option value="0">0</option>
                                                         <option value="1">1</option>
@@ -147,10 +149,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-md-12 offset-md-10">
+                                {{-- <div class="col-md-12 offset-md-10">
                                     <br>
                                     <input type="submit" value="Submit" class="btn btn-primary pull-right">
-                                </div>
+                                </div> --}}
                             </div>
                         </form>
                     </div>
