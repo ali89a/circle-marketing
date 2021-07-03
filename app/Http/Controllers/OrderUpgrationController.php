@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Service;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
@@ -26,7 +27,9 @@ class OrderUpgrationController extends Controller
         $services = $request->get('items');
 
         foreach ($services as $key => $service) {
-
+            $order = Order::find($id);
+            $order->invoice_type = "Upgrate";
+            $order->save();
             $order_item = OrderItem::where('order_id', $id)->where('service_id', $service['service_id'])->first();
             $order_item->upgration = $service['upgration'];
             $order_item->save();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Models\OrderApproval;
 use Illuminate\Support\Facades\DB;
@@ -46,13 +47,21 @@ class OrderApprovalController extends Controller
         //     DB::beginTransaction();
 
         $order_approval = OrderApproval::where('order_id', $id)->first();
-        $order_approval->noc_approved_status = "Approved";
+        $order_approval->noc_approved_status = "Assigned";
         $order_approval->noc_approved_time = now();
         $order_approval->noc_approved_by = Auth::guard('admin')->user()->id;
         $order_approval->save();
 
 
         $order = Order::where('id', $id)->first();
+        if ($order->invoice_type == 'Upgrate') {
+            $order_items = OrderItem::where('order_id', $id)->whereNotNull('upgration')->get();
+           foreach ($order_items as $key => $order_item) {
+            $order_item->capacity= $order_item->capacity + $order_item->upgration;
+            $order_item->upgration='';
+            $order_item->save();
+           }
+        }
         $Approval = OrderApproval::where('order_id', $id)->first();
         $end_date = \Carbon\Carbon::now()->endOfMonth()->toDateString();
         if ($order->bill_generate_method == 'by_marketing_date') {
