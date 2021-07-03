@@ -163,7 +163,7 @@
 
     <script>
         document.forms['editForm'].elements['applicantname'].value = {{ $crm->applicantname }}
-        document.forms['editForm'].elements['workOrder'].value = {{ $crm->workOrder }}
+        //document.forms['editForm'].elements['workOrder'].value = {{ $crm->workOrder }}
         document.forms['editForm'].elements['issue_type'].value = "{{ $crm->issue_type }}"
         document.forms['editForm'].elements['client_type'].value = "{{ $crm->client_type }}"
         document.forms['editForm'].elements['user'].value = {{ $crm->user }}
