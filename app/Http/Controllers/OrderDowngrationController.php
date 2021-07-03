@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Service;
 use App\Models\OrderInfo;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use App\Models\OrderApproval;
 use App\Models\OrderDowngration;
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -21,17 +24,40 @@ class OrderDowngrationController extends Controller
   
     public function orderDowngrationUpdate(Request $request, $id)
     {
+        $request->validate([
+            'downgrade_delivery_date' => 'required',
+        ]);
+        
         // DB::beginTransaction();
+        $order = Order::find($id);
+        $order->invoice_type = "Downgrate";
+        $order->downgration_delivery_date = $request->downgrade_delivery_date;
+        $order->bill_generate_method = $request->bill_generate_method;
+        $order->save();
 
-        $products = $request->get('items');
+       
+        $order_approval = OrderApproval::where('order_id', $id)->first();
+        $order_approval->m_approved_status = 'Pending';
+        $order_approval->a_approved_status = 'Pending';
+        $order_approval->coo_approved_status = 'Pending';
+        $order_approval->noc_processing_status = 'Pending';
+        $order_approval->noc_approved_status = 'Pending';
+        $order_approval->save();
 
-        foreach ($products as $key => $product) {
+        $services = $request->get('items');
+
+        foreach ($services as $key => $service) {
+            
+            $order_item = OrderItem::where('order_id', $id)->where('service_id', $service['service_id'])->first();
+            $order_item->downgration = $service['downgration'];
+            $order_item->save();
+
             $item = new OrderDowngration();
             $item->order_id = $id;
-            $item->service_id = $product['service_id'];
-            $item->capacity = $product['capacity'];
-            $item->downgration = $product['downgration'];
-            $item->price = $product['price'];
+            $item->service_id = $service['service_id'];
+            $item->capacity = $service['capacity'];
+            $item->downgration = $service['downgration'];
+            $item->price = $service['price'];
             $item->status = "Pending";
             $item->save();
         }
