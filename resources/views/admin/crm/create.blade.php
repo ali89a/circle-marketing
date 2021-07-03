@@ -30,7 +30,7 @@
                                                     </select>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            {{-- <tr>
                                                 <td>Work Order:</td>
                                                 <td colspan="2">
                                                     <select name="workOrder" id="workOrder"
@@ -41,7 +41,7 @@
                                                         @endforeach
                                                     </select>
                                                 </td>
-                                            </tr>
+                                            </tr> --}}
                                             <tr>
                                                 <td>Uplink pop:</td>
                                                 <td><input type="text" name="uplink" class="form-control form-control-sm"
