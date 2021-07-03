@@ -38,7 +38,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 Contact Number/Organization:
-                                                <input type="text" class="form-control " name="contact_number" onclick="">
+                                                <input type="text" class="form-control " name="mobile" onclick="">
                                             </div>
                                             <div class="col-sm-2">
                                                 <button @click="search" type="submit" id="searchBtn"
@@ -77,25 +77,45 @@
                                                 <th>Remark</th>
                                                 <th>Feedback</th>
                                                 <th>Rating</th>
-                                                <th>Review</th>
+                                                {{-- <th>Review</th> --}}
                                             </tr>
                                             @foreach ($crms as $item)
                                                 <tr>
                                                     <td>{{ $item->id }}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>{{ $item->applicantname }}</td>
+                                                   
+                                                    <td>
+                                                        <a href="{{ route('crmModify', ['id' => $item->id]) }}"
+                                                            class="btn btn-success btn-circle col-sm">Modify
+                                                            <i class="fas fa-check"></i>
+                                                        </a>
+                                                    </td>
+                                                     <td></td>
+                                                    <td>
+                                                        @if ($item->issue_type == 'no_issue' || $item->issue_type == 'not_responding')
+                                                            <a href="#" class="btn btn-danger btn-circle col-sm">Close
+                                                                <i class="fas fa-check"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="#" class="btn btn-success btn-circle col-sm">Open
+                                                                <i class="fas fa-check"></i>
+                                                            </a>
+                                                        @endif
+                                                    </td>
+                                                  
+                                                    <td>{{ $item->userName }}</td>
                                                     <td>{{ $item->client_type }}</td>
-                                                    <td></td>
+                                                    <td>{{ $item->mobile }}</td>
                                                     <td>{{ $item->uplink }}</td>
                                                     <td>{{ $item->issue_type }}</td>
                                                     <td>{{ $item->issue_details }}</td>
-                                                    <td>{{ $item->start_date }}</td>
-                                                    <td>{{ $item->user }}</td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>{{ date('d-M-Y g:i: a ', strtotime($item->start_date)) }}</td>
+                                                    <td>{{ $item->adminName }}</td>
+                                                    <td>{{ date('d-M-Y g:i: a ', strtotime($item->created_at)) }}</td>
+                                                    <td>{{ $item->adminName }}</td>
                                                     <td>{{ $item->remark }}</td>
+                                                    <td>{{ $item->feedback }}</td>
+                                                    <td>{{ $item->rating }}</td>
+                                                    {{-- <td></td> --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -126,7 +146,8 @@
 @endsection
 @section('vendor-css')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('/') }}app-assets/vendors/css/pickers/pickadate/pickadate.css">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('/') }}app-assets/vendors/css/pickers/pickadate/pickadate.css">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('/') }}app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
 
@@ -165,7 +186,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'get',
-                    url: '{{ route('searchResult') }}',
+                    url: '{{ route('crmSearchResult') }}',
                     data: $('#search').serialize(),
                     // alert(result);
                     success: function(result) {
@@ -181,7 +202,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'get',
-                    url: '{{ route('searchResult') }}',
+                    url: '{{ route('crmSearchResult') }}',
                     data: $('#search').serialize(),
                     success: function(result) {
                         $('#result').html(result);

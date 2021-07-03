@@ -106,7 +106,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'get',
-                    url: '{{ route('reportAnalysisResult') }}',
+                    url: '{{ route('crmResult') }}',
                     data: $('#search').serialize(),
                     // alert(result);
                     success: function(result) {
@@ -120,7 +120,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'get',
-                    url: '{{ route('reportAnalysisResult') }}',
+                    url: '{{ route('crmResult') }}',
                     data: $('#search').serialize(),
                     success: function(result) {
                         $('#result').html(result);

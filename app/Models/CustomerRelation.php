@@ -11,13 +11,16 @@ class CustomerRelation extends Model
 
     protected $fillable = [
         'applicantname',
+        'workOrder',
+        'createdBy',
         'uplink',
         'issue_type',
         'client_type',
         'start_date',
         'issue_details',
         'user',
-        'remark'
-
+        'remark',
+        'rating',
+        'feedback'
     ];
 }

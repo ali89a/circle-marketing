@@ -16,6 +16,8 @@ class CreateCustomerRelationsTable extends Migration
         Schema::create('customer_relations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('applicantname');
+            $table->text('workOrder');
+            $table->text('createdBy');
             $table->text('uplink');
             $table->enum('issue_type', ['no_issue', 'not_responding', 'marketing', 'fiber', 'support', 'account']);
             $table->enum('client_type', ['bandwidth', 'mac', 'corporate']);
@@ -23,6 +25,10 @@ class CreateCustomerRelationsTable extends Migration
             $table->text('issue_details');
             $table->string('user');
             $table->text('remark');
+            // $table->text('rating');
+            $table->enum('rating', ['solved', 'not_solved'])->nullable();
+            $table->enum('feedback', ['0', '1', '2', '3', '4'])->nullable();
+            // $table->text('feedback')->nullable();
             $table->timestamps();
         });
     }
