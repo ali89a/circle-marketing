@@ -23,8 +23,8 @@ class upgrateInvoiceGenerate
             'link_id' =>  $order->link_id,
             'invoice_date' => now(),
             'billing_address' => $order->customer_details->billing_address,
-            'subject' => 'New Installation Bill Month Of ' . now()->format('M') . '-' . Carbon::now()->year,
-            'status' => 'New',
+            'subject' => 'New Upgration Bill Month Of ' . now()->format('M') . '-' . Carbon::now()->year,
+            'status' => 'Upgration',
             'previous_due' => 0,
             'core_rent' => $order->core_rent,
             'otc' => $order->otc,
@@ -72,7 +72,7 @@ class upgrateInvoiceGenerate
 
                         $invoiceItem = new InvoiceItem();
                         $invoiceItem->invoice_id = $invoice->id;
-                        $invoiceItem->invoice_description = 'tsest';
+                        $invoiceItem->invoice_description = $last_invoice_item->invoice_description;
                         $invoiceItem->from_date = $last_invoice_item->from_date;
                         $invoiceItem->to_date = $last_invoice_item->to_date;
                         $invoiceItem->used_total_days = $last_invoice_item->used_total_days;

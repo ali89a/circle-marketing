@@ -45,42 +45,47 @@ class OrderApprovalController extends Controller
 
         try {
             DB::beginTransaction();
-
+            $order = Order::where('id', $id)->first();
             $order_approval = OrderApproval::where('order_id', $id)->first();
             $order_approval->noc_approved_status = "Approved";
             $order_approval->noc_approved_time = now();
             $order_approval->noc_approved_by = Auth::guard('admin')->user()->id;
             $order_approval->save();
 
-
-            $order = Order::where('id', $id)->first();
-            if ($order->invoice_type == 'Upgrate') {
-                $order_items = OrderItem::where('order_id', $id)->whereNotNull('upgration')->get();
-                foreach ($order_items as $key => $order_item) {
-                    $order_item->capacity = $order_item->capacity + $order_item->upgration;
-                    $order_item->upgration = '';
-                    $order_item->save();
-                }
-            }
-            $Approval = OrderApproval::where('order_id', $id)->first();
             $end_date = \Carbon\Carbon::now()->endOfMonth()->toDateString();
 
-            if ($order->invoice_type == 'New') {
+            if ($order->invoice_type === 'New') {
                 if ($order->bill_generate_method == 'by_marketing_date') {
-                    $start_date = $Approval->m_approved_time;
+                    $start_date = $order_approval->m_approved_time;
                     \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
                 }
                 if ($order->bill_generate_method == 'by_noc_done') {
-                    $start_date = $Approval->noc_done_time;
+                    $start_date = $order_approval->noc_done_time;
                     \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
                 }
             }
-            if ($order->invoice_type = 'Upgrate') {
+            if ($order->invoice_type === 'Upgrate') {
+
+                $order_items = OrderItem::where('order_id', $id)->whereNotNull('upgration')->get();
+                foreach ($order_items as $key => $order_item) {
+                    $order_item->capacity = $order_item->capacity + $order_item->upgration;
+                    $order_item->upgration = null;
+                    $order_item->save();
+                }
+
+
                 $start_date = $order->upgration_delivery_date;
                 \App\Classes\upgrateInvoiceGenerate::invoice($id, $start_date, $end_date);
             }
-            if ($order->invoice_type = 'Downgrate') {
-                $start_date = $order->upgration_delivery_date;
+            if ($order->invoice_type === 'Downgrate') {
+              
+                $order_items = OrderItem::where('order_id', $id)->whereNotNull('downgration')->get();
+                foreach ($order_items as $key => $order_item) {
+                    $order_item->capacity = $order_item->capacity + $order_item->downgration;
+                    $order_item->downgration = null;
+                    $order_item->save();
+                }
+                $start_date = $order->downgration_delivery_date;
                 \App\Classes\downgrateInvoiceGenerate::invoice($id, $start_date, $end_date);
             }
 
