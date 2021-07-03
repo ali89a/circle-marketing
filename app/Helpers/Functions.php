@@ -8,10 +8,10 @@ function use_days($from_date,$end_date)
 
     return $used_days;
 }
-function total_used_price($unit_price,$used_days)
+function total_used_price($capacity,$unit_price,$used_days)
     {
         $total_days = date('t');
-        $price = ($unit_price / $total_days) * $used_days;
+        $price = (($capacity*$unit_price) / $total_days) * $used_days;
 
         return $price;
     }

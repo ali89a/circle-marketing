@@ -43,58 +43,56 @@ class OrderApprovalController extends Controller
     public function workOrderApprovalNoc($id)
     {
 
-        // try {
-        //     DB::beginTransaction();
+        try {
+            DB::beginTransaction();
 
-        $order_approval = OrderApproval::where('order_id', $id)->first();
-        $order_approval->noc_approved_status = "Assigned";
-        $order_approval->noc_approved_time = now();
-        $order_approval->noc_approved_by = Auth::guard('admin')->user()->id;
-        $order_approval->save();
+            $order_approval = OrderApproval::where('order_id', $id)->first();
+            $order_approval->noc_approved_status = "Approved";
+            $order_approval->noc_approved_time = now();
+            $order_approval->noc_approved_by = Auth::guard('admin')->user()->id;
+            $order_approval->save();
 
 
-        $order = Order::where('id', $id)->first();
-        if ($order->invoice_type == 'Upgrate') {
-            $order_items = OrderItem::where('order_id', $id)->whereNotNull('upgration')->get();
-           foreach ($order_items as $key => $order_item) {
-            $order_item->capacity= $order_item->capacity + $order_item->upgration;
-            $order_item->upgration='';
-            $order_item->save();
-           }
-        }
-        $Approval = OrderApproval::where('order_id', $id)->first();
-        $end_date = \Carbon\Carbon::now()->endOfMonth()->toDateString();
-        if ($order->bill_generate_method == 'by_marketing_date') {
+            $order = Order::where('id', $id)->first();
+            if ($order->invoice_type == 'Upgrate') {
+                $order_items = OrderItem::where('order_id', $id)->whereNotNull('upgration')->get();
+                foreach ($order_items as $key => $order_item) {
+                    $order_item->capacity = $order_item->capacity + $order_item->upgration;
+                    $order_item->upgration = '';
+                    $order_item->save();
+                }
+            }
+            $Approval = OrderApproval::where('order_id', $id)->first();
+            $end_date = \Carbon\Carbon::now()->endOfMonth()->toDateString();
 
-            $start_date = $Approval->m_approved_time;
             if ($order->invoice_type == 'New') {
-                \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
-            } else if ($order->invoice_type == 'Upgrate') {
+                if ($order->bill_generate_method == 'by_marketing_date') {
+                    $start_date = $Approval->m_approved_time;
+                    \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
+                }
+                if ($order->bill_generate_method == 'by_noc_done') {
+                    $start_date = $Approval->noc_done_time;
+                    \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
+                }
+            }
+            if ($order->invoice_type = 'Upgrate') {
+                $start_date = $order->upgration_delivery_date;
                 \App\Classes\upgrateInvoiceGenerate::invoice($id, $start_date, $end_date);
             }
-        }
-        if ($order->bill_generate_method == 'by_noc_done') {
-            $start_date = $Approval->noc_done_time;
-            if ($order->invoice_type == 'New') {
-                \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
-            } else if ($order->invoice_type = 'Upgrate') {
-                \App\Classes\upgrateInvoiceGenerate::invoice($id, $start_date, $end_date);
-            }
-        }
-        // DB::commit();
-        Toastr::success('NOC Admin Approved Successful!.', '', ["progressbar" => true]);
-        return redirect()->back();
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-        //     $output = [
-        //         'success' => 0,
-        //         'msg' => __("messages.something_went_wrong")
-        //     ];
-        //     Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
-        //     return back();
-        // }
 
+            DB::commit();
+            Toastr::success('NOC Admin Approved Successful!.', '', ["progressbar" => true]);
+            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+            $output = [
+                'success' => 0,
+                'msg' => __("messages.something_went_wrong")
+            ];
+            Toastr::info('Something went wrong!.', '', ["progressbar" => true]);
+            return back();
+        }
     }
     public function nocAssign(Request $request)
     {

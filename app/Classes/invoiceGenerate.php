@@ -37,10 +37,10 @@ class invoiceGenerate
             $invoiceItem->used_total_days = use_days($from_date,$end_date);
             $invoiceItem->unit_price = $order_info->price;
             $invoiceItem->capacity = $order_info->capacity;
-            $invoiceItem->per_day_price = ( $order_info->price / date('t'));
+            $invoiceItem->per_day_price = ( $order_info->capacity*$order_info->price) / date('t');
             $invoiceItem->order_id = $order_info->order_id;
             $invoiceItem->service_id = $order_info->service_id;
-            $invoiceItem->amount = total_used_price($order_info->price,use_days($from_date,$end_date));
+            $invoiceItem->amount = total_used_price($order_info->capacity,$order_info->price,use_days($from_date,$end_date));
             $invoiceItem->save();
         }
     }

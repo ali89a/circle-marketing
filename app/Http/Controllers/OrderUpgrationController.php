@@ -23,13 +23,18 @@ class OrderUpgrationController extends Controller
     {
         //dd($request->all());
         // DB::beginTransaction();
-
+        $request->validate([
+            'upgrade_delivery_date' => 'required',
+        ]);
         $services = $request->get('items');
 
         foreach ($services as $key => $service) {
             $order = Order::find($id);
             $order->invoice_type = "Upgrate";
+            $order->upgration_delivery_date = $request->upgrade_delivery_date;
+            $order->bill_generate_method = $request->bill_generate_method;
             $order->save();
+
             $order_item = OrderItem::where('order_id', $id)->where('service_id', $service['service_id'])->first();
             $order_item->upgration = $service['upgration'];
             $order_item->save();

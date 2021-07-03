@@ -147,7 +147,7 @@
                                                     <tr>
                                                         <td>Upgradation Delivery Date:</td>
                                                         <td>
-                                                            <input type="text" name="upgrade_delivery_date" id="upgrade_delivery_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
+                                                            <input type="text" name="upgrade_delivery_date" id="upgrade_delivery_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly" required>
                                                         </td>
                                                     </tr>
 
