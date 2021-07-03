@@ -26,27 +26,29 @@ class OrderUpgrationController extends Controller
         $request->validate([
             'upgrade_delivery_date' => 'required',
         ]);
+
+        $order = Order::find($id);
+        $order->invoice_type = "Upgrate";
+        $order->upgration_delivery_date = $request->upgrade_delivery_date;
+        $order->bill_generate_method = $request->bill_generate_method;
+        $order->save();
+
+       
+        $order_approval = OrderApproval::where('order_id', $id)->first();
+        $order_approval->m_approved_status = 'Pending';
+        $order_approval->a_approved_status = 'Pending';
+        $order_approval->coo_approved_status = 'Pending';
+        $order_approval->noc_processing_status = 'Pending';
+        $order_approval->noc_approved_status = 'Pending';
+        $order_approval->save();
         $services = $request->get('items');
 
         foreach ($services as $key => $service) {
-            $order = Order::find($id);
-            $order->invoice_type = "Upgrate";
-            $order->upgration_delivery_date = $request->upgrade_delivery_date;
-            $order->bill_generate_method = $request->bill_generate_method;
-            $order->save();
-
+          
             $order_item = OrderItem::where('order_id', $id)->where('service_id', $service['service_id'])->first();
             $order_item->upgration = $service['upgration'];
             $order_item->save();
-
-            $order_approval = OrderApproval::where('order_id', $id)->first();
-            $order_approval->m_approved_status = 'Pending';
-            $order_approval->a_approved_status = 'Pending';
-            $order_approval->coo_approved_status = 'Pending';
-            $order_approval->noc_processing_status = 'Pending';
-            $order_approval->noc_approved_status = 'Pending';
-            $order_approval->save();
-
+    
             $item = new OrderUpgration();
             $item->order_id = $id;
             $item->service_id = $service['service_id'];

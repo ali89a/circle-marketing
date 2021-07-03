@@ -79,6 +79,10 @@ class OrderApprovalController extends Controller
                 $start_date = $order->upgration_delivery_date;
                 \App\Classes\upgrateInvoiceGenerate::invoice($id, $start_date, $end_date);
             }
+            if ($order->invoice_type = 'Downgrate') {
+                $start_date = $order->upgration_delivery_date;
+                \App\Classes\downgrateInvoiceGenerate::invoice($id, $start_date, $end_date);
+            }
 
             DB::commit();
             Toastr::success('NOC Admin Approved Successful!.', '', ["progressbar" => true]);
