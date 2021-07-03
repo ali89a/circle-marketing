@@ -147,7 +147,7 @@ class CustomerRelationController extends Controller
                     ->where('customer_relations.issue_type',  $request->issue_type);
             }
 
-            $list->select('customer_relations.*', 'users.*', 'users.name as userName', 'admins.name as adminName')
+            $list->select('customer_relations.*', 'users.mobile', 'users.name as userName', 'admins.name as adminName')
                 ->orderBy('customer_relations.id', 'DESC');
             return view('admin.crm.result', [
                 'crms'           =>  $list->get(),
