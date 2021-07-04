@@ -89,6 +89,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
 
     Route::get('/search-order-result', [WorkOrderFilterController::class, 'searchOrderResult'])->name('searchOrderResult');
+    Route::get('/pending-work-order/{keyword}', [WorkOrderFilterController::class, 'pendingWorkOrdersearch']);
 
     Route::get('/invoices/{id?}', [App\Http\Controllers\InvoiceController::class, 'Invoices'])->name('invoices');
     Route::get('/invoice/details/{id?}', [App\Http\Controllers\InvoiceController::class, 'invoiceDetails'])->name('InvoiceDetails');

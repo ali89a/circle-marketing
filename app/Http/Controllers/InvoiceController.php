@@ -16,10 +16,10 @@ class InvoiceController extends Controller
     {
         //
     }
-    public function Invoices($id)
+    public function invoices($id)
     {
         $invoices = Invoice::where('order_id', $id)->get();
-        return view('admin.work-order.Invoice', compact('invoices'));
+        return view('admin.work-order.invoice', compact('invoices'));
     }
     public function invoiceDetails($inv_id)
     {

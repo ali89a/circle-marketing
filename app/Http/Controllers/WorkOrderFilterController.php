@@ -10,6 +10,20 @@ use Illuminate\Http\Request;
 class WorkOrderFilterController extends Controller
 {
 
+    public function pendingWorkOrdersearch($key)
+    {
+        if ($key == 'marketing') {
+            $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
+                $q->where('m_approved_status', 'Pending');
+            })->latest()->get();
+        }
+        dd($orders);
+        $data = [
+            'orders' => $orders,
+            'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get()
+        ];
+        return view('admin.work-order.index', $data);
+    }
     public function searchOrderResult(Request $request)
     {
         //dd($request->all());

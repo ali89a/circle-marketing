@@ -59,31 +59,31 @@
       </div>
       <ul class="nav navbar-nav align-items-center ml-auto">
       <li class="nav-item dropdown dropdown-notification mr-25">
-          <a class="nav-link" href="javascript:void(0);" data-toggle="dropdown">
+          <a class="nav-link" href="{{url('admin/pending-work-order','marketing')}}">
          M
             <span class="badge badge-pill badge-danger badge-up">5</span>
           </a>
         </li>
       <li class="nav-item dropdown dropdown-notification mr-25">
-          <a class="nav-link" href="javascript:void(0);" data-toggle="dropdown">
+          <a class="nav-link" href="{{url('admin/pending-work-order','coo')}}">
            COO
             <span class="badge badge-pill badge-danger badge-up">5</span>
           </a>
         </li>
         <li class="nav-item dropdown dropdown-notification mr-25">
-          <a class="nav-link" href="javascript:void(0);" data-toggle="dropdown">
+          <a class="nav-link" href="{{url('admin/pending-work-order','noc')}}">
             N
             <span class="badge badge-pill badge-danger badge-up">5</span>
           </a>
         </li>
         <li class="nav-item dropdown dropdown-notification mr-25">
-          <a class="nav-link" href="javascript:void(0);" data-toggle="dropdown">
+          <a class="nav-link" href="{{url('admin/pending-work-order','noc-processing')}}">
             Npro
             <span class="badge badge-pill badge-danger badge-up">5</span>
           </a>
         </li>
         <li class="nav-item dropdown dropdown-notification mr-25">
-          <a class="nav-link" href="javascript:void(0);" data-toggle="dropdown">
+          <a class="nav-link" href="{{url('admin/pending-work-order','accounts')}}">
             A
             <span class="badge badge-pill badge-danger badge-up">5</span>
           </a>
