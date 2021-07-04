@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderInfo;
 use App\Models\OrderNOCInfo;
 use Illuminate\Http\Request;
 use App\Models\OrderApproval;
@@ -12,7 +14,9 @@ class OrderNOCInfoController extends Controller
     public function nocEdit($id)
     {
         $data = [
-            'order_noc' => OrderNOCInfo::where('order_id', $id)->first()
+            'order' => Order::where('id', $id)->first(),
+            'order_noc' => OrderNOCInfo::where('order_id', $id)->first(),
+            'customer_order_info' => OrderInfo::with('order')->where('order_id', $id)->first()
         ];
         return view('admin.work-order.noc_edit', $data);
     }

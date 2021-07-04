@@ -136,6 +136,10 @@
                                             <p class="invoice-total-title">Previous Due:</p>
                                             <p class="invoice-total-amount"> {{$invoice->previous_due}}</p>
                                         </div>
+                                        <div class="invoice-total-item">
+                                            <p class="invoice-total-title">Vat:</p>
+                                            <p class="invoice-total-amount"> 0</p>
+                                        </div>
                                         <hr class="my-50">
                                         <div class="invoice-total-item">
                                             <p class="invoice-total-title">Total:</p>
