@@ -136,6 +136,11 @@
                                         <ul class="list-inline" style="width:120px">
                                             <li>
                                                 <!--Marketing Executive section-->
+                                                @if($order->order_approval->modify_description)
+                                                <button type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal" data-target="#modify_list{{$order->id}}">
+                                                    Modifiction
+                                                </button>
+                                                @endif
                                                 <a href="" class="btn btn-danger btn-sm btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
                                                 <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
                                                 @if($order->order_approval->noc_processing_status =='Done')
@@ -153,8 +158,10 @@
                                                             (4) <i class="fa fa-history"></i></button>
                                                     </form>
                                                 </div>
+                                                @if(count($order->invoices)>0)
                                                 <a href="{{route('invoices', $order->id)}}" class="btn btn-primary  btn-block btn-sm"><i class="fa fa-table"></i> Invoice List
                                                 </a>
+                                                @endif
                                             </li>
                                         </ul>
                                     </td>
@@ -214,7 +221,7 @@
                                                             Modify
                                                         </button>
                                                         @else
-                                                         <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
                                                         @endif
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
@@ -341,6 +348,31 @@
                                                             <button type="button" class="btn btn-danger waves-effect waves-float waves-light" data-dismiss="modal">Cancle</button>
                                                         </div>
                                                     </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade text-left" id="modify_list{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel1">Modify</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <input type="hidden" name="order_id" value="{{$order->id}}" id="order_id">
+                                                                <div>
+                                                                    {{ $order->order_approval->modify_description??'' }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger waves-effect waves-float waves-light" data-dismiss="modal">Cancle</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
