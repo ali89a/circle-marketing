@@ -24,6 +24,7 @@ class CreateInvoicesTable extends Migration
             $table->decimal('previous_due');
             $table->decimal('core_rent')->nullable();
             $table->decimal('otc')->nullable();
+            $table->decimal('vat')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });

@@ -55,14 +55,9 @@ class OrderApprovalController extends Controller
             $end_date = \Carbon\Carbon::now()->endOfMonth()->toDateString();
 
             if ($order->invoice_type === 'New') {
-                if ($order->bill_generate_method == 'by_marketing_date') {
-                    $start_date = $order_approval->m_approved_time;
-                    \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
-                }
-                if ($order->bill_generate_method == 'by_noc_done') {
-                    $start_date = $order_approval->noc_done_time;
-                    \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
-                }
+
+                $start_date = $order->bill_start_date;
+                \App\Classes\invoiceGenerate::invoice($id, $start_date, $end_date);
             }
             if ($order->invoice_type === 'Upgrate') {
 
@@ -78,7 +73,7 @@ class OrderApprovalController extends Controller
                 \App\Classes\upgrateInvoiceGenerate::invoice($id, $start_date, $end_date);
             }
             if ($order->invoice_type === 'Downgrate') {
-              
+
                 $order_items = OrderItem::where('order_id', $id)->whereNotNull('downgration')->get();
                 foreach ($order_items as $key => $order_item) {
                     $order_item->capacity = $order_item->capacity + $order_item->downgration;

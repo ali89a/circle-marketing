@@ -41,4 +41,8 @@ class Order extends Model
     {
         return $this->hasMany('App\Models\OrderItem', 'order_id');
     }
+    public function invoices()
+    {
+        return $this->hasMany('App\Models\Invoice', 'order_id');
+    }
 }

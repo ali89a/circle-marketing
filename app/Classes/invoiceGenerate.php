@@ -25,6 +25,7 @@ class invoiceGenerate
             'previous_due' => 0,
             'core_rent' => $order->core_rent,
             'otc' => $order->otc,
+            'vat' => $order->vat,
         ]);
         $order_infos = OrderItem::where('order_id', $order_id)->get();
         foreach ($order_infos as $order_info) {
