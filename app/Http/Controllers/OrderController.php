@@ -76,7 +76,7 @@ class OrderController extends Controller
     {
         $customer_order = Order::where('id', $id)->first();
         // dd($customer_order);
-        if ($customer_order->type == '' || $customer_order->price == '' || $customer_order->gmap_location == '' || $customer_order->connect_type == '' || $customer_order->visit_type == '' || $customer_order->bill_generate_method == '' || $customer_order->order_submission_date == '' || $customer_order->billing_cycle == '' || $customer_order->billing_remark == '' || $customer_order->bill_start_date == '' || $customer_order->delivery_date == '') {
+        if ($customer_order->type == '' || $customer_order->gmap_location == '' || $customer_order->connect_type == '' || $customer_order->visit_type == '' || $customer_order->bill_generate_method == '' || $customer_order->order_submission_date == '' || $customer_order->billing_cycle == '' || $customer_order->billing_remark == '' || $customer_order->bill_start_date == '' || $customer_order->delivery_date == '') {
             Toastr::error('Please Fillup Required Field!.', '', ["progressBar" => true]);
             return redirect()->back();
         } else {

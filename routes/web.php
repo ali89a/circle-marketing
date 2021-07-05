@@ -29,10 +29,13 @@ use App\Http\Controllers\WorkOrderFilterController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Auth::routes();
+Route::match(['get', 'post'], 'register', function(){
+    return redirect('/');
+    });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

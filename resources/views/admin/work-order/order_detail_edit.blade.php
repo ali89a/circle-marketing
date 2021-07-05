@@ -124,7 +124,7 @@
                                                     <input type="number" v-model="row.capacity" :name="'items['+index+'][capacity]'" class="form-control input-sm" required>
                                                 </td>
                                                 <td>
-                                                    <input type="number" v-model="row.price" :name="'items['+index+'][price]'" class="form-control input-sm" required>
+                                                    <input type="text" v-model="row.price" :name="'items['+index+'][price]'" class="form-control input-sm" required>
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-danger btn-sm" @click="delete_row(row)">x</button>
@@ -144,19 +144,19 @@
                                 <table class="table table-bordered table-striped">
                                     <tbody>
                                         <tr>
-                                            <td>Real IP:</td>
+                                            <td>Real IP (BDT):</td>
                                             <td><input type="text" name="real_ip" class="form-control form-control-sm" value="{{$customer_order_info->order->real_ip}}"></td>
                                         </tr>
                                         <tr>
-                                            <td>Core Rent:</td>
+                                            <td>Core Rent (BDT):</td>
                                             <td><input type="text" name="core_rent" class="form-control form-control-sm" value="{{$customer_order_info->order->core_rent}}"></td>
                                         </tr>
                                         <tr>
-                                            <td>OTC</td>
+                                            <td>OTC (BDT)</td>
                                             <td><input type="text" name="otc" class="form-control form-control-sm" value="{{$customer_order_info->order->otc}}"></td>
                                         </tr>
                                         <tr>
-                                            <td> <label class="form-label" for="Vat">Vat</label></td>
+                                            <td> <label class="form-label" for="Vat">Vat (%)</label></td>
                                             <td>
                                                 <input type="text" id="Vat" value="{{$customer_order_info->order->vat}}" name="vat" class="form-control" placeholder="Vat" />
                                             </td>
