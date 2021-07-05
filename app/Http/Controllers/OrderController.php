@@ -244,7 +244,8 @@ class OrderController extends Controller
         //     DB::beginTransaction();
         $order = Order::where('id', $id)->first();
         $order->type = $request->type;
-        $order->price = $request->price;
+        $order->nttn_price = $request->nttn_price;
+        $order->own_price = $request->own_price;
         $order->scl_id = $request->scl_id;
         $order->gmap_location = $request->gmap_location;
         $order->link_id = 'NC_' . \App\Classes\LinkId::serial_number();
