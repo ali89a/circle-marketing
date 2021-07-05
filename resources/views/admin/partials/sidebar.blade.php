@@ -79,7 +79,7 @@
     <li class="{{ Request::segment(2) == 'customer-relation' ? 'has-sub sidebar-group-active open' : '' }} nav-item">
         <a class="d-flex align-items-center" href="#"><i data-feather="layout"></i><span
                 class="menu-title text-truncate" data-i18n="Page Layouts">CRM</span><span
-                class="badge badge-light-danger badge-pill ml-auto mr-1">3</span></a>
+                class="badge badge-light-danger badge-pill ml-auto mr-1"></span></a>
         <ul class="menu-content">
             <li
                 class="{{ Request::segment(2) == 'customer-relation' && Request::segment(3) == 'create' ? 'active' : '' }}">
