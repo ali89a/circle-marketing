@@ -123,6 +123,10 @@
                                             <p class="invoice-total-amount">{{$subtotal}}</p>
                                         </div>
                                         <div class="invoice-total-item">
+                                            <p class="invoice-total-title">Vat({{ $invoice->vat }}%):</p>
+                                            <p class="invoice-total-amount"> {{ $vat=( $subtotal * $invoice->vat) / 100 }}</p>
+                                        </div>
+                                        <div class="invoice-total-item">
                                             <p class="invoice-total-title">Core Rent:</p>
                                             <p class="invoice-total-amount"> {{$invoice->core_rent}}</p>
                                         </div>
@@ -136,14 +140,10 @@
                                             <p class="invoice-total-title">Previous Due:</p>
                                             <p class="invoice-total-amount"> {{$invoice->previous_due}}</p>
                                         </div>
-                                        <div class="invoice-total-item">
-                                            <p class="invoice-total-title">Vat:</p>
-                                            <p class="invoice-total-amount"> 0</p>
-                                        </div>
                                         <hr class="my-50">
                                         <div class="invoice-total-item">
                                             <p class="invoice-total-title">Total:</p>
-                                            <p class="invoice-total-amount">{{$total=$subtotal+$invoice->previous_due+ $invoice->otc + $invoice->core_rent}}</p>
+                                            <p class="invoice-total-amount">{{$total=$subtotal+$invoice->previous_due+ $invoice->otc + $invoice->core_rent+$vat}}</p>
                                         </div>
                                     </div>
                                 </div>

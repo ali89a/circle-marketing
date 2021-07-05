@@ -29,6 +29,7 @@ class Invoice extends Model
         'status',
         'core_rent',
         'otc',
+        'vat',
        
     ];
 }
