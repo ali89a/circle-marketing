@@ -93,8 +93,16 @@
                                     </div>
                                 </div> --}}
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-2">
+                                    {{-- <button class="btn btn-primary form-control" onclick="window.print()">Print</button> --}}
+
+                                    <a class="btn btn-primary form-control" href="{{ route('printReport') }}"
+                                        target="_blank">
+                                        <i class="fa fa-print"></i> Print
+                                    </a>
+
                                 </div>
+                                <br>
                                 {{-- style="overflow-y:scroll;" --}}
                                 <div class="col-md-12 orderlist" id="result">
                                     <table class="table table-bordered table-striped table-responsive">
@@ -225,6 +233,25 @@
             </section>
         </div>
     </div>
+
+
+    {{-- <style>
+        .pop {
+            display: none;
+        }
+
+        @media print {
+
+            table tr th,
+            table,
+            tr,
+            td {
+                font-size: 10px !important;
+                padding: 2px !important;
+            }
+        }
+
+    </style> --}}
 
 
 @endsection
