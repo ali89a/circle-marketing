@@ -115,6 +115,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/crm-search-result', [CustomerRelationController::class, 'crmSearchResult'])->name('crmSearchResult');
     Route::get('/crm-reiewv/{id}', [CustomerRelationController::class, 'review'])->name('crmReview');
     Route::get('/crm-modify/{id}', [CustomerRelationController::class, 'edit'])->name('crmModify');
+    Route::get('/print-report', [CustomerReportController::class, 'indexPrint'])->name('printReport');
 
 
 });

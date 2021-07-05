@@ -456,4 +456,29 @@ class CustomerReportController extends Controller
             }
         }
     }
+
+
+
+    public function indexPrint(Request $request)
+    {
+        $contact = Admin::where('admins.id', Auth::user()->id)->first();
+        $reports = DB::table('customer_reports')
+        ->leftJoin('customer_service_reports', 'customer_reports.id', '=', 'customer_service_reports.customer_report_id')
+        ->join('districts', 'customer_reports.location_district', 'districts.id')
+        ->join('upazilas', 'customer_reports.location_upazila', 'upazilas.id')
+        ->where(function ($query) {
+            $query->where('customer_reports.status', '=', 'approved')
+            ->orWhere('customer_reports.status', '=', 'canceled');
+        });
+        if (!$request->user()->can('report-approve')) {
+            $reports->where('customer_reports.createdBy', Auth::user()->id);
+        }
+        $reports->select('customer_reports.*', 'customer_service_reports.*', 'districts.name as district', 'upazilas.name as upazila')
+        ->orderBy('customer_reports.id', 'DESC');
+        return view('admin.report.indexPrint', [
+            'reports' => $reports->paginate(10),
+            'contact' => $contact
+        ]);
+    }
+    
 }
