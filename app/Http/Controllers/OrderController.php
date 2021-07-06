@@ -31,8 +31,14 @@ class OrderController extends Controller
      */
     public function index()
     {
+        if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
+            $orders = Order::with('customer_details')->where('creator_user_id', Auth::guard('admin')->user()->id)->latest()->get();
+        } else {
+            $orders = Order::with('customer_details')->latest()->get();
+        }
+
         $data = [
-            'orders' => Order::with('customer_details')->latest()->get(),
+            'orders' =>  $orders,
             'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get()
         ];
         return view('admin.work-order.index', $data);
@@ -58,7 +64,7 @@ class OrderController extends Controller
         ];
         return view('admin.work-order.create', $data);
     }
-   
+
     public function orderEdit($id)
     {
         $customer_document = OrderCustomerDocument::where('order_id', $id)->first();
@@ -85,7 +91,7 @@ class OrderController extends Controller
             return view('admin.work-order.order_detail_edit', compact('customer_order_info', 'all_service'));
         }
     }
- 
+
     public function orderDetailUpdate(Request $request, $id)
     {
         // dd($request->all());
@@ -130,7 +136,7 @@ class OrderController extends Controller
         //     return back();
         // }
     }
-  
+
     /**
      * Store a newly created resource in storage.
      *

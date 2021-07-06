@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Admin\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WorkOrderFilterController extends Controller
 {
@@ -13,29 +14,62 @@ class WorkOrderFilterController extends Controller
     public function pendingWorkOrdersearch($key)
     {
         if ($key == 'marketing') {
-            $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
-                $q->where('m_approved_status', 'Pending');
-            })->latest()->get();
+
+            if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
+                $orders = Order::with('customer_details')->where('creator_user_id', Auth::guard('admin')->user()->id)->whereHas('order_approval', function ($q) {
+                    $q->where('m_approved_status', 'Pending');
+                })->latest()->get();
+            } else {
+                $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
+                    $q->where('m_approved_status', 'Pending');
+                })->latest()->get();
+            }
         }
         if ($key == 'coo') {
-            $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
-                $q->where('coo_approved_status', 'Pending');
-            })->latest()->get();
+            if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
+                $orders = Order::with('customer_details')->where('creator_user_id', Auth::guard('admin')->user()->id)->whereHas('order_approval', function ($q) {
+                    $q->where('coo_approved_status', 'Pending');
+                })->latest()->get();
+            } else {
+                $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
+                    $q->where('coo_approved_status', 'Pending');
+                })->latest()->get();
+            }
         }
         if ($key == 'noc') {
-            $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
-                $q->where('noc_approved_status', 'Pending');
-            })->latest()->get();
-        } if ($key == 'noc-processing') {
-            $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
-                $q->where('noc_processing_status', 'Pending');
-            })->latest()->get();
-        }if ($key == 'accounts') {
-            $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
-                $q->where('a_approved_status', 'Pending');
-            })->latest()->get();
+            if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
+                $orders = Order::with('customer_details')->where('creator_user_id', Auth::guard('admin')->user()->id)->whereHas('order_approval', function ($q) {
+                    $q->where('noc_approved_status', 'Pending');
+                })->latest()->get();
+            } else {
+                $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
+                    $q->where('noc_approved_status', 'Pending');
+                })->latest()->get();
+            }
         }
-      //  dd($orders);
+        if ($key == 'noc-processing') {
+            if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
+                $orders = Order::with('customer_details')->where('creator_user_id', Auth::guard('admin')->user()->id)->whereHas('order_approval', function ($q) {
+                    $q->where('noc_processing_status', 'Pending');
+                })->latest()->get();
+            } else {
+                $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
+                    $q->where('noc_processing_status', 'Pending');
+                })->latest()->get();
+            }
+        }
+        if ($key == 'accounts') {
+            if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
+                $orders = Order::with('customer_details')->where('creator_user_id', Auth::guard('admin')->user()->id)->whereHas('order_approval', function ($q) {
+                    $q->where('a_approved_status', 'Pending');
+                })->latest()->get();
+            } else {
+                $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
+                    $q->where('a_approved_status', 'Pending');
+                })->latest()->get();
+            }
+        }
+        //  dd($orders);
         $data = [
             'orders' => $orders,
             'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get()
