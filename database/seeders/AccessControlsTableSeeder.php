@@ -147,6 +147,7 @@ class AccessControlsTableSeeder extends Seeder
             ['name' => 'work-order-delete', 'guard_name' => 'admin'],
 
             ['name' => 'report-approve', 'guard_name' => 'admin'],
+            ['name' => 'price-show', 'guard_name' => 'admin'],
 
         ];
 
@@ -166,18 +167,31 @@ class AccessControlsTableSeeder extends Seeder
         ];
         DB::table('model_has_roles')->insert($data);
         //Data for role permission pivot
-        $permissions = Permission::all();
-        foreach ($permissions as $key => $value) {
-            $data = [
-                ['permission_id' => $value->id, 'role_id' => 1],
-            ];
+        // $permissions = Permission::all();
+        // foreach ($permissions as $key => $value) {
+        //     $data = [
+        //         ['permission_id' => $value->id, 'role_id' => 1],
+        //     ];
 
-            DB::table('role_has_permissions')->insert($data);
+        //     DB::table('role_has_permissions')->insert($data);
 
-        }
+        // }
 
         
+        $count_permission = DB::table('permissions')->count();
+        $count_role = DB::table('roles')->count();
 
+        for($i=1;$i<=$count_role;$i++){
+            $data = [];
+            for($j=1;$j<=$count_permission;$j++){
+                $data[$j]['permission_id'] = $j;
+                $data[$j]['role_id'] = $i;
+            }
+            
+            // dd($data);
+    
+            DB::table('role_has_permissions')->insert($data);
+        }
 
 
 
