@@ -26,6 +26,7 @@ class upgrateInvoiceGenerate
             'subject' => 'New Upgration Bill Month Of ' . now()->format('M') . '-' . Carbon::now()->year,
             'status' => 'Upgration',
             'previous_due' => 0,
+            'real_ip' => $order->real_ip,
             'core_rent' => $order->core_rent,
             'otc' => $order->otc,
         ]);

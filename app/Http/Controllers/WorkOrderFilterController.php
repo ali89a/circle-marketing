@@ -17,7 +17,25 @@ class WorkOrderFilterController extends Controller
                 $q->where('m_approved_status', 'Pending');
             })->latest()->get();
         }
-        dd($orders);
+        if ($key == 'coo') {
+            $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
+                $q->where('coo_approved_status', 'Pending');
+            })->latest()->get();
+        }
+        if ($key == 'noc') {
+            $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
+                $q->where('noc_approved_status', 'Pending');
+            })->latest()->get();
+        } if ($key == 'noc-processing') {
+            $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
+                $q->where('noc_processing_status', 'Pending');
+            })->latest()->get();
+        }if ($key == 'accounts') {
+            $orders = Order::with('customer_details')->whereHas('order_approval', function ($q) {
+                $q->where('a_approved_status', 'Pending');
+            })->latest()->get();
+        }
+      //  dd($orders);
         $data = [
             'orders' => $orders,
             'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get()

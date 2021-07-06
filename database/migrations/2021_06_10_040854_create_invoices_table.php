@@ -22,6 +22,7 @@ class CreateInvoicesTable extends Migration
             $table->text('billing_address');
             $table->text('subject');
             $table->decimal('previous_due');
+            $table->decimal('real_ip')->nullable();
             $table->decimal('core_rent')->nullable();
             $table->decimal('otc')->nullable();
             $table->decimal('vat')->nullable();

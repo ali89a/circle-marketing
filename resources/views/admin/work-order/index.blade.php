@@ -471,6 +471,14 @@
                                                         <table class="table table-bordered bw_details">
                                                             <tbody>
                                                                 <tr>
+                                                                    <td>Billing Email</td>
+                                                                    <td>{{ $order->customer_details->billing_email??'' }} </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Technical Email</td>
+                                                                    <td>{{ $order->customer_details->technical_email??'' }} </td>
+                                                                </tr>
+                                                                <tr>
                                                                     <td>Location :</td>
                                                                     <td>{{ $order->customer_details->division->name??'' }},{{ $order->customer_details->district->name??'' }},{{ $order->customer_details->upazila->name??'' }}</td>
                                                                 </tr>

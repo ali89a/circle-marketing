@@ -105,6 +105,16 @@
                                     $subtotal= $subtotal+$item->amount;
                                     @endphp
                                     @endforeach
+
+                                    <tr>
+
+                                        <td class="py-1" colspan="2"> 
+                                            <p class="card-text font-weight-bold">Real IP</p>
+                                        </td>
+                                        <td class="py-1">
+                                            <span class="font-weight-bold">{{ $invoice->real_ip }}</span>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -120,7 +130,7 @@
                                     <div class="invoice-total-wrapper">
                                         <div class="invoice-total-item">
                                             <p class="invoice-total-title">Subtotal:</p>
-                                            <p class="invoice-total-amount">{{$subtotal}}</p>
+                                            <p class="invoice-total-amount">{{$subtotal=  $subtotal + $invoice->real_ip}}</p>
                                         </div>
                                         <div class="invoice-total-item">
                                             <p class="invoice-total-title">Vat({{ $invoice->vat }}%):</p>

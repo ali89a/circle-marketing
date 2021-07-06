@@ -23,6 +23,7 @@ class invoiceGenerate
             'subject' => 'New Installation Bill Month Of '.now()->format('M').'-'.Carbon::now()->year,
             'status' => 'New',
             'previous_due' => 0,
+            'real_ip' => $order->real_ip,
             'core_rent' => $order->core_rent,
             'otc' => $order->otc,
             'vat' => $order->vat,
