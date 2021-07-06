@@ -61,31 +61,31 @@
       <li class="nav-item dropdown dropdown-notification mr-25">
           <a class="nav-link" href="{{url('admin/pending-work-order','marketing')}}">
          M
-            <span class="badge badge-pill badge-danger badge-up">5</span>
+            <span class="badge badge-pill badge-danger badge-up">{{ $m_pending }}</span>
           </a>
         </li>
       <li class="nav-item dropdown dropdown-notification mr-25">
           <a class="nav-link" href="{{url('admin/pending-work-order','coo')}}">
            COO
-            <span class="badge badge-pill badge-danger badge-up">5</span>
+            <span class="badge badge-pill badge-danger badge-up">{{ $coo_pending }}</span>
           </a>
         </li>
         <li class="nav-item dropdown dropdown-notification mr-25">
           <a class="nav-link" href="{{url('admin/pending-work-order','noc')}}">
             N
-            <span class="badge badge-pill badge-danger badge-up">5</span>
+            <span class="badge badge-pill badge-danger badge-up">{{ $noc_pending }}</span>
           </a>
         </li>
         <li class="nav-item dropdown dropdown-notification mr-25">
           <a class="nav-link" href="{{url('admin/pending-work-order','noc-processing')}}">
             Npro
-            <span class="badge badge-pill badge-danger badge-up">5</span>
+            <span class="badge badge-pill badge-danger badge-up">{{ $noc_pro_pending??'0' }}</span>
           </a>
         </li>
         <li class="nav-item dropdown dropdown-notification mr-25">
           <a class="nav-link" href="{{url('admin/pending-work-order','accounts')}}">
             A
-            <span class="badge badge-pill badge-danger badge-up">5</span>
+            <span class="badge badge-pill badge-danger badge-up">{{ $a_pending }}</span>
           </a>
         </li>
 
