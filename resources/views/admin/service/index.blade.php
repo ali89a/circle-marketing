@@ -64,15 +64,15 @@
                                 <td>{{ $row->name}}</td>
                                     <td>
                                         <div class="float-right">
-                                            <form action="{{route('service.destroy', $row->id)}}" method="post">
+                                            <!-- <form action="{{route('service.destroy', $row->id)}}" method="post">
                                                 <input type="hidden" name="_method" value="DELETE">
-                                                @csrf
+                                                @csrf -->
                                                 <a href="{{ route('service.edit', $row->id) }}" class="btn btn-primary">
                                                     <i class="fa fa-pencil-square-o"></i>
                                                     Edit
                                                 </a>
-                                                <button id="btnDelete" class="btn btn-danger">Delete</button>
-                                            </form>
+                                                <!-- <button id="btnDelete" class="btn btn-danger">Delete</button>
+                                            </form> -->
 
                                         </div>
                                     </td>
