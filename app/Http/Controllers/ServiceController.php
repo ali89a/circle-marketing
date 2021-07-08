@@ -49,7 +49,10 @@ class ServiceController extends Controller
           
         ]);
 
-        $service = Service::create(['name' => $request->input('name')]);
+        $service = Service::create([
+            'name' => $request->input('name'),
+            'type' => $request->input('type')
+        ]);
        
 
         Toastr::success('Service Information Created Successfully!.', '', ["progressbar" => true]);
@@ -98,6 +101,7 @@ class ServiceController extends Controller
         ]);
 
         $service->name = $request->input('name');
+        $service->type = $request->input('type');
         $service->save();
         Toastr::success('Service Information crated Successfully!.', '', ["progressBar" => true]);
         return redirect()->route('service.index');

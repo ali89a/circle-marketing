@@ -58,6 +58,12 @@
                                             <input type="text" class="form-control" id="name" name="name"  value="{{$model->name}}" placeholder="Enter Name">
                                         </div>
                                     </div>
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="name">Separate Invoice(Optional)?</label>
+                                            <input type="checkbox" name="type" class="form-control" value="separate" {{ $model->type == 'separate' ? 'checked' : '' }}>
+                                        </div>
+                                    </div>
                                 </div>
                                 <button class="btn btn-primary waves-effect waves-float waves-light" type="submit">Submit</button>
                             </form>

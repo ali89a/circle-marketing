@@ -89,8 +89,8 @@
                             <h5 class="mb-0">Customer Details</h5>
                         </div>
                         <hr style="border: 1px solid">
-                        <div class="row">
-                            <div class="form-group col-sm-6 col-sm-offset-3">
+                        <div class="row justify-content-center">
+                            <div class="form-group col-sm-4">
                             <label for="customer_id">Customer</label>
                                 <select class="form-control form-control-sm" id="customer_id" name="customer_id" required>
                                     <option value="">Select One</option>

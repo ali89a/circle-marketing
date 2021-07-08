@@ -54,6 +54,7 @@
                                 <tr>
                                     <th scope="col" class="text-nowrap">#</th>
                                     <th scope="col" class="text-nowrap">Name</th>
+                                    <th scope="col" class="text-nowrap">Invoice Type</th>
                                     <th scope="col" class="text-nowrap text-right">Action</th>
                                 </tr>
                             </thead>
@@ -62,6 +63,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $row->name}}</td>
+                                <td>{{ $row->type}}</td>
                                     <td>
                                         <div class="float-right">
                                             <!-- <form action="{{route('service.destroy', $row->id)}}" method="post">

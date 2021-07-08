@@ -109,6 +109,7 @@ class OrderController extends Controller
         $order->core_rent = $request->core_rent;
         $order->otc = $request->otc;
         $order->vat = $request->vat;
+        $order->bill_by_graph = $request->bill_by_graph;
         $order->completion_status = 'Complete';
         $order->save();
         OrderItem::where('order_id', $id)->delete();

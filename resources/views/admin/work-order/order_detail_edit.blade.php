@@ -161,6 +161,12 @@
                                                 <input type="text" id="Vat" value="{{$customer_order_info->order->vat}}" name="vat" class="form-control" placeholder="Vat" />
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td> <label class="form-label" for="bill_by_graph">Bill By Graph ?</label></td>
+                                            <td>
+                                                <input type="checkbox" id="bill_by_graph" value="1" name="bill_by_graph" class="form-control" {{ $customer_order_info->order->bill_by_graph == 1 ? 'checked' : '' }} />
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
