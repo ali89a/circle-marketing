@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('nttn_price')->nullable();
             $table->decimal('own_price')->nullable();
             $table->text('scl_id')->nullable();
+            $table->boolean('bill_by_graph')->default(false);
             $table->text('gmap_location')->nullable();
             $table->text('connect_type')->nullable();
             $table->text('link_id')->nullable();

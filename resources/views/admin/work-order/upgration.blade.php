@@ -87,7 +87,7 @@
                                                             <input type="number" v-model="row.upgration" :name="'items['+index+'][upgration]'" class="form-control input-sm" required>
                                                         </td>
                                                         <td>
-                                                            <input type="number" v-model="row.price" :name="'items['+index+'][price]'" class="form-control input-sm" required>
+                                                            <input type="text" v-model="row.price" :name="'items['+index+'][price]'" class="form-control input-sm" required>
                                                         </td>
                                                         <td>
                                                             <button type="button" class="btn btn-danger btn-sm" @click="delete_row(row)">x</button>

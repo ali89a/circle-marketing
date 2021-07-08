@@ -45,4 +45,16 @@ class Order extends Model
     {
         return $this->hasMany('App\Models\Invoice', 'order_id');
     }
+    public function upagrate()
+    {
+        return $this->hasMany('App\Models\Invoice', 'order_id');
+    }
+    public function downgrations()
+    {
+        return $this->hasMany('App\Models\OrderDowngration', 'order_id');
+    }
+    public function upgrations()
+    {
+        return $this->hasMany('App\Models\OrderUpgration', 'order_id');
+    }
 }

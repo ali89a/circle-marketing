@@ -12,4 +12,9 @@ class OrderUpgration extends Model
     {
         return $this->belongsTo('App\Models\Order', 'order_id');
     }
+  
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
 }

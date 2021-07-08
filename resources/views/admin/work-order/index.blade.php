@@ -620,7 +620,108 @@
                                         </div>
                                     </td>
                                     <td>
+                                        <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#uphistory{{$order->id}}">
+                                            View Upgrations History
+                                        </button>
+                                        <div class="modal fade text-left" id="uphistory{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel1">View History</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-bordered bw_details table-stripd">
+                                                            <caption class="text-center">View History</caption>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td>capacity</td>
+                                                                    <td>Buffer</td>
+                                                                    <td>UP</td>
+                                                                    <td>Down</td>
+                                                                    @can('price-show')
+                                                                    <td class=" onlym allhide">price</td>
+                                                                    @endcan
+                                                                    <td>Date</td>
+                                                                </tr>
+                                                                @foreach($order->upgrations as $item)
+                                                                <tr>
+                                                                    <td>{{ $item->service->name??'' }}</td>
+                                                                    <td>{{ $item->capacity??'' }}</td>
+                                                                    <td>{{ $item->buffer??'' }}</td>
+                                                                    <td>{{ $item->upgration??'' }}</td>
+                                                                    <td>{{ $item->downgration??'' }}</td>
+                                                                    @can('price-show')
+                                                                    <td class="text-right onlym allhide">{{ $item->price??'' }}</td>
+                                                                    @endcan
+                                                                    <td class="bg-orange">{{ \Carbon\Carbon::parse($item->created_at)->format('j-M-Y')}}</td>
+                                                                </tr>
+                                                                @endforeach
 
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br><br>
+                                        <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#downhistory{{$order->id}}">
+                                            View Downgrations History
+                                        </button>
+                                        <div class="modal fade text-left" id="downhistory{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel1">View History</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-bordered bw_details table-stripd">
+                                                            <caption class="text-center">View History</caption>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td>capacity</td>
+                                                                    <td>Buffer</td>
+                                                                    <td>UP</td>
+                                                                    <td>Down</td>
+                                                                    @can('price-show')
+                                                                    <td class=" onlym allhide">price</td>
+                                                                    @endcan
+                                                                    <td>Date</td>
+                                                                </tr>
+                                                                @foreach($order->downgrations as $item)
+                                                                <tr>
+                                                                    <td>{{ $item->service->name??'' }}</td>
+                                                                    <td>{{ $item->capacity??'' }}</td>
+                                                                    <td>{{ $item->buffer??'' }}</td>
+                                                                    <td>{{ $item->upgration??'' }}</td>
+                                                                    <td>{{ $item->downgration??'' }}</td>
+                                                                    @can('price-show')
+                                                                    <td class="text-right onlym allhide">{{ $item->price??'' }}</td>
+                                                                    @endcan
+                                                                    <td class="bg-orange">{{ \Carbon\Carbon::parse($item->created_at)->format('j-M-Y')}}</td>
+                                                                </tr>
+                                                                @endforeach
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br><br>
                                         <button type="button" class="btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#m{{$order->id}}">
                                             View Marketing
                                         </button>
@@ -660,7 +761,7 @@
                                                                     @can('price-show')
                                                                     <td class="text-right onlym allhide">{{ $item->price??'' }}</td>
                                                                     @endcan
-                                                                 
+
                                                                 </tr>
                                                                 @endforeach
                                                                 @can('price-show')

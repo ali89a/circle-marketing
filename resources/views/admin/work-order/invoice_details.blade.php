@@ -172,9 +172,11 @@
                         <div class="card-body invoice-padding pt-0">
                             <div class="row">
                                 <div class="col-12">
+                                    @if(empty($invoice->vat))
                                     <span class="font-weight-bold">Note:</span>
-                                    <span>The entire payable amount is excluding VAT.</span>
-                                    <br>
+                                    <span>The entire payable amount is VAT inclusive. vat-no The entire payable amount is VAT Excluding.</span>
+                                    @endif
+                                   <br>
                                     <span class="font-weight-bold">Terms:</span>
                                     <span>Please pay the bill within 7days.</span>
                                 </div>
