@@ -646,7 +646,9 @@
                                                                     <td>Buffer</td>
                                                                     <td>UP</td>
                                                                     <td>Down</td>
+                                                                    @can('price-show')
                                                                     <td class=" onlym allhide">price</td>
+                                                                    @endcan
                                                                 </tr>
                                                                 @foreach($order->order_items as $item)
                                                                 <tr>
@@ -655,10 +657,13 @@
                                                                     <td>{{ $item->buffer??'' }}</td>
                                                                     <td>{{ $item->upgration??'' }}</td>
                                                                     <td>{{ $item->downgration??'' }}</td>
+                                                                    @can('price-show')
                                                                     <td class="text-right onlym allhide">{{ $item->price??'' }}</td>
+                                                                    @endcan
+                                                                 
                                                                 </tr>
                                                                 @endforeach
-
+                                                                @can('price-show')
                                                                 <tr>
                                                                     <td colspan="5">Combine Price</td>
                                                                     <td class="text-right allhide">{{ $order->total_Price }}</td>
@@ -675,6 +680,7 @@
                                                                     <td colspan="5">Real Ip</td>
                                                                     <td class="text-right allhide">{{$order->real_ip}}</td>
                                                                 </tr>
+                                                                @endcan
                                                             </tbody>
                                                         </table>
                                                     </div>

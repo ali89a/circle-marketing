@@ -49,46 +49,51 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            <table class="table table-bordered bw_details table-stripd">
-                                                            <caption class="text-center">Marketing Requirement</caption>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td>capacity</td>
-                                                                    <td>Buffer</td>
-                                                                    <td>UP</td>
-                                                                    <td>Down</td>
-                                                                    <td class=" onlym allhide">price</td>
-                                                                </tr>
-                                                                @foreach($order->order_items as $item)
-                                                                <tr>
-                                                                    <td>{{ $item->service->name??'' }}</td>
-                                                                    <td>{{ $item->capacity??'' }}</td>
-                                                                    <td>{{ $item->buffer??'' }}</td>
-                                                                    <td>{{ $item->upgration??'' }}</td>
-                                                                    <td>{{ $item->downgration??'' }}</td>
-                                                                    <td class="text-right onlym allhide">{{ $item->price??'' }}</td>
-                                                                </tr>
-                                                                @endforeach
-
-                                                                <tr>
-                                                                    <td colspan="5">Combine Price</td>
-                                                                    <td class="text-right allhide">{{ $order->total_Price }}</td>
-                                                                </tr>
-                                                                <tr class="onlym">
-                                                                    <td colspan="5">OTC</td>
-                                                                    <td class="text-right allhide">{{$order->otc}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="5">Core Rent</td>
-                                                                    <td class="text-right allhide">{{$order->core_rent}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td colspan="5">Real Ip</td>
-                                                                    <td class="text-right allhide">{{$order->real_ip}}</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                <table class="table table-bordered bw_details table-stripd">
+                                    <caption class="text-center">Marketing Requirement</caption>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td>capacity</td>
+                                            <td>Buffer</td>
+                                            <td>UP</td>
+                                            <td>Down</td>
+                                            @can('price-show')
+                                            <td class=" onlym allhide">price</td>
+                                            @endcan
+                                        </tr>
+                                        @foreach($order->order_items as $item)
+                                        <tr>
+                                            <td>{{ $item->service->name??'' }}</td>
+                                            <td>{{ $item->capacity??'' }}</td>
+                                            <td>{{ $item->buffer??'' }}</td>
+                                            <td>{{ $item->upgration??'' }}</td>
+                                            <td>{{ $item->downgration??'' }}</td>
+                                            @can('price-show')
+                                            <td class="text-right onlym allhide">{{ $item->price??'' }}</td>
+                                            @endcan
+                                        </tr>
+                                        @endforeach
+                                        @can('price-show')
+                                        <tr>
+                                            <td colspan="5">Combine Price</td>
+                                            <td class="text-right allhide">{{ $order->total_Price }}</td>
+                                        </tr>
+                                        <tr class="onlym">
+                                            <td colspan="5">OTC</td>
+                                            <td class="text-right allhide">{{$order->otc}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">Core Rent</td>
+                                            <td class="text-right allhide">{{$order->core_rent}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">Real Ip</td>
+                                            <td class="text-right allhide">{{$order->real_ip}}</td>
+                                        </tr>
+                                        @endcan
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -97,50 +102,50 @@
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-body">
-                        <div class="table-responsive">
-                                            <table class="table table-responsive table-bordered">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Link ID:</td>
-                                                        <td>{{$customer_order_info->order->link_id}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Location: </td>
-                                                        <td> {{ $customer_order_info->order->customer_details->upazila->name??'' }},{{ $customer_order_info->order->customer_details->district->name??'' }}, {{ $customer_order_info->order->customer_details->division->name??'' }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Connection Type:</td>
-                                                        <td>{{$customer_order_info->order->connect_type}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Security Money:</td>
-                                                        <td>0,0,,0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Visited/Phone:</td>
-                                                        <td> {{$customer_order_info->order->visit_type}} </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Order Submission Date</td>
-                                                        <td> {{$customer_order_info->order->order_submission_date}} </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Billing Date:</td>
-                                                        <td> {{$customer_order_info->order->billing_cycle}} </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Bill Start Date:</td>
-                                                        <td> {{$customer_order_info->order->bill_start_date}} </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Delivery Date:</td>
-                                                        <td> {{$customer_order_info->order->delivery_date}} </td>
-                                                    </tr>
+                            <div class="table-responsive">
+                                <table class="table table-responsive table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td>Link ID:</td>
+                                            <td>{{$customer_order_info->order->link_id}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Location: </td>
+                                            <td> {{ $customer_order_info->order->customer_details->upazila->name??'' }},{{ $customer_order_info->order->customer_details->district->name??'' }}, {{ $customer_order_info->order->customer_details->division->name??'' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Connection Type:</td>
+                                            <td>{{$customer_order_info->order->connect_type}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Security Money:</td>
+                                            <td>0,0,,0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Visited/Phone:</td>
+                                            <td> {{$customer_order_info->order->visit_type}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Order Submission Date</td>
+                                            <td> {{$customer_order_info->order->order_submission_date}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Billing Date:</td>
+                                            <td> {{$customer_order_info->order->billing_cycle}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bill Start Date:</td>
+                                            <td> {{$customer_order_info->order->bill_start_date}} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Delivery Date:</td>
+                                            <td> {{$customer_order_info->order->delivery_date}} </td>
+                                        </tr>
 
-                                                
-                                                </tbody>
-                                            </table>
-                                        </div>
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -220,6 +225,7 @@
                                                         <th>Status</th>
                                                         <td>
                                                             <select class="form-control" name="status">
+                                                            <option value="">Select Status</option>
                                                                 <option value="Processing" {{ $order_noc->status=="Processing"?"selected":'' }}>Processing</option>
                                                                 <option value="Done" {{ $order_noc->status=="Done"?"selected":'' }}>Done</option>
                                                             </select>
