@@ -790,7 +790,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">NOC Delivered</td>
-                                                    <td class="bg-gray">delivery_date</td>
+                                                    <td class="bg-gray">{{ \Carbon\Carbon::parse($order->order_approval->noc_done_time)->format('j-M-Y')}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">Bill Generate</td>
@@ -798,11 +798,11 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-orange">UP/Down Delivery </td>
-                                                    <td class="bg-orange">15-Jun-2021</td>
+                                                    <td class="bg-orange">{{ \Carbon\Carbon::parse($order->order_approval->noc_done_time)->format('j-M-Y')}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">NOC UP Delivered</td>
-                                                    <td class="bg-gray"></td>
+                                                    <td class="bg-gray">{{ \Carbon\Carbon::parse($order->order_approval->noc_done_time)->format('j-M-Y')}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
