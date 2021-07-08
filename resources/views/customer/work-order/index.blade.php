@@ -72,9 +72,9 @@
                                             <li>
                                                 <!--Marketing Executive section-->
                                                 <a href="" class="btn btn-danger btn-sm btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
-                                                <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
-                                                <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
-                                                <a href="{{route('work-order-downgration', $order->id)}}" class="btn btn-info  btn-block btn-sm"><i class="fa fa-edit"></i> Downgration</a>
+                                                <a href="{{route('customer.customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                                <a href="" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
+                                                <a href="" class="btn btn-info  btn-block btn-sm"><i class="fa fa-edit"></i> Downgration</a>
 
                                                 <!--Marketing Admin section-->
 
@@ -87,7 +87,7 @@
                                                             (4) <i class="fa fa-history"></i></button>
                                                     </form>
                                                 </div>
-                                                <a href="{{route('invoices', $order->id)}}" class="btn btn-primary  btn-block btn-sm"><i class="fa fa-table"></i> Invoice List
+                                                <a href="" class="btn btn-primary  btn-block btn-sm"><i class="fa fa-table"></i> Invoice List
                                                 </a>
                                             </li>
                                         </ul>
@@ -193,7 +193,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Organization</td>
-                                                    <td style="width:150px;white-space: normal;min-width:150px">{{ $order->customer_details->organization }}</td>
+                                                    <td style="width:150px;white-space: normal;min-width:150px">{{ $order->customer_details->organization ??'' }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Email</td>

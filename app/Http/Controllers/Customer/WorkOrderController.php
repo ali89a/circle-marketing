@@ -87,7 +87,7 @@ class WorkOrderController extends Controller
         $order_approval->m_approved_status = 'Pending';
         $order_approval->a_approved_status = 'Pending';
         $order_approval->coo_approved_status = 'Pending';
-        $order_approval->noc_assigned_status = 'Pending';
+        $order_approval->noc_processing_status = 'Pending';
         $order_approval->noc_approved_status = 'Pending';
         $order_approval->order_id = $order->id;
         $order_approval->save();
@@ -177,6 +177,7 @@ class WorkOrderController extends Controller
 
     public function customerDetailEdit($id)
     {
+        //dd($id);
         $data = [
             'divisions' => Division::all(),
             'order_customer_info' => OrderCustomerInfo::where('order_id', $id)->first()
@@ -236,7 +237,7 @@ class WorkOrderController extends Controller
     {
         $customer_order = Order::where('id', $id)->first();
         // dd($customer_order);
-        if ($customer_order->type == '' || $customer_order->price == '' || $customer_order->gmap_location == '' || $customer_order->connect_type == '' || $customer_order->visit_type == '' || $customer_order->bill_generate_method == '' || $customer_order->order_submission_date == '' || $customer_order->billing_cycle == '' || $customer_order->billing_remark == '' || $customer_order->bill_start_date == '' || $customer_order->delivery_date == '') {
+        if ($customer_order->type == '' || $customer_order->gmap_location == '' || $customer_order->connect_type == '' || $customer_order->visit_type == '' || $customer_order->bill_generate_method == '' || $customer_order->order_submission_date == '' || $customer_order->billing_cycle == '' || $customer_order->billing_remark == '' || $customer_order->bill_start_date == '' || $customer_order->delivery_date == '') {
             Toastr::error('Please Fillup Required Field!.', '', ["progressBar" => true]);
             return redirect()->back();
         } else {
@@ -324,7 +325,8 @@ class WorkOrderController extends Controller
         //     DB::beginTransaction();
         $order = Order::where('id', $id)->first();
         $order->type = $request->type;
-        $order->price = $request->price;
+        $order->nttn_price = $request->nttn_price;
+        $order->own_price = $request->own_price;
         $order->scl_id = $request->scl_id;
         $order->gmap_location = $request->gmap_location;
         $order->link_id = 'NC_' . \App\Classes\LinkId::serial_number();

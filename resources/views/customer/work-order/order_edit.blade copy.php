@@ -1,4 +1,5 @@
 @extends('customer.layouts.master')
+
 @section('content')
 <div class="content-wrapper">
     <div class="content-header row">
@@ -8,7 +9,7 @@
                     <h2 class="content-header-title float-left mb-0">Work Order</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('admin/home') }}">Home</a>
+                            <li class="breadcrumb-item"><a href="{{ url('home') }}">Home</a>
                             </li>
                             <li class="breadcrumb-item active">Work Order Create
                             </li>
@@ -29,7 +30,7 @@
     <div class="content-body">
         <section class="modern-horizontal-wizard">
             <div class="bs-stepper wizard-modern modern-wizard-example">
-            <div class="bs-stepper-header">
+                <div class="bs-stepper-header">
                     <div class="step">
                         <a href="{{route('customer.customerDetailEdit', $customer_order->id)}}" class="step-trigger">
                             <span class="bs-stepper-box">1 </span>
@@ -96,22 +97,22 @@
                                 <label class="form-label" for="type">Type</label>
                                 <div class="demo-inline-spacing">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="type" v-model="type" class="custom-control-input" value="Own" @change="selectType">
+                                        <input type="radio" id="customRadio1" name="type" @change="onChange($event)" class="custom-control-input" value="Own" {{ $customer_order->type == "Own" ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="customRadio1">Own</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="type" v-model="type" class="custom-control-input" value="NTTN" @change="selectType">
+                                        <input type="radio" id="customRadio2" name="type" @change="onChange($event)" class="custom-control-input" value="NTTN" {{ $customer_order->type == "NTTN" ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="customRadio2">NTTN</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-4" v-if="own_price">
                                 <label class="form-label" for="price">Price</label>
-                                <input type="text" value="{{$customer_order->own_price??'400'}}" name="own_price" id="own_price" class="form-control">
+                                <input type="text" value="{{$customer_order->price??'400'}}" name="price" id="price" class="form-control">
                             </div>
                             <div class="form-group col-md-4" v-if="nttn_price">
                                 <label class="form-label" for="price">Price</label>
-                                <input type="text" value="{{$customer_order->nttn_price??'800'}}" name="nttn_price" id="nttn_price" class="form-control">
+                                <input type="text" value="{{$customer_order->price??'800'}}" name="price" id="price" class="form-control">
 
                             </div>
                         </div>
@@ -127,13 +128,13 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2"> <label class="form-label" for="gmap_location">Gmap Location</label></td>
+                                        <td colspan="2"> <label class="form-label" for="gmap_location">Gmap Location</label></td>
                                             <td>
                                                 <input type="text" value="{{$customer_order->gmap_location}}" name="gmap_location" id="gmap_location" class="form-control" placeholder="GMAP Location" />
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2"> <label class="form-label" for="connect_type">Connect Type</label></td>
+                                        <td colspan="2"> <label class="form-label" for="connect_type">Connect Type</label></td>
                                             <td>
                                                 <select class="form-control" name="connect_type">
                                                     <option value="">Select Type</option>
@@ -146,7 +147,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="2"> <label class="form-label" for="bill_generate_method">Bill Generate Method</label></td>
+                                        <td colspan="2"> <label class="form-label" for="bill_generate_method">Bill Generate Method</label></td>
                                             <td>
                                                 <select class="form-control" name="bill_generate_method">
                                                     <option value="">Select Date</option>
@@ -292,36 +293,92 @@
                     get_url: "",
 
                 },
-                type: "{{ $customer_order->type }}",
+
+                type: '',
                 own_price: false,
                 nttn_price: false,
 
 
             },
             methods: {
-                selectType() {
-
+                onChange(event) {
                     var vm = this;
-                    console.log(vm.type);
-                    if (vm.type === 'Own') {
+                    var service_type = event.target.value;
+                    console.log(service_type);
+                    if (service_type === 'Own') {
                         vm.own_price = true;
                         vm.nttn_price = false;
 
                     }
-                    if (vm.type === 'NTTN') {
+                    if (service_type === 'NTTN') {
                         vm.own_price = false;
                         vm.nttn_price = true;
                     }
                 },
+                fetch_service() {
+                    var vm = this;
+                    var slug = vm.type;
+                    //check
+                    // alert(slug);
+
+                    if (slug) {
+                        axios.get(this.config.get_url + '/' + slug).then(
+                            function(response) {
+                                details = response.data;
+                                console.log(details);
+                                if (!vm.services.some(data => data.service_id === details.id)) {
+                                    vm.services.push({
+                                        service_id: details.id,
+                                        name: details.name,
+                                    });
+                                    vm.service_id = '';
+                                } else {
+                                    toastr.info('Already Selected This Item', {
+                                        closeButton: true,
+                                        progressBar: true,
+                                    });
+
+                                    return false;
+                                }
+
+
+                            }).catch(function(error) {
+                            toastr.error('Something went to wrong', {
+                                closeButton: true,
+                                progressBar: true,
+                            });
+                            return false;
+                        });
+                    }
+                },
+                delete_row: function(row) {
+                    this.services.splice(this.services.indexOf(row), 1);
+                },
+
+                load_old() {
+                    var vm = this;
+                    var slug = vm.order_id;
+                    axios.get(this.config.get_old_items_data + '/' + slug).then(function(response) {
+                        var item = response.data;
+                        console.log(item);
+                        for (key in item) {
+                            vm.services.push(item[key]);
+                        };
+
+                    })
+                },
             },
             beforeMount() {
-                this.selectType();
+                this.load_old();
             },
             updated() {
                 $('.bSelect').selectpicker('refresh');
             }
         });
-
+        $('.bSelect').selectpicker({
+            liveSearch: true,
+            size: 5
+        });
     });
 </script>
 @endpush
