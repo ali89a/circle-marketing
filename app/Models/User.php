@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Events\CutomerMailEvent;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -27,6 +28,9 @@ class User extends Authenticatable
         'btrc_license_url',
         'nid_url',
         'trade_license_url',
+    ];
+    protected $dispatchesEvents = [
+        'created' => CutomerMailEvent::class,
     ];
 
     /**

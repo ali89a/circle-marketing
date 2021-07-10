@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CustomerPassword;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Admin\Admin;
@@ -89,7 +90,6 @@ class UserController extends Controller
             $user->trade_license_url = $fileName;
         }
         $user->save();
-
 
         // $details = [
         //     'title' => 'Mail from Circle Network',
