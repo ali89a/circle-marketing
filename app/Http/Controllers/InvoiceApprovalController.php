@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\InvoiceApproval;
 use Illuminate\Http\Request;
+use App\Models\InvoiceApproval;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceApprovalController extends Controller
 {
@@ -12,6 +14,50 @@ class InvoiceApprovalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function invoiceApprovalNOC($invoice_id)
+    {
+        $invoice_approval = InvoiceApproval::where('invoice_id', $invoice_id)->first();
+        $invoice_approval->noc_approved_status = "Approved";
+        $invoice_approval->noc_approved_by = Auth::guard('admin')->id();
+        $invoice_approval->noc_approved_time = now();
+        $invoice_approval->save();
+
+        Toastr::success('Noc Approved Successful!.', '', ["progressbar" => true]);
+        return redirect()->back();
+    }
+    public function invoiceApprovalMarketing($invoice_id)
+    {
+        $invoice_approval = InvoiceApproval::where('invoice_id', $invoice_id)->first();
+        $invoice_approval->m_approved_status = "Approved";
+        $invoice_approval->m_approved_by = Auth::guard('admin')->id();
+        $invoice_approval->m_approved_time = now();
+        $invoice_approval->save();
+
+        Toastr::success('Marketing Approved Successful!.', '', ["progressbar" => true]);
+        return redirect()->back();
+    }
+    public function invoiceApprovalAccounts($invoice_id)
+    {
+        $invoice_approval = InvoiceApproval::where('invoice_id', $invoice_id)->first();
+        $invoice_approval->a_approved_status = "Approved";
+        $invoice_approval->a_approved_by = Auth::guard('admin')->id();
+        $invoice_approval->a_approved_time = now();
+        $invoice_approval->save();
+
+        Toastr::success('Accounts Approved Successful!.', '', ["progressbar" => true]);
+        return redirect()->back();
+    }
+    public function invoiceApprovalCoo($invoice_id)
+    {
+        $invoice_approval = InvoiceApproval::where('invoice_id', $invoice_id)->first();
+        $invoice_approval->coo_approved_status = "Approved";
+        $invoice_approval->coo_approved_by = Auth::guard('admin')->id();
+        $invoice_approval->coo_approved_time = now();
+        $invoice_approval->save();
+
+        Toastr::success('COO Approved Successful!.', '', ["progressbar" => true]);
+        return redirect()->back();
+    }
     public function index()
     {
         //

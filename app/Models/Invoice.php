@@ -17,6 +17,11 @@ class Invoice extends Model
         return $this->hasMany(InvoiceItem::class);
 
     }
+    public function invoice_approval(){
+
+        return $this->hasOne(InvoiceApproval::class);
+
+    }
     protected $fillable = [
        
         'order_id',  

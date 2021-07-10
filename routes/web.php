@@ -89,6 +89,11 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/work-order-coo-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalCOO'])->name('workOrderApprovalCOO');
     Route::post('/noc-assign', [App\Http\Controllers\OrderApprovalController::class, 'nocAssign'])->name('nocAssign');
     Route::get('/work-order-noc-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalNoc'])->name('workOrderApprovalNoc');
+    
+    Route::get('/invoice-noc-approval/{id?}', [App\Http\Controllers\InvoiceApprovalController::class, 'invoiceApprovalNOC'])->name('invoiceApprovalNOC');
+    Route::get('/invoice-marketing-approval/{id?}', [App\Http\Controllers\InvoiceApprovalController::class, 'invoiceApprovalMarketing'])->name('invoiceApprovalMarketing');
+    Route::get('/invoice-accounts-approval/{id?}', [App\Http\Controllers\InvoiceApprovalController::class, 'invoiceApprovalAccounts'])->name('invoiceApprovalAccounts');
+    Route::get('/invoice-coo-approval/{id?}', [App\Http\Controllers\InvoiceApprovalController::class, 'invoiceApprovalCOO'])->name('invoiceApprovalCOO');
 
 
     Route::get('/search-order-result', [WorkOrderFilterController::class, 'searchOrderResult'])->name('searchOrderResult');

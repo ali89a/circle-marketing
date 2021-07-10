@@ -108,7 +108,7 @@
 
                                     <tr>
 
-                                        <td class="py-1" colspan="2"> 
+                                        <td class="py-1" colspan="2">
                                             <p class="card-text font-weight-bold">Real IP</p>
                                         </td>
                                         <td class="py-1">
@@ -130,7 +130,7 @@
                                     <div class="invoice-total-wrapper">
                                         <div class="invoice-total-item">
                                             <p class="invoice-total-title">Subtotal:</p>
-                                            <p class="invoice-total-amount">{{$subtotal=  $subtotal + $invoice->real_ip}}</p>
+                                            <p class="invoice-total-amount">{{$subtotal= $subtotal + $invoice->real_ip}}</p>
                                         </div>
                                         <div class="invoice-total-item">
                                             <p class="invoice-total-title">Vat({{ $invoice->vat }}%):</p>
@@ -176,7 +176,7 @@
                                     <span class="font-weight-bold">Note:</span>
                                     <span>The entire payable amount is VAT inclusive. vat-no The entire payable amount is VAT Excluding.</span>
                                     @endif
-                                   <br>
+                                    <br>
                                     <span class="font-weight-bold">Terms:</span>
                                     <span>Please pay the bill within 7days.</span>
                                 </div>
@@ -191,14 +191,91 @@
                 <div class="col-xl-3 col-md-4 col-12 invoice-actions mt-md-0 mt-2">
                     <div class="card">
                         <div class="card-body">
+                            <div class="card-title">
+                            APPROVAL
+                            </div>
+                            <table class="table table-striped table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td class="bg-gray">N A</td>
+                                        <td class="text-center">
+                                            @hasrole('NOC Admin')
+                                            @if($invoice->invoice_approval->noc_approved_status =='Pending')
+                                            <a href="{{route('invoiceApprovalNOC',$invoice->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
+                                            @else
+                                            <p class="bg-gray btn-block">{{ $invoice->invoice_approval->noc_approved_status ??'' }}</p>
+                                            @endif
+                                            @else
+                                            <p class="bg-gray btn-block">{{ $invoice->invoice_approval->noc_approved_status ??'' }}</p>
+
+                                            @endhasrole
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-gray">M A</td>
+                                        <td class="text-center">
+                                            @hasrole('Marketing Admin')
+                                            @if($invoice->invoice_approval->m_approved_status =='Pending')
+                                            <a href="{{route('invoiceApprovalMarketing',$invoice->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
+                                            @else
+                                            <p class="bg-gray btn-block">{{ $invoice->invoice_approval->m_approved_status ??'' }}</p>
+                                            @endif
+                                            @else
+                                            <p class="bg-gray btn-block">{{ $invoice->invoice_approval->m_approved_status ??'' }}</p>
+
+                                            @endhasrole
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-gray">A A</td>
+                                        <td class="text-center">
+                                            @hasrole('Accounts Admin')
+                                            @if($invoice->invoice_approval->a_approved_status =='Pending')
+                                            <a href="{{route('invoiceApprovalAccounts',$invoice->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
+                                            @else
+                                            <p class="bg-gray btn-block">{{ $invoice->invoice_approval->a_approved_status ??'' }}</p>
+                                            @endif
+                                            @else
+                                            <p class="bg-gray btn-block">{{ $invoice->invoice_approval->a_approved_status ??'' }}</p>
+
+                                            @endhasrole
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bg-gray">COO</td>
+                                        <td class="text-center">
+                                            @hasrole('COO')
+                                            @if($invoice->invoice_approval->coo_approved_status =='Pending')
+                                            <a href="{{route('invoiceApprovalCOO',$invoice->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
+                                            @else
+                                            <p class="bg-gray btn-block">{{ $invoice->invoice_approval->coo_approved_status ??'' }}</p>
+                                            @endif
+                                            @else
+                                            <p class="bg-gray btn-block">{{ $invoice->invoice_approval->coo_approved_status ??'' }}</p>
+
+                                            @endhasrole
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
                             <button class="btn btn-primary btn-block mb-75 waves-effect waves-float waves-light" data-toggle="modal" data-target="#send-invoice-sidebar">
                                 Send Invoice
                             </button>
-                            <button class="btn btn-outline-secondary btn-block btn-download-invoice mb-75 waves-effect">Download</button>
+                            <button class="btn btn-outline-secondary btn-block btn-download-invoice mb-75 waves-effect">
+                                Download
+                            </button>
                             <a class="btn btn-outline-secondary btn-block mb-75 waves-effect" href="./app-invoice-print.html" target="_blank">
                                 Print
                             </a>
-                            <a class="btn btn-outline-secondary btn-block mb-75 waves-effect" href="./app-invoice-edit.html"> Edit </a>
+                            <a class="btn btn-outline-secondary btn-block mb-75 waves-effect" href="./app-invoice-edit.html">
+                                Edit
+                            </a>
                             <button class="btn btn-success btn-block waves-effect waves-float waves-light" data-toggle="modal" data-target="#add-payment-sidebar">
                                 Add Payment
                             </button>
