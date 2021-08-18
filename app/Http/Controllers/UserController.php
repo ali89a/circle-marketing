@@ -170,6 +170,15 @@ class UserController extends Controller
             $request->trade_license_url->move(storage_path('app/public/trade_license'), $fileName);
             $user->trade_license_url = $fileName;
         }
+        if ($user->isDirty()) {
+            $user->save();
+            //  DB::commit();
+            Toastr::success('Customer Updated Successfully!.', '', ["progressbar" => true]);
+            return redirect()->route('user.index');
+        } else {
+            Toastr::info('No Change Customer Updated!.', '', ["progressbar" => true]);
+            return redirect()->route('user.index');
+        }
         $user->save();
         //  DB::commit();
         Toastr::success('Customer Updated Successfully!.', '', ["progressbar" => true]);

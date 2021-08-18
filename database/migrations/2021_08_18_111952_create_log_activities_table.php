@@ -15,14 +15,11 @@ class CreateLogActivitiesTable extends Migration
     {
         Schema::create('log_activities', function (Blueprint $table) {
             $table->id();
-            $table->string('subject');
             $table->string('url');
-            $table->string('method');
+            $table->string('work_order_id');
             $table->string('ip');
-            $table->string('agent')->nullable();
             $table->integer('admin_user_id')->nullable();
-            $table->string('user_name')->nullable();
-            $table->text('new_data')->nullable();
+            $table->string('admin_user_name')->nullable();
             $table->text('old_data')->nullable();
             $table->timestamps();
         });

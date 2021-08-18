@@ -12,6 +12,7 @@ use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use App\Models\Admin\Admin;
 use App\Models\OrderBuffer;
+use App\Helpers\LogActivity;
 use App\Models\OrderNOCInfo;
 use Illuminate\Http\Request;
 use App\Models\OrderApproval;
@@ -201,6 +202,7 @@ class OrderController extends Controller
         $customer_info->upazila_id = $request->upazila_id;
         $customer_info->order_id = $order->id;
         $customer_info->save();
+        LogActivity::addToLog($order->id);
         // DB::commit();
         // Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('docEdit', ['id' => $order->id]);

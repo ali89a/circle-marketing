@@ -6,24 +6,23 @@ namespace App\Helpers;
 use Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\LogActivity as LogActivityModel;
-
+use App\Models\Order;
 
 class LogActivity
 {
 
 
-    public static function addToLog($subject = NULL, $new = NULL, $old = NULL)
+    public static function addToLog($work_order_id)
     {
+
+        $work_order=Order::find($work_order_id);
         $log = [];
-        $log['subject'] = $subject;
-        $log['new_data'] = json_encode($new);
-        $log['old_data'] = json_encode($old);
+        $log['work_order_id'] = $work_order_id;
         $log['url'] = Request::fullUrl();
-        $log['method'] = Request::method();
         $log['ip'] = Request::ip();
-        $log['agent'] = Request::header('user-agent');
         $log['admin_user_id'] = auth()->check() ? auth()->user()->id : 1;
-        $log['user_name'] = Auth::guard('admin')->user()->name;
+        $log['admin_user_name'] = Auth::guard('admin')->user()->name;
+        $log['old_data'] = $work_order;
         LogActivityModel::create($log);
     }
 
