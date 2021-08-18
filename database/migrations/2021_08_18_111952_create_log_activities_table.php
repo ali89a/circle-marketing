@@ -20,7 +20,10 @@ class CreateLogActivitiesTable extends Migration
             $table->string('method');
             $table->string('ip');
             $table->string('agent')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->integer('admin_user_id')->nullable();
+            $table->string('user_name')->nullable();
+            $table->text('new_data')->nullable();
+            $table->text('old_data')->nullable();
             $table->timestamps();
         });
     }

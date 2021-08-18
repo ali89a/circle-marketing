@@ -236,6 +236,7 @@ return [
         'HTML' => Collective\Html\HtmlFacade::class,
         'BootForm' => Watson\BootstrapForm\Facades\BootstrapForm::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'LogActivity' => App\Helpers\LogActivity::class,
 
     ],
 

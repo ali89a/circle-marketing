@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CustomerPassword;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Admin\Admin;
+use App\Helpers\LogActivity;
 use Illuminate\Http\Request;
+use App\Events\CustomerPassword;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
@@ -41,7 +42,7 @@ class UserController extends Controller
 
     public function create()
     {
-       
+
         $data = [
             'model' => new User(),
             'marketing_users' => Admin::role(['Marketing Executive', 'Marketing Admin'])->get()
@@ -61,13 +62,14 @@ class UserController extends Controller
 
         // try {
         //     DB::beginTransaction();
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->mobile = $request->mobile;
         $user->bin_no = $request->bin_no;
         $user->billing_address = $request->billing_address;
-        $user->creator_user_id =  $request->marketing_user_id ? $request->marketing_user_id:Auth::guard('admin')->id();
+        $user->creator_user_id =  $request->marketing_user_id ? $request->marketing_user_id : Auth::guard('admin')->id();
         $user->password = bcrypt($request->password);
         if ($request->img_url != null) {
             $fileName = time() . '.' . $request->img_url->extension();
@@ -133,8 +135,8 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required'],
-            'email' => ['required', 'unique:users,email,'. $user->id],
-            'mobile' => ['required', 'unique:users,mobile,'. $user->id],
+            'email' => ['required', 'unique:users,email,' . $user->id],
+            'mobile' => ['required', 'unique:users,mobile,' . $user->id],
         ]);
 
         // try {
