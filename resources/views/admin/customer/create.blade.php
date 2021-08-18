@@ -66,13 +66,13 @@
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input type="text" class="form-control" id="password" name="password" placeholder="Enter Password">
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="********">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="password_confirmation">Password Confirmation</label>
-                                            <input type="text" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter Password Confirmation">
+                                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="********">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
