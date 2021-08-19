@@ -14,6 +14,9 @@ class HomeController extends Controller
     {
         $data=[
             'marketing_users' => Admin::role(['Marketing Executive', 'Marketing Admin'])->get(),
+            'm_pending'=>Order::whereHas('order_approval', function ($q) {
+                $q->where('m_approved_status', 'Pending');
+              })->count(),
             'users'=>Admin::count(),
         ];
     

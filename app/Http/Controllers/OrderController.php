@@ -40,7 +40,23 @@ class OrderController extends Controller
 
         $data = [
             'orders' =>  $orders,
-            'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get()
+            'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get(),
+
+            'm_pending' => Order::whereHas('order_approval', function ($q) {
+                $q->where('m_approved_status', 'Pending');
+            })->count(),
+            'coo_pending' => Order::whereHas('order_approval', function ($q) {
+                $q->where('coo_approved_status', 'Pending');
+            })->count(),
+            'noc_pending' => Order::whereHas('order_approval', function ($q) {
+                $q->where('noc_approved_status', 'Pending');
+            })->count(),
+            'noc_pro_pending' => Order::whereHas('order_approval', function ($q) {
+                $q->where('noc_processing_status', 'Pending');
+            })->count(),
+            'a_pending' => Order::whereHas('order_approval', function ($q) {
+                $q->where('a_approved_status', 'Pending');
+            })->count()
         ];
         return view('admin.work-order.index', $data);
     }
