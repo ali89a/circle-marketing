@@ -33,10 +33,12 @@ class OrderController extends Controller
     public function index()
     {
         if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
-            $orders = Order::with('customer_details')->where('creator_user_id', Auth::guard('admin')->user()->id)->latest()->get();
+            $orders = Order::with('customer_details','order_approval')->where('creator_user_id', Auth::guard('admin')->user()->id)->latest()->get();
         } else {
-            $orders = Order::with('customer_details')->latest()->get();
+            $orders = Order::with('customer_details','order_approval')->latest()->get();
         }
+
+        // dd($orders);
 
         $data = [
             'orders' =>  $orders,
