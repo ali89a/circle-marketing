@@ -35,7 +35,7 @@ class Order extends Model
     public function noc()
     {
 
-        return $this->hasOne('App\Models\OrderNOCInfo', 'order_id');
+        return $this->hasOne('App\Models\OrderNoc', 'order_id');
     }
     public function order_items()
     {

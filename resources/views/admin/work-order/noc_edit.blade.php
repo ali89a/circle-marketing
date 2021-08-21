@@ -166,43 +166,30 @@
                                                 <tbody>
                                                     <tr>
                                                         <th></th>
-                                                        <th>Internet</th>
-                                                        <th>GGC</th>
-                                                        <th>FB</th>
-                                                        <th>BDIX</th>
-                                                        <th>Data</th>
-                                                    </tr>
-                                                    <tr>
                                                         <th>VLAN</th>
-                                                        <td><input type="text" value="{{$order_noc->vlan_internet}}" name="vlan_internet" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_ggc}}" name="vlan_ggc" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_fb}}" name="vlan_fb" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_bdix}}" name="vlan_bdix" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_data}}" name="vlan_data" class="form-control"></td>
-                                                    </tr>
-                                                    <tr>
                                                         <th>IP</th>
-                                                        <td><input type="text" value="{{$order_noc->ip_internet}}" name="ip_internet" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->ip_ggc}}" name="ip_ggc" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->ip_fb}}" name="ip_fb" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->ip_bdix}}" name="ip_bdix" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->ip_data}}" name="ip_data" class="form-control"></td>
-
-                                                    </tr>
-                                                    <tr>
                                                         <th>Assigned BW</th>
-                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_internet}}" name="assigned_bandwidth_internet" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_ggc}}" name="assigned_bandwidth_ggc" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_fb}}" name="assigned_bandwidth_fb" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_bdix}}" name="assigned_bandwidth_bdix" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->assigned_bandwidth_data}}" name="assigned_bandwidth_data" class="form-control"></td>
                                                     </tr>
+                                                    @foreach($order->order_items as $key=>$row)
+                                                    <tr>
+                                                        <th>{{ $row->service->name }}</th>
+                                                        <td><input type="text" value="{{$order_noc->vlan_internet}}" name="noc_item[{{$key}}]['vlan']" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->vlan_ggc}}" name="noc_item[{{$key}}]['ip']" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->vlan_fb}}" name="noc_item[{{$key}}]['assigned_brandwith']" class="form-control"></td>
+                                                    </tr>
+                                                    @endforeach
                                                     <tr>
 
                                                         <th>MRTG/Cpanel</th>
                                                         <td>
                                                             <input type="text" name="mrtg_graph_url" class="form-control" value="{{$order_noc->mrtg_graph_url}}" required>
                                                         </td>
+                                                        <th>Real IP</th>
+                                                        <td>
+                                                            <input type="text" name="real_ip" class="form-control" value="{{$order_noc->real_ip}}" required>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <th>Username</th>
                                                         <td>
                                                             <input type="text" name="username" class="form-control" value="{{$order_noc->username}}" required>
@@ -214,10 +201,7 @@
                                                     </tr>
                                                     <tr>
 
-                                                        <th>Real IP</th>
-                                                        <td>
-                                                            <input type="text" name="real_ip" class="form-control" value="{{$order_noc->real_ip}}" required>
-                                                        </td>
+
                                                         <th>Device Description</th>
                                                         <td>
                                                             <textarea name="device_description" class="form-control" rows="1" required>{{$order_noc->device_description}}</textarea>
@@ -225,7 +209,7 @@
                                                         <th>Status</th>
                                                         <td>
                                                             <select class="form-control" name="status">
-                                                            <option value="">Select Status</option>
+                                                                <option value="">Select Status</option>
                                                                 <option value="Processing" {{ $order_noc->status=="Processing"?"selected":'' }}>Processing</option>
                                                                 <option value="Done" {{ $order_noc->status=="Done"?"selected":'' }}>Done</option>
                                                             </select>

@@ -8,12 +8,12 @@ use App\Models\Service;
 use App\Models\Upazila;
 use App\Models\District;
 use App\Models\Division;
+use App\Models\OrderNoc;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use App\Models\Admin\Admin;
 use App\Models\OrderBuffer;
 use App\Helpers\LogActivity;
-use App\Models\OrderNOCInfo;
 use Illuminate\Http\Request;
 use App\Models\OrderApproval;
 use App\Models\OrderCustomerInfo;
@@ -168,7 +168,7 @@ class OrderController extends Controller
         $order_buffer->order_id = $order->id;
         $order_buffer->save();
 
-        $order_noc = new OrderNOCInfo();
+        $order_noc = new OrderNoc();
         $order_noc->order_id = $order->id;
         $order_noc->save();
 

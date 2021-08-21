@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 use App\Models\OrderApproval;
 use Brian2694\Toastr\Facades\Toastr;
 
-class OrderNOCInfoController extends Controller
+class OrderNocController extends Controller
 {
     public function nocEdit($id)
     {
         $data = [
-            'order' => Order::where('id', $id)->first(),
+            'order' => Order::with('order_items')->where('id', $id)->first(),
             'order_noc' => OrderNOCInfo::where('order_id', $id)->first(),
             'customer_order_info' => OrderInfo::with('order')->where('order_id', $id)->first()
         ];
