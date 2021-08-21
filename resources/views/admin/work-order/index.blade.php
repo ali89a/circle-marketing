@@ -136,14 +136,16 @@
                                         <ul class="list-inline" style="width:120px">
                                             <li>
                                                 <!--Marketing Executive section-->
-                                                @if($order->order_approval->modify_description)
-                                                <button type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal" data-target="#modify_list{{$order->id}}">
-                                                    Modifiction
-                                                </button>
-                                                @endif
+                                                
+                                                    @if(isset($order->order_approval) && $order->order_approval->modify_description)
+                                                    <button type="button" class="btn btn-warning btn-sm btn-block" data-toggle="modal" data-target="#modify_list{{$order->id}}">
+                                                        Modifiction
+                                                    </button>
+                                                    @endif
+                                                
                                                 <a href="" class="btn btn-danger btn-sm btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
                                                 <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
-                                                @if($order->order_approval->noc_processing_status =='Done')
+                                                @if(isset($order->order_approval) && $order->order_approval->noc_processing_status =='Done')
                                                 <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
                                                 <a href="{{route('work-order-downgration', $order->id)}}" class="btn btn-info  btn-block btn-sm"><i class="fa fa-edit"></i> Downgration</a>
                                                 @endif
@@ -172,7 +174,7 @@
                                                     <td class="bg-gray">M A</td>
                                                     <td class="text-center mstatus666">
                                                         @hasrole('Marketing Admin')
-                                                        @if($order->order_approval->m_approved_status =='Approved')
+                                                        @if(isset($order->order_approval) && $order->order_approval->m_approved_status =='Approved')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
                                                         @else
                                                         @if($order->completion_status =='Processing')
@@ -195,7 +197,7 @@
                                                     <td class="bg-gray">A A</td>
                                                     <td class="text-center acstatus666">
                                                         @hasrole('Accounts Admin')
-                                                        @if($order->order_approval->m_approved_status =='Approved' && $order->order_approval->a_approved_status =='Pending')
+                                                        @if(isset($order->order_approval) && $order->order_approval->m_approved_status =='Approved' && $order->order_approval->a_approved_status =='Pending')
                                                         <a href="{{route('workOrderApprovalAccount',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
                                                         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modify{{$order->id}}">
                                                             Modify
@@ -215,7 +217,7 @@
                                                     <td class="bg-gray">COO</td>
                                                     <td class="text-center coostatus666">
                                                         @hasrole('COO')
-                                                        @if($order->order_approval->a_approved_status =='Approved' && $order->order_approval->coo_approved_status =='Pending')
+                                                        @if(isset($order->order_approval) && $order->order_approval->a_approved_status =='Approved' && $order->order_approval->coo_approved_status =='Pending')
                                                         <a href="{{route('workOrderApprovalCOO',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
                                                         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modify{{$order->id}}">
                                                             Modify
@@ -233,10 +235,10 @@
                                                     <td class="bg-gray">N A</td>
                                                     <td class="text-center nstatus666">
                                                         @hasrole('NOC Admin')
-                                                        @if($order->order_approval->coo_approved_status =='Pending' && $order->order_approval->noc_processing_status =='Pending' && $order->order_approval->noc_approved_status =='Pending')
+                                                        @if(isset($order->order_approval) && $order->order_approval->coo_approved_status =='Pending' && $order->order_approval->noc_processing_status =='Pending' && $order->order_approval->noc_approved_status =='Pending')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
                                                         @endif
-                                                        @if($order->order_approval->coo_approved_status =='Approved' && $order->order_approval->noc_processing_status =='Pending' && $order->order_approval->noc_approved_status =='Pending')
+                                                        @if(isset($order->order_approval) && $order->order_approval->coo_approved_status =='Approved' && $order->order_approval->noc_processing_status =='Pending' && $order->order_approval->noc_approved_status =='Pending')
                                                         <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target="#modify{{$order->id}}">
                                                             Modify
                                                         </button>
@@ -247,20 +249,20 @@
 
                                                         </div>
                                                         @endif
-                                                        @if($order->order_approval->noc_approved_status =='Assigned' && $order->order_approval->noc_processing_status =='Processing')
+                                                        @if(isset($order->order_approval) && $order->order_approval->noc_approved_status =='Assigned' && $order->order_approval->noc_processing_status =='Processing')
                                                         <a href="{{route('nocEdit',$order->id)}}" class="btn btn-success btn-sm mb-1">Setup</a>
                                                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}">
                                                             Reassign
                                                         </button>
                                                         @endif
-                                                        @if($order->order_approval->noc_approved_status =='Assigned' && $order->order_approval->noc_processing_status =='Done')
+                                                        @if(isset($order->order_approval) && $order->order_approval->noc_approved_status =='Assigned' && $order->order_approval->noc_processing_status =='Done')
                                                         <a href="{{route('workOrderApprovalNoc',$order->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
                                                         <a href="{{route('nocEdit',$order->id)}}" class="btn btn-success btn-sm mb-1">Setup</a>
                                                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$order->id}}">
                                                             Reassign
                                                         </button>
                                                         @endif
-                                                        @if($order->order_approval->noc_approved_status =='Approved' && $order->order_approval->noc_processing_status =='Done')
+                                                        @if(isset($order->order_approval) && $order->order_approval->noc_approved_status =='Approved' && $order->order_approval->noc_processing_status =='Done')
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->noc_approved_status ??'' }}</p>
                                                         @endif
 

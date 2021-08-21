@@ -14,7 +14,7 @@ class CreateDivisionsTable extends Migration
     public function up()
     {
         Schema::create('divisions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->foreignId('id');
             $table->string('name');
             $table->string('bn_name')->nullable();
             $table->string('url')->nullable();

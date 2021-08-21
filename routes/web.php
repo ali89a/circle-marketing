@@ -150,6 +150,8 @@ Route::middleware('auth')->prefix('customer')->name('customer.')->group(function
 
     Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);
     Route::get('fetch-thana', [App\Http\Controllers\OrderController::class, 'fetch_thana']);
+
+    // Route::get('support','Sup');
 });
 
 require('admin.php');

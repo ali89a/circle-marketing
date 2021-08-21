@@ -16,4 +16,20 @@
       </li>
     </ul>
   </li>
+
+  <li class="{{ Request::segment(2) == 'support-ticket' ? 'has-sub sidebar-group-active open' : '' }} nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="layout">
+  </i><span class="menu-title text-truncate" data-i18n="Page Layouts">Support Ticket</span></a>
+<ul class="menu-content">
+
+  <li class="{{ Request::segment(2) == 'support-ticket' && Request::segment(3) == '' ? 'active' : '' }}">
+    <a class="d-flex align-items-center" href="{{ route('support.index') }}"><i data-feather="circle">
+      </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Ticket List</span></a>
+  </li>
+  <li class="{{ Request::segment(2) == 'order' && Request::segment(3) == 'create' ? 'active' : '' }}">
+    <a class="d-flex align-items-center" href="{{ route('customer.order.create') }}"><i data-feather="circle">
+      </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Work Order Create</span></a>
+  </li>
+</ul>
+</li>
+
 </ul>
