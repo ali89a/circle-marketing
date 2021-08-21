@@ -30,7 +30,8 @@ class Order extends Model
     public function order_approval()
     {
 
-        return $this->hasOne('App\Models\OrderApproval', 'order_id');
+        // return $this->hasOne('App\Models\OrderApproval', 'order_id');
+        return $this->hasOne(OrderApproval::class);
     }
     public function noc()
     {
