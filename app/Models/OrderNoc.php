@@ -20,4 +20,8 @@ class OrderNoc extends Model
         'order_id',
       
     ];
+    public function noc_items()
+    {
+        return $this->hasMany('App\Models\OrderNocItem', 'order_noc_id');
+    }
 }

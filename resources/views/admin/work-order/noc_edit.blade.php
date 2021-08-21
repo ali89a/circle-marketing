@@ -172,10 +172,11 @@
                                                     </tr>
                                                     @foreach($order->order_items as $key=>$row)
                                                     <tr>
-                                                        <th>{{ $row->service->name }}</th>
-                                                        <td><input type="text" value="{{$order_noc->vlan_internet}}" name="noc_item[{{$key}}]['vlan']" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_ggc}}" name="noc_item[{{$key}}]['ip']" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_fb}}" name="noc_item[{{$key}}]['assigned_brandwith']" class="form-control"></td>
+                                                        <th>{{ $row->service->name }}<input type="text" value="{{$row->service->id}}" name="noc_items[{{$key}}][service_id]" class="form-control">
+                                                       </th>
+                                                        <td><input type="text" value="{{$order_noc->vlan_internet}}" name="noc_items[{{$key}}][vlan]" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->vlan_ggc}}" name="noc_items[{{$key}}][ip]" class="form-control"></td>
+                                                        <td><input type="text" value="{{$order_noc->vlan_fb}}" name="noc_items[{{$key}}][assigned_brandwith]" class="form-control"></td>
                                                     </tr>
                                                     @endforeach
                                                     <tr>

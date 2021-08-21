@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderInfo;
-use App\Models\OrderNOCInfo;
+use App\Models\OrderNoc;
 use Illuminate\Http\Request;
 use App\Models\OrderApproval;
+use App\Models\OrderNocItem;
 use Brian2694\Toastr\Facades\Toastr;
 
 class OrderNocController extends Controller
@@ -15,7 +16,7 @@ class OrderNocController extends Controller
     {
         $data = [
             'order' => Order::with('order_items')->where('id', $id)->first(),
-            'order_noc' => OrderNOCInfo::where('order_id', $id)->first(),
+            'order_noc' => OrderNoc::where('order_id', $id)->first(),
             'customer_order_info' => OrderInfo::with('order')->where('order_id', $id)->first()
         ];
         return view('admin.work-order.noc_edit', $data);
@@ -29,24 +30,16 @@ class OrderNocController extends Controller
             'device_description' => 'required',
 
         ]);
-        $noc_info = OrderNOCInfo::where('order_id', $id)->first();
-        $noc_info->vlan_internet = $request->vlan_internet;
-        $noc_info->vlan_ggc = $request->vlan_internet;
-        $noc_info->vlan_fb = $request->vlan_internet;
-        $noc_info->vlan_bdix = $request->vlan_internet;
-        $noc_info->vlan_data = $request->vlan_internet;
-
-        $noc_info->ip_internet = $request->ip_internet;
-        $noc_info->ip_ggc = $request->ip_internet;
-        $noc_info->ip_fb = $request->ip_internet;
-        $noc_info->ip_bdix = $request->ip_internet;
-        $noc_info->ip_data = $request->ip_internet;
-
-        $noc_info->assigned_bandwidth_internet = $request->assigned_bandwidth_internet;
-        $noc_info->assigned_bandwidth_ggc = $request->assigned_bandwidth_internet;
-        $noc_info->assigned_bandwidth_fb = $request->assigned_bandwidth_internet;
-        $noc_info->assigned_bandwidth_bdix = $request->assigned_bandwidth_internet;
-        $noc_info->assigned_bandwidth_data = $request->assigned_bandwidth_internet;
+        $noc_info = OrderNoc::where('order_id', $id)->first();
+        foreach ($request->noc_items as $key => $row) {
+            $order_noc_info = new OrderNocItem();
+            $order_noc_info->order_noc_id =  $noc_info->id;
+            $order_noc_info->service_id = $row['service_id'];
+            $order_noc_info->vlan = $row['vlan'];
+            $order_noc_info->ip = $row['ip'];
+            $order_noc_info->assigned_brandwith = $row['assigned_brandwith'];
+            $order_noc_info->save();
+        }
 
         $noc_info->mrtg_graph_url = $request->mrtg_graph_url;
         $noc_info->username = $request->username;
@@ -97,10 +90,10 @@ class OrderNocController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\OrderNOCInfo  $orderNOCInfo
+     * @param  \App\Models\OrderNoc  $orderNoc
      * @return \Illuminate\Http\Response
      */
-    public function show(OrderNOCInfo $orderNOCInfo)
+    public function show(OrderNoc $orderNoc)
     {
         //
     }
@@ -108,10 +101,10 @@ class OrderNocController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\OrderNOCInfo  $orderNOCInfo
+     * @param  \App\Models\OrderNoc  $orderNoc
      * @return \Illuminate\Http\Response
      */
-    public function edit(OrderNOCInfo $orderNOCInfo)
+    public function edit(OrderNoc $orderNoc)
     {
         //
     }
@@ -120,10 +113,10 @@ class OrderNocController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\OrderNOCInfo  $orderNOCInfo
+     * @param  \App\Models\OrderNoc  $orderNoc
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OrderNOCInfo $orderNOCInfo)
+    public function update(Request $request, OrderNoc $orderNoc)
     {
         //
     }
@@ -131,10 +124,10 @@ class OrderNocController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\OrderNOCInfo  $orderNOCInfo
+     * @param  \App\Models\OrderNoc  $orderNoc
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OrderNOCInfo $orderNOCInfo)
+    public function destroy(OrderNoc $orderNoc)
     {
         //
     }
