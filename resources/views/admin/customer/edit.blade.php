@@ -160,7 +160,28 @@
                                         <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
                                         @endif
                                     </div>
-                                    <div class="col-xl-12 col-md-12 col-12">
+                                    <div class="col-xl-4 col-md-4 col-8">
+                                        <div class="form-group">
+                                            <label for="contact_authorization_url">Contact Authorization</label>
+                                            <input type="file" class="form-control" id="contact_authorization_url" name="contact_authorization_url">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-2 col-md-2 col-4">
+                                        @if($user->contact_authorization_url)
+                                        @php
+                                        $ext =pathinfo($user->contact_authorization_url, PATHINFO_EXTENSION);
+                                        @endphp
+                                        @if ($ext == 'pdf')
+                                        <a target="_blank" class="iframe-popup" href="{{asset('storage/contact_authorization/'.$user->contact_authorization_url)}}"> <img src="{{asset('app-assets/images/icons/pdfs-icon.png')}}" alt=" {{ $user->contact_authorization_url }}" class="img-fluid"></a>
+
+                                        @else
+                                        <a target="_blank" class="iframe-popup" href="{{asset('storage/contact_authorization/'.$user->contact_authorization_url)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt="" class="img-fluid"></a>
+                                        @endif
+                                        @else
+                                        <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 col-6">
                                         <div class="form-group">
                                             <label for="billing_address">Billing Address</label>
                                             <input type="text" class="form-control" id="billing_address" name="billing_address" value="{{$user->billing_address}}">

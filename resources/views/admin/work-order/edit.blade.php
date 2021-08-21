@@ -19,7 +19,7 @@
                                     <tbody>
                                         <tr>
 
-                                            <td style="">Customer:</td>
+                                            <td>Customer:</td>
                                             <td>
                                                 Md Rezaur Rahman
                                                 <br>(T.G Network) </td>

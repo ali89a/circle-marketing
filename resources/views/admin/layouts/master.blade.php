@@ -58,22 +58,41 @@
         </ul>
       </div>
       <ul class="nav navbar-nav align-items-center ml-auto">
-      <li class="nav-item dropdown dropdown-notification mr-25">
+        <li class="nav-item dropdown dropdown-notification mr-25">
           <a class="nav-link" href="{{url('admin/pending-work-order','marketing')}}">
-         M
-            <span class="badge badge-pill badge-danger badge-up">{{ $m_pending }}</span>
+            M
+            <span class="badge badge-pill badge-danger badge-up">
+              @php
+              $m_pending = \App\Models\Order::whereHas('order_approval', function ($q) {
+              $q->where('m_approved_status', 'Pending');
+              })->count();
+              $coo_pending = \App\Models\Order::whereHas('order_approval', function ($q) {
+              $q->where('coo_approved_status', 'Pending');
+              })->count();
+              $noc_pending = \App\Models\Order::whereHas('order_approval', function ($q) {
+              $q->where('noc_approved_status', 'Pending');
+              })->count();
+              $noc_pro_pending = \App\Models\Order::whereHas('order_approval', function ($q) {
+              $q->where('noc_processing_status', 'Pending');
+              })->count();
+              $a_pending = \App\Models\Order::whereHas('order_approval', function ($q) {
+              $q->where('a_approved_status', 'Pending');
+              })->count();
+              @endphp
+              {{ $m_pending ??'0' }}
+            </span>
           </a>
         </li>
-      <li class="nav-item dropdown dropdown-notification mr-25">
+        <li class="nav-item dropdown dropdown-notification mr-25">
           <a class="nav-link" href="{{url('admin/pending-work-order','coo')}}">
-           COO
-            <span class="badge badge-pill badge-danger badge-up">{{ $coo_pending }}</span>
+            COO
+            <span class="badge badge-pill badge-danger badge-up">{{ $coo_pending ??'0' }}</span>
           </a>
         </li>
         <li class="nav-item dropdown dropdown-notification mr-25">
           <a class="nav-link" href="{{url('admin/pending-work-order','noc')}}">
             N
-            <span class="badge badge-pill badge-danger badge-up">{{ $noc_pending }}</span>
+            <span class="badge badge-pill badge-danger badge-up">{{ $noc_pending ??'0' }}</span>
           </a>
         </li>
         <li class="nav-item dropdown dropdown-notification mr-25">
@@ -85,7 +104,7 @@
         <li class="nav-item dropdown dropdown-notification mr-25">
           <a class="nav-link" href="{{url('admin/pending-work-order','accounts')}}">
             A
-            <span class="badge badge-pill badge-danger badge-up">{{ $a_pending }}</span>
+            <span class="badge badge-pill badge-danger badge-up">{{ $a_pending ??'0' }}</span>
           </a>
         </li>
 
@@ -199,7 +218,7 @@
   {!! Toastr::message() !!}
   <!-- Google analytics script-->
   <script type="text/javascript">
-    @if($errors->any())
+    @if($errors-> any())
     @foreach($errors-> all() as $error)
     toastr.error('{{$error}}', 'Error', {
       closeButton: true,

@@ -385,7 +385,15 @@
                                                     <td style="font-size:12px;"><strong>Own/Nttn Type:</strong>{{$order->type}} </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="font-size:12px;"><strong>Price :</strong> {{$order->price}}</td>
+                                                    <td style="font-size:12px;"><strong>Price :</strong>
+                                                        @if($order->type == 'Own')
+                                                        <span>{{$order->own_price }}</span>
+                                                        @else
+                                                        <span>
+                                                            {{$order->nttn_price }}
+                                                        </span>
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -596,7 +604,7 @@
                                                                         @endphp
 
                                                                         @if ($ext == 'pdf')
-                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block" href="{{asset('storage/nid/'.$order->customer->nid_url)}}"> <img src="{{asset('app-assets/images/icons/pdf.png')}}" alt=" {{ $order->customer->nid_url }}" class="img-fluid"></a>
+                                                                        <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block" href="{{asset('storage/nid/'.$order->customer->nid_url)}}"> View Pdf</a>
 
                                                                         @else
                                                                         <a target="_blank" class="iframe-popup btn btn-outline-primary waves-effect btn-block" href="{{asset('storage/nid/'.$order->customer->nid_url)}}">View
@@ -871,12 +879,16 @@
                                     <td class="text-center">{{ $order->visit_type }}</td>
                                     <td class="text-center">
                                         {{ $order->billing_cycle }}
-                                        <hr>
-                                        15tarik 50% 26tarik 50%
                                     </td>
                                     <td>
                                         <table class="billingtable">
                                             <tbody>
+                                                @if($order->bill_by_graph)
+                                                <tr>
+                                                    <td>Bill</td>
+                                                    <td>Bill By Graph</td>
+                                                </tr>
+                                                @endif
                                                 <tr>
                                                     <td>Submission Date</td>
                                                     <td>{{ \Carbon\Carbon::parse($order->order_submission_date)->format('j-M-Y')}}</td>

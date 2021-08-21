@@ -54,13 +54,13 @@
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ old('name') }}">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{ old('name') }}"  autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" value="{{ old('email') }}">
+                                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" value="{{ old('email') }}" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12">
@@ -96,22 +96,28 @@
                                     <div class="col-xl-3 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="btrc_license_url"> BTRC License</label>
-                                            <input type="file" class="form-control" id="btrc_license_url" name="btrc_license_url">
+                                            <input type="file" class="form-control" id="btrc_license_url" name="btrc_license_url" required>
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="nid_url">NID </label>
-                                            <input type="file" class="form-control" id="nid_url" name="nid_url">
+                                            <input type="file" class="form-control" id="nid_url" name="nid_url" required>
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="trade_license_url">Trade License</label>
-                                            <input type="file" class="form-control" id="trade_license_url" name="trade_license_url">
+                                            <input type="file" class="form-control" id="trade_license_url" name="trade_license_url" required>
                                         </div>
                                     </div>
-                                    <div class="col-xl-12 col-md-12 col-12">
+                                    <div class="col-xl-3 col-md-3 col-12">
+                                        <div class="form-group">
+                                            <label for="contact_authorization_url">Contact Authorization</label>
+                                            <input type="file" class="form-control" id="contact_authorization_url" name="contact_authorization_url">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-md-3 col-12">
                                         <div class="form-group">
                                             <label for="billing_address">Billing Address</label>
                                             <input type="text" class="form-control" id="billing_address" name="billing_address" value="{{ old('billing_address') }}">
@@ -119,7 +125,7 @@
                                     </div>
                                     @if (Auth::guard('admin')->user()->hasRole('Super Admin|Admin'))
 
-                                    <div class="col-xl-12 col-md-12 col-12">
+                                    <div class="col-xl-3 col-md-3 col-12">
                                         <div class="form-group">
                                             <label for="marketing_user_id">Assign Marketing</label>
                                             <select class="form-control" id="marketing_user_id" name="marketing_user_id" required>

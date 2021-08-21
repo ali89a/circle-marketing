@@ -91,6 +91,11 @@ class UserController extends Controller
             $request->trade_license_url->move(storage_path('app/public/trade_license'), $fileName);
             $user->trade_license_url = $fileName;
         }
+        if ($request->contact_authorization_url != null) {
+            $fileName = time() . '.' . $request->contact_authorization_url->extension();
+            $request->contact_authorization_url->move(storage_path('app/public/contact_authorization'), $fileName);
+            $user->contact_authorization_url = $fileName;
+        }
         $user->save();
 
         // $details = [
@@ -169,6 +174,11 @@ class UserController extends Controller
             $fileName = time() . '.' . $request->trade_license_url->extension();
             $request->trade_license_url->move(storage_path('app/public/trade_license'), $fileName);
             $user->trade_license_url = $fileName;
+        }
+        if ($request->contact_authorization_url != null) {
+            $fileName = time() . '.' . $request->contact_authorization_url->extension();
+            $request->contact_authorization_url->move(storage_path('app/public/contact_authorization'), $fileName);
+            $user->contact_authorization_url = $fileName;
         }
         if ($user->isDirty()) {
             $user->save();

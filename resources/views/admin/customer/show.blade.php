@@ -52,6 +52,10 @@
                     <div class="table-responsive">
                         <table class="table mb-0">
                             <tr>
+                                <th rowspan="2">Image</th>
+                                <td rowspan="2">
+                                    <img src="{{asset('storage/customer/'.$model->img_url)}}" alt=" No File" class="img-fluid">
+                                </td>
                                 <th>Name</th>
                                 <td>{{$model->name}}</td>
                                 <th>Email</th>
@@ -60,12 +64,9 @@
                                 <td>{{$model->mobile}}</td>
                             </tr>
                             <tr>
-                                <th>Image</th>
-                                <td>
-                                    <img src="{{asset('storage/customer/'.$model->img_url)}}" alt=" No File" class="img-fluid">
-                                </td>
+                                
                                 <th>VIN Number</th>
-                                <td>{{$model->vin_no}}</td>
+                                <td>{{$model->bin_no}}</td>
                                 <th>Billing Address</th>
                                 <td>{{$model->billing_address}}</td>
                             </tr>
@@ -115,6 +116,22 @@
                                     <a target="_blank" class="iframe-popup" href="{{asset('storage/nid/'.$model->nid_url)}}"> <img src="{{asset('app-assets/images/icons/pdfs-icon.png')}}" alt=" {{ $model->nid_url }}" class="img-fluid"></a>
                                     @else
                                     <a target="_blank" class="iframe-popup" href="{{asset('storage/nid/'.$model->nid_url)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt="" class="img-fluid"></a>
+                                    @endif
+                                    @else
+                                    <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
+                                    @endif
+                                </td>
+                                <th>Contact Authorization</th>
+                                <td>
+
+                                    @if($model->contact_authorization_url)
+                                    @php
+                                    $ext =pathinfo($model->contact_authorization_url, PATHINFO_EXTENSION);
+                                    @endphp
+                                    @if ($ext == 'pdf')
+                                    <a target="_blank" class="iframe-popup" href="{{asset('storage/contact_authorization/'.$model->contact_authorization_url)}}"> <img src="{{asset('app-assets/images/icons/pdfs-icon.png')}}" alt=" {{ $model->contact_authorization_url }}" class="img-fluid"></a>
+                                    @else
+                                    <a target="_blank" class="iframe-popup" href="{{asset('storage/contact_authorization/'.$model->contact_authorization_url)}}"> <img src="{{asset('app-assets/images/icons/pictures-icon.png')}}" alt="" class="img-fluid"></a>
                                     @endif
                                     @else
                                     <img src="{{asset('app-assets/images/icons/no-file.png')}}" alt=" No File" class="img-fluid">
