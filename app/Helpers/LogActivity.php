@@ -21,7 +21,7 @@ class LogActivity
         $log['url'] = Request::fullUrl();
         $log['ip'] = Request::ip();
         $log['admin_user_id'] = auth()->check() ? auth()->user()->id : 1;
-        $log['admin_user_name'] = Auth::guard('admin')->user()->name;
+        $log['admin_user_name'] = Auth::guard('admin')->user()->name ??'';
         $log['old_data'] = $work_order;
         LogActivityModel::create($log);
     }
