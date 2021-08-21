@@ -69,7 +69,9 @@ class UserController extends Controller
         $user->mobile = $request->mobile;
         $user->bin_no = $request->bin_no;
         $user->billing_address = $request->billing_address;
-        $user->creator_user_id =  $request->marketing_user_id ? $request->marketing_user_id : Auth::guard('admin')->id();
+        $user->creator_user_id =  Auth::guard('admin')->id();
+        $user->assigned_user_id =  $request->marketing_user_id ? $request->marketing_user_id : Auth::guard('admin')->id();
+
         $user->password = bcrypt($request->password);
         if ($request->img_url != null) {
             $fileName = time() . '.' . $request->img_url->extension();

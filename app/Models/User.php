@@ -20,8 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',  
-        'mobile',  
+        'password',
+        'mobile',
         'billing_address',
         'vin_no',
         'img_url',
@@ -51,4 +51,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function assigned_user()
+    {
+        return $this->belongsTo('App\Models\Admin\Admin', 'assigned_user_id');
+    }
 }

@@ -520,7 +520,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>IP Agreement</td>
+                                                                    <td>IP Agreement/Authorization</td>
                                                                     <td>
                                                                         @if($order->customer_doc->ip_agreement)
                                                                         @php
@@ -539,7 +539,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Authorization(Cor)</td>
+                                                                    <td>Price Approval</td>
                                                                     <td>
                                                                         @if($order->customer_doc->authorization)
                                                                         @php

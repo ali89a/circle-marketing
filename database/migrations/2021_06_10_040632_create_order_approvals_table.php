@@ -25,6 +25,7 @@ class CreateOrderApprovalsTable extends Migration
             $table->foreignId('coo_approved_by')->nullable();
             $table->date('coo_approved_time')->nullable();
             $table->string('coo_approved_status')->nullable();
+            $table->text('coo_approved_comments')->nullable();
 
             $table->foreignId('noc_assigned_by')->nullable();
             $table->foreignId('noc_assigning_by')->nullable();

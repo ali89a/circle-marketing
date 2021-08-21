@@ -58,6 +58,7 @@
                                     <th scope="col" class="text-nowrap">Email</th>
                                     <th scope="col" class="text-nowrap">Mobile</th>
                                     <th scope="col" class="text-nowrap">Bin</th>
+                                    <th scope="col" class="text-nowrap">Assign User</th>
                                     <th scope="col" class="text-nowrap">Billing Address</th>
                                     <th scope="col" class="text-nowrap text-right">Action</th>
                                 </tr>
@@ -70,6 +71,7 @@
                                     <td>{{ $row->email }}</td>
                                     <td>{{ $row->mobile }}</td>
                                     <td>{{ $row->bin_no }}</td>
+                                    <td>{{ $row->assigned_user->name??'' }}</td>
                                     <td>{{ $row->billing_address }}</td>
                                     <td>
                                         <div class="float-right">
