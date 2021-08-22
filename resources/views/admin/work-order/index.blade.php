@@ -220,6 +220,10 @@
                                                         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modify{{$order->id}}">
                                                             Modify
                                                         </button>
+                                                      
+                                                        <button type="button" class="btn btn-info btn-sm mt-1" data-toggle="modal" data-target="#comment{{$order->id}}">
+                                                            Comments
+                                                        </button>
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->coo_approved_status ??'' }}</p>
                                                         @endif
@@ -324,6 +328,33 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <div class="modal fade text-left" id="comment{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myModalLabel1">Comments</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="{{route('comment',$order->id)}}" method="post">
+                                                        @csrf
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <input type="hidden" name="order_id" value="{{$order->id}}" id="order_id">
+                                                                    <textarea class="form-control" name="comments" required></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary waves-effect waves-float waves-light">Submit</button>
+                                                            <button type="button" class="btn btn-danger waves-effect waves-float waves-light" data-dismiss="modal">Cancle</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="modal fade text-left" id="modify{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">

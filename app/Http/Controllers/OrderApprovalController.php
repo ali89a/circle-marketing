@@ -22,6 +22,16 @@ class OrderApprovalController extends Controller
     {
         //
     }
+    public function comment(Request $request, $id)
+    {
+        $order_approval = OrderApproval::where('order_id', $id)->first();
+
+        $order_approval->coo_approved_comments = $request->comments;
+        $order_approval->save();
+
+        Toastr::success('Comments Send Successful!.', '', ["progressbar" => true]);
+        return redirect()->back();
+    }
     public function modifyDescription(Request $request, $id)
     {
         $order_approval = OrderApproval::where('order_id', $id)->first();
