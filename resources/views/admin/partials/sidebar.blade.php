@@ -160,4 +160,35 @@
 
         </ul>
     </li>
+
+    <li class="{{ Request::segment(2) == 'support-ticket' ? 'has-sub sidebar-group-active open' : '' }} nav-item">
+        <a class="d-flex align-items-center" href="#">
+          <i data-feather="layout"></i>
+          <span class="menu-title text-truncate" data-i18n="Page Layouts">Support Ticket</span>
+      </a>
+      <ul class="menu-content">
+    
+        <li class="{{ Request::segment(2) == 'support-ticket' && Request::segment(3) == '' ? 'active' : '' }}">
+          <a class="d-flex align-items-center" href="{{ route('support-ticket.index')}}"><i data-feather="circle">
+            </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Ticket List</span></a>
+        </li>
+        <li class="{{ Request::segment(2) == 'order' && Request::segment(3) == 'create' ? 'active' : '' }}">
+          <a class="d-flex align-items-center" href="{{ route('support-ticket.create') }}"><i data-feather="circle">
+            </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Submit New Ticket</span></a>
+        </li>
+        <li class="{{ Request::segment(2) == 'order' && Request::segment(3) == 'create' ? 'active' : '' }}">
+            <a class="d-flex align-items-center" href="{{ route('support-category.index') }}"><i data-feather="circle">
+            </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Support Category</span></a>
+        </li>
+        <li class="{{ Request::segment(2) == 'order' && Request::segment(3) == 'create' ? 'active' : '' }}">
+            <a class="d-flex align-items-center" href="{{ route('support-prioritys.index') }}"><i data-feather="circle">
+            </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Support Priorities</span></a>
+        </li>
+        <li class="{{ Request::segment(2) == 'order' && Request::segment(3) == 'create' ? 'active' : '' }}">
+            <a class="d-flex align-items-center" href="{{ route('support-status.index') }}"><i data-feather="circle">
+            </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Support Status</span></a>
+        </li>
+
+      </ul>
+      </li>
 </ul>

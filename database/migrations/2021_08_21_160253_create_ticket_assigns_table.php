@@ -15,6 +15,9 @@ class CreateTicketAssignsTable extends Migration
     {
         Schema::create('ticket_assigns', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('ticket_id');
+            $table->foreignId('user_id');
+            $table->foreignId('assign_by');
             $table->timestamps();
         });
     }
