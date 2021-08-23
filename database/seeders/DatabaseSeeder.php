@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UpazilaSeeder::class);
         $this->call(ServiceSeeder::class);
         $this->call(AccessControlsTableSeeder::class);
+        $this->call(TicketSeeder::class);
         // \App\Models\User::factory(10)->create();
     }
 }

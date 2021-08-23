@@ -181,17 +181,138 @@ class AccessControlsTableSeeder extends Seeder
         $count_permission = DB::table('permissions')->count();
         $count_role = DB::table('roles')->count();
 
-        for($i=1;$i<=$count_role;$i++){
-            $data = [];
-            for($j=1;$j<=$count_permission;$j++){
-                $data[$j]['permission_id'] = $j;
-                $data[$j]['role_id'] = $i;
-            }
-            
-            // dd($data);
-    
-            DB::table('role_has_permissions')->insert($data);
+
+        // super admin 1
+        $data = [];
+        for($i=1;$i<=$count_permission;$i++){
+            $data[$i]['permission_id'] = $i;
+            $data[$i]['role_id'] = 1; 
         }
+        DB::table('role_has_permissions')->insert($data);
+
+
+        //admin 2
+
+        $data = [];
+        for($i=1;$i<=$count_permission;$i++){
+            $data[$i]['permission_id'] = $i;
+            $data[$i]['role_id'] = 2; 
+        }
+        DB::table('role_has_permissions')->insert($data);
+
+        //CEO 3
+
+        $data = [];
+        for($i=1;$i<=$count_permission;$i++){
+            $data[$i]['permission_id'] = $i;
+            $data[$i]['role_id'] = 3; 
+        }
+        DB::table('role_has_permissions')->insert($data);
+
+        //COO 4
+
+        $data = [];
+        for($i=1;$i<=$count_permission;$i++){
+            $data[$i]['permission_id'] = $i;
+            $data[$i]['role_id'] = 4; 
+        }
+        DB::table('role_has_permissions')->insert($data);
+
+        // marketing admin 5 
+
+        $permission_list = [2,3,4,5,12,13,14,15,17,22,23,24,25,27,28,29,30,32,33,34,35,37,38,39,40,42,43];
+        $role_id = 5;        
+        
+        $data = array();
+
+        foreach($permission_list as $p){
+            $data[] = [
+                'permission_id' => $p,
+                'role_id'       => $role_id
+            ];            
+        }
+
+        DB::table('role_has_permissions')->insert($data);
+        // marketing executive 6 
+        $role_id = 6;
+        $permission_list = [12,13,14,15,17,22,23,27,28,29,30,32,33,34,35,37,38,39,40,43];
+        
+        $data = array();
+
+        foreach($permission_list as $p){
+            $data[] = [
+                'permission_id' => $p,
+                'role_id'       => $role_id
+            ];            
+        }
+          
+        DB::table('role_has_permissions')->insert($data);
+
+        // account admin 7 
+        $permission_list = [1,2,3,4,5,12,13,14,15,22,23,24,25,27,28,29,30,32,33,34,35,37,39,43];
+        $role_id = 7;        
+        
+        $data = array();
+
+        foreach($permission_list as $p){
+            $data[] = [
+                'permission_id' => $p,
+                'role_id'       => $role_id
+            ];            
+        }
+
+        DB::table('role_has_permissions')->insert($data);
+
+        // account executive 8
+
+        $permission_list = [12,14,23,27,28,29,30,32,33,34,35,37,39,43];
+        $role_id = 8;        
+        
+        $data = array();
+
+        foreach($permission_list as $p){
+            $data[] = [
+                'permission_id' => $p,
+                'role_id'       => $role_id
+            ];            
+        }
+
+        DB::table('role_has_permissions')->insert($data);
+
+
+        // noc admin 9 
+
+        $permission_list = [2,3,4,5,12,13,14,15,17,22,23,24,25,27,28,29,30,32,33,34,35,37,39,];
+        $role_id = 9;        
+        
+        $data = array();
+
+        foreach($permission_list as $p){
+            $data[] = [
+                'permission_id' => $p,
+                'role_id'       => $role_id
+            ];            
+        }
+
+        DB::table('role_has_permissions')->insert($data);
+
+        // noc executive 10
+
+        $permission_list = [12,13,14,15,17,22,23,24,25,27,28,29,30,32,33,34,35,37,39,];
+        $role_id = 10;        
+        
+        $data = array();
+
+        foreach($permission_list as $p){
+            $data[] = [
+                'permission_id' => $p,
+                'role_id'       => $role_id
+            ];            
+        }
+
+        DB::table('role_has_permissions')->insert($data);
+
+
 
 
 

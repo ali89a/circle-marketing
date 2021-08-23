@@ -13,9 +13,13 @@ use App\Http\Controllers\EnvDynamicController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CustomerReportController;
-use App\Http\Controllers\CustomerRelationController;
-use App\Http\Controllers\Customer\WorkOrderController;
+use App\Http\Controllers\Support\StatusController;
 use App\Http\Controllers\WorkOrderFilterController;
+use App\Http\Controllers\CustomerRelationController;
+use App\Http\Controllers\Support\CategoryController;
+use App\Http\Controllers\Customer\WorkOrderController;
+use App\Http\Controllers\Support\PrioritiesController;
+use App\Http\Controllers\Support\SupportTicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,7 +134,10 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/crm-modify/{id}', [CustomerRelationController::class, 'edit'])->name('crmModify');
     Route::get('/print-report', [CustomerReportController::class, 'indexPrint'])->name('printReport');
 
-
+    Route::resource('support-ticket',SupportTicketController::class);
+    Route::resource('support-category',CategoryController::class);
+    Route::resource('support-prioritys',PrioritiesController::class);
+    Route::resource('support-status',StatusController::class);
 });
 
 
@@ -156,7 +163,9 @@ Route::middleware('auth')->prefix('customer')->name('customer.')->group(function
     Route::get('fetch-district', [App\Http\Controllers\OrderController::class, 'fetch_district']);
     Route::get('fetch-thana', [App\Http\Controllers\OrderController::class, 'fetch_thana']);
 
-    // Route::get('support','Sup');
+    // Route::get('ticketlist',[SupportTicket::class,'index'])->name('ticketlist');
+
+    Route::resource('support-ticket',SupportTicketController::class);
 });
 
 require('admin.php');
