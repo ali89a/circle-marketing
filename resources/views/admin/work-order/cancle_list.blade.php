@@ -175,7 +175,7 @@
                                                     <td class="text-center mstatus666">
                                                         @hasrole('Marketing Admin')
                                                         @if($order->order_approval->m_approved_status =='Approved')
-                                                        <p style="background-color: green!important;color:white;padding:5px;">{{ $order->order_approval->m_approved_status ??'' }}</p>
+                                                        <p class="bg-gray btn-block">{{ $order->order_approval->m_approved_status ??'' }}</p>
                                                         @else
                                                         @if($order->completion_status =='Processing')
                                                         <p class="bg-danger text-white btn-block">Incomplete</p>

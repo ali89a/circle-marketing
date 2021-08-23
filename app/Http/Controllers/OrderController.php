@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Models\OrderCustomerDocument;
+use phpDocumentor\Reflection\Types\Null_;
 
 class OrderController extends Controller
 {
@@ -33,9 +34,9 @@ class OrderController extends Controller
     public function index()
     {
         if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
-            $orders = Order::with('customer_details','order_approval')->where('creator_user_id', Auth::guard('admin')->user()->id)->latest()->get();
+            $orders = Order::with('customer_details', 'order_approval')->where('creator_user_id', Auth::guard('admin')->user()->id)->where('status', 'Active')->latest()->get();
         } else {
-            $orders = Order::with('customer_details','order_approval')->latest()->get();
+            $orders = Order::with('customer_details', 'order_approval')->where('status', 'Active')->latest()->get();
         }
 
         // dd($orders);
@@ -45,6 +46,22 @@ class OrderController extends Controller
             'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get(),
         ];
         return view('admin.work-order.index', $data);
+    }
+    public function indexCancle()
+    {
+        if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
+            $orders = Order::with('customer_details', 'order_approval')->where('creator_user_id', Auth::guard('admin')->user()->id)->where('status', 'Inactive')->latest()->get();
+        } else {
+            $orders = Order::with('customer_details', 'order_approval')->where('status', 'Inactive')->latest()->get();
+        }
+
+        // dd($orders);
+
+        $data = [
+            'orders' =>  $orders,
+            'noc_users' => Admin::role(['NOC Executive', 'NOC Admin'])->get(),
+        ];
+        return view('admin.work-order.cancle_list', $data);
     }
 
     /**
@@ -68,6 +85,14 @@ class OrderController extends Controller
         return view('admin.work-order.create', $data);
     }
 
+    public function orderCancle($id)
+    {
+        $order = Order::where('id', $id)->first();
+        $order->status = 'Inactive';
+        $order->save();
+        Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
+        return redirect()->route('work-order.index');
+    }
     public function orderEdit($id)
     {
         $customer_document = OrderCustomerDocument::where('order_id', $id)->first();
@@ -126,6 +151,9 @@ class OrderController extends Controller
             $item->price = $product['price'];
             $item->save();
         }
+        $order_approval = OrderApproval::where('order_id', $id)->first();
+        $order_approval->modify_description = Null;
+        $order_approval->save();
         //  DB::commit();
         Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('work-order.index');
@@ -260,7 +288,6 @@ class OrderController extends Controller
         $order->scl_id = $request->scl_id;
         $order->gmap_location = $request->gmap_location;
         $order->link_id = 'NC_' . \App\Classes\LinkId::serial_number();
-        $order->vat = $request->vat;
         $order->order_submission_date = $request->order_submission_date;
         $order->billing_cycle = $request->billing_cycle;
         $order->billing_remark = $request->billing_remark;
@@ -268,9 +295,6 @@ class OrderController extends Controller
         $order->delivery_date = $request->delivery_date;
         $order->bill_generate_method = $request->bill_generate_method;
         $order->total_Price = $request->total_Price;
-        $order->core_rent = $request->core_rent;
-        $order->otc = $request->otc;
-        $order->real_ip = $request->real_ip;
         $order->visit_type = $request->visit_type;
         $order->connect_type = $request->connect_type;
         $order->security_money_cheque = $request->security_money_cheque;

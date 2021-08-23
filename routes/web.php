@@ -48,6 +48,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     Route::resource('user', UserController::class);
     Route::resource('work-order', OrderController::class);
+    Route::get('/workorder/cancle-list', [App\Http\Controllers\OrderController::class, 'indexCancle'])->name('cancleList');
     Route::get('/doc-edit', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('doc.edit');
     Route::get('/order-edit', [App\Http\Controllers\OrderController::class, 'orderEdit'])->name('order.edit');
     Route::get('/order-detail-edit', [App\Http\Controllers\OrderController::class, 'orderDetailEdit'])->name('order.detail.edit');
@@ -72,7 +73,10 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/fetch-general-product-info/{id}', [App\Http\Controllers\ServiceController::class, 'fetch_general_product_info'])->name('fetch_general_product_info');
     Route::get('/customer-detail-edit/{id?}', [App\Http\Controllers\OrderCustomerInfoController::class, 'customerDetailEdit'])->name('customerDetailEdit');
     Route::put('/customer-detail-update/{id?}', [App\Http\Controllers\OrderCustomerInfoController::class, 'customerDetailUpdate'])->name('customerDetailUpdate');
+    
     Route::put('/order-detail-update/{id?}', [App\Http\Controllers\OrderController::class, 'orderDetailUpdate'])->name('orderDetailUpdate');
+    Route::get('/order-cancle/{id?}', [App\Http\Controllers\OrderController::class, 'orderCancle'])->name('orderCancle');
+
     Route::get('/noc-edit/{id?}', [App\Http\Controllers\OrderNocController::class, 'nocEdit'])->name('nocEdit');
     Route::put('/noc-update/{id?}', [App\Http\Controllers\OrderNocController::class, 'nocUpdate'])->name('nocUpdate');
 
