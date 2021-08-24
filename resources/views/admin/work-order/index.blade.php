@@ -134,6 +134,8 @@
                                     <td>{{ $order->id }}</td>
                                     <td class="text-center">
                                         <ul class="list-inline" style="width:120px">
+                                            @unlessrole('NOC Executive')
+                                          
                                             <li>
                                                 <!--Marketing Executive section-->
                                                 @if($order->order_approval->modify_description)
@@ -165,6 +167,9 @@
                                                 </a>
                                                 @endif
                                             </li>
+                                            @else
+                                          
+                                            @endunlessrole
                                         </ul>
                                     </td>
                                     <td>

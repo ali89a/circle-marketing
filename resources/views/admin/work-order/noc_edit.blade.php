@@ -210,7 +210,6 @@
                                                         <th>Status</th>
                                                         <td>
                                                             <select class="form-control" name="status">
-                                                                <option value="">Select Status</option>
                                                                 <option value="Processing" {{ $order_noc->status=="Processing"?"selected":'' }}>Processing</option>
                                                                 <option value="Done" {{ $order_noc->status=="Done"?"selected":'' }}>Done</option>
                                                             </select>
