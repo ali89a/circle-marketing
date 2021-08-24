@@ -25,7 +25,8 @@ class OrderApprovalController extends Controller
     public function comment(Request $request, $id)
     {
         $order_approval = OrderApproval::where('order_id', $id)->first();
-
+        $order_approval->coo_approved_status = "Approved";
+        $order_approval->coo_approved_time = now();
         $order_approval->coo_approved_comments = $request->comments;
         $order_approval->save();
 

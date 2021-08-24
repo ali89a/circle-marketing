@@ -137,6 +137,20 @@
                                         </div>
                                     </div>
                                     @endif
+                                    @if (Auth::guard('admin')->user()->hasRole('Super Admin|Admin'))
+
+                                    <div class="col-xl-3 col-md-3 col-12">
+                                        <div class="form-group">
+                                            <label for="accounts_user_id">Assign Accounts</label>
+                                            <select class="form-control" id="accounts_user_id" name="accounts_user_id" required>
+                                                <option value="">Select One</option>
+                                                @foreach($accounts_users as $user)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
                                 <button class="btn btn-primary waves-effect waves-float waves-light" type="submit">Submit</button>
                             </form>

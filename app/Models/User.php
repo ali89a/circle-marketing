@@ -52,8 +52,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function assigned_user()
+    public function marketing_user()
     {
-        return $this->belongsTo('App\Models\Admin\Admin', 'assigned_user_id');
+        return $this->belongsTo('App\Models\Admin\Admin', 'marketing_user_id');
+    }
+    public function accounts_user()
+    {
+        return $this->belongsTo('App\Models\Admin\Admin', 'accounts_user_id');
     }
 }

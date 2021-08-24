@@ -45,7 +45,8 @@ class UserController extends Controller
 
         $data = [
             'model' => new User(),
-            'marketing_users' => Admin::role(['Marketing Executive', 'Marketing Admin'])->get()
+            'marketing_users' => Admin::role(['Marketing Executive', 'Marketing Admin'])->get(),
+            'accounts_users' => Admin::role(['Accounts Executive', 'Accounts Admin'])->get()
         ];
 
         return view('admin.customer.create', $data);
@@ -70,7 +71,8 @@ class UserController extends Controller
         $user->bin_no = $request->bin_no;
         $user->billing_address = $request->billing_address;
         $user->creator_user_id =  Auth::guard('admin')->id();
-        $user->assigned_user_id =  $request->marketing_user_id ? $request->marketing_user_id : Auth::guard('admin')->id();
+        $user->marketing_user_id =  $request->marketing_user_id ? $request->marketing_user_id : Auth::guard('admin')->id();
+        $user->accounts_user_id =  $request->accounts_user_id ? $request->accounts_user_id : Auth::guard('admin')->id();
 
         $user->password = bcrypt($request->password);
         if ($request->img_url != null) {

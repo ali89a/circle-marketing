@@ -27,8 +27,10 @@ class CreateUsersTable extends Migration
             $table->text('nid_url')->nullable();
             $table->text('trade_license_url')->nullable();
             $table->text('contact_authorization_url')->nullable();
-            $table->unsignedBigInteger('assigned_user_id')->nullable();
-            $table->foreign('assigned_user_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->unsignedBigInteger('accounts_user_id')->nullable();
+            $table->foreign('accounts_user_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->unsignedBigInteger('marketing_user_id')->nullable();
+            $table->foreign('marketing_user_id')->references('id')->on('admins')->onDelete('cascade');
             $table->unsignedBigInteger('creator_user_id')->nullable();
             $table->foreign('creator_user_id')->references('id')->on('admins')->onDelete('cascade');
             $table->unsignedBigInteger('updator_user_id')->nullable();

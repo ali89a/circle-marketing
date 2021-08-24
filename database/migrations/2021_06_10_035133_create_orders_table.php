@@ -41,6 +41,7 @@ class CreateOrdersTable extends Migration
             $table->date('downgration_delivery_date')->nullable();
             $table->enum('invoice_type', ['New','Upgrate','Downgrate'])->default('New');
             $table->enum('completion_status', ['Processing','Complete'])->default('Processing');
+            $table->enum('status', ['Active','Inactive'])->default('Active');
             $table->foreignId('marketing_user_id')->nullable();
             $table->foreignId('accounts_user_id')->nullable();
             $table->foreignId('customer_id')->nullable();
