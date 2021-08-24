@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Support;
 
 use App\Http\Controllers\Controller;
+use App\Models\SupportTicket;
 use Illuminate\Http\Request;
 
 class SupportTicketController extends Controller
@@ -14,7 +15,10 @@ class SupportTicketController extends Controller
      */
     public function index()
     {
-        //
+        return view('Support.ticket.index',[
+            'data' => SupportTicket::with('priority','category','status')->paginate(50),
+            'title' => 'Support Ticket List'
+        ]);
     }
 
     /**
@@ -24,7 +28,9 @@ class SupportTicketController extends Controller
      */
     public function create()
     {
-        //
+        return view('Support.ticket.create',[
+            'title' => 'Open New Ticket'
+        ]);
     }
 
     /**
@@ -44,9 +50,17 @@ class SupportTicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(SupportTicket $supportTicket)
     {
-        //
+
+
+        // $supportTicket = SupportTicket::with('user')->find($id);
+
+        
+        return view('Support.ticket.show',[
+            'ticket' => $supportTicket,
+            'title' => 'Ticket Details'
+        ]);
     }
 
     /**

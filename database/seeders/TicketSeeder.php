@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SupportTicket;
 use App\Models\TicketCategory;
 use App\Models\TicketPriorities;
 use App\Models\TicketStatus;
@@ -51,5 +52,32 @@ class TicketSeeder extends Seeder
             );
 
         TicketPriorities::insert($data);
+
+
+        $data = array([
+            'support_id' => 1,
+            'customer_id' => 1,
+            'title' => 'Link speed very slow',
+            'problem_details' => 'very solo line',
+            'status_id' => 1,
+            'category_id' => 1,
+            'priority_id' => 1,
+            'tokenhas' => md5(1),
+            'created_at' => now(),
+            'updated_at' => now()
+        ],[
+            'customer_id' => 1,
+            'support_id' => null,
+            'title' => 'Link Down',
+            'problem_details' => 'Line down for 30 hour',
+            'status_id' => 1,
+            'category_id' => 1,
+            'priority_id' => 1,
+            'tokenhas' => md5(1),
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        SupportTicket::insert($data);        
     }
 }

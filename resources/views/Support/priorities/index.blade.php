@@ -12,7 +12,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a>
                             </li>
-                            <li class="breadcrumb-item active">Status List
+                            <li class="breadcrumb-item active">Priorities List
                             </li>
                         </ol>
                     </div>
@@ -29,10 +29,10 @@
                             <rect x="3" y="14" width="7" height="7"></rect>
                         </svg></button>
                     <div class="dropdown-menu dropdown-menu-right" style="">
-                        <a class="dropdown-item" href="{{route('support-status.create')}}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
+                        <a class="dropdown-item" href="{{route('support-priorities.create')}}"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square mr-1">
                                 <polyline points="9 11 12 14 22 4"></polyline>
                                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                            </svg><span class="align-middle">Add Status Code</span></a>
+                            </svg><span class="align-middle">Add Priorities</span></a>
                       
                         
                       
@@ -47,7 +47,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Customer List</h4>
+                        <h4 class="card-title">Priorities List</h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table mb-0">
@@ -62,12 +62,12 @@
                             <tbody>
                                 @forelse($data as $row)
                                 <tr>
-                                    <td class="text-nowrap">{{ $loop->iteration }}</td>
+                                    <td class="text-nowrap">{{ $row->id }}</td>
                                     <td>{{ $row->name }}</td>
                                     <td><div style="background:{{$row->color}};height:50px;width:100px"></div></td>
                                     <td>
                                         <div class="float-right">
-                                            <a href="{{ route('user.edit', $row->id) }}" class="btn btn-sm btn-primary">
+                                            <a href="{{ route('support-priorities.edit', $row->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-square-o"></i>
                                                 Edit
                                             </a>
