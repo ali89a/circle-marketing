@@ -47,11 +47,12 @@
             <div class="col-12">
                 <div class="card">
                     
-                    <div class="table-responsive">
+                    <div class="table-responsive table-striped">
                         <table class="table mb-0">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="text-nowrap">Ticket Number</th>
+                                    
+                                    <th scope="col" class="text-nowrap">Date Opened</th>
                                     <th scope="col" class="text-nowrap">Subject</th>
                                     <th scope="col" class="text-nowrap">Last Response</th>
                                     <th scope="col" class="text-nowrap">Priority</th>
@@ -62,10 +63,18 @@
                             </thead>
                             <tbody>
                                 @forelse($data as $row)
-                                <tr>
-                                    <td class="text-nowrap">{{ $row->id }}</td>
-                                    <td>{{ $row->title }}</td>
-                                    <td>{{ $row->updated_at }}</td>
+                                
+                                <tr onclick="window.location='{{route('support-ticket.show',$row->id)}}'" style="cursor:pointer">
+                                    <td class="text-nowrap">{{ $row->created_at }}</td>
+                                    <td>#{{ $row->id }} - {{ $row->title }}</td>
+                                    <td>
+                                        @if($row->created_at >= $row->updated_at || empty($row->updated_at))
+                                        Unresponded </td>
+                                        @else
+                                            {{ $row->updated_at->diffForHumans() }}</td>
+                                        @endif
+                                        
+                                        
                                     <td style="background:{{$row->priority->color}}">{{ $row->priority->name }}</td>
                                     <td style="background:{{$row->status->color}}">{{ $row->status->name }}</td>
                                     <td>{{ $row->category->name }}</td>

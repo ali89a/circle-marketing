@@ -17,8 +17,8 @@ class CreateTicketCommentsTable extends Migration
             $table->id();
             $table->foreignId('ticket_id');
             $table->text('comment');
-            $table->foreignId('added_by_user_id')->nullable();
-            $table->foreignId('added_by_customer_id')->nullable();
+            $table->foreignId('support_id')->nullable();
+            $table->foreignId('customer_id')->nullable();
             $table->text('attachment')->nullable();
             $table->timestamps();
         });
