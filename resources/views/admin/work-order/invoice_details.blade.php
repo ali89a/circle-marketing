@@ -80,7 +80,9 @@
                                 <thead>
                                     <tr>
                                         <th class="py-1">Description of Charges</th>
+                                        @can('price-show')
                                         <th class="py-1">Unit Price</th>
+                                        @endcan
                                         <th class="py-1">Amount</th>
                                     </tr>
                                 </thead>
@@ -94,9 +96,11 @@
                                         <td class="py-1">
                                             <p class="card-text font-weight-bold">{{ $item->invoice_description }}</p>
                                         </td>
+                                        @can('price-show')
                                         <td class="py-1">
                                             <span class="font-weight-bold">{{ $item->unit_price }}</span>
                                         </td>
+                                        @endcan
                                         <td class="py-1">
                                             <span class="font-weight-bold">{{ $item->amount }}</span>
                                         </td>
