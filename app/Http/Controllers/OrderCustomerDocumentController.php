@@ -23,6 +23,15 @@ class OrderCustomerDocumentController extends Controller
 
     public function docUpdate(Request $request, $id)
     {
+
+
+        $request->validate([
+            'work_order' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf|max:2048',
+            'authorization' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf|max:2048',
+            'ip_agreement' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf|max:2048',
+            'noc' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf|max:2048',
+        ]);
+        
         // try {
         //     DB::beginTransaction();
         $customer_doc = OrderCustomerDocument::where('order_id', $id)->first();

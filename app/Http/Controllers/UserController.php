@@ -59,6 +59,11 @@ class UserController extends Controller
             'email' => ['required', 'unique:users', 'max:255'],
             'mobile' => ['required', 'unique:users', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'img_url.*' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf|max:1024',
+            'btrc_license_url' => 'required | mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf| max:2048',
+            'nid_url' => 'required | mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf| max:2048',
+            'trade_license_url' => 'required | mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf| max:2048',
+            'contact_authorization_url' => 'required | mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf| max:2048',
         ]);
 
         // try {

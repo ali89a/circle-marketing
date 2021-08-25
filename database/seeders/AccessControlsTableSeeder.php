@@ -148,6 +148,7 @@ class AccessControlsTableSeeder extends Seeder
 
             ['name' => 'report-approve', 'guard_name' => 'admin'],
             ['name' => 'price-show', 'guard_name' => 'admin'],
+            ['name' => 'all-customer-list-access', 'guard_name' => 'admin'],
 
         ];
 
