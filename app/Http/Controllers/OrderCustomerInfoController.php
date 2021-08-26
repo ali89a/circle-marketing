@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Upazila;
 use App\Models\District;
 use App\Models\Division;
+use App\Helpers\LogActivity;
 use Illuminate\Http\Request;
 use App\Models\OrderCustomerInfo;
 use Brian2694\Toastr\Facades\Toastr;
@@ -41,6 +42,7 @@ class OrderCustomerInfoController extends Controller
         $customer_info->district_id = $request->district_id;
         $customer_info->upazila_id = $request->upazila_id;
         $customer_info->save();
+        LogActivity::addToLog($id);
         //  DB::commit();
         Toastr::success('Customer Info Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('docEdit', ['id' => $id]);
