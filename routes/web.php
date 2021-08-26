@@ -98,6 +98,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/work-order-coo-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalCOO'])->name('workOrderApprovalCOO');
     Route::post('/noc-assign', [App\Http\Controllers\OrderApprovalController::class, 'nocAssign'])->name('nocAssign');
     Route::get('/work-order-noc-approval/{id?}', [App\Http\Controllers\OrderApprovalController::class, 'workOrderApprovalNoc'])->name('workOrderApprovalNoc');
+    Route::get('/log-activity/{id?}', [App\Http\Controllers\LogActivityController::class, 'workOrderLogActivity'])->name('work-order-log-activity');
     
     Route::get('/invoice-noc-approval/{id?}', [App\Http\Controllers\InvoiceApprovalController::class, 'invoiceApprovalNOC'])->name('invoiceApprovalNOC');
     Route::get('/invoice-marketing-approval/{id?}', [App\Http\Controllers\InvoiceApprovalController::class, 'invoiceApprovalMarketing'])->name('invoiceApprovalMarketing');

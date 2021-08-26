@@ -34,7 +34,7 @@ class OrderController extends Controller
     public function index()
     {
         if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
-            $orders = Order::with('customer_details', 'order_approval')->where('creator_user_id', Auth::guard('admin')->user()->id)->where('status', 'Active')->latest()->get();
+            $orders = Order::with('customer_details', 'order_approval')->where('marketing_user_id', Auth::guard('admin')->user()->id)->where('status', 'Active')->latest()->get();
         } else {
             $orders = Order::with('customer_details', 'order_approval')->where('status', 'Active')->latest()->get();
         }
@@ -50,7 +50,7 @@ class OrderController extends Controller
     public function indexCancle()
     {
         if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
-            $orders = Order::with('customer_details', 'order_approval')->where('creator_user_id', Auth::guard('admin')->user()->id)->where('status', 'Inactive')->latest()->get();
+            $orders = Order::with('customer_details', 'order_approval')->where('marketing_user_id', Auth::guard('admin')->user()->id)->where('status', 'Inactive')->latest()->get();
         } else {
             $orders = Order::with('customer_details', 'order_approval')->where('status', 'Inactive')->latest()->get();
         }
@@ -73,7 +73,7 @@ class OrderController extends Controller
     {
 
         if (Auth::guard('admin')->user()->hasRole('Marketing Executive') || Auth::guard('admin')->user()->hasRole('Marketing Admin')) {
-            $users = User::where('creator_user_id', Auth::guard('admin')->user()->id)->latest()->get();
+            $users = User::where('marketing_user_id', Auth::guard('admin')->user()->id)->latest()->get();
         } else {
             $users = User::latest()->get();
         }
@@ -302,6 +302,7 @@ class OrderController extends Controller
         $order->marketing_user_id = $request->marketing_user_id;
         $order->accounts_user_id = $request->accounts_user_id;
         $order->save();
+        LogActivity::addToLog($id);
         // DB::commit();
         Toastr::success('Order Info Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('orderDetailEdit', ['id' => $order->id]);
