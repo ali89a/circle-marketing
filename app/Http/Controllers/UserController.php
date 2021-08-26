@@ -27,7 +27,10 @@ class UserController extends Controller
     {
 
         if (Auth::guard('admin')->user()->hasRole('Marketing Executive')) {
-            $user = User::where('creator_user_id', Auth::guard('admin')->user()->id)->latest()->get();
+            $user = User::where('marketing_user_id', Auth::guard('admin')->user()->id)->latest()->get();
+        }
+        else if (Auth::guard('admin')->user()->hasRole('Accounts Executive')) {
+            $user = User::where('accounts_user_id', Auth::guard('admin')->user()->id)->latest()->get();
         } else {
             $user = User::latest()->get();
         }

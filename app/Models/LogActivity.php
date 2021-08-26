@@ -10,7 +10,7 @@ class LogActivity extends Model
     use HasFactory;
 
     protected $fillable = [
-        'subject', 'url', 'method', 'ip', 'agent', 'admin_user_id', 'user_name', 'new_data', 'old_data',
+        'subject', 'url', 'method', 'ip', 'agent', 'admin_user_id', 'user_name', 'work_order_id', 'old_data',
     ];
     public function admin()
     {

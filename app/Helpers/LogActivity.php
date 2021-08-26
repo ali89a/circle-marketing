@@ -14,15 +14,24 @@ class LogActivity
 
     public static function addToLog($work_order_id)
     {
+        $order = Order::with('customer_details', 'order_approval')->where('id', $work_order_id)->first();
 
-        $work_order=Order::find($work_order_id);
+        $old_data = [
+            'order' => $order,
+            'order_items' => $order->order_items,
+            'upgrations' => $order->upgrations,
+            'downgrations' => $order->downgrations,
+            'customer' => $order->customer,
+            'noc' => $order,
+        ];
+
         $log = [];
-        $log['work_order_id'] = $work_order_id;
+        $log['work_order_id'] = $order->id;
         $log['url'] = Request::fullUrl();
         $log['ip'] = Request::ip();
         $log['admin_user_id'] = auth()->check() ? auth()->user()->id : 1;
-        $log['admin_user_name'] = Auth::guard('admin')->user()->name ??'';
-        $log['old_data'] = $work_order;
+        $log['admin_user_name'] = Auth::guard('admin')->user()->name ?? '';
+        $log['old_data'] =  json_encode($old_data);
         LogActivityModel::create($log);
     }
 
