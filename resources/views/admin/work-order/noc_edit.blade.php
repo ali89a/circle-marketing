@@ -172,15 +172,14 @@
                                                     </tr>
                                                     @foreach($order->order_items as $key=>$row)
                                                     <tr>
-                                                        <th>{{ $row->service->name }}<input type="text" value="{{$row->service->id}}" name="noc_items[{{$key}}][service_id]" class="form-control">
-                                                       </th>
-                                                        <td><input type="text" value="{{$order_noc->vlan_internet}}" name="noc_items[{{$key}}][vlan]" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_ggc}}" name="noc_items[{{$key}}][ip]" class="form-control"></td>
-                                                        <td><input type="text" value="{{$order_noc->vlan_fb}}" name="noc_items[{{$key}}][assigned_brandwith]" class="form-control"></td>
+                                                        <th>{{ $row->service->name }}<input type="hidden" value="{{$row->service->id}}" name="noc_items[{{$key}}][service_id]" class="form-control">
+                                                        </th>
+                                                        <td><input type="text" value="{{$item->vlan}}" name="noc_items[{{$key}}][vlan]" class="form-control"></td>
+                                                        <td><input type="text" value="{{$item->ip}}" name="noc_items[{{$key}}][ip]" class="form-control"></td>
+                                                        <td><input type="text" value="{{$item->assigned_brandwith}}" name="noc_items[{{$key}}][assigned_brandwith]" class="form-control"></td>
                                                     </tr>
                                                     @endforeach
                                                     <tr>
-
                                                         <th>MRTG/Cpanel</th>
                                                         <td>
                                                             <input type="text" name="mrtg_graph_url" class="form-control" value="{{$order_noc->mrtg_graph_url}}" required>
