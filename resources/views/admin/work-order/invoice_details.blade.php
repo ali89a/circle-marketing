@@ -268,11 +268,10 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-
-                            <button class="btn btn-outline-secondary btn-block btn-download-invoice mb-75 waves-effect">
+                            <a class="btn btn-outline-secondary btn-block btn-download-invoice mb-75 waves-effect" href="{{ route('invoice.pdf-download', $invoice->id) }}" target="_blank">
                                 Download
-                            </button>
-                            <a class="btn btn-outline-secondary btn-block mb-75 waves-effect" href="./app-invoice-print.html" target="_blank">
+                            </a>
+                            <a class="btn btn-outline-secondary btn-block mb-75 waves-effect" href="{{ route('invoice.pdf', $invoice->id) }}" target="_blank">
                                 Print
                             </a>
                         </div>
