@@ -76,7 +76,7 @@ class SupportTicketController extends Controller
 
         $paths = [];
 
-       
+        if($request->attachments){
 
         foreach($request->file('attachments') as $attachment){
 
@@ -86,6 +86,7 @@ class SupportTicketController extends Controller
             $attachment->move(storage_path('app/public/support_ticket_attachment/'.$request->customer_id),$filename);
             $paths[] = $filename;
         }
+    }
 
         // dd($paths);
 

@@ -48,31 +48,31 @@
                             <h4 class="card-title">Admin Create</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('admin.store')}}" method="POST" class="">
+                            <form action="{{route('admin.store')}}" method="POST" class="" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-6 col-md-6 col-12 mb-1">
                                         <div class="form-group">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{old('name')}}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12 mb-1">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email">
+                                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter Email" value="{{old('email')}}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12 mb-1">
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input type="text" class="form-control" id="password" name="password" placeholder="Enter Password">
+                                            <input type="text" class="form-control" id="password" name="password" placeholder="Enter Password"  value="{{old('password')}}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6 col-12 mb-1">
                                         <div class="form-group">
                                             <label for="password_confirmation">Password Confirmation</label>
-                                            <input type="text" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter Password Confirmation">
+                                            <input type="text" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter Password Confirmation"  value="{{old('password_confirmation')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-1">
@@ -85,6 +85,43 @@
 
                                         </select>
                                     </div>
+
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="profile">Profile Image</label>
+                                            <input type="file" class="form-control" id="profile" name="profile_image">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="mobile">Mobile</label>
+                                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile"  value="{{old('mobile')}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="alternet_mobile">Alternet Mobile</label>
+                                            <input type="text" class="form-control" id="alternet_mobile" name="alternet_mobile" placeholder="Enter Alternet Mobile"  value="{{old('alternet_mobile')}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <textarea class="form-control textarea" name="address" id="address">{{old('address')}}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="signature">Signature</label>
+                                            <textarea class="form-control textarea" name="signature" id="signature">{{old('signature')}}</textarea>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                                 <button class="btn btn-primary waves-effect waves-float waves-light" type="submit">Submit</button>
                             </form>

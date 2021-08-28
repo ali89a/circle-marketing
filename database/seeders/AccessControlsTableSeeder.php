@@ -75,6 +75,17 @@ class AccessControlsTableSeeder extends Seeder
 
             DB::table('admins')->insert($data);
 
+            $data = [];
+
+            for($i=1; $i<=10; $i++){
+                $data[] = [
+                    'admin_id' => $i,
+                    'mobile' => '019100000'.$i
+                ];
+            }
+            DB::table('admin_infos')->insert($data);
+
+
         }
 
         $dev = \App\Models\Admin\Admin::where('email', 'super@admin.com')->first();
@@ -149,6 +160,12 @@ class AccessControlsTableSeeder extends Seeder
             ['name' => 'report-approve', 'guard_name' => 'admin'],
             ['name' => 'price-show', 'guard_name' => 'admin'],
             ['name' => 'all-customer-list-access', 'guard_name' => 'admin'],
+
+            ['name' => 'permission-list', 'guard_name' => 'admin'],
+            ['name' => 'permission-create', 'guard_name' => 'admin'],
+            ['name' => 'permission-show', 'guard_name' => 'admin'],
+            ['name' => 'permission-edit', 'guard_name' => 'admin'],
+            ['name' => 'permission-delete', 'guard_name' => 'admin'],
 
         ];
 

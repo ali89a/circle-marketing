@@ -67,16 +67,20 @@
                                   
                                     <td>
                                         <div class="float-right">
+                                            @can('role-edit')
+                                            <a href="{{ route('role.edit', $row->id) }}" class="btn btn-primary">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                Edit
+                                            </a>
+                                            @endcan
+                                            @can('role-delete')
                                             <form action="{{route('role.destroy', $row->id)}}" method="post">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 @csrf
-                                                <a href="{{ route('role.edit', $row->id) }}" class="btn btn-primary">
-                                                    <i class="fa fa-pencil-square-o"></i>
-                                                    Edit
-                                                </a>
+                                                
                                                 <button id="btnDelete" class="btn btn-danger">Delete</button>
                                             </form>
-
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

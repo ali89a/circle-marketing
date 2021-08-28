@@ -80,12 +80,16 @@
 
                 <div class="card p-2">
 
+                    <div>
+                        <button id="setSignature" class="btn btn-outline-info btn-sm mb-2 float-right"> Set Signature</button>
+                    </div>
+
                     <form action="{{route('support-ticket.update',$ticket->id)}}" method="post" class="form"
                         enctype="multipart/form-data">
                         @method('put')
                         @csrf
 
-                        <div class="form-group">
+                        <div class="form-group" id="reply">
 
                             <textarea name="comment" id="editor" style="height:200px" class="textarea form-control"></textarea>
                         </div>
@@ -120,9 +124,18 @@
                     </div>
                 </div>
 
-                <div class="pl-2 pb-2">
-                    Status: <span style="background:{{$ticket->status->color}};padding:2px 5px;color:#fff">
-                        {{$ticket->status->name}} </span>
+                
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="pl-2 pb-2">
+                            Status: <span style="background:{{$ticket->status->color}};padding:2px 5px;color:#fff">
+                                {{$ticket->status->name}} </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        
+                    </div>
                 </div>
 
                 <div class="card">
@@ -132,6 +145,10 @@
                         <p>Last Response: {{$ticket->updated_at}}</p>
                         <hr>
                         <a href="#reply" class="btn btn-success">Go To Reply</a>
+
+                        @if($ticket->status->name == 'Open')
+                        <button class="btn btn-danger">Close Ticket</button>
+                        @endif
                     </div>
                 </div>
 

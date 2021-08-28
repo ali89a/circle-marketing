@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\AdminInfo;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,5 +56,10 @@ class Admin extends Authenticatable
     public function customers()
     {
         return $this->hasMany('App\Models\User', 'creator_user_id');
+    }
+
+    public function admininfo()
+    {
+        return $this->hasOne(AdminInfo::class);
     }
 }

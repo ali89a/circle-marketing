@@ -65,7 +65,7 @@ class TicketSeeder extends Seeder
             'priority_id' => 1,
             'tokenhas' => md5(1),
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now()->addHour(1)
         ],[
             'customer_id' => 1,
             'support_id' => null,
@@ -76,7 +76,7 @@ class TicketSeeder extends Seeder
             'priority_id' => 1,
             'tokenhas' => md5(1),
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now()->addHour(2)
         ]);
 
         SupportTicket::insert($data);

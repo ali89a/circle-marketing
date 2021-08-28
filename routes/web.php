@@ -52,6 +52,8 @@ Route::middleware('auth:admin')->prefix('access-control')->group(function () {
 Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     Route::resource('user', UserController::class);
+
+    
     Route::resource('work-order', OrderController::class);
     Route::get('/workorder/cancle-list', [App\Http\Controllers\OrderController::class, 'indexCancle'])->name('cancleList');
     Route::get('/doc-edit', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('doc.edit');
