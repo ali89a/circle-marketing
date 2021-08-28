@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity;
 use Illuminate\Http\Request;
 use App\Models\OrderCustomerInfo;
 use Brian2694\Toastr\Facades\Toastr;
@@ -56,6 +57,7 @@ class OrderCustomerDocumentController extends Controller
             $customer_doc->noc = $fileName;
         }
         $customer_doc->save();
+        LogActivity::addToLog($id);
         // DB::commit();
         Toastr::success('Customer Doc Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('orderEdit', ['id' => $id]);

@@ -196,7 +196,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                            APPROVAL
+                                APPROVAL
                             </div>
                             <table class="table table-striped table-bordered">
                                 <tbody>
@@ -268,21 +268,12 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <button class="btn btn-primary btn-block mb-75 waves-effect waves-float waves-light" data-toggle="modal" data-target="#send-invoice-sidebar">
-                                Send Invoice
-                            </button>
-                            <button class="btn btn-outline-secondary btn-block btn-download-invoice mb-75 waves-effect">
+                            <a class="btn btn-outline-secondary btn-block btn-download-invoice mb-75 waves-effect" href="{{ route('invoice.pdf-download', $invoice->id) }}" target="_blank">
                                 Download
-                            </button>
-                            <a class="btn btn-outline-secondary btn-block mb-75 waves-effect" href="./app-invoice-print.html" target="_blank">
+                            </a>
+                            <a class="btn btn-outline-secondary btn-block mb-75 waves-effect" href="{{ route('invoice.pdf', $invoice->id) }}" target="_blank">
                                 Print
                             </a>
-                            <a class="btn btn-outline-secondary btn-block mb-75 waves-effect" href="./app-invoice-edit.html">
-                                Edit
-                            </a>
-                            <button class="btn btn-success btn-block waves-effect waves-float waves-light" data-toggle="modal" data-target="#add-payment-sidebar">
-                                Add Payment
-                            </button>
                         </div>
                     </div>
                 </div>

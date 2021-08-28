@@ -32,6 +32,8 @@ class OrderNocController extends Controller
         ]);
         $noc_info = OrderNoc::where('order_id', $id)->first();
         foreach ($request->noc_items as $key => $row) {
+            $old_noc_items=OrderNocItem::where('order_noc_id',$noc_info->id)->delete();
+          
             $order_noc_info = new OrderNocItem();
             $order_noc_info->order_noc_id =  $noc_info->id;
             $order_noc_info->service_id = $row['service_id'];

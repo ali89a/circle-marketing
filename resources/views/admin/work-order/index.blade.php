@@ -464,7 +464,7 @@
                                                 <tr>
                                                     <td class="bg-gray">A</td>
                                                     <td>COO: <strong class="coostatus666">{{$order->order_approval->coo_approved_status??''}}</strong></td>
-                                                    <td></td>
+                                                    <td>{{$order->order_approval->coo_approved_comments ??''}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

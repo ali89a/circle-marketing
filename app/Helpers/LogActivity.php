@@ -17,12 +17,12 @@ class LogActivity
         $order = Order::with('customer_details', 'order_approval')->where('id', $work_order_id)->first();
 
         $old_data = [
-            'order' => $order,
-            'order_items' => $order->order_items,
-            'upgrations' => $order->upgrations,
-            'downgrations' => $order->downgrations,
-            'customer' => $order->customer,
-            'noc' => $order,
+            'order' => $order->toArray(),
+            'order_items' => $order->order_items->toArray(),
+            'upgrations' => $order->upgrations->toArray(),
+            'downgrations' => $order->downgrations->toArray(),
+            'customer' => $order->customer->toArray(),
+            'noc' => $order->toArray(),
         ];
 
         $log = [];
@@ -31,13 +31,13 @@ class LogActivity
         $log['ip'] = Request::ip();
         $log['admin_user_id'] = auth()->check() ? auth()->user()->id : 1;
         $log['admin_user_name'] = Auth::guard('admin')->user()->name ?? '';
-        $log['old_data'] =  json_encode($old_data);
+        $log['old_data'] =json_encode($old_data);
         LogActivityModel::create($log);
     }
 
 
-    public static function logActivityLists()
+    public static function logActivityLists($id)
     {
-        return LogActivityModel::latest()->get();
+        return LogActivityModel::where('work_order_id',$id)->get();
     }
 }
