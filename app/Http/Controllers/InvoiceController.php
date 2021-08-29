@@ -27,7 +27,8 @@ class InvoiceController extends Controller
     }
     public function monthlyInvoiceGenerate()
     {
-        $orders = Order::where('status', 'Active')->get();
+        $orders = Order::where('status', 'Active')->where('completion_status', 'Complete')->get();
+
         if (count($orders) > 0) {
             foreach ($orders as $key => $order) {
                 $from_date = \Carbon\Carbon::now()->startOfMonth()->toDateString();

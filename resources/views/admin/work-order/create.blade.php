@@ -223,15 +223,14 @@
         $('#division_id').change(function() {
             var id = $('#division_id').val();
             $.ajax({
-                url: '{{url('
-                admin / fetch - district ')}}',
+                url: '{{url('admin/fetch-district')}}',
                 type: 'get',
                 data: {
                     id: id
                 },
                 dataType: 'json',
                 success: function(data) {
-                    //console.log(data);
+                  console.log(data);
                     $('#district_id').html(data);
                 }
             });
@@ -240,8 +239,7 @@
         $('#district_id').change(function() {
             var id = $('#district_id').val();
             $.ajax({
-                url: '{{url('
-                admin / fetch - thana ')}}',
+                url: '{{url('admin/fetch-thana')}}',
                 type: 'get',
                 data: {
                     id: id
