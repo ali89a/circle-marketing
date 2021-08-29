@@ -57,14 +57,16 @@ class OrderApprovalController extends Controller
         try {
             DB::beginTransaction();
             $order = Order::where('id', $id)->first();
+
+
             $order_approval = OrderApproval::where('order_id', $id)->first();
+            // $order_approval->noc_approved_status = "Pending";
             $order_approval->noc_approved_status = "Approved";
             $order_approval->noc_approved_time = now();
             $order_approval->noc_approved_by = Auth::guard('admin')->user()->id;
             $order_approval->save();
 
             $end_date = \Carbon\Carbon::now()->endOfMonth()->toDateString();
-
             if ($order->invoice_type === 'New') {
 
                 $start_date = $order->bill_start_date;
