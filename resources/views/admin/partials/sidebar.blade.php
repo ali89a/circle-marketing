@@ -23,6 +23,8 @@
             </li>
             <li class="{{ Request::segment(2) == 'service' ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ route('service.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Collapsed Menu">Services</span></a>
             </li>
+            <li class="{{ Request::segment(2) == 'monthly-invoice' ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ route('monthly.invoice') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Collapsed Menu">Monthly Invoice</span></a>
+            </li>
             {{-- <li class="{{ (Request::segment(2) == 'admin' )?'active':''}}">
             <a class="d-flex align-items-center" href="{{ route('admin.index') }}"><i data-feather="circle">
                 </i><span class="menu-item text-truncate" data-i18n="Without Menu">Admin</span></a>
@@ -120,37 +122,37 @@
         <li class="{{ Request::segment(2) == 'upazila' ? 'active' : '' }}"><a class="d-flex align-items-center" href="{{ route('upazila.index') }}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Collapsed Menu">Upazila</span></a>
         </li>
 
-        </ul>
-    </li>
+    </ul>
+</li>
 
-    <li class="{{ request()->routeIs(['support-status*','support-ticket*','support-category*','support-priorities*']) ? 'has-sub sidebar-group-active open' : '' }} nav-item">
-        <a class="d-flex align-items-center" href="#">
-          <i data-feather="layout"></i>
-          <span class="menu-title text-truncate" data-i18n="Page Layouts">Support Ticket</span>
-      </a>
-      <ul class="menu-content">
-    
+<li class="{{ request()->routeIs(['support-status*','support-ticket*','support-category*','support-priorities*']) ? 'has-sub sidebar-group-active open' : '' }} nav-item">
+    <a class="d-flex align-items-center" href="#">
+        <i data-feather="layout"></i>
+        <span class="menu-title text-truncate" data-i18n="Page Layouts">Support Ticket</span>
+    </a>
+    <ul class="menu-content">
+
         <li class="{{ request()->routeIs(['support-ticket.index','support-ticket.show']) ? 'active' : '' }}">
-          <a class="d-flex align-items-center" href="{{ route('support-ticket.index')}}"><i data-feather="circle">
-            </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Ticket List</span></a>
+            <a class="d-flex align-items-center" href="{{ route('support-ticket.index')}}"><i data-feather="circle">
+                </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Ticket List</span></a>
         </li>
         <li class="{{ request()->routeIs(['support-ticket.create'])  ? 'active' : '' }}">
-          <a class="d-flex align-items-center" href="{{ route('support-ticket.create') }}"><i data-feather="circle">
-            </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Submit New Ticket</span></a>
+            <a class="d-flex align-items-center" href="{{ route('support-ticket.create') }}"><i data-feather="circle">
+                </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Submit New Ticket</span></a>
         </li>
         <li class="{{ request()->routeIs(['support-category*'])  ? 'active' : '' }}">
             <a class="d-flex align-items-center" href="{{ route('support-category.index') }}"><i data-feather="circle">
-            </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Support Category</span></a>
+                </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Support Category</span></a>
         </li>
         <li class="{{ request()->routeIs(['support-priorities*']) ? 'active' : '' }}">
             <a class="d-flex align-items-center" href="{{ route('support-priorities.index') }}"><i data-feather="circle">
-            </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Support Priorities</span></a>
+                </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Support Priorities</span></a>
         </li>
         <li class="{{ request()->routeIs(['support-status*']) ? 'active' : '' }}">
             <a class="d-flex align-items-center" href="{{ route('support-status.index') }}"><i data-feather="circle">
-            </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Support Status</span></a>
+                </i><span class="menu-item text-truncate" data-i18n="Layout Boxed">Support Status</span></a>
         </li>
 
-      </ul>
-      </li>
+    </ul>
+</li>
 </ul>

@@ -109,6 +109,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/invoice-coo-approval/{id?}', [App\Http\Controllers\InvoiceApprovalController::class, 'invoiceApprovalCOO'])->name('invoiceApprovalCOO');
     Route::get('invoice-pdf/{id}', [App\Http\Controllers\InvoiceController::class, 'pdf'])->name('invoice.pdf');
     Route::get('invoice-pdf-download/{id}', [App\Http\Controllers\InvoiceController::class, 'pdfDownload'])->name('invoice.pdf-download');
+    Route::get('monthly-invoice', [App\Http\Controllers\InvoiceController::class, 'monthlyInvoice'])->name('monthly.invoice');
+    Route::get('monthly-invoice-generate', [App\Http\Controllers\InvoiceController::class, 'monthlyInvoiceGenerate'])->name('monthlyInvoiceGenerate');
 
     Route::get('/search-order-result', [WorkOrderFilterController::class, 'searchOrderResult'])->name('searchOrderResult');
     Route::get('/pending-work-order/{keyword}', [WorkOrderFilterController::class, 'pendingWorkOrdersearch']);
