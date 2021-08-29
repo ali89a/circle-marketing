@@ -167,6 +167,25 @@ class AccessControlsTableSeeder extends Seeder
             ['name' => 'permission-show', 'guard_name' => 'admin'],
             ['name' => 'permission-edit', 'guard_name' => 'admin'],
             ['name' => 'permission-delete', 'guard_name' => 'admin'],
+            
+            ['name' => 'upgradation', 'guard_name' => 'admin'],
+            ['name' => 'downgradation', 'guard_name' => 'admin'],
+            ['name' => 'invoicelist', 'guard_name' => 'admin'],
+            ['name' => 'orderhistory', 'guard_name' => 'admin'],
+            ['name' => 'access-control', 'guard_name' => 'admin'],
+            ['name' => 'crm', 'guard_name' => 'admin'],
+            ['name' => 'work-limit', 'guard_name' => 'admin'],
+            ['name' => 'setting', 'guard_name' => 'admin'],
+
+            ['name' => 'support-ticket-index', 'guard_name' => 'admin'],
+            ['name' => 'support-ticket-show', 'guard_name' => 'admin'],
+            ['name' => 'support-ticket-assign', 'guard_name' => 'admin'],
+            ['name' => 'support-ticket-comment', 'guard_name' => 'admin'],
+            ['name' => 'support-ticket-category', 'guard_name' => 'admin'],
+            ['name' => 'support-ticket-priorities', 'guard_name' => 'admin'],
+            ['name' => 'support-ticket-status', 'guard_name' => 'admin'],
+
+
 
         ];
 
@@ -239,7 +258,7 @@ class AccessControlsTableSeeder extends Seeder
 
         // marketing admin 5 
 
-        $permission_list = [2,3,4,5,12,13,14,15,17,22,23,24,25,27,28,29,30,32,33,34,35,37,38,39,40,42,43];
+        $permission_list = [2,3,4,5,12,13,14,15,17,22,23,24,25,27,28,29,30,32,33,34,35,37,38,39,40,42,43,50,51,52,53,55,56,58,59,60,61];
         $role_id = 5;        
         
         $data = array();
@@ -268,7 +287,7 @@ class AccessControlsTableSeeder extends Seeder
         DB::table('role_has_permissions')->insert($data);
 
         // account admin 7 
-        $permission_list = [1,2,3,4,5,12,13,14,15,22,23,24,25,27,28,29,30,32,33,34,35,37,39,43];
+        $permission_list = [1,2,3,4,5,12,13,14,15,22,23,24,25,27,28,29,30,32,33,34,35,37,39,43,50,51,52,53,55,56,58,59,60,61];
         $role_id = 7;        
         
         $data = array();
@@ -284,7 +303,7 @@ class AccessControlsTableSeeder extends Seeder
 
         // account executive 8
 
-        $permission_list = [12,14,23,27,28,29,30,32,33,34,35,37,39,43];
+        $permission_list = [12,14,23,27,28,29,30,32,33,34,35,37,39,43,50,51,52,53,55,56,58,59,60,61];
         $role_id = 8;        
         
         $data = array();
