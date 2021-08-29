@@ -129,6 +129,17 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="active">Active</label>
+                                            <select name="isActive" class="form-control">
+                                                <option value="">Select User Status</option>
+                                                <option value="1" {{ $admin->isActive===1?'selected':''}}>Active</option>
+                                                <option value="0" {{ $admin->isActive===0?'selected':''}}>Disable</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
 
                                 </div>
                                 <button class="btn btn-primary waves-effect waves-float waves-light" type="submit">Submit</button>
