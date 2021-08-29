@@ -48,7 +48,7 @@
                             <h4 class="card-title">Admin Edit</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('admin.update',$admin->id)}}" method="POST" class="">
+                            <form action="{{route('admin.update',$admin->id)}}" method="POST" class="" enctype="multipart/form-data">
                                 @csrf
                                 @method('put')
                                 <div class="row">
@@ -76,10 +76,60 @@
                                             <input type="text" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Enter Password Confirmation">
                                         </div>
                                     </div>
+
+                                    @can('admin-edit')
                                     <div class="col-md-6 mb-1">
                                         <label>Role</label>
                                         {!! Form::select('roles[]', $roles,$selected_roles ?? '', array('class' => 'form-control')) !!}
                                     </div>
+                                    @endcan
+
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <label for="profile">Profile Image</label>
+                                                    <input type="file" class="form-control" id="profile" name="profile_image">
+                                                </div>
+                                                <div class="col-md-4">                                                    
+                                                    @if($admin->admininfo->profile_image)
+                                                        <img style="width:100px" src="{{asset('storage/Admins/'.$admin->admininfo->profile_image)}}" alt="">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="mobile">Mobile</label>
+                                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile"  value="{{$admin->admininfo->mobile}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="alternet_mobile">Alternet Mobile</label>
+                                            <input type="text" class="form-control" id="alternet_mobile" name="alternet_mobile" placeholder="Enter Alternet Mobile"  value="{{$admin->admininfo->alternet_mobile}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <textarea class="form-control textarea" name="address" id="address">{{$admin->admininfo->address}}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="signature">Signature</label>
+                                            <textarea class="form-control textarea" name="signature" id="signature">{{$admin->admininfo->signature}}</textarea>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                                 <button class="btn btn-primary waves-effect waves-float waves-light" type="submit">Submit</button>
                             </form>

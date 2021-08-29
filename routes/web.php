@@ -20,6 +20,7 @@ use App\Http\Controllers\Support\CategoryController;
 use App\Http\Controllers\Customer\WorkOrderController;
 use App\Http\Controllers\Support\PrioritiesController;
 use App\Http\Controllers\Support\SupportTicketController;
+use App\Models\SupportTicket;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,8 @@ Route::middleware('auth:admin')->prefix('access-control')->group(function () {
 Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     Route::resource('user', UserController::class);
+
+    
     Route::resource('work-order', OrderController::class);
     Route::get('/workorder/cancle-list', [App\Http\Controllers\OrderController::class, 'indexCancle'])->name('cancleList');
     Route::get('/doc-edit', [App\Http\Controllers\OrderController::class, 'docEdit'])->name('doc.edit');
@@ -138,8 +141,10 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
 
     Route::resource('support-ticket',SupportTicketController::class);
     Route::resource('support-category',CategoryController::class);
-    Route::resource('support-prioritys',PrioritiesController::class);
+    Route::resource('support-priorities',PrioritiesController::class);
     Route::resource('support-status',StatusController::class);
+
+    Route::get('view-ticket/{id}',[SupportTicketController::class,'view-details'])->name('view-ticket');
 });
 
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Support;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\TicketPriorities;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class PrioritiesController extends Controller
 {
@@ -14,7 +16,10 @@ class PrioritiesController extends Controller
      */
     public function index()
     {
-        //
+        return view('Support.priorities.index',[
+            'title' => 'Ticket Priorities',
+            'data' => TicketPriorities::all()
+        ]);
     }
 
     /**
@@ -24,7 +29,9 @@ class PrioritiesController extends Controller
      */
     public function create()
     {
-        //
+        return view('Support.priorities.create',[
+            'title' => 'Add New Ticket Priorities'
+        ]);
     }
 
     /**
@@ -33,9 +40,17 @@ class PrioritiesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,TicketPriorities $ticketPriorities)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $ticketPriorities->name = $request->name;
+        $ticketPriorities->save();
+
+        Toastr::success('Priorities Created Successfully!.', '', ["progressBar" => true]);
+        return redirect()->route('support-priorities.index'); 
     }
 
     /**
@@ -57,7 +72,9 @@ class PrioritiesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('Support.priorities.edit',[
+            'priorities' => TicketPriorities::find($id)
+        ]);
     }
 
     /**
@@ -69,7 +86,19 @@ class PrioritiesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+       
+
+        TicketPriorities::whereId($id)
+                    ->update([
+                        'name' => $request->name
+                    ]);
+
+        Toastr::success('Ticket Priorities Name Update Successfully!.', '', ["progressBar" => true]);
+        return redirect()->route('support-priorities.index'); 
     }
 
     /**

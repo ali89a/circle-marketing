@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Support;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\TicketCategory;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('support.category.index',[
+            'title' => 'Ticket Category',
+            'data' => TicketCategory::all()
+        ]);
     }
 
     /**
@@ -24,7 +29,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('support.category.create',[
+            'title' => 'Create Category'
+        ]);
     }
 
     /**
@@ -33,9 +40,18 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,TicketCategory $ticketCategory)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $ticketCategory->name = $request->name;
+        $ticketCategory->save();
+
+        Toastr::success('Category Created Successfully!.', '', ["progressBar" => true]);
+        return redirect()->route('support-category.index'); 
+
     }
 
     /**
@@ -57,7 +73,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('Support.category.edit',[
+            'ticketcategory' => TicketCategory::find($id)
+        ]);
     }
 
     /**
@@ -69,7 +87,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+       
+
+        TicketCategory::whereId($id)
+                    ->update([
+                        'name' => $request->name
+                    ]);
+
+        Toastr::success('Ticket Category Update Successfully!.', '', ["progressBar" => true]);
+        return redirect()->route('support-category.index'); 
     }
 
     /**

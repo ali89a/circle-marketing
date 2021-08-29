@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Support;
 
-use App\Http\Controllers\Controller;
+
 use App\Models\TicketStatus;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 
 class StatusController extends Controller
 {
@@ -16,8 +18,8 @@ class StatusController extends Controller
     public function index()
     {
         
-        return view('Support.admin.index',[
-            'data' => TicketStatus::latest()->get(),
+        return view('Support.status.index',[
+            'data' => TicketStatus::get(),
             'title' => 'Status Code'
         ]);
     }
@@ -29,7 +31,10 @@ class StatusController extends Controller
      */
     public function create()
     {
-        //
+        
+        return view('Support.status.create',[
+            'title' => 'Status Code'
+        ]);
     }
 
     /**
@@ -38,9 +43,28 @@ class StatusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,TicketStatus $ticketstatus)
     {
-        //
+
+        
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $ticketstatus->name = $request->name;
+        $ticketstatus->color = $request->color;
+
+        $ticketstatus->save();
+
+        // $ticketstatus->insert([
+        //     'name' => $request->name,
+        //     'color' => $request->color
+        // ]);
+
+        Toastr::success('Status Created Successfully!.', '', ["progressBar" => true]);
+        return redirect()->route('support-status.index'); 
+
+
     }
 
     /**
@@ -62,7 +86,11 @@ class StatusController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        return view('Support.status.edit',[
+            'title' => 'Status Code',
+            'ticketstatus' => TicketStatus::find($id)
+        ]);
     }
 
     /**
@@ -74,7 +102,20 @@ class StatusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+       
+
+        TicketStatus::whereId($id)
+                    ->update([
+                        'name' => $request->name,
+                        'color' => $request->color
+                    ]);
+
+        Toastr::success('Status Update Successfully!.', '', ["progressBar" => true]);
+        return redirect()->route('support-status.index'); 
     }
 
     /**
