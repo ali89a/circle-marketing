@@ -170,13 +170,28 @@
                                                         <th>IP</th>
                                                         <th>Assigned BW</th>
                                                     </tr>
-                                                    @foreach($order->order_items as $key=>$row)
+
+
+                                                    @php
+                                                    $vlan='';$ip='';$bd='';
+                                                    @endphp
+                                                    @foreach($order->order_items as $key=>$row)                                                  
+                                                        @foreach($order_noc->noc_items as $item)
+                                                            @if($row->service_id==$item->service_id)
+                                                                @php($vlan = $item->vlan)
+                                                                @php($ip = $item->ip)
+                                                                @php($bd = $item->assigned_brandwith)
+                                                            @endif
+                                                        @endforeach
                                                     <tr>
                                                         <th>{{ $row->service->name }}<input type="hidden" value="{{$row->service->id}}" name="noc_items[{{$key}}][service_id]" class="form-control">
                                                         </th>
-                                                        <td><input type="text" value="{{$item->vlan}}" name="noc_items[{{$key}}][vlan]" class="form-control"></td>
-                                                        <td><input type="text" value="{{$item->ip}}" name="noc_items[{{$key}}][ip]" class="form-control"></td>
-                                                        <td><input type="text" value="{{$item->assigned_brandwith}}" name="noc_items[{{$key}}][assigned_brandwith]" class="form-control"></td>
+                                                        <td>                                                            
+
+                                                            
+                                                            <input type="text" value="{{$vlan}}" name="noc_items[{{$key}}][vlan]" class="form-control"></td>
+                                                        <td><input type="text" value="{{$ip}}" name="noc_items[{{$key}}][ip]" class="form-control"></td>
+                                                        <td><input type="text" value="{{$bd}}" name="noc_items[{{$key}}][assigned_brandwith]" class="form-control"></td>
                                                     </tr>
                                                     @endforeach
                                                     <tr>

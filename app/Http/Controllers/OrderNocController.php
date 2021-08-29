@@ -14,15 +14,34 @@ class OrderNocController extends Controller
 {
     public function nocEdit($id)
     {
+
+        $orderNocItem = OrderNocItem::where('order_noc_id',$id)->get();
+
+        // dd($orderNocItem);
+
+        $order = Order::with('order_items')->where('id', $id)->first();
+        $order_noc = OrderNoc::with('noc_items')->where('order_id', $id)->first();
+
+        $customer_order_info = OrderInfo::with('order')->where('order_id', $id)->first();
+
+        
+
+
         $data = [
-            'order' => Order::with('order_items')->where('id', $id)->first(),
-            'order_noc' => OrderNoc::where('order_id', $id)->first(),
-            'customer_order_info' => OrderInfo::with('order')->where('order_id', $id)->first()
+            'order' => $order,
+            'order_noc' => $order_noc,
+            'customer_order_info' => $customer_order_info,
+            // 'orderNocItem' => $orderNocItem
         ];
         return view('admin.work-order.noc_edit', $data);
     }
+
     public function nocUpdate(Request $request, $id)
     {
+
+        // dd($request->all());
+
+
         $request->validate([
             'mrtg_graph_url' => 'required',
             'username' => 'required',
@@ -30,17 +49,39 @@ class OrderNocController extends Controller
             'device_description' => 'required',
 
         ]);
-        $noc_info = OrderNoc::where('order_id', $id)->first();
+        $noc_info = OrderNoc::with('noc_items')->where('order_id', $id)->first();
+
+        // dd($noc_info);
+
+
+        // dd($request->noc_items);
         foreach ($request->noc_items as $key => $row) {
-            $old_noc_items=OrderNocItem::where('order_noc_id',$noc_info->id)->delete();
+            // dd($row);
+            // $old_noc_items=OrderNocItem::where('order_noc_id',$noc_info->id)->delete();
+
+            $result = OrderNocItem::updateOrCreate([
+                                        'order_noc_id' => $id,
+                                        'service_id'   => $row['service_id']
+                                    ],[
+                                        'vlan'                  => $row['vlan'],
+                                        'ip'                    => $row['ip'],
+                                        'assigned_brandwith'    => $row['assigned_brandwith']
+                                    ]);
+            // if(!$result->isEmpty){
+               
+            // }
+
+            //                         dd($result);
           
-            $order_noc_info = new OrderNocItem();
-            $order_noc_info->order_noc_id =  $noc_info->id;
-            $order_noc_info->service_id = $row['service_id'];
-            $order_noc_info->vlan = $row['vlan'];
-            $order_noc_info->ip = $row['ip'];
-            $order_noc_info->assigned_brandwith = $row['assigned_brandwith'];
-            $order_noc_info->save();
+            // $order_noc_info = new OrderNocItem();
+
+
+            // $order_noc_info->order_noc_id =  $noc_info->id;
+            // $order_noc_info->service_id = $row['service_id'];
+            // $order_noc_info->vlan = $row['vlan'];
+            // $order_noc_info->ip = $row['ip'];
+            // $order_noc_info->assigned_brandwith = $row['assigned_brandwith'];
+            // $order_noc_info->save();
         }
 
         $noc_info->mrtg_graph_url = $request->mrtg_graph_url;
