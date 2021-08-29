@@ -22,7 +22,13 @@
             <div class="form-group breadcrumb-right">
                 <div class="dropdown">
                     <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="grid"></i></button>
-                    <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="app-todo.html"><i class="mr-1" data-feather="check-square"></i><span class="align-middle">Todo</span></a><a class="dropdown-item" href="app-chat.html"><i class="mr-1" data-feather="message-square"></i><span class="align-middle">Chat</span></a><a class="dropdown-item" href="app-email.html"><i class="mr-1" data-feather="mail"></i><span class="align-middle">Email</span></a><a class="dropdown-item" href="app-calendar.html"><i class="mr-1" data-feather="calendar"></i><span class="align-middle">Calendar</span></a></div>
+                    <div class="dropdown-menu dropdown-menu-right">
+
+                        <a class="dropdown-item" href="{{route('work-order.index')}}"><svg xmlns="#" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list-square mr-1">
+                                <polyline points="9 11 12 14 22 4"></polyline>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg><span class="align-middle">Work Order</span></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,7 +97,7 @@
                         <hr style="border: 1px solid">
                         <div class="row justify-content-center">
                             <div class="form-group col-sm-4">
-                            <label for="customer_id">Customer</label>
+                                <label for="customer_id">Customer</label>
                                 <select class="form-control form-control-sm" id="customer_id" name="customer_id" required>
                                     <option value="">Select One</option>
                                     @foreach($customers as $customer)
@@ -217,7 +223,8 @@
         $('#division_id').change(function() {
             var id = $('#division_id').val();
             $.ajax({
-                url: '{{url('admin/fetch-district')}}',
+                url: '{{url('
+                admin / fetch - district ')}}',
                 type: 'get',
                 data: {
                     id: id
@@ -233,7 +240,8 @@
         $('#district_id').change(function() {
             var id = $('#district_id').val();
             $.ajax({
-                url: '{{url('admin/fetch-thana')}}',
+                url: '{{url('
+                admin / fetch - thana ')}}',
                 type: 'get',
                 data: {
                     id: id

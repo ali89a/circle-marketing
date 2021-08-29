@@ -6,7 +6,7 @@ function use_days($from_date, $end_date)
     $from = \Carbon\Carbon::createFromFormat('Y-m-d', $from_date);
     $used_days = $to->diffInDays($from);
 
-    return $used_days;
+    return $used_days+1;
 }
 function total_used_price($capacity, $unit_price, $used_days)
 {
