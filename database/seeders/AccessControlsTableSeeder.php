@@ -79,8 +79,9 @@ class AccessControlsTableSeeder extends Seeder
 
             for($i=1; $i<=10; $i++){
                 $data[] = [
-                    'admin_id' => $i,
-                    'mobile' => '019100000'.$i
+                    'admin_id'      => $i,
+                    'mobile'        => '019100000'.$i,
+                    'profile_image'  => '1630211527.jpg'
                 ];
             }
             DB::table('admin_infos')->insert($data);

@@ -92,7 +92,6 @@ class AdminController extends Controller
 
     public function show(Admin $admin)
     {
-
         $data = [
             'model' => $admin,
         ];
@@ -124,9 +123,11 @@ class AdminController extends Controller
 
                 $admin->name = $request->name;
                 $admin->email = $request->email;
-                    if($request->get('password')){
+                $admin->isActive = $request->isActive;
+
+                if($request->get('password')){
                     $admin->password=bcrypt($request->get('password'));
-                    }
+                }
                 $admin->save();
                 $admin->syncRoles($request->get('roles'));
 
@@ -136,6 +137,7 @@ class AdminController extends Controller
                 $admininfo->alternet_mobile = $request->alternet_mobile;
                 $admininfo->signature = $request->signature;
                 $admininfo->address = $request->address;
+                
 
                 if ($request->profile_image != null) {
                     $fileName = time() . '.' . $request->profile_image->extension();

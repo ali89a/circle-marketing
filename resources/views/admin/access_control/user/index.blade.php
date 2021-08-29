@@ -56,6 +56,7 @@
                                     <th scope="col" class="text-nowrap">#</th>
                                     <th scope="col" class="text-nowrap">Name</th>
                                     <th scope="col" class="text-nowrap">Email</th>
+                                    <th scope="col" class="text-nowrap">Suspended</th>
                                     <th scope="col" class="text-nowrap">Role</th>
                                     <th scope="col" class="text-nowrap text-right">Action</th>
                                 </tr>
@@ -66,6 +67,12 @@
                                     <td class="text-nowrap">{{ $loop->iteration }}</td>
                                     <td>{{ $row->name }}</td>
                                     <td>{{ $row->email }}</td>
+                                    <td>
+                                        @if($row->isActive==0)
+                                        <span class="alert alert-danger">Suspended</span>
+                                        @else
+                                        <span class="alert alert-success">Active</span>
+                                        @endif
                                     <td>
                                         @if($row->getRoleNames()->isNotEmpty())
                                         <span class="badge badge-success">
