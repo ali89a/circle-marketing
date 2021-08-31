@@ -105,8 +105,7 @@ class InvoiceController extends Controller
     }
     public function invoiceDetails($inv_id)
     {
-        $invoice = Invoice::with('items')->where('id', $inv_id)->first();
-
+        $invoice = Invoice::with('items','invoice_approval')->where('id', $inv_id)->first();
         return view('admin.work-order.invoice_details', compact('invoice'));
     }
 

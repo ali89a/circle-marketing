@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Invoice;
 use App\Models\OrderItem;
 use App\Models\InvoiceItem;
+use App\Models\InvoiceApproval;
 
 class downgrateInvoiceGenerate
 {
@@ -85,6 +86,14 @@ class downgrateInvoiceGenerate
                         $invoiceItem->amount = $last_invoice_item->amount;
                         $invoiceItem->save();
                     }
+                    $invoice_approval = new InvoiceApproval();
+                    $invoice_approval->noc_approved_status = 'Pending';
+                    $invoice_approval->m_approved_status = 'Pending';
+                    $invoice_approval->a_approved_status = 'Pending';
+                    $invoice_approval->coo_approved_status = 'Pending';
+                    $invoice_approval->order_id = $order->id;
+                    $invoice_approval->invoice_id = $invoice->id;
+                    $invoice_approval->save();
                 }
             }
         }

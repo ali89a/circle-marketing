@@ -16,11 +16,11 @@ class ServiceSeeder extends Seeder
     {
         $services = array(
 
-            array('id' => '1','name' => 'Internet'),
-            array('id' => '2','name' => 'BDIX'),
-            array('id' => '3','name' => 'It Service 1'),
-            array('id' => '4','name' => 'It Service 2'),
-            array('id' => '5','name' => 'Data'),
+            array('id' => '1','name' => 'Internet','type'=>'separate'),
+            array('id' => '2','name' => 'BDIX','type'=>'general'),
+            array('id' => '3','name' => 'It Service 1','type'=>'general'),
+            array('id' => '4','name' => 'It Service 2','type'=>'general'),
+            array('id' => '5','name' => 'Data','type'=>'general'),
             
         );
 

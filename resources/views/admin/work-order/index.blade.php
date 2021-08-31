@@ -146,25 +146,25 @@
                                                 @hasrole('admin|Marketing Admin')
                                                 <a href="{{route('orderCancle', $order->id)}}" class="btn btn-danger btn-sm btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
                                                 <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
-                                              
+
                                                 @endhasrole
 
 
                                                 @hasrole('Marketing Executive')
                                                 @if($order->completion_status==='Processing')
-                                                    <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                                <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
                                                 @endif
                                                 @endhasrole
                                                 @if($order->order_approval->noc_processing_status =='Done')
 
-                                                    @can('upgradation')
-                                                        <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
-                                                    @endcan
+                                                @can('upgradation')
+                                                <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
+                                                @endcan
 
                                                 @can('downgradation')
                                                 <a href="{{route('work-order-downgration', $order->id)}}" class="btn btn-info  btn-block btn-sm"><i class="fa fa-edit"></i> Downgration</a>
                                                 @endcan
-                                                
+
                                                 @endif
                                                 <!--Marketing Admin section-->
 
@@ -489,9 +489,8 @@
                                                                         </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <div>
-                                                                            {{$order->order_approval->coo_approved_comments ??''}}
-                                                                        </div>
+                                                                        {{$order->order_approval->coo_approved_comments ??''}}
+
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-dismiss="modal">Close</button>

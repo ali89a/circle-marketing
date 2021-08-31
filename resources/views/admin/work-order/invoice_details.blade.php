@@ -358,7 +358,7 @@
                                         <td class="bg-gray">N A</td>
                                         <td class="text-center">
                                             @hasrole('NOC Admin')
-                                            @if($invoice->invoice_approval->noc_approved_status =='Pending')
+                                            @if($invoice->invoice_approval->noc_approved_status ==='Pending')
                                             <a href="{{route('invoiceApprovalNOC',$invoice->id)}}" class="btn btn-success btn-sm mb-1">Approve</a>
                                             @else
                                             <p class="bg-gray btn-block">{{ $invoice->invoice_approval->noc_approved_status ??'' }}</p>
