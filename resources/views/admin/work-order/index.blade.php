@@ -143,31 +143,40 @@
                                                     Modifiction
                                                 </button>
                                                 @endif
-                                                @hasrole('Admin')
+                                                @hasrole('admin|Marketing Admin')
                                                 <a href="{{route('orderCancle', $order->id)}}" class="btn btn-danger btn-sm btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
                                                 <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
                                               
                                                 @endhasrole
+
+
                                                 @hasrole('Marketing Executive')
                                                 @if($order->completion_status==='Processing')
-                                                <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                                    <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
                                                 @endif
                                                 @endhasrole
                                                 @if($order->order_approval->noc_processing_status =='Done')
-                                                <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
+
+                                                    @can('upgradation')
+                                                        <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
+                                                    @endcan
+
+                                                @can('downgradation')
                                                 <a href="{{route('work-order-downgration', $order->id)}}" class="btn btn-info  btn-block btn-sm"><i class="fa fa-edit"></i> Downgration</a>
+                                                @endcan
+                                                
                                                 @endif
                                                 <!--Marketing Admin section-->
 
                                                 <!--Account Executive section-->
                                                 <!--Account Admin section-->
-                                                <div class="history">
-                                                    <form action="" method="post">
-                                                        <input type="hidden" value="666" name="history">
-                                                        <button type="submit" class="btn btn-default btn-sm btn-block">H
-                                                            (4) <i class="fa fa-history"></i></button>
-                                                    </form>
-                                                </div>
+
+                                                @can('orderhistory')
+                                                <a href="{{route('work-order-log-activity', $order->id)}}" target="_blank" class="btn btn-primary  btn-block btn-sm"><i class="fa fa-table"></i> H
+                                                </a>
+                                                @endcan
+
+
                                                 @if(count($order->invoices)>0)
                                                 <a href="{{route('invoices', $order->id)}}" class="btn btn-primary  btn-block btn-sm"><i class="fa fa-table"></i> Invoice List
                                                 </a>

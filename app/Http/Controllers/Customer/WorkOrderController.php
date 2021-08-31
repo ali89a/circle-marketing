@@ -28,8 +28,11 @@ class WorkOrderController extends Controller
      */
     public function index()
     {
+
+        $orders = Order::with('customer_details','invoices')->where('customer_id',Auth::user()->id)->latest()->get();
+        // dd($orders);
         $data = [
-            'orders' => Order::with('customer_details')->where('customer_id',Auth::user()->id)->latest()->get(),
+            'orders' => $orders,
         ];
         return view('customer.work-order.index', $data);
     }
