@@ -71,24 +71,25 @@
                                         <ul class="list-inline" style="width:120px">
                                             <li>
                                                 <!--Marketing Executive section-->
-                                                <a href="" class="btn btn-danger btn-sm btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
-                                                <a href="{{route('customer.customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                                {{-- <a href="" class="btn btn-danger btn-sm btn-block"><i class="fa fa-remove"></i> Cancel Order</a> --}}
+                                                {{-- <a href="{{route('customer.customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a> --}}
                                                 <a href="" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
-                                                <a href="" class="btn btn-info  btn-block btn-sm"><i class="fa fa-edit"></i> Downgration</a>
+                                                <a href="" class="btn btn-info  btn-block btn-sm mb-1"><i class="fa fa-edit"></i> Downgration</a>
 
                                                 <!--Marketing Admin section-->
 
                                                 <!--Account Executive section-->
                                                 <!--Account Admin section-->
-                                                <div class="history">
+                                                <div class="history d-none">
                                                     <form action="" method="post">
                                                         <input type="hidden" value="666" name="history">
                                                         <button type="submit" class="btn btn-default btn-sm btn-block">H
                                                             (4) <i class="fa fa-history"></i></button>
                                                     </form>
                                                 </div>
-                                                <a href="" class="btn btn-primary  btn-block btn-sm"><i class="fa fa-table"></i> Invoice List
-                                                </a>
+                                                @if($order->invoices->count()>1)
+                                                <a href="" class="btn btn-primary  btn-block btn-sm"><i class="fa fa-table"></i> Invoice List</a>
+                                                @endif
                                             </li>
                                         </ul>
                                     </td>
