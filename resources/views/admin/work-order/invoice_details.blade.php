@@ -82,8 +82,8 @@
                                         <th class="py-1">Description of Charges</th>
                                         @can('price-show')
                                         <th class="py-1">Unit Price</th>
-                                        @endcan
                                         <th class="py-1">Amount</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,8 +91,8 @@
                                     $subtotal=0;
                                     @endphp
                                     @foreach($invoice->items as $item)
+                                    @if($item->service->type=='general')
                                     <tr>
-
                                         <td class="py-1">
                                             <p class="card-text font-weight-bold">{{ $item->invoice_description }}</p>
                                         </td>
@@ -100,18 +100,19 @@
                                         <td class="py-1">
                                             <span class="font-weight-bold">{{ $item->unit_price }}</span>
                                         </td>
-                                        @endcan
+
                                         <td class="py-1">
                                             <span class="font-weight-bold">{{ $item->amount }}</span>
                                         </td>
+                                        @endcan
                                     </tr>
+                                    @endif
                                     @php
                                     $subtotal= $subtotal+$item->amount;
                                     @endphp
                                     @endforeach
-
+                                    @can('price-show')
                                     <tr>
-
                                         <td class="py-1" colspan="2">
                                             <p class="card-text font-weight-bold">Real IP</p>
                                         </td>
@@ -119,9 +120,11 @@
                                             <span class="font-weight-bold">{{ $invoice->real_ip }}</span>
                                         </td>
                                     </tr>
+                                    @endcan
                                 </tbody>
                             </table>
                         </div>
+                        @can('price-show')
                         <hr>
                         <div class="card-body invoice-padding pb-0">
                             <div class="row invoice-sales-total-wrapper">
@@ -168,6 +171,157 @@
                                 </p>
                             </div>
                         </div>
+                        @endcan
+                        <!-- Invoice Description ends -->
+
+                        <hr class="invoice-spacing">
+
+                        <!-- Invoice Note starts -->
+                        <div class="card-body invoice-padding pt-0">
+                            <div class="row">
+                                <div class="col-12">
+                                    @if(empty($invoice->vat))
+                                    <span class="font-weight-bold">Note:</span>
+                                    <span>The entire payable amount is VAT inclusive. vat-no The entire payable amount is VAT Excluding.</span>
+                                    @endif
+                                    <br>
+                                    <span class="font-weight-bold">Terms:</span>
+                                    <span>Please pay the bill within 7days.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Invoice Note ends -->
+                    </div>
+                    <div class="card invoice-preview-card">
+                        <!-- Address and Contact starts -->
+                        <div class="card-body invoice-padding pt-0">
+                            <div class="row invoice-spacing">
+                                <div class="col-xl-8 p-0">
+                                    <h6 class="mb-2">To:</h6>
+                                    <h6 class="mb-25">{{$invoice->order->customer_details->organization}}</h6>
+                                    <p class="card-text mb-25">{{$invoice->billing_address}}</p>
+                                </div>
+                                <div class="col-xl-4 p-0 mt-xl-0 mt-2">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="pr-1">Invoice No:</td>
+                                                <td><span class="font-weight-bold">{{$invoice->invoice_no}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pr-1">Link ID:</td>
+                                                <td>{{$invoice->link_id}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pr-1">Invoice Date:</td>
+                                                <td><span class="font-weight-bold">{{$invoice->invoice_date}}</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <h5><strong>Subject:</strong> {{$invoice->subject}}</h5>
+                        </div>
+                        <!-- Address and Contact ends -->
+
+                        <!-- Invoice Description starts -->
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="py-1">Description of Charges</th>
+                                        @can('price-show')
+                                        <th class="py-1">Unit Price</th>
+                                        <th class="py-1">Amount</th>
+                                        @endcan
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                    $subtotal=0;
+                                    @endphp
+                                    @foreach($invoice->items as $item)
+                                    @if($item->service->type=='separate')
+                                    <tr>
+                                        <td class="py-1">
+                                            <p class="card-text font-weight-bold">{{ $item->invoice_description }}</p>
+                                        </td>
+                                        @can('price-show')
+                                        <td class="py-1">
+                                            <span class="font-weight-bold">{{ $item->unit_price }}</span>
+                                        </td>
+
+                                        <td class="py-1">
+                                            <span class="font-weight-bold">{{ $item->amount }}</span>
+                                        </td>
+                                        @endcan
+                                    </tr>
+                                    @endif
+                                    @php
+                                    $subtotal= $subtotal+$item->amount;
+                                    @endphp
+                                    @endforeach
+                                    @can('price-show')
+                                    <tr>
+                                        <td class="py-1" colspan="2">
+                                            <p class="card-text font-weight-bold">Real IP</p>
+                                        </td>
+                                        <td class="py-1">
+                                            <span class="font-weight-bold">{{ $invoice->real_ip }}</span>
+                                        </td>
+                                    </tr>
+                                    @endcan
+                                </tbody>
+                            </table>
+                        </div>
+                        @can('price-show')
+                        <hr>
+                        <div class="card-body invoice-padding pb-0">
+                            <div class="row invoice-sales-total-wrapper">
+                                <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
+                                    <p class="card-text mb-0">
+
+                                    </p>
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-end order-md-2 order-1">
+                                    <div class="invoice-total-wrapper">
+                                        <div class="invoice-total-item">
+                                            <p class="invoice-total-title">Subtotal:</p>
+                                            <p class="invoice-total-amount">{{$subtotal= $subtotal + $invoice->real_ip}}</p>
+                                        </div>
+                                        <div class="invoice-total-item">
+                                            <p class="invoice-total-title">Vat({{ $invoice->vat }}%):</p>
+                                            <p class="invoice-total-amount"> {{ $vat=( $subtotal * $invoice->vat) / 100 }}</p>
+                                        </div>
+                                        <div class="invoice-total-item">
+                                            <p class="invoice-total-title">Core Rent:</p>
+                                            <p class="invoice-total-amount"> {{$invoice->core_rent}}</p>
+                                        </div>
+                                        @if($invoice->otc)
+                                        <div class="invoice-total-item">
+                                            <p class="invoice-total-title">OTC:</p>
+                                            <p class="invoice-total-amount"> {{$invoice->otc}}</p>
+                                        </div>
+                                        @endif
+                                        <div class="invoice-total-item">
+                                            <p class="invoice-total-title">Previous Due:</p>
+                                            <p class="invoice-total-amount"> {{$invoice->previous_due}}</p>
+                                        </div>
+                                        <hr class="my-50">
+                                        <div class="invoice-total-item">
+                                            <p class="invoice-total-title">Total:</p>
+                                            <p class="invoice-total-amount">{{$total=$subtotal+$invoice->previous_due+ $invoice->otc + $invoice->core_rent+$vat}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="card-text mb-0">
+                                    In Word: {{ \App\Classes\ConvertNumber::convert_number_to_words($total) }} Taka Only.
+                                </p>
+                            </div>
+                        </div>
+                        @endcan
                         <!-- Invoice Description ends -->
 
                         <hr class="invoice-spacing">

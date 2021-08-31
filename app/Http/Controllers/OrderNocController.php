@@ -23,10 +23,7 @@ class OrderNocController extends Controller
         $order_noc = OrderNoc::with('noc_items')->where('order_id', $id)->first();
 
         $customer_order_info = OrderInfo::with('order')->where('order_id', $id)->first();
-
         
-
-
         $data = [
             'order' => $order,
             'order_noc' => $order_noc,

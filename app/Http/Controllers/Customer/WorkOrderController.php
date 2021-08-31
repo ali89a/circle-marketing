@@ -278,6 +278,9 @@ class WorkOrderController extends Controller
             $item->price = $product['price'];
             $item->save();
         }
+        if(env('MARKETING_AUTOAPPROVED')==true){
+            marketingAutoApproval($order->id);
+        }
         //  DB::commit();
         Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('customer.order.index');

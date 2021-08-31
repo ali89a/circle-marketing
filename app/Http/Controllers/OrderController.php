@@ -138,6 +138,12 @@ class OrderController extends Controller
         $order->otc = $request->otc;
         $order->vat = $request->vat;
         $order->bill_by_graph = $request->bill_by_graph;
+        if ($order->completion_status !== 'Complete') {
+            if (env('MARKETING_AUTOAPPROVED') == true) {
+                marketingAutoApproval($order->id);
+            }
+        }
+
         $order->completion_status = 'Complete';
         $order->save();
         OrderItem::where('order_id', $id)->delete();
@@ -154,6 +160,7 @@ class OrderController extends Controller
         $order_approval = OrderApproval::where('order_id', $id)->first();
         $order_approval->modify_description = Null;
         $order_approval->save();
+
         //  DB::commit();
         Toastr::success('Order Detail Added Successful!.', '', ["progressbar" => true]);
         return redirect()->route('work-order.index');
