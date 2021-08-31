@@ -24,7 +24,7 @@ class PermissionController extends Controller
     public function index()
     {
         $data = [
-            'permissions' => Permission::latest('id')->get(),
+            'permissions' => Permission::all(),
         ];
         return view('admin.access_control.permission.index', $data);
     }

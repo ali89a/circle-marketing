@@ -61,7 +61,7 @@
                             <tbody>
                                 @forelse($permissions as $row)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $row->id }}</td>
                                     <td>{{ $row->name}}</td>
                                     <td>{{ $row->guard_name }}</td>
 
@@ -75,14 +75,14 @@
                                             </a>
                                             @endcan
 
-                                            @can('permission-delete')
+                                            {{-- @can('permission-delete')
                                             <form action="{{route('permission.destroy', $row->id)}}" method="post">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 @csrf
                                                 
                                                 <button id="btnDelete" class="btn btn-danger">Delete</button>
                                             </form>
-                                            @endcan
+                                            @endcan --}}
 
                                         </div>
                                     </td>
