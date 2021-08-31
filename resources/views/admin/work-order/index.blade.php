@@ -135,7 +135,7 @@
                                     <td class="text-center">
                                         <ul class="list-inline" style="width:120px">
                                             @unlessrole('NOC Executive')
-                                          
+
                                             <li>
                                                 <!--Marketing Executive section-->
                                                 @if($order->order_approval->modify_description)
@@ -146,6 +146,12 @@
                                                 @hasrole('Admin')
                                                 <a href="{{route('orderCancle', $order->id)}}" class="btn btn-danger btn-sm btn-block"><i class="fa fa-remove"></i> Cancel Order</a>
                                                 <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                              
+                                                @endhasrole
+                                                @hasrole('Marketing Executive')
+                                                @if($order->completion_status==='Processing')
+                                                <a href="{{route('customerDetailEdit', $order->id)}}" class="btn btn-primary btn-sm btn-block"><i class="fa fa-edit"></i> Edit</a>
+                                                @endif
                                                 @endhasrole
                                                 @if($order->order_approval->noc_processing_status =='Done')
                                                 <a href="{{route('work-order-upgration', $order->id)}}" class="btn btn-success  btn-block btn-sm"><i class="fa fa-edit"></i> Upgration</a>
@@ -168,7 +174,7 @@
                                                 @endif
                                             </li>
                                             @else
-                                          
+
                                             @endunlessrole
                                         </ul>
                                     </td>
@@ -190,7 +196,6 @@
                                                         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modify{{$order->id}}">
                                                             Modify
                                                         </button>
-
                                                         @endif
                                                         @endif
                                                         @else
@@ -208,10 +213,7 @@
                                                             Modify
                                                         </button>
                                                         @else
-
-
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
-
                                                         @endif
                                                         @else
                                                         <p class="bg-gray btn-block">{{ $order->order_approval->a_approved_status ??'' }}</p>
@@ -463,8 +465,33 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="bg-gray">A</td>
-                                                    <td>COO: <strong class="coostatus666">{{$order->order_approval->coo_approved_status??''}}</strong></td>
-                                                    <td>{{$order->order_approval->coo_approved_comments ??''}}</td>
+                                                    <td>COO:
+                                                        <strong class="coostatus666">{{$order->order_approval->coo_approved_status??''}}</strong>
+                                                        <button type="button" class="btn btn-sm btn-outline-primary waves-effect" data-toggle="modal" data-target="#noc{{$order->id}}">
+                                                            Note
+                                                        </button>
+                                                        <div class="modal fade text-left" id="noc{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title" id="myModalLabel1">View Note</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div>
+                                                                            {{$order->order_approval->coo_approved_comments ??''}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-dismiss="modal">Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -855,39 +882,19 @@
                                                             <caption class="text-center">NOC Details</caption>
                                                             <tbody>
                                                                 <tr>
-                                                                    <td></td>
-                                                                    <td>Internet</td>
-                                                                    <td>GGC</td>
-                                                                    <td>FB</td>
-                                                                    <td>BDIX</td>
-                                                                    <td>DATA</td>
-
-                                                                </tr>
-                                                                <tr>
+                                                                    <td colspan="3"></td>
                                                                     <td>VLAN</td>
-                                                                    <td>{{ $order->noc->vlan_internet??'' }}</td>
-                                                                    <td>{{ $order->noc->vlan_ggc??'' }}</td>
-                                                                    <td>{{ $order->noc->vlan_fb??'' }}</td>
-                                                                    <td>{{ $order->noc->vlan_bdix??'' }}</td>
-                                                                    <td>{{ $order->noc->vlan_data??'' }}</td>
-
-                                                                </tr>
-                                                                <tr>
                                                                     <td>IP</td>
-                                                                    <td>{{ $order->noc->ip_internet??'' }}</td>
-                                                                    <td>{{ $order->noc->ip_ggc??'' }}</td>
-                                                                    <td>{{ $order->noc->ip_fb??'' }}</td>
-                                                                    <td>{{ $order->noc->ip_bdix??'' }}</td>
-                                                                    <td>{{ $order->noc->ip_data??'' }}</td>
-                                                                </tr>
-                                                                <tr>
                                                                     <td>Assigned BW</td>
-                                                                    <td>{{ $order->noc->assigned_bandwidth_internet??'' }}</td>
-                                                                    <td>{{ $order->noc->assigned_bandwidth_ggc??'' }}</td>
-                                                                    <td>{{ $order->noc->assigned_bandwidth_fb??'' }}</td>
-                                                                    <td>{{ $order->noc->assigned_bandwidth_bdix??'' }}</td>
-                                                                    <td>{{ $order->noc->assigned_bandwidth_data??'' }}</td>
                                                                 </tr>
+                                                                @foreach($order->noc->noc_items as $item)
+                                                                <tr>
+                                                                    <td colspan="3">{{ $item->service->name ?? '' }}</td>
+                                                                    <td>{{ $item->vlan ?? '' }}</td>
+                                                                    <td>{{ $item->ip ?? '' }}</td>
+                                                                    <td>{{ $item->assigned_brandwith ?? '' }}</td>
+                                                                </tr>
+                                                                @endforeach
                                                                 <tr>
                                                                     <td>Real IP</td>
                                                                     <td colspan="5">{{ $order->noc->real_id??'' }}</td>
