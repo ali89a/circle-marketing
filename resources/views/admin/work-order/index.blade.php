@@ -476,10 +476,10 @@
                                                     <td class="bg-gray">A</td>
                                                     <td>COO:
                                                         <strong class="coostatus666">{{$order->order_approval->coo_approved_status??''}}</strong>
-                                                        <button type="button" class="btn btn-sm btn-outline-primary waves-effect" data-toggle="modal" data-target="#noc{{$order->id}}">
+                                                        <button type="button" class="btn btn-sm btn-outline-primary waves-effect" data-toggle="modal" data-target="#note{{$order->id}}">
                                                             Note
                                                         </button>
-                                                        <div class="modal fade text-left" id="noc{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
+                                                        <div class="modal fade text-left" id="note{{$order->id}}" tabindex="-1" aria-labelledby="myModalLabel1" style="display: none;" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
