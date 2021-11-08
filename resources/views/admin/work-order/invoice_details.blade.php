@@ -293,24 +293,11 @@
                                             <p class="invoice-total-title">Vat({{ $invoice->vat }}%):</p>
                                             <p class="invoice-total-amount"> {{ $vat=( $subtotal * $invoice->vat) / 100 }}</p>
                                         </div>
-                                        <div class="invoice-total-item">
-                                            <p class="invoice-total-title">Core Rent:</p>
-                                            <p class="invoice-total-amount"> {{$invoice->core_rent}}</p>
-                                        </div>
-                                        @if($invoice->otc)
-                                        <div class="invoice-total-item">
-                                            <p class="invoice-total-title">OTC:</p>
-                                            <p class="invoice-total-amount"> {{$invoice->otc}}</p>
-                                        </div>
-                                        @endif
-                                        <div class="invoice-total-item">
-                                            <p class="invoice-total-title">Previous Due:</p>
-                                            <p class="invoice-total-amount"> {{$invoice->previous_due}}</p>
-                                        </div>
+                                      
                                         <hr class="my-50">
                                         <div class="invoice-total-item">
                                             <p class="invoice-total-title">Total:</p>
-                                            <p class="invoice-total-amount">{{$total=$subtotal+$invoice->previous_due+ $invoice->otc + $invoice->core_rent+$vat}}</p>
+                                            <p class="invoice-total-amount">{{$total=$subtotal+$vat}}</p>
                                         </div>
                                     </div>
                                 </div>
